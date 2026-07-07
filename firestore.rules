@@ -1,0 +1,33 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /students/{studentId} {
+
+      // Un estudiante puede crear ÚNICAMENTE su propio documento al registrarse.
+      allow create: if request.auth != null
+                    && request.auth.uid == studentId
+                    && request.resource.data.disabled == false;
+
+      // Un estudiante puede leer su propio documento.
+      // El profesor (por correo) puede leer cualquiera.
+      allow read: if request.auth != null
+                  && (request.auth.uid == studentId
+                      || request.auth.token.email == "PROFESOR_EMAIL_AQUI");
+
+      // Un estudiante puede actualizar su propio documento (ej. progreso, nombre de perfil)
+      // pero NO puede tocar el campo "disabled" (eso es solo del profesor).
+      // El profesor puede actualizar cualquier documento, incluyendo "disabled".
+      allow update: if request.auth != null
+                    && (
+                         (request.auth.uid == studentId
+                          && request.resource.data.disabled == resource.data.disabled)
+                         || request.auth.token.email == "PROFESOR_EMAIL_AQUI"
+                       );
+
+      // Solo el profesor puede eliminar registros de estudiantes.
+      allow delete: if request.auth != null
+                    && request.auth.token.email == "PROFESOR_EMAIL_AQUI";
+    }
+  }
+}
