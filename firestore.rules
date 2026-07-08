@@ -25,9 +25,10 @@ service cloud.firestore {
                          || request.auth.token.email == "PROFESOR_EMAIL_AQUI"
                        );
 
-      // Solo el profesor puede eliminar registros de estudiantes.
-      allow delete: if request.auth != null
-                    && request.auth.token.email == "PROFESOR_EMAIL_AQUI";
+      // Las cuentas de estudiantes nunca se eliminan, ni el profesor ni ningún
+      // otro usuario puede borrar un registro. Para restringir el acceso de un
+      // estudiante se usa el campo "disabled" (ver regla de "update" arriba).
+      allow delete: if false;
     }
   }
 }

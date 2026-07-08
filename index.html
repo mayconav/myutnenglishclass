@@ -152,19 +152,6 @@
       <button class="btn btn-ghost-light" id="admin-edit-cancel">Cancelar</button>
       <button class="btn btn-primary" id="admin-edit-save">Guardar</button>
     </div>
-    <div class="admin-danger-zone">
-      <p class="admin-danger-label">Zona de peligro</p>
-      <button class="btn-mini btn-mini-danger" id="admin-edit-delete">Eliminar cuenta de este estudiante</button>
-      <div class="admin-danger-confirm" id="admin-danger-confirm" hidden>
-        <p class="admin-danger-warning">Esto borra el progreso del estudiante y no se puede deshacer. Si solo quieres bloquear su entrada, cierra esto y usa <strong>Deshabilitar</strong> en la tabla en su lugar.</p>
-        <label class="modal-label" for="admin-danger-input">Escribe la matrícula <strong id="admin-danger-boleta"></strong> para confirmar</label>
-        <input type="text" id="admin-danger-input" class="modal-input" placeholder="Matrícula del estudiante" autocomplete="off">
-        <div class="modal-actions">
-          <button class="btn-mini" id="admin-danger-cancel">Cancelar</button>
-          <button class="btn-mini btn-mini-danger" id="admin-danger-confirm-btn" disabled>Sí, eliminar definitivamente</button>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
 
@@ -190,6 +177,7 @@
       <a href="#inicio" data-nav="inicio">Inicio</a>
       <a href="#niveles" data-nav="niveles">Niveles</a>
       <a href="#leccion" data-nav="leccion">Lección</a>
+      <a href="#habilidades" data-nav="habilidades">Habilidades</a>
       <a href="#progreso" data-nav="progreso">Progreso</a>
       <a href="#material" data-nav="material">Material de apoyo</a>
     </nav>
@@ -343,6 +331,41 @@
     </div>
   </section>
 
+  <!-- ============ HABILIDADES ============ -->
+  <section class="view" id="view-habilidades" data-view="habilidades" hidden>
+    <div class="section-head">
+      <p class="eyebrow">Zona de práctica · Nivel <span id="skills-level-label">A1</span></p>
+      <h2>Habilidades en acción</h2>
+      <p class="lead">Cuatro formas de poner en práctica tu inglés. Gana XP, mantén tu racha y sella cada habilidad.</p>
+    </div>
+
+    <div class="skills-statusbar">
+      <div class="skills-stat">
+        <span class="skills-stat-icon" aria-hidden="true">🔥</span>
+        <div>
+          <span class="skills-stat-num" id="skills-streak">0</span>
+          <span class="skills-stat-label">días de racha</span>
+        </div>
+      </div>
+      <div class="skills-stat">
+        <span class="skills-stat-icon" aria-hidden="true">⚡</span>
+        <div>
+          <span class="skills-stat-num" id="skills-xp">0</span>
+          <span class="skills-stat-label">XP total</span>
+        </div>
+      </div>
+      <div class="skills-level-switch" id="skills-level-switch"><!-- generado por JS --></div>
+    </div>
+
+    <div class="skill-grid" id="skill-grid"><!-- generado por JS --></div>
+
+    <!-- ============ PANEL DE EJERCICIO (se llena dinámicamente) ============ -->
+    <div class="skill-panel" id="skill-panel" hidden>
+      <button type="button" class="skill-back" id="skill-back">← Volver a habilidades</button>
+      <div class="skill-panel-inner" id="skill-panel-inner"><!-- generado por JS --></div>
+    </div>
+  </section>
+
   <!-- ============ PROGRESO ============ -->
   <section class="view" id="view-progreso" data-view="progreso" hidden>
     <div class="section-head">
@@ -463,6 +486,8 @@
 </div>
 
 <canvas id="certificate-canvas" width="1000" height="700" hidden></canvas>
+
+<div class="xp-toast" id="xp-toast" hidden></div>
 
 <script src="js/theme.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
