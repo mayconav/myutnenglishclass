@@ -4,13 +4,12 @@
 
   function applyTheme(theme) {
     document.documentElement.setAttribute("data-theme", theme);
-    var icon = document.getElementById("theme-toggle-icon");
-    if (icon) {
+    document.querySelectorAll(".theme-toggle-icon").forEach(function (icon) {
       icon.textContent = theme === "dark" ? "☀" : "🌙";
       icon.classList.remove("spin");
       void icon.offsetWidth; /* fuerza reflow para reiniciar la animación */
       icon.classList.add("spin");
-    }
+    });
   }
 
   function loadTheme() {
@@ -26,12 +25,11 @@
 
   var currentTheme = loadTheme();
 
-  var btn = document.getElementById("theme-toggle");
-  if (btn) {
+  document.querySelectorAll(".theme-toggle-btn").forEach(function (btn) {
     btn.addEventListener("click", function () {
       currentTheme = currentTheme === "dark" ? "light" : "dark";
       applyTheme(currentTheme);
       saveTheme(currentTheme);
     });
-  }
+  });
 })();

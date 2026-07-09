@@ -90,6 +90,9 @@
       </span>
       <div class="admin-header-actions">
         <span class="student-name-chip" id="admin-name"></span>
+        <button class="icon-btn theme-toggle-btn" id="admin-theme-toggle" aria-label="Cambiar tema" title="Cambiar tema">
+          <span class="theme-toggle-icon" id="admin-theme-toggle-icon">🌙</span>
+        </button>
         <button class="icon-btn" id="admin-logout-btn" aria-label="Cerrar sesión" title="Cerrar sesión">⏻</button>
       </div>
     </div>
@@ -175,17 +178,14 @@
 
     <nav class="main-nav" id="main-nav">
       <a href="#inicio" data-nav="inicio">Inicio</a>
-      <a href="#niveles" data-nav="niveles">Niveles</a>
-      <a href="#leccion" data-nav="leccion">Lección</a>
-      <a href="#habilidades" data-nav="habilidades">Habilidades</a>
+      <a href="#niveles" data-nav="aprender">Aprender</a>
       <a href="#progreso" data-nav="progreso">Progreso</a>
-      <a href="#material" data-nav="material">Material de apoyo</a>
-      <a href="#gramatica" data-nav="gramatica">Gramática</a>
+      <a href="#material" data-nav="recursos">Recursos</a>
     </nav>
 
     <div class="header-actions">
-      <button class="icon-btn" id="theme-toggle" aria-label="Cambiar tema" title="Cambiar tema">
-        <span id="theme-toggle-icon">🌙</span>
+      <button class="icon-btn theme-toggle-btn" id="theme-toggle" aria-label="Cambiar tema" title="Cambiar tema">
+        <span class="theme-toggle-icon" id="theme-toggle-icon">🌙</span>
       </button>
       <button class="btn btn-primary btn-header-auth" id="auth-open-btn">Iniciar sesión</button>
       <span class="header-authed-actions" id="header-authed-actions" hidden>
@@ -269,6 +269,13 @@
       </article>
     </div>
   </section>
+
+  <!-- ============ GRUPO: APRENDER (Niveles + Lección + Habilidades) ============ -->
+  <div class="group-tabbar" id="tabbar-aprender" data-group="aprender" hidden>
+    <button type="button" class="group-tab" data-nav="niveles">🗺 Niveles</button>
+    <button type="button" class="group-tab" data-nav="leccion">🎧 Lección</button>
+    <button type="button" class="group-tab" data-nav="habilidades">🎯 Habilidades</button>
+  </div>
 
   <!-- ============ NIVELES ============ -->
   <section class="view" id="view-niveles" data-view="niveles" hidden>
@@ -405,6 +412,12 @@
       <ul class="deliverables-list" id="deliverables-list"><!-- generado por JS --></ul>
     </div>
   </section>
+
+  <!-- ============ GRUPO: RECURSOS (Material de apoyo + Gramática) ============ -->
+  <div class="group-tabbar" id="tabbar-recursos" data-group="recursos" hidden>
+    <button type="button" class="group-tab" data-nav="material">📗 Material de apoyo</button>
+    <button type="button" class="group-tab" data-nav="gramatica">📐 Gramática</button>
+  </div>
 
   <!-- ============ MATERIAL DE APOYO ============ -->
   <section class="view" id="view-material" data-view="material" hidden>

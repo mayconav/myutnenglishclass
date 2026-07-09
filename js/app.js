@@ -295,16 +295,51 @@
   /* ============ NAVIGATION ============ */
   var views = document.querySelectorAll(".view");
   var navLinks = document.querySelectorAll(".main-nav a");
+  var groupTabbars = document.querySelectorAll(".group-tabbar");
+
+  /* Grupos de navegación: el navbar principal solo muestra Inicio, Aprender,
+     Progreso y Recursos; cada grupo despliega sus vistas reales como pestañas
+     internas para no perder ninguna sección existente. */
+  var GROUPS = {
+    aprender: ["niveles", "leccion", "habilidades"],
+    recursos: ["material", "gramatica"]
+  };
+  var lastGroupView = { aprender: "niveles", recursos: "material" };
+
+  function groupOf(view) {
+    for (var g in GROUPS) {
+      if (GROUPS[g].indexOf(view) !== -1) return g;
+    }
+    return null;
+  }
 
   function goto(name) {
-    views.forEach(function (v) { v.hidden = v.dataset.view !== name; });
+    /* Si se navega a un grupo (clic en "Aprender"/"Recursos" del navbar),
+       resolver a la última pestaña visitada dentro de ese grupo. */
+    var target = GROUPS[name] ? (lastGroupView[name] || GROUPS[name][0]) : name;
+    var activeGroup = groupOf(target);
+    if (activeGroup) lastGroupView[activeGroup] = target;
+
+    views.forEach(function (v) { v.hidden = v.dataset.view !== target; });
+
     navLinks.forEach(function (a) {
-      a.classList.toggle("active", a.dataset.nav === name);
+      a.classList.toggle("active", a.dataset.nav === (activeGroup || target));
     });
-    if (name === "leccion") renderLesson(activeLevelIndex, activeLessonIndex);
-    if (name === "niveles") renderGates();
-    if (name === "progreso") renderProgress();
-    if (name === "habilidades") openSkillsHub();
+
+    groupTabbars.forEach(function (tb) {
+      var isActiveGroup = tb.dataset.group === activeGroup;
+      tb.hidden = !isActiveGroup;
+      if (isActiveGroup) {
+        tb.querySelectorAll(".group-tab").forEach(function (btn) {
+          btn.classList.toggle("active", btn.dataset.nav === target);
+        });
+      }
+    });
+
+    if (target === "leccion") renderLesson(activeLevelIndex, activeLessonIndex);
+    if (target === "niveles") renderGates();
+    if (target === "progreso") renderProgress();
+    if (target === "habilidades") openSkillsHub();
     window.scrollTo({ top: 0, behavior: "smooth" });
     var nav = document.getElementById("main-nav");
     nav.classList.remove("open");
@@ -323,11 +358,16 @@
   navLinks.forEach(function (a) {
     a.addEventListener("click", function (e) {
       e.preventDefault();
-      if (a.dataset.nav === "leccion") {
+      goto(a.dataset.nav);
+    });
+  });
+  document.querySelectorAll(".group-tab").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      if (btn.dataset.nav === "leccion") {
         activeLevelIndex = state.currentLevelIndex;
         activeLessonIndex = 0;
       }
-      goto(a.dataset.nav);
+      goto(btn.dataset.nav);
     });
   });
 
