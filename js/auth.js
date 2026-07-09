@@ -33,7 +33,6 @@
   var tabLogin = $("auth-tab-login");
   var tabRegister = $("auth-tab-register");
   var isAuthedStudent = false;
-  var pendingView = null;
   var suppressNextNullReset = false;
 
   if (!window.__UTN_FIREBASE_READY__) {
@@ -57,67 +56,52 @@
   tabLogin.addEventListener("click", function () { switchTab("login"); });
   tabRegister.addEventListener("click", function () { switchTab("register"); });
 
-  function openGate(tab, pendingTarget) {
-    pendingView = pendingTarget || null;
+  function openGate(tab) {
     switchTab(tab || "login");
     show(gate);
   }
+  window.__UTN_OPEN_GATE__ = function (tab) { openGate(tab || "login"); };
   $("auth-open-btn").addEventListener("click", function () { openGate("login"); });
   $("auth-close").addEventListener("click", function () { hide(gate); });
   gate.addEventListener("click", function (e) { if (e.target === gate) hide(gate); });
 
-  /* La página de inicio queda pública. Solo pedimos cuenta al intentar entrar
-     a Niveles, Lección o Progreso (o a los botones del hero que llevan ahí). */
-  var PROTECTED_VIEWS = ["niveles", "leccion", "progreso"];
+  /* ============ TODAS LAS SECCIONES SON PÚBLICAS ============
+     Cualquier persona puede navegar y ver Inicio, Niveles, Lección, Habilidades,
+     Progreso, Material de apoyo y Gramática sin iniciar sesión ni registrarse.
+     js/app.js se carga siempre y controla la navegación completa (para
+     invitados usa localStorage bajo la clave "local"; para estudiantes,
+     bajo su UID). Lo único que sigue requiriendo cuenta es RESOLVER o
+     ENVIAR una actividad (quiz, ejercicio de habilidad, certificado):
+     ver el bloque "GATE DE ACTIVIDADES" más abajo. */
+
+  /* ============ GATE DE ACTIVIDADES (resolver/enviar) ============
+     Intercepta en fase de captura -antes de que los propios manejadores de
+     app.js se ejecuten- cualquier clic sobre un control que "resuelve" una
+     actividad. Si no hay sesión de estudiante, cancela el clic y abre el
+     login/registro en vez de procesar la respuesta. La navegación entre
+     secciones NO se ve afectada: solo se bloquea la acción de resolver. */
+  var ACTIVITY_SELECTORS = [
+    ".quiz-option",          // opción de opción múltiple (lección y reading)
+    ".fill-check",           // verificar respuesta de completar espacio
+    ".match-item",           // relacionar conceptos
+    "#quiz-next-btn",        // sellar avance y continuar
+    "#builder-check",        // verificar oración (writing)
+    ".speak-btn.record",     // practicar pronunciación (speaking)
+    "#speaking-finish",      // sellar habilidad de speaking
+    "#letter-check",         // verificar carta
+    "#certificate-btn"       // descargar certificado
+  ].join(", ");
+
   document.addEventListener("click", function (e) {
     if (isAuthedStudent) return;
-    var navLink = e.target.closest(".main-nav a[data-nav]");
-    var gotoBtn = e.target.closest("[data-goto]");
-    var target = navLink ? navLink.dataset.nav : (gotoBtn ? gotoBtn.dataset.goto : null);
-    if (target && PROTECTED_VIEWS.indexOf(target) !== -1) {
-      e.preventDefault();
-      openGate("login", target);
-    }
-  });
-
-  /* ============ NAVEGACIÓN PÚBLICA (Inicio / Material de apoyo) ============
-     js/app.js (que controla la navegación completa) solo se carga después de
-     iniciar sesión, porque maneja el progreso del estudiante. Eso significaba
-     que, sin sesión, el enlace "Material de apoyo" no hacía nada. Este router
-     ligero permite mostrar Inicio y Material de apoyo sin sesión ni registro,
-     sin cargar la lógica de lecciones/progreso que sí requiere cuenta. */
-  var PUBLIC_VIEWS = ["inicio", "material"];
-  var publicViewEls = document.querySelectorAll(".view");
-  var publicNavLinks = document.querySelectorAll("[data-nav]");
-
-  function showPublicView(name) {
-    publicViewEls.forEach(function (v) { v.hidden = v.dataset.view !== name; });
-    publicNavLinks.forEach(function (a) { a.classList.toggle("active", a.dataset.nav === name); });
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    var mainNav = $("main-nav");
-    if (mainNav) mainNav.classList.remove("open");
-    var navToggleBtn = $("nav-toggle");
-    if (navToggleBtn) navToggleBtn.setAttribute("aria-expanded", "false");
-  }
-
-  document.addEventListener("click", function (e) {
-    if (isAuthedStudent) return; // con sesión, js/app.js controla la navegación
-    var navLink = e.target.closest("[data-nav]");
-    var gotoBtn = e.target.closest("[data-goto]");
-    var target = navLink ? navLink.dataset.nav : (gotoBtn ? gotoBtn.dataset.goto : null);
-    if (!target || PUBLIC_VIEWS.indexOf(target) === -1) return;
+    var target = e.target.closest(ACTIVITY_SELECTORS);
+    if (!target) return;
     e.preventDefault();
-    showPublicView(target);
-  });
-
-  /* Si la página se abre directamente con un hash público (ej. #material),
-     muestra esa vista desde el inicio. */
-  (function () {
-    var initialHash = (location.hash || "").replace("#", "");
-    if (!isAuthedStudent && PUBLIC_VIEWS.indexOf(initialHash) !== -1) {
-      showPublicView(initialHash);
-    }
-  })();
+    e.stopPropagation();
+    if (typeof e.stopImmediatePropagation === "function") e.stopImmediatePropagation();
+    openGate("login");
+    setGateError("Inicia sesión o regístrate para resolver esta actividad.");
+  }, true);
 
   function friendlyAuthError(err) {
     var code = err && err.code;
@@ -240,16 +224,6 @@
     };
   }
 
-  function loadAppScriptOnce(callback) {
-    var existing = document.getElementById("utn-app-script");
-    if (existing) { existing.parentNode.removeChild(existing); }
-    var s = document.createElement("script");
-    s.id = "utn-app-script";
-    s.src = "js/app.js";
-    s.onload = callback;
-    document.body.appendChild(s);
-  }
-
   function startStudentSession(uid, data) {
     isAuthedStudent = true;
     hide(gate);
@@ -260,23 +234,16 @@
     hide($("auth-open-btn"));
     $("nav-student-name").textContent = data.nombre || "Estudiante UTN";
 
-    if (window.__UTN_UID__ === uid && document.getElementById("utn-app-script")) {
-      goToPendingView();
-      return;
-    }
+    if (window.__UTN_UID__ === uid) return; // ya estaba cargado el estado de este estudiante
+
     window.__UTN_UID__ = uid;
     window.__UTN_SYNC__ = makeSync(uid);
     try {
       localStorage.setItem("myutn_progress_v2_" + uid, JSON.stringify(data.progress || defaultProgress(data.nombre)));
     } catch (e) {}
-    loadAppScriptOnce(function () { goToPendingView(); });
-  }
-
-  function goToPendingView() {
-    if (!pendingView) return;
-    var link = document.querySelector('.main-nav a[data-nav="' + pendingView + '"]');
-    if (link) link.click();
-    pendingView = null;
+    /* app.js ya está cargado (sirvió el contenido como invitado). Le pedimos
+       que relea el progreso, ahora bajo la clave del estudiante real. */
+    if (typeof window.__UTN_APP_RELOAD__ === "function") window.__UTN_APP_RELOAD__();
   }
 
   function resetToGuestUI() {

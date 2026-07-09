@@ -221,7 +221,11 @@
   });
 
   /* ============ STATE ============ */
-  var STORAGE_KEY = "myutn_progress_v2_" + (window.__UTN_UID__ || "local");
+  /* Se recalcula en cada llamada (no una sola vez al cargar el script) porque
+     app.js ahora se carga siempre, incluso para invitados sin sesión. Cuando
+     alguien inicia sesión, window.__UTN_UID__ cambia y __UTN_APP_RELOAD__
+     vuelve a leer el progreso, esta vez con la clave del estudiante real. */
+  function storageKey() { return "myutn_progress_v2_" + (window.__UTN_UID__ || "local"); }
 
   function defaultState() {
     return {
@@ -239,7 +243,7 @@
 
   function loadProgress() {
     try {
-      var raw = localStorage.getItem(STORAGE_KEY);
+      var raw = localStorage.getItem(storageKey());
       if (raw) {
         var parsed = JSON.parse(raw);
         var base = defaultState();
@@ -274,7 +278,7 @@
   }
 
   function saveProgress(p) {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(p)); } catch (e) {}
+    try { localStorage.setItem(storageKey(), JSON.stringify(p)); } catch (e) {}
     if (typeof window.__UTN_SYNC__ === "function") {
       try { window.__UTN_SYNC__(p); } catch (e) {}
     }
@@ -1587,8 +1591,26 @@
     renderBank();
   }
 
+  /* ============ RECARGA DE ESTADO (llamada por auth.js tras iniciar sesión) ============
+     No recargamos la página: releemos el progreso ya con window.__UTN_UID__
+     puesto, y volvemos a pintar la vista en la que la persona ya estaba. */
+  function reloadAppState() {
+    state = loadProgress();
+    activeLevelIndex = state.currentLevelIndex;
+    selectedAvatar = state.profile.avatar;
+    updateBoardingPass();
+    updateProfileUI();
+    var currentView = document.querySelector(".view:not([hidden])");
+    goto(currentView ? currentView.dataset.view : "inicio");
+  }
+  window.__UTN_APP_RELOAD__ = reloadAppState;
+
   /* ============ INIT ============ */
   updateBoardingPass();
   updateProfileUI();
-  goto("inicio");
+  (function initialView() {
+    var hash = (location.hash || "").replace("#", "");
+    var valid = hash && document.querySelector('.view[data-view="' + hash + '"]');
+    goto(valid ? hash : "inicio");
+  })();
 })();
