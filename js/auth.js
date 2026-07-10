@@ -66,7 +66,11 @@
   gate.addEventListener("click", function (e) { if (e.target === gate) hide(gate); });
 
   /* ============ TODAS LAS SECCIONES SON PÚBLICAS ============
+<<<<<<< HEAD
      Cualquier persona puede navegar y ver Inicio, Leveles, Lesson, Habilidades,
+=======
+     Cualquier persona puede navegar y ver Inicio, Niveles, Lección, Habilidades,
+>>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
      Progreso, Material de apoyo y Gramática sin iniciar sesión ni registrarse.
      js/app.js se carga siempre y controla la navegación completa (para
      invitados usa localStorage bajo la clave "local"; para estudiantes,
@@ -453,7 +457,11 @@
       "<p><strong>Correo:</strong> " + escapeHtml(d.correo || "") + "</p>" +
       "<p><strong>Matrícula:</strong> " + escapeHtml(d.boleta || "") + "</p>" +
       "<p><strong>Grupo:</strong> " + escapeHtml(d.grupo || "Sin asignar") + "</p>" +
+<<<<<<< HEAD
       "<p><strong>Level actual:</strong> " + nivel + "</p>" +
+=======
+      "<p><strong>Nivel actual:</strong> " + nivel + "</p>" +
+>>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
       "<p><strong>Sellos obtenidos:</strong> " + stamps.length + " de 6 (" + (stamps.join(", ") || "ninguno") + ")</p>" +
       "<p><strong>Lecciones completadas:</strong> " + ((p.completedLessons || []).length) + "</p>" +
       "<p><strong>Certificado disponible:</strong> " + (stamps.length === 6 ? "Sí" : "No") + "</p>";
