@@ -17,6 +17,16 @@
   --green: #0C9C61;
   --green-dark: #076B43;
   --green-light: #4FC08D;
+  --purple: #7B3FA0;
+  --purple-dark: #5A2E76;
+  --orange: #D9720C;
+  --orange-dark: #A85607;
+  --yellow: #C79A00;
+  --yellow-dark: #8F6B00;
+  --brown: #8B5A2B;
+  --brown-dark: #63400F;
+  --gray: #6B7280;
+  --gray-dark: #4B5563;
   --ink: #121212;
   --ink-fixed: #121212;
   --bg: #F6F7F6;
@@ -1445,6 +1455,11 @@ body::before{
 }
 .grammar-cat[data-color="red"]{ border-left-color: var(--red); }
 .grammar-cat[data-color="green"]{ border-left-color: var(--green); }
+.grammar-cat[data-color="purple"]{ border-left-color: var(--purple); }
+.grammar-cat[data-color="orange"]{ border-left-color: var(--orange); }
+.grammar-cat[data-color="yellow"]{ border-left-color: var(--yellow); }
+.grammar-cat[data-color="brown"]{ border-left-color: var(--brown); }
+.grammar-cat[data-color="gray"]{ border-left-color: var(--gray); }
 
 .grammar-cat summary{
   list-style:none; cursor:pointer; display:flex; align-items:center; gap: 14px;
@@ -1463,6 +1478,11 @@ body::before{
 }
 .grammar-cat[data-color="red"] .grammar-cat-num{ color: var(--red); background: color-mix(in srgb, var(--red) 12%, transparent); }
 .grammar-cat[data-color="green"] .grammar-cat-num{ color: var(--green); background: color-mix(in srgb, var(--green) 14%, transparent); }
+.grammar-cat[data-color="purple"] .grammar-cat-num{ color: var(--purple); background: color-mix(in srgb, var(--purple) 14%, transparent); }
+.grammar-cat[data-color="orange"] .grammar-cat-num{ color: var(--orange); background: color-mix(in srgb, var(--orange) 14%, transparent); }
+.grammar-cat[data-color="yellow"] .grammar-cat-num{ color: var(--yellow-dark); background: color-mix(in srgb, var(--yellow) 18%, transparent); }
+.grammar-cat[data-color="brown"] .grammar-cat-num{ color: var(--brown); background: color-mix(in srgb, var(--brown) 16%, transparent); }
+.grammar-cat[data-color="gray"] .grammar-cat-num{ color: var(--gray-dark); background: color-mix(in srgb, var(--gray) 16%, transparent); }
 
 .grammar-cat-title{ font-weight:600; font-size: 15.5px; flex:1; }
 .grammar-cat-count{ font-size: 12px; color: var(--text-muted); font-family: var(--font-mono); }
@@ -1471,6 +1491,7 @@ body::before{
 .grammar-subgroup{
   margin: 0 20px 8px; font-family: var(--font-display); font-weight:700; font-size: 13px; color: var(--text-primary);
 }
+.grammar-subgroup-tenses{ color: var(--purple); }
 .grammar-topics{ display:flex; flex-wrap:wrap; gap:8px; padding: 0 20px 18px; }
 .grammar-topic{
   font-size: 12.5px; color: var(--text-secondary); background: var(--paper);
