@@ -6,7 +6,15 @@
     { code: "A1", name: "Principiante", skill: "Vocabulario esencial", desc: "Saludos, presentaciones y vocabulario cotidiano." },
     { code: "A2", name: "Elemental", skill: "Rutinas diarias", desc: "Describir rutinas, lugares y planes simples." },
     { code: "B1", name: "Intermedio", skill: "Speaking fluido", desc: "Conversaciones sobre estudios, trabajo y opiniones." },
+<<<<<<< HEAD
     { code: "B2", name: "Intermedio alto", skill: "Comprensión auditiva", desc: "Escuchar y debatir temas académicos." },
+=======
+<<<<<<< HEAD
+    { code: "B2", name: "Upper Intermediate", skill: "Listening Comprehension", desc: "Escuchar y debatir temas académicos." },
+=======
+    { code: "B2", name: "Intermedio alto", skill: "Comprensión auditiva", desc: "Escuchar y debatir temas académicos." },
+>>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
+>>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
     { code: "C1", name: "Avanzado", skill: "Escritura académica", desc: "Redacción de ensayos y argumentación." },
     { code: "C2", name: "Dominio", skill: "Fluidez profesional", desc: "Presentaciones y comunicación especializada." }
   ];
@@ -115,7 +123,15 @@
     ],
     B2: [
       {
+<<<<<<< HEAD
         title: "Comprensión auditiva",
+=======
+<<<<<<< HEAD
+        title: "Listening Comprehension",
+=======
+        title: "Comprensión auditiva",
+>>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
+>>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
         duration: 45,
         captions: [
           { t: 0, text: "Today's lecture is about renewable energy sources." },
@@ -191,7 +207,15 @@
         ],
         quiz: [
           { type: "mcq", q: "Esta lección simula...", options: ["Una fiesta", "Una presentación profesional", "Una receta"], correct: 1 },
+<<<<<<< HEAD
           { type: "mcq", q: "'Feel free to ask' invita a...", options: ["Guardar silencio", "Hacer preguntas", "Terminar la llamada"], correct: 0 }
+=======
+<<<<<<< HEAD
+          { type: "mcq", q: "'Feel free to ask' invita a...", options: ["Save silencio", "Hacer preguntas", "Terminar la llamada"], correct: 0 }
+=======
+          { type: "mcq", q: "'Feel free to ask' invita a...", options: ["Guardar silencio", "Hacer preguntas", "Terminar la llamada"], correct: 0 }
+>>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
+>>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
         ]
       },
       {
@@ -435,7 +459,15 @@
     }).length;
     document.getElementById("bp-level").textContent = lvl.code + " · " + lvl.name;
     document.getElementById("bp-skill").textContent = lvl.skill;
+<<<<<<< HEAD
     document.getElementById("bp-gate").textContent = "Lección " + Math.min(doneInLevel + 1, totalLessons) + " de " + totalLessons;
+=======
+<<<<<<< HEAD
+    document.getElementById("bp-gate").textContent = "Lesson " + Math.min(doneInLevel + 1, totalLessons) + " de " + totalLessons;
+=======
+    document.getElementById("bp-gate").textContent = "Lección " + Math.min(doneInLevel + 1, totalLessons) + " de " + totalLessons;
+>>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
+>>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
     document.getElementById("bp-code").textContent = "UTN-" + lvl.code + "-0" + (doneInLevel + 1);
     var pct = Math.round((state.stamps.length / LEVELS.length) * 100);
     document.getElementById("bp-progress-fill").style.width = Math.max(6, pct) + "%";
@@ -494,7 +526,15 @@
       var done = state.completedLessons.indexOf(lessonId(lvl.code, i)) !== -1;
       var tab = document.createElement("button");
       tab.className = "lesson-tab" + (i === lessonIdx ? " active" : "") + (done ? " done" : "");
+<<<<<<< HEAD
       tab.textContent = (done ? "✓ " : "") + "Lección " + (i + 1);
+=======
+<<<<<<< HEAD
+      tab.textContent = (done ? "✓ " : "") + "Lesson " + (i + 1);
+=======
+      tab.textContent = (done ? "✓ " : "") + "Lección " + (i + 1);
+>>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
+>>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
       tab.addEventListener("click", function () {
         activeLessonIndex = i;
         renderLesson(levelIdx, i);
@@ -525,7 +565,15 @@
   function renderLesson(levelIdx, lessonIdx) {
     var lvl = LEVELS[levelIdx];
     var lesson = LESSONS[lvl.code][lessonIdx];
+<<<<<<< HEAD
     document.getElementById("leccion-eyebrow").textContent = "Nivel " + lvl.code + " · Lección " + (lessonIdx + 1) + " de " + LESSONS[lvl.code].length;
+=======
+<<<<<<< HEAD
+    document.getElementById("leccion-eyebrow").textContent = "Level " + lvl.code + " · Lesson " + (lessonIdx + 1) + " de " + LESSONS[lvl.code].length;
+=======
+    document.getElementById("leccion-eyebrow").textContent = "Nivel " + lvl.code + " · Lección " + (lessonIdx + 1) + " de " + LESSONS[lvl.code].length;
+>>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
+>>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
     document.getElementById("leccion-title").textContent = lesson.title;
     document.getElementById("leccion-desc").textContent = "Escucha el audio, sigue la transcripción y resuelve el quiz para sellar tu avance.";
     document.getElementById("player-total").textContent = formatTime(lesson.duration);
@@ -831,7 +879,15 @@
 
     ctx.fillStyle = "#0C4EB8";
     ctx.font = "bold 40px 'Space Grotesk', sans-serif";
+<<<<<<< HEAD
     ctx.fillText("Certificado de finalización", w / 2, 150);
+=======
+<<<<<<< HEAD
+    ctx.fillText("Certificate of Completion", w / 2, 150);
+=======
+    ctx.fillText("Certificado de finalización", w / 2, 150);
+>>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
+>>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
 
     ctx.fillStyle = "#16181A";
     ctx.font = "17px 'Source Serif 4', Georgia, serif";
@@ -856,7 +912,15 @@
     ctx.fillStyle = "#16181A";
     ctx.font = "13px 'Space Grotesk', sans-serif";
     ctx.fillText("Programa de Servicio Social", 70, h - 100);
+<<<<<<< HEAD
     ctx.fillText("Educación, arte, cultura y deporte", 70, h - 80);
+=======
+<<<<<<< HEAD
+    ctx.fillText("Education, Arts, Culture and Sports", 70, h - 80);
+=======
+    ctx.fillText("Educación, arte, cultura y deporte", 70, h - 80);
+>>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
+>>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
   }
 
   function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
@@ -1278,7 +1342,15 @@
     var inner = document.getElementById("skill-panel-inner");
     inner.innerHTML =
       '<div class="skill-panel-head">' +
+<<<<<<< HEAD
         '<p class="eyebrow">Nivel ' + activeSkillsLevel + " · " + SKILL_META[key].label + "</p>" +
+=======
+<<<<<<< HEAD
+        '<p class="eyebrow">Level ' + activeSkillsLevel + " · " + SKILL_META[key].label + "</p>" +
+=======
+        '<p class="eyebrow">Nivel ' + activeSkillsLevel + " · " + SKILL_META[key].label + "</p>" +
+>>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
+>>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
         "<h3>" + (data.title || SKILL_META[key].label) + "</h3>" +
         "<p>" + SKILL_META[key].desc + "</p>" +
       "</div>" +
