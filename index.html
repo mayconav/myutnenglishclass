@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MyUTNEnglishClass — Aprende inglés a tu ritmo</title>
+<meta name="description" content="Plataforma de inglés de la UTN Nezahualcóyotl. Leveles, lecciones, quizzes y seguimiento de tu avance.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="skip-link"><a href="#main">Saltar al contenido</a></div>
+
+<!-- ============ AUTH GATE (login / registro) — se muestra solo cuando hace falta ============ -->
+<div class="auth-gate" id="auth-gate" hidden>
+  <div class="auth-card">
+    <button type="button" class="auth-close" id="auth-close" aria-label="Cerrar">✕</button>
+    <div class="auth-brand">
+      <svg class="logo-mark" viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="19" fill="#0C4EB8" stroke="#121212" stroke-width="1"/>
+        <circle cx="20" cy="20" r="14.5" fill="#FAFBFA"/>
+        <circle cx="20" cy="20" r="14.5" fill="none" stroke="#E2141B" stroke-width="3.4"/>
+        <circle cx="20" cy="20" r="10.5" fill="#0C9C61" stroke="#121212" stroke-width="0.6"/>
+        <circle cx="20" cy="20" r="7.6" fill="#FAFBFA"/>
+        <text x="20" y="24.5" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-weight="700" font-size="9" fill="#0C4EB8">UT</text>
+      </svg>
+      <span class="logo-text">
+        <span class="logo-name">MyUTN<strong>EnglishClass</strong></span>
+        <span class="logo-tag">Excelencia académica</span>
+      </span>
+    </div>
+
+    <div class="auth-tabs">
+      <button type="button" class="auth-tab active" id="auth-tab-login">Iniciar sesión</button>
+      <button type="button" class="auth-tab" id="auth-tab-register">Registrarme</button>
+    </div>
+
+    <p class="auth-error" id="auth-error" hidden></p>
+    <p class="auth-config-warning" id="auth-config-warning" hidden>
+      ⚠️ Falta terminar de configurar Firebase. Revisa <strong>SETUP.md</strong> (paso 5) y
+      pega tus valores reales en <code>js/firebase-config.js</code>.
+    </p>
+
+    <form id="login-form" class="auth-form">
+      <label class="modal-label" for="login-email">Correo institucional</label>
+      <input type="email" id="login-email" class="modal-input" placeholder="tucorreo@utn.mx" required autocomplete="username">
+      <label class="modal-label" for="login-password">Contraseña</label>
+      <div class="password-field">
+        <input type="password" id="login-password" class="modal-input" placeholder="••••••••" required autocomplete="current-password">
+        <button type="button" class="password-toggle" data-target="login-password" aria-label="Mostrar contraseña">👁</button>
+      </div>
+      <a href="#" class="auth-link" id="forgot-password">¿Olvidaste tu contraseña?</a>
+      <button type="submit" class="btn btn-primary auth-submit" id="login-submit">Iniciar sesión</button>
+      <p class="auth-hint">Estudiantes: usa el correo y contraseña con los que te registraste.<br>Profesor: esta es también tu puerta de entrada al panel de administrador.</p>
+    </form>
+
+    <form id="register-form" class="auth-form" hidden>
+      <label class="modal-label" for="reg-nombre">Nombre completo</label>
+      <input type="text" id="reg-nombre" class="modal-input" placeholder="Tu nombre" required autocomplete="name">
+      <label class="modal-label" for="reg-email">Correo institucional</label>
+      <input type="email" id="reg-email" class="modal-input" placeholder="tucorreo@utn.mx" required autocomplete="username">
+      <label class="modal-label" for="reg-boleta">Matrícula</label>
+      <input type="text" id="reg-boleta" class="modal-input" placeholder="Ej. 2023030123" required>
+      <label class="modal-label" for="reg-password">Contraseña</label>
+      <div class="password-field">
+        <input type="password" id="reg-password" class="modal-input" placeholder="Mínimo 6 caracteres" required autocomplete="new-password">
+        <button type="button" class="password-toggle" data-target="reg-password" aria-label="Mostrar contraseña">👁</button>
+      </div>
+      <label class="modal-label" for="reg-password2">Confirmar contraseña</label>
+      <div class="password-field">
+        <input type="password" id="reg-password2" class="modal-input" placeholder="Repite tu contraseña" required autocomplete="new-password">
+        <button type="button" class="password-toggle" data-target="reg-password2" aria-label="Mostrar contraseña">👁</button>
+      </div>
+      <button type="submit" class="btn btn-primary auth-submit" id="register-submit">Crear cuenta</button>
+      <p class="auth-hint">Este registro es exclusivo para estudiantes. El profesor tiene una cuenta aparte creada por el administrador del sistema.</p>
+    </form>
+  </div>
+</div>
+
+<!-- ============ PANEL DE ADMINISTRADOR (profesor) ============ -->
+<div class="admin-shell" id="admin-shell" hidden>
+  <header class="admin-header">
+    <div class="admin-header-inner">
+      <span class="logo-text">
+        <span class="logo-name">MyUTN<strong>EnglishClass</strong></span>
+        <span class="logo-tag">Panel del profesor</span>
+      </span>
+      <div class="admin-header-actions">
+        <span class="student-name-chip" id="admin-name"></span>
+        <button class="icon-btn theme-toggle-btn" id="admin-theme-toggle" aria-label="Cambiar tema" title="Cambiar tema">
+          <span class="theme-toggle-icon" id="admin-theme-toggle-icon">🌙</span>
+        </button>
+        <button class="icon-btn" id="admin-logout-btn" aria-label="Cerrar sesión" title="Cerrar sesión">⏻</button>
+      </div>
+    </div>
+  </header>
+  <main class="admin-main">
+    <div class="section-head">
+      <p class="eyebrow">Administración · Turno matutino</p>
+      <h2>Estudiantes registrados</h2>
+      <p class="lead">Consulta el avance de cada estudiante, asígnalo a su grupo y gestiona el acceso a la plataforma.</p>
+    </div>
+
+    <div class="admin-stats" id="admin-stats"><!-- generado por JS --></div>
+
+    <div class="admin-toolbar">
+      <input type="text" id="admin-search" class="modal-input admin-search" placeholder="Buscar por nombre, correo o matrícula…">
+      <select id="admin-group-filter" class="modal-input admin-group-filter">
+        <option value="">Todos los grupos</option>
+      </select>
+    </div>
+
+    <div class="admin-table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Nombre</th><th>Correo</th><th>Matrícula</th><th>Grupo</th><th>Level</th><th>Sellos</th><th>Registrado</th><th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="admin-table-body">
+          <tr><td colspan="8" class="admin-empty">Cargando…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<!-- ============ MODAL: VER PROGRESO (admin) ============ -->
+<div class="modal-overlay" id="admin-view-modal" hidden>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="admin-view-title">
+    <p class="modal-title" id="admin-view-title">Progreso del estudiante</p>
+    <div id="admin-view-body" class="admin-view-body"></div>
+    <div class="modal-actions">
+      <button class="btn btn-primary" id="admin-view-close">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: EDITAR ESTUDIANTE (admin) ============ -->
+<div class="modal-overlay" id="admin-edit-modal" hidden>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="admin-edit-title">
+    <p class="modal-title" id="admin-edit-title">Editar estudiante</p>
+    <label class="modal-label">Correo (no editable)</label>
+    <p class="edit-correo-display" id="edit-correo-display"></p>
+    <label class="modal-label" for="edit-nombre">Nombre</label>
+    <input type="text" id="edit-nombre" class="modal-input">
+    <label class="modal-label" for="edit-boleta">Matrícula</label>
+    <input type="text" id="edit-boleta" class="modal-input">
+    <label class="modal-label" for="edit-grupo">Grupo (turno matutino)</label>
+    <input type="text" id="edit-grupo" class="modal-input" placeholder="Ej. IDS-501, ITIC-901V…">
+    <div class="modal-actions">
+      <button class="btn btn-ghost-light" id="admin-edit-cancel">Cancelar</button>
+      <button class="btn btn-primary" id="admin-edit-save">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header" id="app-header">
+  <div class="header-inner">
+    <a class="logo" href="#inicio" data-nav="inicio">
+      <svg class="logo-mark" viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="19" fill="#0C4EB8" stroke="#121212" stroke-width="1"/>
+        <circle cx="20" cy="20" r="14.5" fill="#FAFBFA"/>
+        <circle cx="20" cy="20" r="14.5" fill="none" stroke="#E2141B" stroke-width="3.4"/>
+        <circle cx="20" cy="20" r="10.5" fill="#0C9C61" stroke="#121212" stroke-width="0.6"/>
+        <circle cx="20" cy="20" r="7.6" fill="#FAFBFA"/>
+        <text x="20" y="24.5" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-weight="700" font-size="9" fill="#0C4EB8">UT</text>
+      </svg>
+      <span class="logo-text">
+        <span class="logo-name">MyUTN<strong>EnglishClass</strong></span>
+        <span class="logo-tag">Excelencia académica</span>
+      </span>
+    </a>
+
+    <nav class="main-nav" id="main-nav">
+      <a href="#inicio" data-nav="inicio">Inicio</a>
+      <a href="#niveles" data-nav="aprender">Aprender</a>
+      <a href="#progreso" data-nav="progreso">Progreso</a>
+      <a href="#material" data-nav="recursos">Recursos</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="icon-btn theme-toggle-btn" id="theme-toggle" aria-label="Cambiar tema" title="Cambiar tema">
+        <span class="theme-toggle-icon" id="theme-toggle-icon">🌙</span>
+      </button>
+      <button class="btn btn-primary btn-header-auth" id="auth-open-btn">Iniciar sesión</button>
+      <span class="header-authed-actions" id="header-authed-actions" hidden>
+        <span class="student-name-chip" id="nav-student-name"></span>
+        <button class="profile-chip" id="profile-open" aria-label="Editar perfil" title="Editar perfil">
+          <span id="profile-chip-avatar">🎓</span>
+        </button>
+        <button class="icon-btn" id="logout-btn" aria-label="Cerrar sesión" title="Cerrar sesión">⏻</button>
+      </span>
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ HERO / BOARDING PASS ============ -->
+  <section class="view" id="view-inicio" data-view="inicio">
+    <div class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Social Service Program · Education, Arts, Culture and Sports</p>
+        <h1>Tu pase de abordar hacia el inglés</h1>
+        <p class="lead">Recorre los niveles del A1 al C2 como si fueran puertas de embarque. Escucha, practica y resuelve retos para conseguir tu siguiente sello de avance.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" data-goto="leccion">Empezar lección</button>
+          <button class="btn btn-ghost" data-goto="niveles">Ver niveles</button>
+        </div>
+      </div>
+
+      <div class="boarding-pass" id="boarding-pass">
+        <div class="bp-main">
+          <p class="bp-label">Pase de abordar</p>
+          <p class="bp-title">Vuelo a la fluidez</p>
+          <div class="bp-grid">
+            <div>
+              <span class="bp-field">Pasajero</span>
+              <span class="bp-value" id="bp-name">Estudiante UTN</span>
+            </div>
+            <div>
+              <span class="bp-field">Level actual</span>
+              <span class="bp-value" id="bp-level">A1 · Principiante</span>
+            </div>
+            <div>
+              <span class="bp-field">Destino</span>
+              <span class="bp-value" id="bp-skill">Vocabulario esencial</span>
+            </div>
+            <div>
+              <span class="bp-field">Puerta</span>
+              <span class="bp-value" id="bp-gate">Lesson 1</span>
+            </div>
+          </div>
+          <div class="bp-progress-track" aria-hidden="true">
+            <div class="bp-progress-fill" id="bp-progress-fill"></div>
+          </div>
+        </div>
+        <div class="bp-stub">
+          <span class="bp-icon" id="bp-avatar" aria-hidden="true">🎓</span>
+          <div class="bp-barcode" aria-hidden="true"></div>
+          <span class="bp-code" id="bp-code">UTN-A1-01</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="features">
+      <article class="feature-card">
+        <span class="feature-icon" aria-hidden="true">▶</span>
+        <h3>Reproductor integrado</h3>
+        <p>Audio y video por lección, con control de velocidad y subtítulos, para practicar oído y pronunciación.</p>
+      </article>
+      <article class="feature-card">
+        <span class="feature-icon" aria-hidden="true">✓</span>
+        <h3>Ejercicios variados</h3>
+        <p>Opción múltiple, completar espacios y relacionar conceptos, con retroalimentación inmediata.</p>
+      </article>
+      <article class="feature-card">
+        <span class="feature-icon" aria-hidden="true">◆</span>
+        <h3>Sellos y certificado</h3>
+        <p>Cada entregable aprobado suma un sello, y al completar el programa obtienes tu certificado descargable.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ GRUPO: APRENDER (Leveles + Lesson + Habilidades) ============ -->
+  <div class="group-tabbar" id="tabbar-aprender" data-group="aprender" hidden>
+    <button type="button" class="group-tab" data-nav="niveles">🗺 Leveles</button>
+    <button type="button" class="group-tab" data-nav="leccion">🎧 Lesson</button>
+    <button type="button" class="group-tab" data-nav="habilidades">🎯 Habilidades</button>
+  </div>
+
+  <!-- ============ NIVELES ============ -->
+  <section class="view" id="view-niveles" data-view="niveles" hidden>
+    <div class="section-head">
+      <p class="eyebrow">Mapa de vuelo</p>
+      <h2>Puertas de embarque</h2>
+      <p class="lead">Cada nivel se desbloquea al completar el anterior. Este es el recorrido completo del programa, de A1 a C2.</p>
+    </div>
+
+    <div class="gates-grid" id="gates-grid"><!-- generado por JS --></div>
+  </section>
+
+  <!-- ============ LECCIÓN ============ -->
+  <section class="view" id="view-leccion" data-view="leccion" hidden>
+    <div class="section-head">
+      <p class="eyebrow" id="leccion-eyebrow">Level A1 · Lesson 1</p>
+      <h2 id="leccion-title">Vocabulario esencial</h2>
+      <p class="lead" id="leccion-desc">Escucha el audio, sigue la transcripción y resuelve el quiz para sellar tu avance.</p>
+    </div>
+
+    <div class="lesson-tabs" id="lesson-tabs"><!-- generado por JS --></div>
+
+    <div class="lesson-layout">
+      <div class="player-card">
+        <div class="player-visual" aria-hidden="true">
+          <span id="player-icon">🎧</span>
+        </div>
+        <div class="player-controls">
+          <button class="player-play" id="player-play" aria-label="Reproducir">
+            <span id="player-play-icon">▶</span>
+          </button>
+          <div class="player-bar">
+            <div class="player-track">
+              <div class="player-fill" id="player-fill"></div>
+            </div>
+            <div class="player-time">
+              <span id="player-current">0:00</span>
+              <span id="player-total">1:40</span>
+            </div>
+          </div>
+          <div class="player-speed">
+            <label for="player-speed-select">Velocidad</label>
+            <select id="player-speed-select">
+              <option value="0.75">0.75x</option>
+              <option value="1" selected>1x</option>
+              <option value="1.25">1.25x</option>
+            </select>
+          </div>
+        </div>
+        <p class="player-caption" id="player-caption">Presiona reproducir para ver la transcripción en vivo.</p>
+      </div>
+
+      <div class="quiz-card">
+        <p class="quiz-heading">Comprueba lo aprendido</p>
+        <div id="quiz-body"><!-- generado por JS --></div>
+        <div class="quiz-result" id="quiz-result" hidden>
+          <p id="quiz-score-text"></p>
+          <button class="btn btn-primary" id="quiz-next-btn">Sellar avance y continuar</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HABILIDADES ============ -->
+  <section class="view" id="view-habilidades" data-view="habilidades" hidden>
+    <div class="section-head">
+      <p class="eyebrow">Zona de práctica · Level <span id="skills-level-label">A1</span></p>
+      <h2>Habilidades en acción</h2>
+      <p class="lead">Cuatro formas de poner en práctica tu inglés. Gana XP, mantén tu racha y sella cada habilidad.</p>
+    </div>
+
+    <div class="skills-statusbar">
+      <div class="skills-stat">
+        <span class="skills-stat-icon" aria-hidden="true">🔥</span>
+        <div>
+          <span class="skills-stat-num" id="skills-streak">0</span>
+          <span class="skills-stat-label">días de racha</span>
+        </div>
+      </div>
+      <div class="skills-stat">
+        <span class="skills-stat-icon" aria-hidden="true">⚡</span>
+        <div>
+          <span class="skills-stat-num" id="skills-xp">0</span>
+          <span class="skills-stat-label">XP total</span>
+        </div>
+      </div>
+      <div class="skills-level-switch" id="skills-level-switch"><!-- generado por JS --></div>
+    </div>
+
+    <div class="skill-grid" id="skill-grid"><!-- generado por JS --></div>
+
+    <!-- ============ PANEL DE EJERCICIO (se llena dinámicamente) ============ -->
+    <div class="skill-panel" id="skill-panel" hidden>
+      <button type="button" class="skill-back" id="skill-back">← Volver a habilidades</button>
+      <div class="skill-panel-inner" id="skill-panel-inner"><!-- generado por JS --></div>
+    </div>
+  </section>
+
+  <!-- ============ PROGRESO ============ -->
+  <section class="view" id="view-progreso" data-view="progreso" hidden>
+    <div class="section-head">
+      <p class="eyebrow">Pasaporte de aprendizaje</p>
+      <h2>Tu progreso</h2>
+      <p class="lead">Revisa los sellos que has conseguido y los entregables pendientes del programa.</p>
+    </div>
+
+    <div class="progress-summary">
+      <div class="summary-card">
+        <span class="summary-num" id="summary-level">A1</span>
+        <span class="summary-label">Level actual</span>
+      </div>
+      <div class="summary-card">
+        <span class="summary-num" id="summary-stamps">0</span>
+        <span class="summary-label">Sellos obtenidos</span>
+      </div>
+      <div class="summary-card">
+        <span class="summary-num" id="summary-percent">0%</span>
+        <span class="summary-label">Program completed</span>
+      </div>
+    </div>
+
+    <div class="passport" id="passport-stamps"><!-- generado por JS --></div>
+
+    <div class="certificate-card" id="certificate-card">
+      <div class="certificate-info">
+        <p class="quiz-heading">Program Certificate</p>
+        <p class="certificate-desc" id="certificate-desc">Completa los seis niveles (A1 a C2) para desbloquear tu certificado descargable.</p>
+      </div>
+      <button class="btn btn-primary" id="certificate-btn" disabled>Descargar certificado</button>
+    </div>
+
+    <div class="deliverables">
+      <p class="quiz-heading">Entregables del servicio social</p>
+      <ul class="deliverables-list" id="deliverables-list"><!-- generado por JS --></ul>
+    </div>
+  </section>
+
+  <!-- ============ GRUPO: RECURSOS (Material de apoyo + Gramática) ============ -->
+  <div class="group-tabbar" id="tabbar-recursos" data-group="recursos" hidden>
+    <button type="button" class="group-tab" data-nav="material">📗 Material de apoyo</button>
+    <button type="button" class="group-tab" data-nav="gramatica">📐 Gramática</button>
+  </div>
+
+  <!-- ============ MATERIAL DE APOYO ============ -->
+  <section class="view" id="view-material" data-view="material" hidden>
+    <div class="section-head">
+      <p class="eyebrow">Recursos de gramática</p>
+      <h2>Material de apoyo</h2>
+      <p class="lead">Verbos irregulares en inglés organizados por patrón. Consulta la forma base, el pasado simple, el participio pasado y su traducción.</p>
+    </div>
+
+    <div class="material-groups" id="material-groups">
+      <article class="material-block">
+        <div class="material-block-head">
+          <span class="material-tag">Patrón 1</span>
+          <div>
+            <h3>All the same</h3>
+            <p class="material-block-desc">Las tres formas del verbo son idénticas: base, pasado simple y participio pasado se escriben igual.</p>
+          </div>
+        </div>
+        <div class="material-table-wrap">
+          <table class="material-table">
+            <thead>
+              <tr><th>Base Form</th><th>Past Simple</th><th>Past Participle</th><th>Traducción</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>bet</td><td>bet</td><td>bet</td><td>apostar</td></tr>
+              <tr><td>bid</td><td>bid</td><td>bid</td><td>pujar, ofertar</td></tr>
+              <tr><td>broadcast</td><td>broadcast</td><td>broadcast</td><td>transmitir, difundir</td></tr>
+              <tr><td>burst</td><td>burst</td><td>burst</td><td>reventar, estallar</td></tr>
+              <tr><td>cost</td><td>cost</td><td>cost</td><td>costar</td></tr>
+              <tr><td>cut</td><td>cut</td><td>cut</td><td>cortar</td></tr>
+              <tr><td>hit</td><td>hit</td><td>hit</td><td>golpear</td></tr>
+              <tr><td>hurt</td><td>hurt</td><td>hurt</td><td>herir, doler</td></tr>
+              <tr><td>let</td><td>let</td><td>let</td><td>dejar, permitir</td></tr>
+              <tr><td>put</td><td>put</td><td>put</td><td>poner</td></tr>
+              <tr><td>quit</td><td>quit</td><td>quit</td><td>dejar, renunciar</td></tr>
+              <tr><td>set</td><td>set</td><td>set</td><td>poner, fijar</td></tr>
+              <tr><td>shut</td><td>shut</td><td>shut</td><td>cerrar</td></tr>
+              <tr><td>split</td><td>split</td><td>split</td><td>dividir, partir</td></tr>
+              <tr><td>spread</td><td>spread</td><td>spread</td><td>esparcir, extender</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="material-source">Fuente: <a href="https://www.learnenglish.de/grammar/irregularverbs.html" target="_blank" rel="noopener">learnenglish.de — Irregular Verbs</a></p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ GRAMÁTICA ============ -->
+  <section class="view" id="view-gramatica" data-view="gramatica" hidden>
+    <div class="section-head">
+      <p class="eyebrow">Guía de referencia · En construcción</p>
+      <h2>Grammar</h2>
+      <p class="lead">Gramática es la base de la comunicación efectiva. Esta sección está diseñada como una guía de referencia completa que explica la gramática del inglés con lenguaje sencillo, ejemplos claros, reglas prácticas y actividades interactivas.</p>
+    </div>
+
+    <!-- Plantilla estándar por lección -->
+    <article class="grammar-template-card">
+      <div class="grammar-template-head">
+        <span class="grammar-template-icon" aria-hidden="true">📐</span>
+        <div>
+          <h3>Estructura estándar de cada lección</h3>
+          <p>Para que todo el sitio mantenga la misma calidad, cada tema seguirá exactamente esta plantilla.</p>
+        </div>
+      </div>
+      <div class="grammar-template-grid">
+        <span class="grammar-template-item">🎯 Learning Objective</span>
+        <span class="grammar-template-item">📚 Definition</span>
+        <span class="grammar-template-item">🧩 Grammar Rules</span>
+        <span class="grammar-template-item">📖 Types / Classifications</span>
+        <span class="grammar-template-item">📝 Structure / Formula</span>
+        <span class="grammar-template-item">💬 Examples</span>
+        <span class="grammar-template-item">⚠ Common Mistakes</span>
+        <span class="grammar-template-item">💡 Grammar Tip</span>
+        <span class="grammar-template-item">🔍 Compare</span>
+        <span class="grammar-template-item">📖 Vocabulary in Context</span>
+        <span class="grammar-template-item">🎧 Listening Practice</span>
+        <span class="grammar-template-item">🗣 Speaking Practice</span>
+        <span class="grammar-template-item">✍ Writing Practice</span>
+        <span class="grammar-template-item">🎮 Interactive Exercises</span>
+        <span class="grammar-template-item">🎯 Challenge</span>
+        <span class="grammar-template-item">📄 Grammar Summary</span>
+        <span class="grammar-template-item">🎥 Video Lesson</span>
+        <span class="grammar-template-item">✅ Self-Assessment</span>
+      </div>
+    </article>
+
+    <!-- Menú de temario (acordeón) -->
+    <div class="grammar-menu" id="grammar-menu">
+
+      <details class="grammar-cat" data-color="blue">
+        <summary>
+          <span class="grammar-cat-num">I</span>
+          <span class="grammar-cat-title">Parts of Speech</span>
+          <span class="grammar-cat-count">9 temas</span>
+        </summary>
+        <p class="grammar-cat-desc">Las categorías básicas de las palabras en inglés.</p>
+        <div class="grammar-topics">
+          <span class="grammar-topic">Nouns</span>
+          <span class="grammar-topic">Articles</span>
+          <span class="grammar-topic">Pronouns</span>
+          <span class="grammar-topic">Adjectives</span>
+          <span class="grammar-topic">Adverbs</span>
+          <span class="grammar-topic">Verbs</span>
+          <span class="grammar-topic">Prepositions</span>
+          <span class="grammar-topic">Conjunctions</span>
+          <span class="grammar-topic">Interjections</span>
+        </div>
+      </details>
+
+      <details class="grammar-cat" data-color="green">
+        <summary>
+          <span class="grammar-cat-num">II</span>
+          <span class="grammar-cat-title">Verb System</span>
+          <span class="grammar-cat-count">4 bloques</span>
+        </summary>
+        <p class="grammar-cat-desc">Entender el sistema verbal del inglés es esencial: los verbos expresan acciones, eventos, estados, tiempo y actitud.</p>
+
+        <p class="grammar-subgroup">1. Main Verbs</p>
+        <div class="grammar-topics">
+          <span class="grammar-topic">Action Verbs</span>
+          <span class="grammar-topic">Linking Verbs</span>
+          <span class="grammar-topic">Stative Verbs</span>
+          <span class="grammar-topic">Dynamic Verbs</span>
+          <span class="grammar-topic">Regular Verbs</span>
+          <span class="grammar-topic">Irregular Verbs</span>
+          <span class="grammar-topic">Transitive Verbs</span>
+          <span class="grammar-topic">Intransitive Verbs</span>
+        </div>
+
+        <p class="grammar-subgroup">2. Auxiliary Verbs</p>
+        <div class="grammar-topics">
+          <span class="grammar-topic">Be</span>
+          <span class="grammar-topic">Have</span>
+          <span class="grammar-topic">Do</span>
+        </div>
+
+        <p class="grammar-subgroup">3. Modal Auxiliary Verbs</p>
+        <div class="grammar-topics">
+          <span class="grammar-topic">Can</span>
+          <span class="grammar-topic">Could</span>
+          <span class="grammar-topic">May</span>
+          <span class="grammar-topic">Might</span>
+          <span class="grammar-topic">Must</span>
+          <span class="grammar-topic">Shall</span>
+          <span class="grammar-topic">Should</span>
+          <span class="grammar-topic">Will</span>
+          <span class="grammar-topic">Would</span>
+          <span class="grammar-topic">Ought to</span>
+          <span class="grammar-topic">Need</span>
+          <span class="grammar-topic">Dare</span>
+          <span class="grammar-topic">Used to</span>
+          <span class="grammar-topic">Have to</span>
+          <span class="grammar-topic">Be able to</span>
+          <span class="grammar-topic">Be supposed to</span>
+          <span class="grammar-topic">Had better</span>
+        </div>
+
+        <p class="grammar-subgroup grammar-subgroup-tenses">4. Verb Tenses</p>
+        <p class="grammar-cat-desc">Cada tiempo incluye: propósito de uso, línea de tiempo, palabras señal, fórmula, estructura afirmativa/negativa/interrogativa, preguntas Wh-, contracciones, errores comunes, ejemplos y práctica.</p>
+        <div class="grammar-topics">
+          <span class="grammar-topic">Present Simple</span>
+          <span class="grammar-topic">Present Continuous</span>
+          <span class="grammar-topic">Present Perfect</span>
+          <span class="grammar-topic">Present Perfect Continuous</span>
+          <span class="grammar-topic">Past Simple</span>
+          <span class="grammar-topic">Past Continuous</span>
+          <span class="grammar-topic">Past Perfect</span>
+          <span class="grammar-topic">Past Perfect Continuous</span>
+          <span class="grammar-topic">Future with Will</span>
+          <span class="grammar-topic">Be Going To</span>
+          <span class="grammar-topic">Future Continuous</span>
+          <span class="grammar-topic">Future Perfect</span>
+          <span class="grammar-topic">Future Perfect Continuous</span>
+        </div>
+      </details>
+
+      <details class="grammar-cat" data-color="purple">
+        <summary>
+          <span class="grammar-cat-num">III</span>
+          <span class="grammar-cat-title">Non-Finite Verbs</span>
+          <span class="grammar-cat-count">3 temas</span>
+        </summary>
+        <p class="grammar-cat-desc">Los verbos no finitos no indican tiempo gramatical.</p>
+        <div class="grammar-topics">
+          <span class="grammar-topic">Infinitives</span>
+          <span class="grammar-topic">Gerunds</span>
+          <span class="grammar-topic">Participles</span>
+        </div>
+      </details>
+
+      <details class="grammar-cat" data-color="orange">
+        <summary>
+          <span class="grammar-cat-num">IV</span>
+          <span class="grammar-cat-title">Passive Voice</span>
+          <span class="grammar-cat-count">6 apartados</span>
+        </summary>
+        <div class="grammar-topics">
+          <span class="grammar-topic">Definition</span>
+          <span class="grammar-topic">When to use</span>
+          <span class="grammar-topic">Active vs Passive</span>
+          <span class="grammar-topic">All tense structures</span>
+          <span class="grammar-topic">Examples</span>
+          <span class="grammar-topic">Common mistakes</span>
+        </div>
+      </details>
+
+      <details class="grammar-cat" data-color="yellow">
+        <summary>
+          <span class="grammar-cat-num">V</span>
+          <span class="grammar-cat-title">Reported Speech</span>
+          <span class="grammar-cat-count">5 apartados</span>
+        </summary>
+        <div class="grammar-topics">
+          <span class="grammar-topic">Direct Speech</span>
+          <span class="grammar-topic">Indirect Speech</span>
+          <span class="grammar-topic">Reporting Verbs</span>
+          <span class="grammar-topic">Backshifting</span>
+          <span class="grammar-topic">Examples</span>
+        </div>
+      </details>
+
+      <details class="grammar-cat" data-color="red">
+        <summary>
+          <span class="grammar-cat-num">VI</span>
+          <span class="grammar-cat-title">Conditionals</span>
+          <span class="grammar-cat-count">5 temas</span>
+        </summary>
+        <div class="grammar-topics">
+          <span class="grammar-topic">Zero Conditional</span>
+          <span class="grammar-topic">First Conditional</span>
+          <span class="grammar-topic">Second Conditional</span>
+          <span class="grammar-topic">Third Conditional</span>
+          <span class="grammar-topic">Mixed Conditionals</span>
+        </div>
+      </details>
+
+      <details class="grammar-cat" data-color="purple">
+        <summary>
+          <span class="grammar-cat-num">VII</span>
+          <span class="grammar-cat-title">Gerunds &amp; Infinitives</span>
+          <span class="grammar-cat-count">4 apartados</span>
+        </summary>
+        <div class="grammar-topics">
+          <span class="grammar-topic">Verb + Gerund</span>
+          <span class="grammar-topic">Verb + Infinitive</span>
+          <span class="grammar-topic">Verb + Gerund or Infinitive</span>
+          <span class="grammar-topic">Meaning Changes</span>
+        </div>
+      </details>
+
+      <details class="grammar-cat" data-color="brown">
+        <summary>
+          <span class="grammar-cat-num">VIII</span>
+          <span class="grammar-cat-title">Phrasal Verbs</span>
+          <span class="grammar-cat-count">5 apartados</span>
+        </summary>
+        <div class="grammar-topics">
+          <span class="grammar-topic">Definition</span>
+          <span class="grammar-topic">Separable</span>
+          <span class="grammar-topic">Inseparable</span>
+          <span class="grammar-topic">Transitive</span>
+          <span class="grammar-topic">Intransitive</span>
+          <span class="grammar-topic">Most Common Phrasal Verbs</span>
+        </div>
+      </details>
+
+      <details class="grammar-cat" data-color="gray">
+        <summary>
+          <span class="grammar-cat-num">IX</span>
+          <span class="grammar-cat-title">Sentence Structure</span>
+          <span class="grammar-cat-count">2 bloques</span>
+        </summary>
+        <p class="grammar-subgroup">Sentence Elements</p>
+        <div class="grammar-topics">
+          <span class="grammar-topic">Subject</span>
+          <span class="grammar-topic">Verb</span>
+          <span class="grammar-topic">Object</span>
+          <span class="grammar-topic">Complement</span>
+          <span class="grammar-topic">Modifier</span>
+        </div>
+        <p class="grammar-subgroup">Types of Sentences</p>
+        <div class="grammar-topics">
+          <span class="grammar-topic">Simple</span>
+          <span class="grammar-topic">Compound</span>
+          <span class="grammar-topic">Complex</span>
+          <span class="grammar-topic">Compound-Complex</span>
+        </div>
+      </details>
+
+      <details class="grammar-cat" data-color="blue">
+        <summary>
+          <span class="grammar-cat-num">X</span>
+          <span class="grammar-cat-title">Question Formation</span>
+          <span class="grammar-cat-count">4 temas</span>
+        </summary>
+        <div class="grammar-topics">
+          <span class="grammar-topic">Yes/No Questions</span>
+          <span class="grammar-topic">Wh- Questions</span>
+          <span class="grammar-topic">Tag Questions</span>
+          <span class="grammar-topic">Indirect Questions</span>
+        </div>
+      </details>
+
+      <details class="grammar-cat" data-color="green">
+        <summary>
+          <span class="grammar-cat-num">XI</span>
+          <span class="grammar-cat-title">Word Order</span>
+          <span class="grammar-cat-count">6 temas</span>
+        </summary>
+        <div class="grammar-topics">
+          <span class="grammar-topic">Standard Order</span>
+          <span class="grammar-topic">Frequency Adverbs</span>
+          <span class="grammar-topic">Time Expressions</span>
+          <span class="grammar-topic">Place Expressions</span>
+          <span class="grammar-topic">Questions</span>
+          <span class="grammar-topic">Negatives</span>
+        </div>
+      </details>
+
+      <details class="grammar-cat" data-color="purple">
+        <summary>
+          <span class="grammar-cat-num">XII</span>
+          <span class="grammar-cat-title">Common Grammar Mistakes</span>
+          <span class="grammar-cat-count">8 temas</span>
+        </summary>
+        <div class="grammar-topics">
+          <span class="grammar-topic">False Friends</span>
+          <span class="grammar-topic">Spanish Interference</span>
+          <span class="grammar-topic">Subject-Verb Agreement</span>
+          <span class="grammar-topic">Articles</span>
+          <span class="grammar-topic">Prepositions</span>
+          <span class="grammar-topic">Word Order</span>
+          <span class="grammar-topic">Verb Forms</span>
+          <span class="grammar-topic">Double Negatives</span>
+        </div>
+      </details>
+
+    </div>
+
+    <p class="grammar-note">📌 Este menú es el esqueleto del temario solicitado por el profesor Miguel Ángel Aguilar. Cada tema se irá activando conforme se desarrolle su lección completa con la plantilla de arriba.</p>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>MyUTNEnglishClass — Proyecto de servicio social, programa Education, Arts, Culture and Sports. <strong>Universidad Tecnológica de Nezahualcóyotl</strong> · Excelencia académica, Estado de México.</p>
+</footer>
+
+<!-- ============ MODAL: PERFIL ============ -->
+<div class="modal-overlay" id="profile-modal" hidden>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="profile-modal-title">
+    <p class="modal-title" id="profile-modal-title">Tu perfil</p>
+    <label class="modal-label" for="profile-name-input">Nombre</label>
+    <input type="text" id="profile-name-input" class="modal-input" maxlength="28" placeholder="Tu nombre">
+    <p class="modal-label">Avatar</p>
+    <div class="avatar-grid" id="avatar-grid"><!-- generado por JS --></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost-light" id="profile-cancel">Cancelar</button>
+      <button class="btn btn-primary" id="profile-save">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: FELICITACIÓN ============ -->
+<div class="modal-overlay" id="congrats-modal" hidden>
+  <div class="modal-card congrats-card" role="dialog" aria-modal="true" aria-labelledby="congrats-title">
+    <div class="confetti" aria-hidden="true"></div>
+    <p class="congrats-emoji" aria-hidden="true">🎉</p>
+    <p class="modal-title" id="congrats-title">¡Program completed!</p>
+    <p class="congrats-text">Terminaste los seis niveles, de A1 a C2. Tu certificado ya está disponible en la sección Progreso.</p>
+    <div class="modal-actions">
+      <button class="btn btn-primary" id="congrats-close">Ver mi progreso</button>
+    </div>
+  </div>
+</div>
+
+<canvas id="certificate-canvas" width="1000" height="700" hidden></canvas>
+
+<div class="xp-toast" id="xp-toast" hidden></div>
+
+<script src="js/theme.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/auth.js"></script>
+<!-- app.js controls all sections (Leveles, Lesson, Habilidades, Progreso,
+     Material de apoyo, Gramática) y ahora se carga siempre, para invitados y
+     estudiantes por igual. Resolver/enviar actividades sigue requiriendo cuenta;
+     eso se controla desde auth.js (bloque "GATE DE ACTIVIDADES"). -->
+<script src="js/app.js"></script>
+</body>
+</html>
