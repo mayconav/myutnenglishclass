@@ -3,28 +3,20 @@
 
   /* ============ CONTENT DATA ============ */
   var LEVELS = [
-    { code: "A1", name: "Principiante", skill: "Vocabulario esencial", desc: "Saludos, presentaciones y vocabulario cotidiano." },
-    { code: "A2", name: "Elemental", skill: "Rutinas diarias", desc: "Describir rutinas, lugares y planes simples." },
-    { code: "B1", name: "Intermedio", skill: "Speaking fluido", desc: "Conversaciones sobre estudios, trabajo y opiniones." },
-<<<<<<< HEAD
-    { code: "B2", name: "Intermedio alto", skill: "Comprensión auditiva", desc: "Escuchar y debatir temas académicos." },
-=======
-<<<<<<< HEAD
-    { code: "B2", name: "Upper Intermediate", skill: "Listening Comprehension", desc: "Escuchar y debatir temas académicos." },
-=======
-    { code: "B2", name: "Intermedio alto", skill: "Comprensión auditiva", desc: "Escuchar y debatir temas académicos." },
->>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
->>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
-    { code: "C1", name: "Avanzado", skill: "Escritura académica", desc: "Redacción de ensayos y argumentación." },
-    { code: "C2", name: "Dominio", skill: "Fluidez profesional", desc: "Presentaciones y comunicación especializada." }
+    { code: "A1", name: "Beginner", skill: "Essential Vocabulary", desc: "Greetings, introductions, and everyday vocabulary." },
+    { code: "A2", name: "Elementary", skill: "Daily Routines", desc: "Describing routines, places, and simple plans." },
+    { code: "B1", name: "Intermediate", skill: "Fluent Speaking", desc: "Conversations about studies, work, and opinions." },
+    { code: "B2", name: "Upper Intermediate", skill: "Listening Comprehension", desc: "Listening to and discussing academic topics." },
+    { code: "C1", name: "Advanced", skill: "Academic Writing", desc: "Essay writing and argumentation." },
+    { code: "C2", name: "Mastery", skill: "Professional Fluency", desc: "Presentations and specialized communication." }
   ];
 
-  /* Cada nivel tiene 2 lecciones. La lección 1 usa opción múltiple;
-     la lección 2 mezcla completar-espacio y relacionar, para variar el tipo de ejercicio. */
+  /* Each level has 2 lessons. Lesson 1 uses multiple choice;
+     lesson 2 mixes fill-in-the-blank and matching, to vary the exercise type. */
   var LESSONS = {
     A1: [
       {
-        title: "Vocabulario esencial",
+        title: "Essential Vocabulary",
         duration: 40,
         captions: [
           { t: 0, text: "Hello! My name is Sofía and I study at UTN." },
@@ -33,12 +25,12 @@
           { t: 30, text: "Great! Let's practice some everyday words." }
         ],
         quiz: [
-          { type: "mcq", q: "¿Cómo se dice 'encantado de conocerte'?", options: ["Nice to meet you", "See you later", "Good night"], correct: 0 },
-          { type: "mcq", q: "'Where are you from?' pregunta sobre...", options: ["La edad", "El origen", "La hora"], correct: 1 }
+          { type: "mcq", q: "How do you say 'nice to meet you'?", options: ["Nice to meet you", "See you later", "Good night"], correct: 0 },
+          { type: "mcq", q: "'Where are you from?' asks about...", options: ["Age", "Origin", "Time"], correct: 1 }
         ]
       },
       {
-        title: "Saludos y despedidas",
+        title: "Greetings and Farewells",
         duration: 35,
         captions: [
           { t: 0, text: "Good morning! How are you today?" },
@@ -46,8 +38,8 @@
           { t: 20, text: "See you later, have a nice day!" }
         ],
         quiz: [
-          { type: "fill", q: "Completa: 'Good ___, how are you?' (saludo de mañana)", answer: ["morning"] },
-          { type: "match", instructions: "Relaciona cada saludo en inglés con su traducción.", pairs: [
+          { type: "fill", q: "Complete: 'Good ___, how are you?' (morning greeting)", answer: ["morning"] },
+          { type: "match", instructions: "Match each English greeting with its translation.", pairs: [
             ["Good morning", "Buenos días"],
             ["See you later", "Nos vemos luego"],
             ["Thank you", "Gracias"]
@@ -57,7 +49,7 @@
     ],
     A2: [
       {
-        title: "Rutinas diarias",
+        title: "Daily Routines",
         duration: 40,
         captions: [
           { t: 0, text: "I usually wake up at seven in the morning." },
@@ -66,12 +58,12 @@
           { t: 30, text: "What is your daily routine like?" }
         ],
         quiz: [
-          { type: "mcq", q: "'I usually wake up at seven' describe...", options: ["Un plan futuro", "Una rutina", "Un consejo"], correct: 1 },
-          { type: "mcq", q: "¿Qué palabra indica frecuencia?", options: ["Usually", "Library", "Afternoon"], correct: 0 }
+          { type: "mcq", q: "'I usually wake up at seven' describes...", options: ["A future plan", "A routine", "A piece of advice"], correct: 1 },
+          { type: "mcq", q: "Which word indicates frequency?", options: ["Usually", "Library", "Afternoon"], correct: 0 }
         ]
       },
       {
-        title: "Lugares y planes",
+        title: "Places and Plans",
         duration: 35,
         captions: [
           { t: 0, text: "Next weekend I am going to visit my family." },
@@ -79,8 +71,8 @@
           { t: 20, text: "After that, we will have lunch downtown." }
         ],
         quiz: [
-          { type: "fill", q: "Completa: 'I am going ___ visit my family.' (preposición de plan futuro)", answer: ["to"] },
-          { type: "match", instructions: "Relaciona el lugar en inglés con su traducción.", pairs: [
+          { type: "fill", q: "Complete: 'I am going ___ visit my family.' (future plan preposition)", answer: ["to"] },
+          { type: "match", instructions: "Match the English place with its translation.", pairs: [
             ["Park", "Parque"],
             ["Downtown", "Centro"],
             ["Library", "Biblioteca"]
@@ -90,7 +82,7 @@
     ],
     B1: [
       {
-        title: "Speaking fluido",
+        title: "Fluent Speaking",
         duration: 45,
         captions: [
           { t: 0, text: "In my opinion, learning English opens many doors." },
@@ -99,12 +91,12 @@
           { t: 36, text: "Let's discuss the advantages and disadvantages." }
         ],
         quiz: [
-          { type: "mcq", q: "'In my opinion' se usa para...", options: ["Dar un dato", "Expresar un punto de vista", "Hacer una pregunta"], correct: 1 },
-          { type: "mcq", q: "Sinónimo de 'advantages'", options: ["Beneficios", "Errores", "Horarios"], correct: 0 }
+          { type: "mcq", q: "'In my opinion' is used to...", options: ["State a fact", "Express a point of view", "Ask a question"], correct: 1 },
+          { type: "mcq", q: "Synonym for 'advantages'", options: ["Benefits", "Mistakes", "Schedules"], correct: 0 }
         ]
       },
       {
-        title: "Dar opiniones",
+        title: "Giving Opinions",
         duration: 38,
         captions: [
           { t: 0, text: "I believe practice makes progress, not perfection." },
@@ -112,8 +104,8 @@
           { t: 20, text: "Personally, I enjoy group discussions." }
         ],
         quiz: [
-          { type: "fill", q: "Completa: 'On the other ___, some people prefer studying alone.'", answer: ["hand"] },
-          { type: "match", instructions: "Relaciona la frase de opinión con su traducción.", pairs: [
+          { type: "fill", q: "Complete: 'On the other ___, some people prefer studying alone.'", answer: ["hand"] },
+          { type: "match", instructions: "Match the opinion phrase with its translation.", pairs: [
             ["I believe", "Yo creo"],
             ["Personally", "Personalmente"],
             ["On the other hand", "Por otro lado"]
@@ -123,15 +115,7 @@
     ],
     B2: [
       {
-<<<<<<< HEAD
-        title: "Comprensión auditiva",
-=======
-<<<<<<< HEAD
         title: "Listening Comprehension",
-=======
-        title: "Comprensión auditiva",
->>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
->>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
         duration: 45,
         captions: [
           { t: 0, text: "Today's lecture is about renewable energy sources." },
@@ -140,12 +124,12 @@
           { t: 36, text: "Let's summarize the key points together." }
         ],
         quiz: [
-          { type: "mcq", q: "El tema principal de la conferencia es...", options: ["Energías renovables", "Historia mundial", "Finanzas"], correct: 0 },
-          { type: "mcq", q: "'Challenge' en este contexto significa...", options: ["Logro", "Reto", "Premio"], correct: 1 }
+          { type: "mcq", q: "The main topic of the lecture is...", options: ["Renewable energy", "World history", "Finance"], correct: 0 },
+          { type: "mcq", q: "'Challenge' in this context means...", options: ["Achievement", "Difficulty", "Award"], correct: 1 }
         ]
       },
       {
-        title: "Debatir temas académicos",
+        title: "Debating Academic Topics",
         duration: 40,
         captions: [
           { t: 0, text: "Some researchers argue that storage technology will improve soon." },
@@ -153,8 +137,8 @@
           { t: 24, text: "Let's weigh both sides of the argument." }
         ],
         quiz: [
-          { type: "fill", q: "Completa: 'Let's weigh both ___ of the argument.'", answer: ["sides"] },
-          { type: "match", instructions: "Relaciona el término académico con su traducción.", pairs: [
+          { type: "fill", q: "Complete: 'Let's weigh both ___ of the argument.'", answer: ["sides"] },
+          { type: "match", instructions: "Match the academic term with its translation.", pairs: [
             ["Researchers", "Investigadores"],
             ["Skeptical", "Escéptico"],
             ["Argument", "Argumento"]
@@ -164,7 +148,7 @@
     ],
     C1: [
       {
-        title: "Escritura académica",
+        title: "Academic Writing",
         duration: 45,
         captions: [
           { t: 0, text: "A strong thesis statement guides the entire essay." },
@@ -173,12 +157,12 @@
           { t: 36, text: "Finally, the conclusion restates your position." }
         ],
         quiz: [
-          { type: "mcq", q: "La tesis de un ensayo debe...", options: ["Ir al final", "Guiar el argumento", "Ser irrelevante"], correct: 1 },
-          { type: "mcq", q: "'Evidence' se traduce como...", options: ["Evidencia", "Emoción", "Extensión"], correct: 0 }
+          { type: "mcq", q: "An essay's thesis should...", options: ["Go at the end", "Guide the argument", "Be irrelevant"], correct: 1 },
+          { type: "mcq", q: "'Evidence' translates to...", options: ["Evidence", "Emotion", "Extension"], correct: 0 }
         ]
       },
       {
-        title: "Redactar con evidencia",
+        title: "Writing with Evidence",
         duration: 38,
         captions: [
           { t: 0, text: "Every claim needs supporting evidence from a reliable source." },
@@ -186,8 +170,8 @@
           { t: 24, text: "A clear conclusion restates your main point." }
         ],
         quiz: [
-          { type: "fill", q: "Completa: 'Every claim needs supporting ___.'", answer: ["evidence"] },
-          { type: "match", instructions: "Relaciona el término de escritura académica con su traducción.", pairs: [
+          { type: "fill", q: "Complete: 'Every claim needs supporting ___.'", answer: ["evidence"] },
+          { type: "match", instructions: "Match the academic writing term with its translation.", pairs: [
             ["Claim", "Afirmación"],
             ["Source", "Fuente"],
             ["Conclusion", "Conclusión"]
@@ -197,7 +181,7 @@
     ],
     C2: [
       {
-        title: "Fluidez profesional",
+        title: "Professional Fluency",
         duration: 45,
         captions: [
           { t: 0, text: "Good morning everyone, thank you for joining this call." },
@@ -206,20 +190,12 @@
           { t: 36, text: "Let's begin with an overview of the project." }
         ],
         quiz: [
-          { type: "mcq", q: "Esta lección simula...", options: ["Una fiesta", "Una presentación profesional", "Una receta"], correct: 1 },
-<<<<<<< HEAD
-          { type: "mcq", q: "'Feel free to ask' invita a...", options: ["Guardar silencio", "Hacer preguntas", "Terminar la llamada"], correct: 0 }
-=======
-<<<<<<< HEAD
-          { type: "mcq", q: "'Feel free to ask' invita a...", options: ["Save silencio", "Hacer preguntas", "Terminar la llamada"], correct: 0 }
-=======
-          { type: "mcq", q: "'Feel free to ask' invita a...", options: ["Guardar silencio", "Hacer preguntas", "Terminar la llamada"], correct: 0 }
->>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
->>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
+          { type: "mcq", q: "This lesson simulates...", options: ["A party", "A professional presentation", "A recipe"], correct: 1 },
+          { type: "mcq", q: "'Feel free to ask' invites you to...", options: ["Stay silent", "Ask questions", "End the call"], correct: 0 }
         ]
       },
       {
-        title: "Presentaciones especializadas",
+        title: "Specialized Presentations",
         duration: 40,
         captions: [
           { t: 0, text: "Let's move on to the next slide of our roadmap." },
@@ -227,8 +203,8 @@
           { t: 24, text: "I'll now hand it over to my colleague for questions." }
         ],
         quiz: [
-          { type: "fill", q: "Completa: 'Let's move on to the next ___.'", answer: ["slide"] },
-          { type: "match", instructions: "Relaciona la frase profesional con su traducción.", pairs: [
+          { type: "fill", q: "Complete: 'Let's move on to the next ___.'", answer: ["slide"] },
+          { type: "match", instructions: "Match the professional phrase with its translation.", pairs: [
             ["Roadmap", "Hoja de ruta"],
             ["Exceeded expectations", "Superó las expectativas"],
             ["Hand it over", "Cederle la palabra"]
@@ -241,14 +217,14 @@
   var AVATARS = ["🎓", "🦉", "🦅", "🐺", "🦊", "🐢", "🌵", "⭐"];
 
   var DELIVERABLES = LEVELS.map(function (lvl) {
-    return { code: lvl.code, text: "Entregable " + lvl.code + ": " + lvl.skill };
+    return { code: lvl.code, text: "Deliverable " + lvl.code + ": " + lvl.skill };
   });
 
   /* ============ STATE ============ */
-  /* Se recalcula en cada llamada (no una sola vez al cargar el script) porque
-     app.js ahora se carga siempre, incluso para invitados sin sesión. Cuando
-     alguien inicia sesión, window.__UTN_UID__ cambia y __UTN_APP_RELOAD__
-     vuelve a leer el progreso, esta vez con la clave del estudiante real. */
+  /* Recalculated on every call (not just once when the script loads) because
+     app.js is now always loaded, even for guests without a session. When
+     someone logs in, window.__UTN_UID__ changes and __UTN_APP_RELOAD__
+     re-reads progress, this time with the real student's key. */
   function storageKey() { return "myutn_progress_v2_" + (window.__UTN_UID__ || "local"); }
 
   function defaultState() {
@@ -256,7 +232,7 @@
       currentLevelIndex: 0,
       completedLessons: [],
       stamps: [],
-      profile: { name: "Estudiante UTN", avatar: "🎓" },
+      profile: { name: "UTN Student", avatar: "🎓" },
       congratsShown: false,
       skillsXP: 0,
       skillsStreak: 0,
@@ -288,7 +264,7 @@
           } : base.skillProgress
         };
       }
-      /* Migración desde versión anterior (myutn_progress_v1) */
+      /* Migration from previous version (myutn_progress_v1) */
       var oldRaw = localStorage.getItem("myutn_progress_v1");
       if (oldRaw) {
         var old = JSON.parse(oldRaw);
@@ -321,9 +297,9 @@
   var navLinks = document.querySelectorAll(".main-nav a");
   var groupTabbars = document.querySelectorAll(".group-tabbar");
 
-  /* Grupos de navegación: el navbar principal solo muestra Inicio, Aprender,
-     Progreso y Recursos; cada grupo despliega sus vistas reales como pestañas
-     internas para no perder ninguna sección existente. */
+  /* Navigation groups: the main navbar only shows Home, Learn,
+     Progress, and Resources; each group reveals its real views as internal
+     tabs so no existing section is lost. */
   var GROUPS = {
     aprender: ["niveles", "leccion", "habilidades"],
     recursos: ["material", "gramatica"]
@@ -338,8 +314,8 @@
   }
 
   function goto(name) {
-    /* Si se navega a un grupo (clic en "Aprender"/"Recursos" del navbar),
-       resolver a la última pestaña visitada dentro de ese grupo. */
+    /* If navigating to a group (click on "Learn"/"Resources" in the navbar),
+       resolve to the last visited tab within that group. */
     var target = GROUPS[name] ? (lastGroupView[name] || GROUPS[name][0]) : name;
     var activeGroup = groupOf(target);
     if (activeGroup) lastGroupView[activeGroup] = target;
@@ -402,7 +378,7 @@
     navToggle.setAttribute("aria-expanded", open ? "true" : "false");
   });
 
-  /* ============ PERFIL ============ */
+  /* ============ PROFILE ============ */
   var avatarGrid = document.getElementById("avatar-grid");
   var selectedAvatar = state.profile.avatar;
 
@@ -434,7 +410,7 @@
   document.getElementById("profile-cancel").addEventListener("click", closeProfileModal);
   document.getElementById("profile-save").addEventListener("click", function () {
     var name = document.getElementById("profile-name-input").value.trim();
-    state.profile.name = name || "Estudiante UTN";
+    state.profile.name = name || "UTN Student";
     state.profile.avatar = selectedAvatar;
     saveProgress(state);
     updateProfileUI();
@@ -459,15 +435,7 @@
     }).length;
     document.getElementById("bp-level").textContent = lvl.code + " · " + lvl.name;
     document.getElementById("bp-skill").textContent = lvl.skill;
-<<<<<<< HEAD
-    document.getElementById("bp-gate").textContent = "Lección " + Math.min(doneInLevel + 1, totalLessons) + " de " + totalLessons;
-=======
-<<<<<<< HEAD
-    document.getElementById("bp-gate").textContent = "Lesson " + Math.min(doneInLevel + 1, totalLessons) + " de " + totalLessons;
-=======
-    document.getElementById("bp-gate").textContent = "Lección " + Math.min(doneInLevel + 1, totalLessons) + " de " + totalLessons;
->>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
->>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
+    document.getElementById("bp-gate").textContent = "Lesson " + Math.min(doneInLevel + 1, totalLessons) + " of " + totalLessons;
     document.getElementById("bp-code").textContent = "UTN-" + lvl.code + "-0" + (doneInLevel + 1);
     var pct = Math.round((state.stamps.length / LEVELS.length) * 100);
     document.getElementById("bp-progress-fill").style.width = Math.max(6, pct) + "%";
@@ -482,7 +450,7 @@
       var earned = state.stamps.indexOf(lvl.code) !== -1;
       var locked = i > state.currentLevelIndex;
       var statusClass = earned ? "done" : (locked ? "locked" : "active");
-      var statusText = earned ? "completo" : (locked ? "bloqueado" : "en curso");
+      var statusText = earned ? "completed" : (locked ? "locked" : "in progress");
       var lessons = LESSONS[lvl.code];
 
       var card = document.createElement("article");
@@ -516,7 +484,7 @@
     });
   }
 
-  /* ============ LECCIÓN / TABS ============ */
+  /* ============ LESSON / TABS ============ */
   function renderLessonTabs(levelIdx, lessonIdx) {
     var lvl = LEVELS[levelIdx];
     var lessons = LESSONS[lvl.code];
@@ -526,15 +494,7 @@
       var done = state.completedLessons.indexOf(lessonId(lvl.code, i)) !== -1;
       var tab = document.createElement("button");
       tab.className = "lesson-tab" + (i === lessonIdx ? " active" : "") + (done ? " done" : "");
-<<<<<<< HEAD
-      tab.textContent = (done ? "✓ " : "") + "Lección " + (i + 1);
-=======
-<<<<<<< HEAD
       tab.textContent = (done ? "✓ " : "") + "Lesson " + (i + 1);
-=======
-      tab.textContent = (done ? "✓ " : "") + "Lección " + (i + 1);
->>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
->>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
       tab.addEventListener("click", function () {
         activeLessonIndex = i;
         renderLesson(levelIdx, i);
@@ -565,19 +525,11 @@
   function renderLesson(levelIdx, lessonIdx) {
     var lvl = LEVELS[levelIdx];
     var lesson = LESSONS[lvl.code][lessonIdx];
-<<<<<<< HEAD
-    document.getElementById("leccion-eyebrow").textContent = "Nivel " + lvl.code + " · Lección " + (lessonIdx + 1) + " de " + LESSONS[lvl.code].length;
-=======
-<<<<<<< HEAD
-    document.getElementById("leccion-eyebrow").textContent = "Level " + lvl.code + " · Lesson " + (lessonIdx + 1) + " de " + LESSONS[lvl.code].length;
-=======
-    document.getElementById("leccion-eyebrow").textContent = "Nivel " + lvl.code + " · Lección " + (lessonIdx + 1) + " de " + LESSONS[lvl.code].length;
->>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
->>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
+    document.getElementById("leccion-eyebrow").textContent = "Level " + lvl.code + " · Lesson " + (lessonIdx + 1) + " of " + LESSONS[lvl.code].length;
     document.getElementById("leccion-title").textContent = lesson.title;
-    document.getElementById("leccion-desc").textContent = "Escucha el audio, sigue la transcripción y resuelve el quiz para sellar tu avance.";
+    document.getElementById("leccion-desc").textContent = "Listen to the audio, follow the transcript, and complete the quiz to stamp your progress.";
     document.getElementById("player-total").textContent = formatTime(lesson.duration);
-    document.getElementById("player-caption").textContent = "Presiona reproducir para ver la transcripción en vivo.";
+    document.getElementById("player-caption").textContent = "Press play to see the live transcript.";
     stopPlayer();
     renderLessonTabs(levelIdx, lessonIdx);
     renderQuiz(levelIdx, lessonIdx, lesson);
@@ -631,7 +583,7 @@
 
     function checkAllAnswered() {
       if (answered.every(Boolean)) {
-        var scoreText = "Obtuviste " + correctCount + " de " + lesson.quiz.length + " correctas.";
+        var scoreText = "You got " + correctCount + " out of " + lesson.quiz.length + " correct.";
         document.getElementById("quiz-score-text").textContent = scoreText;
         resultBox.hidden = false;
       }
@@ -645,8 +597,8 @@
         qEl.innerHTML =
           "<p>" + (qi + 1) + ". " + q.q + "</p>" +
           '<div class="fill-row">' +
-            '<input type="text" class="fill-input" data-qi="' + qi + '" autocomplete="off" placeholder="Escribe tu respuesta">' +
-            '<button class="btn btn-primary fill-check" data-qi="' + qi + '">Verificar</button>' +
+            '<input type="text" class="fill-input" data-qi="' + qi + '" autocomplete="off" placeholder="Type your answer">' +
+            '<button class="btn btn-primary fill-check" data-qi="' + qi + '">Check</button>' +
           "</div>" +
           '<p class="fill-feedback" id="fill-feedback-' + qi + '"></p>';
         body.appendChild(qEl);
@@ -663,11 +615,11 @@
           if (ok) {
             correctCount++;
             input.classList.add("correct");
-            fb.textContent = "¡Correcto!";
+            fb.textContent = "Correct!";
             fb.className = "fill-feedback ok";
           } else {
             input.classList.add("incorrect");
-            fb.textContent = "Respuesta esperada: " + q.answer[0];
+            fb.textContent = "Expected answer: " + q.answer[0];
             fb.className = "fill-feedback bad";
           }
           checkAllAnswered();
@@ -690,7 +642,7 @@
         }).join("");
 
         qEl.innerHTML =
-          "<p>" + (qi + 1) + ". " + (q.instructions || "Relaciona los conceptos.") + "</p>" +
+          "<p>" + (qi + 1) + ". " + (q.instructions || "Match the concepts.") + "</p>" +
           '<div class="match-columns">' +
             '<div class="match-col">' + leftHtml + "</div>" +
             '<div class="match-col">' + rightHtml + "</div>" +
@@ -735,7 +687,7 @@
         });
 
       } else {
-        /* mcq (por defecto) */
+        /* mcq (default) */
         var optsHtml = q.options.map(function (opt, oi) {
           return '<button class="quiz-option" data-qi="' + qi + '" data-oi="' + oi + '">' + opt + "</button>";
         }).join("");
@@ -800,7 +752,7 @@
     return arr;
   }
 
-  /* ============ PROGRESO ============ */
+  /* ============ PROGRESS ============ */
   function renderProgress() {
     var lvl = LEVELS[state.currentLevelIndex];
     document.getElementById("summary-level").textContent = lvl.code;
@@ -832,11 +784,11 @@
     var certDesc = document.getElementById("certificate-desc");
     certBtn.disabled = !complete;
     certDesc.textContent = complete
-      ? "¡Completaste los seis niveles! Descarga tu certificado del programa."
-      : "Completa los seis niveles (A1 a C2) para desbloquear tu certificado descargable.";
+      ? "You completed all six levels! Download your program certificate."
+      : "Complete all six levels (A1 to C2) to unlock your downloadable certificate.";
   }
 
-  /* ============ CERTIFICADO ============ */
+  /* ============ CERTIFICATE ============ */
   function drawCertificate() {
     var canvas = document.getElementById("certificate-canvas");
     var ctx = canvas.getContext("2d");
@@ -845,7 +797,7 @@
     ctx.fillStyle = "#FAFBFA";
     ctx.fillRect(0, 0, w, h);
 
-    /* franja tricolor superior */
+    /* top tricolor stripe */
     var stripeH = 16;
     ctx.fillStyle = "#0C4EB8"; ctx.fillRect(0, 0, w / 3, stripeH);
     ctx.fillStyle = "#E2141B"; ctx.fillRect(w / 3, 0, w / 3, stripeH);
@@ -854,12 +806,12 @@
     ctx.fillStyle = "#E2141B"; ctx.fillRect(w / 3, h - stripeH, w / 3, stripeH);
     ctx.fillStyle = "#0C9C61"; ctx.fillRect((w / 3) * 2, h - stripeH, w / 3, stripeH);
 
-    /* borde */
+    /* border */
     ctx.strokeStyle = "#121212";
     ctx.lineWidth = 3;
     ctx.strokeRect(24, 40, w - 48, h - 80);
 
-    /* sello circular */
+    /* circular seal */
     var cx = w - 140, cy = h - 160, r = 70;
     ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.fillStyle = "#0C4EB8"; ctx.fill();
     ctx.beginPath(); ctx.arc(cx, cy, r * 0.78, 0, Math.PI * 2); ctx.fillStyle = "#FAFBFA"; ctx.fill();
@@ -871,27 +823,19 @@
     ctx.textAlign = "center"; ctx.textBaseline = "middle";
     ctx.fillText("UT", cx, cy + 2);
 
-    /* textos */
+    /* texts */
     ctx.fillStyle = "#565B5E";
     ctx.font = "13px 'Space Grotesk', sans-serif";
     ctx.textAlign = "center";
-    ctx.fillText("UNIVERSIDAD TECNOLÓGICA DE NEZAHUALCÓYOTL · EXCELENCIA ACADÉMICA", w / 2, 90);
+    ctx.fillText("UNIVERSIDAD TECNOLÓGICA DE NEZAHUALCÓYOTL · ACADEMIC EXCELLENCE", w / 2, 90);
 
     ctx.fillStyle = "#0C4EB8";
     ctx.font = "bold 40px 'Space Grotesk', sans-serif";
-<<<<<<< HEAD
-    ctx.fillText("Certificado de finalización", w / 2, 150);
-=======
-<<<<<<< HEAD
     ctx.fillText("Certificate of Completion", w / 2, 150);
-=======
-    ctx.fillText("Certificado de finalización", w / 2, 150);
->>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
->>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
 
     ctx.fillStyle = "#16181A";
     ctx.font = "17px 'Source Serif 4', Georgia, serif";
-    ctx.fillText("Se certifica que", w / 2, 230);
+    ctx.fillText("This certifies that", w / 2, 230);
 
     ctx.fillStyle = "#E2141B";
     ctx.font = "bold 34px 'Space Grotesk', sans-serif";
@@ -899,28 +843,20 @@
 
     ctx.fillStyle = "#16181A";
     ctx.font = "17px 'Source Serif 4', Georgia, serif";
-    wrapText(ctx, "ha completado exitosamente el programa de inglés MyUTNEnglishClass,", w / 2, 335, w - 200, 24);
-    wrapText(ctx, "cursando los seis niveles del Marco Común Europeo, de A1 a C2.", w / 2, 359, w - 200, 24);
+    wrapText(ctx, "has successfully completed the MyUTNEnglishClass English program,", w / 2, 335, w - 200, 24);
+    wrapText(ctx, "completing all six levels of the Common European Framework, from A1 to C2.", w / 2, 359, w - 200, 24);
 
     ctx.fillStyle = "#565B5E";
     ctx.font = "14px 'Space Grotesk', sans-serif";
     var today = new Date();
-    var fecha = today.toLocaleDateString("es-MX", { year: "numeric", month: "long", day: "numeric" });
-    ctx.fillText("Emitido el " + fecha, w / 2, 430);
+    var fecha = today.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+    ctx.fillText("Issued on " + fecha, w / 2, 430);
 
     ctx.textAlign = "left";
     ctx.fillStyle = "#16181A";
     ctx.font = "13px 'Space Grotesk', sans-serif";
-    ctx.fillText("Programa de Servicio Social", 70, h - 100);
-<<<<<<< HEAD
-    ctx.fillText("Educación, arte, cultura y deporte", 70, h - 80);
-=======
-<<<<<<< HEAD
+    ctx.fillText("Social Service Program", 70, h - 100);
     ctx.fillText("Education, Arts, Culture and Sports", 70, h - 80);
-=======
-    ctx.fillText("Educación, arte, cultura y deporte", 70, h - 80);
->>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
->>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
   }
 
   function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
@@ -944,12 +880,12 @@
     drawCertificate();
     var canvas = document.getElementById("certificate-canvas");
     var link = document.createElement("a");
-    link.download = "Certificado-MyUTNEnglishClass-" + state.profile.name.replace(/\s+/g, "_") + ".png";
+    link.download = "Certificate-MyUTNEnglishClass-" + state.profile.name.replace(/\s+/g, "_") + ".png";
     link.href = canvas.toDataURL("image/png");
     link.click();
   });
 
-  /* ============ MODAL FELICITACIÓN ============ */
+  /* ============ CONGRATULATIONS MODAL ============ */
   function openCongratsModal() { document.getElementById("congrats-modal").hidden = false; }
   function closeCongratsModal() { document.getElementById("congrats-modal").hidden = true; }
   document.getElementById("congrats-close").addEventListener("click", function () {
@@ -958,9 +894,9 @@
   });
 
   /* ============================================================
-     HABILIDADES — Reading / Writing / Speaking / Letter
-     Zona de práctica gamificada estilo "app de idiomas", con XP,
-     racha diaria y cuatro tipos de ejercicio interactivo.
+     SKILLS — Reading / Writing / Speaking / Letter
+     Gamified "language app" style practice zone, with XP,
+     daily streak, and four types of interactive exercise.
      ============================================================ */
 
   var SKILLS = {
@@ -969,8 +905,8 @@
         title: "My name is Sofía",
         passage: "Hello! My name is Sofía and I {{study|estudiar}} Software Engineering at UTN. I am {{from|de / desde}} Nezahualcóyotl, in Mexico. Nice to meet you!",
         questions: [
-          { q: "¿Dónde estudia Sofía?", options: ["En su casa", "En la UTN", "En un café"], correct: 1 },
-          { q: "¿De dónde es Sofía?", options: ["España", "Nezahualcóyotl", "Canadá"], correct: 1 }
+          { q: "Where does Sofía study?", options: ["At home", "At UTN", "At a café"], correct: 1 },
+          { q: "Where is Sofía from?", options: ["Spain", "Nezahualcóyotl", "Canada"], correct: 1 }
         ]
       },
       writing: {
@@ -982,10 +918,10 @@
       },
       speaking: {
         phrases: [
-          { en: "Hello, my name is Sofía.", es: "Saludo básico con presentación" },
-          { en: "Nice to meet you.", es: "Encantado de conocerte" },
-          { en: "Where are you from?", es: "Preguntar el origen" },
-          { en: "See you later!", es: "Despedida informal" }
+          { en: "Hello, my name is Sofía.", es: "Basic greeting with introduction" },
+          { en: "Nice to meet you.", es: "Nice to meet you" },
+          { en: "Where are you from?", es: "Asking about origin" },
+          { en: "See you later!", es: "Informal farewell" }
         ]
       },
       letter: {
@@ -1006,8 +942,8 @@
         title: "My daily routine",
         passage: "I {{usually|normalmente}} wake up at seven in the morning. After breakfast, I go to class at UTN. In the afternoon, I study at the {{library|biblioteca}}. On weekends, I visit my family or go to the park.",
         questions: [
-          { q: "¿Qué hace Sofía en la tarde?", options: ["Duerme", "Estudia en la biblioteca", "Trabaja"], correct: 1 },
-          { q: "¿A qué hora se despierta normalmente?", options: ["A las siete", "A las nueve", "A las doce"], correct: 0 }
+          { q: "What does Sofía do in the afternoon?", options: ["She sleeps", "She studies at the library", "She works"], correct: 1 },
+          { q: "What time does she usually wake up?", options: ["At seven", "At nine", "At twelve"], correct: 0 }
         ]
       },
       writing: {
@@ -1019,10 +955,10 @@
       },
       speaking: {
         phrases: [
-          { en: "I usually wake up at seven.", es: "Describir una rutina" },
-          { en: "I go to class every morning.", es: "Hablar de hábitos" },
-          { en: "What is your daily routine like?", es: "Preguntar por la rutina de alguien" },
-          { en: "See you at the library!", es: "Despedida con lugar de encuentro" }
+          { en: "I usually wake up at seven.", es: "Describing a routine" },
+          { en: "I go to class every morning.", es: "Talking about habits" },
+          { en: "What is your daily routine like?", es: "Asking about someone's routine" },
+          { en: "See you at the library!", es: "Farewell with meeting place" }
         ]
       },
       letter: {
@@ -1042,8 +978,8 @@
         title: "Learning English",
         passage: "In my opinion, learning English opens many doors. Some people believe {{practice|práctica}} is more important than perfection, while others prefer studying grammar first. Personally, I enjoy group {{discussions|discusiones}} because they help me improve my speaking skills quickly.",
         questions: [
-          { q: "¿Qué disfruta la autora?", options: ["Estudiar sola", "Las discusiones en grupo", "Ver televisión"], correct: 1 },
-          { q: "Para algunas personas, ¿qué es más importante que la perfección?", options: ["La práctica", "La gramática", "El vocabulario"], correct: 0 }
+          { q: "What does the author enjoy?", options: ["Studying alone", "Group discussions", "Watching TV"], correct: 1 },
+          { q: "For some people, what is more important than perfection?", options: ["Practice", "Grammar", "Vocabulary"], correct: 0 }
         ]
       },
       writing: {
@@ -1055,10 +991,10 @@
       },
       speaking: {
         phrases: [
-          { en: "In my opinion, practice matters most.", es: "Dar un punto de vista" },
-          { en: "I believe practice makes progress.", es: "Expresar una creencia" },
-          { en: "What do you think about studying abroad?", es: "Pedir la opinión de alguien" },
-          { en: "Let's discuss the advantages and disadvantages.", es: "Proponer un debate" }
+          { en: "In my opinion, practice matters most.", es: "Giving a point of view" },
+          { en: "I believe practice makes progress.", es: "Expressing a belief" },
+          { en: "What do you think about studying abroad?", es: "Asking someone's opinion" },
+          { en: "Let's discuss the advantages and disadvantages.", es: "Proposing a debate" }
         ]
       },
       letter: {
@@ -1078,8 +1014,8 @@
         title: "Renewable energy",
         passage: "Today's lecture is about renewable energy sources. Solar and wind power are growing rapidly worldwide because they reduce dependence on {{fossil fuels|combustibles fósiles}}. However, {{storage|almacenamiento}} remains a technical challenge that researchers are still trying to solve.",
         questions: [
-          { q: "¿De qué trata la conferencia?", options: ["Energías renovables", "Historia mundial", "Finanzas"], correct: 0 },
-          { q: "¿Cuál es el reto mencionado?", options: ["El costo", "El almacenamiento", "El transporte"], correct: 1 }
+          { q: "What is the lecture about?", options: ["Renewable energy", "World history", "Finance"], correct: 0 },
+          { q: "What is the challenge mentioned?", options: ["Cost", "Storage", "Transportation"], correct: 1 }
         ]
       },
       writing: {
@@ -1091,10 +1027,10 @@
       },
       speaking: {
         phrases: [
-          { en: "Today's lecture is about renewable energy.", es: "Introducir un tema" },
-          { en: "However, storage remains a challenge.", es: "Contrastar una idea" },
-          { en: "Let's summarize the key points.", es: "Cerrar una explicación" },
-          { en: "Some researchers argue that timelines vary.", es: "Citar una postura académica" }
+          { en: "Today's lecture is about renewable energy.", es: "Introducing a topic" },
+          { en: "However, storage remains a challenge.", es: "Contrasting an idea" },
+          { en: "Let's summarize the key points.", es: "Closing an explanation" },
+          { en: "Some researchers argue that timelines vary.", es: "Citing an academic stance" }
         ]
       },
       letter: {
@@ -1114,8 +1050,8 @@
         title: "Academic writing",
         passage: "A strong {{thesis statement|declaración de tesis}} guides the entire essay. Each paragraph should support the main argument with clear {{evidence|evidencia}}. Avoid vague statements without proof, and remember that a well-structured conclusion restates your position without repeating it word for word.",
         questions: [
-          { q: "¿Qué guía todo el ensayo?", options: ["La conclusión", "La declaración de tesis", "El título"], correct: 1 },
-          { q: "¿Qué debe hacer una buena conclusión?", options: ["Repetir todo el texto", "Restablecer la posición sin repetir literalmente", "Añadir nueva evidencia"], correct: 1 }
+          { q: "What guides the whole essay?", options: ["The conclusion", "The thesis statement", "The title"], correct: 1 },
+          { q: "What should a good conclusion do?", options: ["Repeat the whole text", "Restate the position without repeating word for word", "Add new evidence"], correct: 1 }
         ]
       },
       writing: {
@@ -1127,10 +1063,10 @@
       },
       speaking: {
         phrases: [
-          { en: "A strong thesis guides the essay.", es: "Explicar la función de la tesis" },
-          { en: "Let me support this claim with evidence.", es: "Reforzar un argumento" },
-          { en: "In conclusion, my position is clear.", es: "Cerrar una argumentación" },
-          { en: "This argument is backed by reliable sources.", es: "Citar fuentes confiables" }
+          { en: "A strong thesis guides the essay.", es: "Explaining the thesis's function" },
+          { en: "Let me support this claim with evidence.", es: "Reinforcing an argument" },
+          { en: "In conclusion, my position is clear.", es: "Closing an argument" },
+          { en: "This argument is backed by reliable sources.", es: "Citing reliable sources" }
         ]
       },
       letter: {
@@ -1151,8 +1087,8 @@
         title: "A quarterly call",
         passage: "Good morning everyone, thank you for joining this call. Today we will present our {{quarterly results|resultados trimestrales}}, which exceeded expectations. Please feel free to ask questions at any point, and I will now hand it over to my colleague for the {{roadmap|hoja de ruta}}.",
         questions: [
-          { q: "¿Qué superó las expectativas?", options: ["El clima", "Los resultados trimestrales", "El presupuesto"], correct: 1 },
-          { q: "¿Qué ocurre después de la presentación?", options: ["Se cancela la llamada", "Se cede la palabra a un colega", "Se repite la introducción"], correct: 1 }
+          { q: "What exceeded expectations?", options: ["The weather", "The quarterly results", "The budget"], correct: 1 },
+          { q: "What happens after the presentation?", options: ["The call is cancelled", "The floor is handed to a colleague", "The introduction is repeated"], correct: 1 }
         ]
       },
       writing: {
@@ -1164,10 +1100,10 @@
       },
       speaking: {
         phrases: [
-          { en: "Thank you for joining this call.", es: "Abrir una reunión formal" },
-          { en: "Our results exceeded expectations.", es: "Presentar resultados positivos" },
-          { en: "I'll hand it over to my colleague.", es: "Ceder la palabra" },
-          { en: "Let's move on to the next slide.", es: "Transicionar en una presentación" }
+          { en: "Thank you for joining this call.", es: "Opening a formal meeting" },
+          { en: "Our results exceeded expectations.", es: "Presenting positive results" },
+          { en: "I'll hand it over to my colleague.", es: "Handing over the floor" },
+          { en: "Let's move on to the next slide.", es: "Transitioning in a presentation" }
         ]
       },
       letter: {
@@ -1186,10 +1122,10 @@
   };
 
   var SKILL_META = {
-    reading: { icon: "📖", label: "Reading", desc: "Lee un texto corto y responde preguntas de comprensión.", xp: 15 },
-    writing: { icon: "✍️", label: "Writing", desc: "Arma oraciones en inglés arrastrando palabras.", xp: 15 },
-    speaking: { icon: "🗣️", label: "Speaking", desc: "Escucha y practica tu pronunciación en voz alta.", xp: 15 },
-    letter: { icon: "✉️", label: "Letter", desc: "Completa una carta o correo usando el banco de palabras.", xp: 20 }
+    reading: { icon: "📖", label: "Reading", desc: "Read a short text and answer comprehension questions.", xp: 15 },
+    writing: { icon: "✍️", label: "Writing", desc: "Build English sentences by dragging words.", xp: 15 },
+    speaking: { icon: "🗣️", label: "Speaking", desc: "Listen and practice your pronunciation out loud.", xp: 15 },
+    letter: { icon: "✉️", label: "Letter", desc: "Complete a letter or email using the word bank.", xp: 20 }
   };
   var SKILL_ORDER = ["reading", "writing", "speaking", "letter"];
 
@@ -1202,7 +1138,7 @@
     return (s || "").toLowerCase().replace(/[.,!?¿¡"']/g, "").trim();
   }
 
-  /* ---- Racha diaria ---- */
+  /* ---- Daily streak ---- */
   function touchStreak() {
     var today = new Date();
     var todayStr = today.toISOString().slice(0, 10);
@@ -1224,7 +1160,7 @@
   var xpToastTimer = null;
   function showXpToast(amount) {
     var toast = document.getElementById("xp-toast");
-    toast.textContent = "+" + amount + " XP ⚡ ¡Bien hecho!";
+    toast.textContent = "+" + amount + " XP ⚡ Well done!";
     toast.hidden = false;
     requestAnimationFrame(function () { toast.classList.add("show"); });
     if (xpToastTimer) clearTimeout(xpToastTimer);
@@ -1250,7 +1186,7 @@
     document.getElementById("skills-level-label").textContent = activeSkillsLevel;
   }
 
-  /* ---- Hub principal (grid de 4 tarjetas) ---- */
+  /* ---- Main hub (4-card grid) ---- */
   function openSkillsHub() {
     touchStreak();
     if (LEVELS.indexOf(LEVELS.filter(function (l) { return l.code === activeSkillsLevel; })[0]) === -1) {
@@ -1314,8 +1250,8 @@
         "<h3>" + meta.label + "</h3>" +
         "<p>" + meta.desc + "</p>" +
         '<div class="skill-card-foot">' +
-          '<span class="skill-card-xp">' + (done ? "✓ Sellado" : "+" + meta.xp + " XP") + "</span>" +
-          '<span class="skill-card-cta">' + (done ? "Repasar" : "Practicar") + "</span>" +
+          '<span class="skill-card-xp">' + (done ? "✓ Stamped" : "+" + meta.xp + " XP") + "</span>" +
+          '<span class="skill-card-cta">' + (done ? "Review" : "Practice") + "</span>" +
         "</div>";
       card.addEventListener("click", function () { openSkill(key); });
       card.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openSkill(key); } });
@@ -1342,15 +1278,7 @@
     var inner = document.getElementById("skill-panel-inner");
     inner.innerHTML =
       '<div class="skill-panel-head">' +
-<<<<<<< HEAD
-        '<p class="eyebrow">Nivel ' + activeSkillsLevel + " · " + SKILL_META[key].label + "</p>" +
-=======
-<<<<<<< HEAD
         '<p class="eyebrow">Level ' + activeSkillsLevel + " · " + SKILL_META[key].label + "</p>" +
-=======
-        '<p class="eyebrow">Nivel ' + activeSkillsLevel + " · " + SKILL_META[key].label + "</p>" +
->>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
->>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
         "<h3>" + (data.title || SKILL_META[key].label) + "</h3>" +
         "<p>" + SKILL_META[key].desc + "</p>" +
       "</div>" +
@@ -1375,7 +1303,7 @@
 
     var quizCard = document.createElement("div");
     quizCard.className = "exercise-card";
-    quizCard.innerHTML = '<p class="quiz-heading">Comprensión de lectura</p><div id="reading-quiz-body"></div><div class="quiz-result" id="reading-quiz-result" hidden><p id="reading-quiz-score"></p></div>';
+    quizCard.innerHTML = '<p class="quiz-heading">Reading Comprehension</p><div id="reading-quiz-body"></div><div class="quiz-result" id="reading-quiz-result" hidden><p id="reading-quiz-score"></p></div>';
     body.appendChild(quizCard);
 
     var qBody = quizCard.querySelector("#reading-quiz-body");
@@ -1408,7 +1336,7 @@
         });
         if (oi === q.correct) correctCount++;
         if (answered.every(Boolean)) {
-          document.getElementById("reading-quiz-score").textContent = "Obtuviste " + correctCount + " de " + data.questions.length + " correctas.";
+          document.getElementById("reading-quiz-score").textContent = "You got " + correctCount + " out of " + data.questions.length + " correct.";
           document.getElementById("reading-quiz-result").hidden = false;
           if (correctCount === data.questions.length) {
             awardXP(SKILL_META.reading.xp, "reading", activeSkillsLevel);
@@ -1436,12 +1364,12 @@
             return '<span class="exercise-dot' + (i < idx ? " done" : i === idx ? " current" : "") + '"></span>';
           }).join("") +
         "</div>" +
-        '<p class="builder-prompt-es">Traduce: “' + prompt.es + '”</p>' +
+        '<p class="builder-prompt-es">Translate: “' + prompt.es + '”</p>' +
         '<div class="builder-target" id="builder-target"></div>' +
         '<div class="builder-bank" id="builder-bank"></div>' +
         '<div class="builder-actions">' +
-          '<button class="btn btn-ghost-light" id="builder-clear" type="button">Borrar</button>' +
-          '<button class="btn btn-primary" id="builder-check" type="button">Verificar</button>' +
+          '<button class="btn btn-ghost-light" id="builder-clear" type="button">Clear</button>' +
+          '<button class="btn btn-primary" id="builder-check" type="button">Check</button>' +
         "</div>" +
         '<p class="builder-feedback" id="builder-feedback"></p>';
 
@@ -1495,7 +1423,7 @@
         var fb = card.querySelector("#builder-feedback");
         if (ok) {
           correctCount++;
-          fb.textContent = "¡Correcto! " + (idx < data.prompts.length - 1 ? "Siguiente oración…" : "¡Terminaste el ejercicio!");
+          fb.textContent = "Correct! " + (idx < data.prompts.length - 1 ? "Next sentence…" : "You finished the exercise!");
           fb.className = "builder-feedback ok";
           setTimeout(function () {
             idx++;
@@ -1506,14 +1434,14 @@
             }
           }, 700);
         } else {
-          fb.textContent = "Casi. Revisa el orden de las palabras e inténtalo otra vez.";
+          fb.textContent = "Almost. Check the word order and try again.";
           fb.className = "builder-feedback bad";
         }
       });
     }
 
     function finishWriting() {
-      card.innerHTML = '<p class="builder-feedback ok">✓ Completaste las ' + data.prompts.length + " oraciones (" + correctCount + "/" + data.prompts.length + ' en el primer intento).</p>';
+      card.innerHTML = '<p class="builder-feedback ok">✓ You completed all ' + data.prompts.length + " sentences (" + correctCount + "/" + data.prompts.length + ' on the first try).</p>';
       awardXP(SKILL_META.writing.xp, "writing", activeSkillsLevel);
     }
 
@@ -1530,8 +1458,8 @@
         '<p class="speaking-phrase-text">' + phrase.en + "</p>" +
         '<p class="speaking-phrase-hint">' + phrase.es + "</p>" +
         '<div class="speaking-controls">' +
-          '<button type="button" class="speak-btn listen">🔊 Escuchar</button>' +
-          '<button type="button" class="speak-btn record">🎤 Practicar</button>' +
+          '<button type="button" class="speak-btn listen">🔊 Listen</button>' +
+          '<button type="button" class="speak-btn record">🎤 Practice</button>' +
         "</div>" +
         '<p class="speaking-feedback"></p>';
       body.appendChild(card);
@@ -1550,7 +1478,7 @@
 
       recordBtn.addEventListener("click", function () {
         if (!SpeechRecognitionCtor) {
-          feedback.textContent = "✓ Marcado como practicado (tu navegador no soporta reconocimiento de voz).";
+          feedback.textContent = "✓ Marked as practiced (your browser does not support speech recognition).";
           feedback.className = "speaking-feedback ok";
           awardXP(4, "speaking", activeSkillsLevel);
           return;
@@ -1560,7 +1488,7 @@
         recognition.interimResults = false;
         recognition.maxAlternatives = 1;
         recordBtn.classList.add("recording");
-        recordBtn.textContent = "🎙️ Escuchando…";
+        recordBtn.textContent = "🎙️ Listening…";
         recognition.start();
 
         recognition.onresult = function (e) {
@@ -1570,38 +1498,38 @@
           var matches = targetWords.filter(function (w) { return saidWords.indexOf(w) !== -1; }).length;
           var score = targetWords.length ? Math.round((matches / targetWords.length) * 100) : 0;
           if (score >= 70) {
-            feedback.textContent = "¡Excelente pronunciación! (" + score + "% de coincidencia) — Dijiste: “" + transcript + "”";
+            feedback.textContent = "Excellent pronunciation! (" + score + "% match) — You said: “" + transcript + "”";
             feedback.className = "speaking-feedback ok";
             awardXP(4, "speaking", activeSkillsLevel);
           } else {
-            feedback.textContent = "Sigue practicando (" + score + "% de coincidencia) — Dijiste: “" + transcript + "”";
+            feedback.textContent = "Keep practicing (" + score + "% match) — You said: “" + transcript + "”";
             feedback.className = "speaking-feedback meh";
           }
         };
         recognition.onerror = function () {
-          feedback.textContent = "No pudimos acceder al micrófono. Revisa los permisos e inténtalo de nuevo.";
+          feedback.textContent = "We could not access the microphone. Check your permissions and try again.";
           feedback.className = "speaking-feedback meh";
         };
         recognition.onend = function () {
           recordBtn.classList.remove("recording");
-          recordBtn.textContent = "🎤 Practicar";
+          recordBtn.textContent = "🎤 Practice";
         };
       });
     });
 
     var note = document.createElement("p");
     note.className = "speaking-note";
-    note.textContent = "Sugerencia: usa audífonos con micrófono en un lugar silencioso para mejores resultados.";
+    note.textContent = "Tip: use headphones with a microphone in a quiet place for best results.";
     body.appendChild(note);
 
     if (data.phrases.length && state.skillProgress.speaking.indexOf(activeSkillsLevel) === -1) {
       var finishRow = document.createElement("div");
       finishRow.className = "exercise-card";
-      finishRow.innerHTML = '<p class="quiz-heading">¿Ya practicaste las frases?</p><button class="btn btn-primary" id="speaking-finish">Sellar habilidad</button>';
+      finishRow.innerHTML = '<p class="quiz-heading">Have you practiced the phrases?</p><button class="btn btn-primary" id="speaking-finish">Stamp Skill</button>';
       body.appendChild(finishRow);
       finishRow.querySelector("#speaking-finish").addEventListener("click", function () {
         awardXP(SKILL_META.speaking.xp, "speaking", activeSkillsLevel);
-        finishRow.innerHTML = '<p class="builder-feedback ok">✓ ¡Speaking sellado para el nivel ' + activeSkillsLevel + "!</p>";
+        finishRow.innerHTML = '<p class="builder-feedback ok">✓ Speaking stamped for level ' + activeSkillsLevel + "!</p>";
       });
     }
   }
@@ -1620,9 +1548,9 @@
     var bankCard = document.createElement("div");
     bankCard.className = "exercise-card";
     var bankWords = shuffleCopy(data.blanks.map(function (b) { return b.answer; }).concat(data.distractors || []));
-    bankCard.innerHTML = '<p class="quiz-heading">Banco de palabras</p><div class="letter-bank" id="letter-bank"></div>' +
-      '<div class="letter-check-row"><button class="btn btn-primary" id="letter-check" type="button">Verificar carta</button>' +
-      '<button class="btn btn-ghost-light" id="letter-reset" type="button">Reiniciar</button></div>' +
+    bankCard.innerHTML = '<p class="quiz-heading">Word Bank</p><div class="letter-bank" id="letter-bank"></div>' +
+      '<div class="letter-check-row"><button class="btn btn-primary" id="letter-check" type="button">Check Letter</button>' +
+      '<button class="btn btn-ghost-light" id="letter-reset" type="button">Reset</button></div>' +
       '<p class="letter-result" id="letter-result"></p>';
     body.appendChild(bankCard);
 
@@ -1691,11 +1619,11 @@
       });
       var resultEl = bankCard.querySelector("#letter-result");
       if (correct === total) {
-        resultEl.textContent = "✓ ¡Carta completa y correcta! (" + correct + "/" + total + ")";
+        resultEl.textContent = "✓ Letter complete and correct! (" + correct + "/" + total + ")";
         resultEl.style.color = "var(--green-dark)";
         awardXP(SKILL_META.letter.xp, "letter", activeSkillsLevel);
       } else {
-        resultEl.textContent = "Tienes " + correct + " de " + total + " correctas. Ajusta los espacios en rojo.";
+        resultEl.textContent = "You have " + correct + " out of " + total + " correct. Fix the blanks in red.";
         resultEl.style.color = "var(--red)";
       }
     });
@@ -1703,9 +1631,9 @@
     renderBank();
   }
 
-  /* ============ RECARGA DE ESTADO (llamada por auth.js tras iniciar sesión) ============
-     No recargamos la página: releemos el progreso ya con window.__UTN_UID__
-     puesto, y volvemos a pintar la vista en la que la persona ya estaba. */
+  /* ============ STATE RELOAD (called by auth.js after logging in) ============
+     We don't reload the page: we reread progress now with window.__UTN_UID__
+     set, and repaint the view the person was already on. */
   function reloadAppState() {
     state = loadProgress();
     activeLevelIndex = state.currentLevelIndex;

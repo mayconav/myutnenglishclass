@@ -3,7 +3,7 @@
    Esto evita que un elemento "oculto" siga mostrándose por accidente. */
 [hidden]{ display: none !important; }
 
-/* ============ TOKENS — Identidad UTN (colores extraídos del escudo oficial) ============
+/* ============ TOKENS — UTN Identity (colors extracted from the official crest) ============
    Azul rey, rojo y verde esmeralda del sello institucional, sobre blanco/negro
    como en el propio emblema (anillo azul, rayos rojos, círculo verde, "UT"). */
 :root{
@@ -235,7 +235,7 @@ main{ max-width: 1100px; margin: 0 auto; padding: 48px 24px 80px; }
 }
 .gate-card-btn:hover{ text-decoration: underline; }
 
-/* ============ LECCIÓN ============ */
+/* ============ LESSON ============ */
 .lesson-layout{ display:grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items:start; }
 
 .player-card, .quiz-card{
@@ -290,7 +290,7 @@ main{ max-width: 1100px; margin: 0 auto; padding: 48px 24px 80px; }
 .summary-num{ display:block; font-family: var(--font-display); font-size: 28px; font-weight:700; color: var(--ink); }
 .summary-label{ font-size: 12px; color: var(--text-secondary); }
 
-/* Sellos: réplica del propio escudo — anillo azul, anillo rojo, centro verde */
+/* Stamps: replica of the crest itself — blue ring, red ring, green center */
 .passport{ display:grid; grid-template-columns: repeat(6,1fr); gap: 10px; margin-bottom: 32px; }
 .stamp{
   aspect-ratio: 1; border-radius: 50%; border: 2px dashed var(--paper-line);
@@ -656,7 +656,7 @@ a:focus-visible, button:focus-visible, select:focus-visible{
 .admin-view-body p{ font-size: 14px; margin: 0 0 8px; }
 .edit-correo-display{ font-size: 14px; color: var(--text-secondary); margin: 4px 0 4px; }
 
-/* ============ ESTADÍSTICAS DEL ADMIN ============ */
+/* ============ ADMIN STATISTICS ============ */
 .admin-stats{ display:grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 4px 0 22px; }
 .admin-stat-card{
   background: var(--surface); border:1px solid var(--border); border-radius: var(--radius-md);
@@ -683,7 +683,7 @@ a:focus-visible, button:focus-visible, select:focus-visible{
 .group-select:focus{ outline:none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(12,78,184,0.16); }
 .group-select:hover{ border-color: var(--blue-light); }
 
-/* ============ ZONA DE PELIGRO: confirmación escribiendo la matrícula ============ */
+/* ============ DANGER ZONE: confirmation by typing the student ID ============ */
 .admin-danger-confirm{
   margin-top: 12px; padding: 14px; border-radius: var(--radius-sm);
   background: rgba(226,20,27,0.06); border: 1px solid rgba(226,20,27,0.25);
@@ -732,7 +732,7 @@ a:focus-visible, button:focus-visible, select:focus-visible{
   --glass-shadow: 0 1px 1px rgba(0,0,0,0.35), 0 22px 44px -14px rgba(0,0,0,0.65);
 }
 
-/* ---- Fondo ambiental: manchas de color difuminadas detrás de todo ---- */
+/* ---- Ambient background: blurred color blobs behind everything ---- */
 body{ position: relative; }
 body::before{
   content:""; position: fixed; inset: -12%; z-index: -1; pointer-events:none;
@@ -766,7 +766,7 @@ body::before{
   box-shadow: 0 12px 30px -14px rgba(8,58,138,0.45);
 }
 
-/* ---- Tarjetas y paneles: cristal translúcido con blur ---- */
+/* ---- Cards and panels: translucent glass with blur ---- */
 .boarding-pass, .feature-card, .deliverables, .gate-card, .quiz-card,
 .summary-card, .certificate-card, .modal-card, .auth-card,
 .admin-table-wrap, .player-bar, .congrats-card, .admin-stat-card, .material-block,
@@ -799,13 +799,13 @@ body::before{
 }
 .bp-stub{ background: transparent; }
 
-/* ---- Overlays: desenfocan lo que hay detrás, como una hoja de cristal ---- */
+/* ---- Overlays: blur what's behind, like a sheet of glass ---- */
 .modal-overlay, .auth-gate{
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
 
-/* ---- Botones: forma de píldora, cristal en los secundarios ---- */
+/* ---- Buttons: pill shape, glass on secondary ones ---- */
 .btn{ border-radius: 999px; }
 .btn-primary{
   background: linear-gradient(180deg, var(--red-light), var(--red));
@@ -837,7 +837,7 @@ body::before{
   border: 1px solid rgba(255,255,255,0.2);
 }
 
-/* ---- Botones pequeños del panel de administrador ---- */
+/* ---- Small buttons in the admin panel ---- */
 .btn-mini{
   background: var(--glass-bg);
   backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
@@ -845,7 +845,7 @@ body::before{
   border-radius: 999px;
 }
 
-/* ---- Superficies de interacción: quiz, inputs, avatares, pestañas ---- */
+/* ---- Interactive surfaces: quiz, inputs, avatars, tabs ---- */
 .quiz-option, .fill-input, .match-item, .avatar-option{
   background: var(--glass-bg);
   backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
@@ -872,11 +872,11 @@ body::before{
 /* ---- Modal de progreso/vista en admin, badges ---- */
 .admin-badge{ backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
 
-/* ---- Pase de abordar: marco de código de barras más suave sobre cristal ---- */
+/* ---- Boarding pass: softer barcode frame over glass ---- */
 .bp-progress-track{ background: rgba(18,18,18,0.08); }
 :root[data-theme="dark"] .bp-progress-track{ background: rgba(255,255,255,0.10); }
 
-/* ---- Corrección de contraste: colores de marca ilegibles sobre cristal oscuro ---- */
+/* ---- Contrast fix: brand colors unreadable over dark glass ---- */
 :root[data-theme="dark"] .bp-title{ color: #7FA8EA; }
 :root[data-theme="dark"] .bp-field{ color: var(--green-light); }
 :root[data-theme="dark"] .gate-code{ color: #7FA8EA; }
@@ -921,15 +921,7 @@ body::before{
   .admin-stats .admin-stat-card:nth-child(3){ animation-delay: .16s; }
   .admin-stats .admin-stat-card:nth-child(4){ animation-delay: .22s; }
 
-<<<<<<< HEAD
-  /* Lección: reproductor entra primero, el quiz justo después */
-=======
-<<<<<<< HEAD
-  /* Lesson: reproductor entra primero, el quiz justo después */
-=======
-  /* Lección: reproductor entra primero, el quiz justo después */
->>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
->>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
+  /* Lesson: player enters first, quiz right after */
   .lesson-layout .quiz-card{ animation-delay: .08s; }
 
   /* Progreso: resumen, sellos y certificado entran en cascada */
@@ -945,12 +937,12 @@ body::before{
   .certificate-card{ animation-delay: .34s; }
   .deliverables{ animation-delay: .40s; }
 
-  /* Encabezado de cada sección: mismo ascenso suave, sin importar la vista */
+  /* Header for each section: same smooth rise, regardless of view */
   .section-head > *{ animation: riseIn .5s cubic-bezier(.22,1,.36,1) both; }
   .section-head > *:nth-child(2){ animation-delay: .06s; }
   .section-head > *:nth-child(3){ animation-delay: .12s; }
 
-  /* ---- Fondo ambiental: segunda capa a otro ritmo, sensación de profundidad ---- */
+  /* ---- Ambient background: second layer at a different pace, sense of depth ---- */
   .site-header::after{
     content:""; position:absolute; inset:0; pointer-events:none; opacity:.5;
     background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.10) 45%, transparent 55%);
@@ -985,7 +977,7 @@ body::before{
 .admin-table tbody tr:hover{ background: rgba(12,78,184,0.06); }
 :root[data-theme="dark"] .admin-table tbody tr:hover{ background: rgba(127,168,234,0.08); }
 
-/* ---- Íconos: respiración sutil, constante pero discreta ---- */
+/* ---- Icons: subtle breathing, constant but discreet ---- */
 @media (prefers-reduced-motion: no-preference){
   @keyframes breathe{ 0%,100%{ transform: scale(1); } 50%{ transform: scale(1.07); } }
   .feature-icon{ animation: breathe 4.5s ease-in-out infinite; }
@@ -1018,7 +1010,7 @@ body::before{
   }
 }
 
-/* ---- Menú: subrayado animado bajo el enlace activo/hover ---- */
+/* ---- Menu: animated underline below the active/hover link ---- */
 .main-nav a{ position: relative; }
 .main-nav a::after{
   content:""; position:absolute; left:0; right:100%; bottom:-4px; height:2px;
@@ -1026,7 +1018,7 @@ body::before{
 }
 .main-nav a:hover::after, .main-nav a.active::after{ right:0; }
 
-/* ---- Botón de tema: giro al alternar ---- */
+/* ---- Theme button: rotation on toggle ---- */
 #theme-toggle-icon{ display:inline-block; transition: transform .2s ease; }
 #theme-toggle-icon.spin{ animation: themeSpin .5s cubic-bezier(.34,1.56,.64,1); }
 @keyframes themeSpin{
@@ -1034,14 +1026,14 @@ body::before{
   to{ transform: rotate(360deg) scale(1); opacity:1; }
 }
 
-/* ---- Modal: entrada con un poco más de resorte ---- */
+/* ---- Modal: entrance with a bit more spring ---- */
 @keyframes modalPop{
   from{ opacity:0; transform: translateY(14px) scale(.96); }
   to{ opacity:1; transform:none; }
 }
 .modal-card, .auth-card{ animation: modalPop .32s cubic-bezier(.34,1.56,.64,1) both; }
 
-/* ---- Campo de contraseña con botón para mostrar/ocultar ---- */
+/* ---- Password field with show/hide button ---- */
 .password-field{ position: relative; margin-bottom: 12px; }
 .password-field .modal-input{ margin-bottom: 0; padding-right: 42px; }
 .password-toggle{
@@ -1069,7 +1061,7 @@ body::before{
   content:"✈"; font-size: 11px; transform: rotate(45deg); display:inline-block;
 }
 
-/* ---- Íconos de tarjetas: degradado con resplandor de color propio ---- */
+/* ---- Card icons: gradient with their own color glow ---- */
 .feature-icon{
   background: linear-gradient(135deg, var(--blue-light), var(--blue));
   box-shadow: 0 8px 18px -4px rgba(12,78,184,0.55), inset 0 1px 0 rgba(255,255,255,0.35);
@@ -1079,7 +1071,7 @@ body::before{
 .feature-card:nth-child(2) .feature-icon{ background: linear-gradient(135deg, var(--green-light), var(--green)); box-shadow: 0 8px 18px -4px rgba(12,156,97,0.5), inset 0 1px 0 rgba(255,255,255,0.35); }
 .feature-card:hover .feature-icon{ transform: scale(1.12) rotate(-6deg); }
 
-/* ---- Encabezados de sección: pequeño acento de color junto al eyebrow ---- */
+/* ---- Section headers: small color accent next to the eyebrow ---- */
 .section-head .eyebrow{ position: relative; padding-left: 16px; }
 .section-head .eyebrow::before{
   content:""; position:absolute; left:0; top:50%; translate: 0 -50%;
@@ -1088,7 +1080,7 @@ body::before{
   box-shadow: 0 0 10px rgba(226,20,27,0.5);
 }
 
-/* ---- Ícono del pase de abordar: halo suave detrás del avatar ---- */
+/* ---- Boarding pass icon: soft halo behind the avatar ---- */
 .bp-icon{
   display:inline-flex; align-items:center; justify-content:center;
   width: 40px; height:40px; border-radius:50%;
@@ -1096,7 +1088,7 @@ body::before{
   box-shadow: 0 0 0 1px var(--glass-border), 0 6px 16px -4px rgba(12,78,184,0.35);
 }
 
-/* ---- Tarjetas de nivel: resplandor de color según su franja superior ---- */
+/* ---- Level cards: color glow matching their top stripe ---- */
 .gate-card{ position: relative; }
 .gate-card::before{
   content:""; position:absolute; inset:0; border-radius: inherit; z-index:-1;
@@ -1105,7 +1097,7 @@ body::before{
 }
 .gate-card:hover::before{ opacity:1; }
 
-/* ---- Botón "Empezar lección": resplandor de marca pulsante y discreto ---- */
+/* ---- "Start Lesson" button: subtle pulsing brand glow ---- */
 @media (prefers-reduced-motion: no-preference){
   @keyframes ctaGlow{
     0%,100%{ box-shadow: var(--shadow-blue), inset 0 1px 0 rgba(255,255,255,0.35); }
@@ -1122,7 +1114,7 @@ body::before{
    progreso, footer, modales). Todo respeta prefers-reduced-motion.
    ========================================================================== */
 
-/* ---- HEADER: logo con "respiración" al pasar el mouse + hamburguesa que se
+/* ---- HEADER: logo "breathing" on hover + hamburger that
    convierte en X usando el aria-expanded que ya pone el JS (sin tocar JS) ---- */
 .logo-mark{ transition: transform .35s cubic-bezier(.34,1.56,.64,1); }
 .logo:hover .logo-mark{ transform: scale(1.08) rotate(-6deg); }
@@ -1134,7 +1126,7 @@ body::before{
 #nav-toggle[aria-expanded="true"] span:nth-child(2){ opacity: 0; transform: scaleX(0); }
 #nav-toggle[aria-expanded="true"] span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
 
-/* ---- HERO: un pequeño avión recorre una ruta punteada de fondo, como el
+/* ---- HERO: a small plane travels along a dotted background path, like the
    "vuelo a la fluidez" del pase de abordar ---- */
 .hero{ isolation: isolate; }
 .hero-copy{ position: relative; }
@@ -1151,7 +1143,7 @@ body::before{
     100%{ transform: translate(128vw, -18px) rotate(28deg); opacity:0; }
   }
 }
-/* Pase de abordar: ligera inclinación 3D al pasar el cursor, como si lo tomaras de la mesa */
+/* Boarding pass: slight 3D tilt on hover, as if picking it up off the table */
 .boarding-pass{ transform-style: preserve-3d; perspective: 800px; transition: transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s ease; }
 .boarding-pass:hover{ transform: translateY(-4px) rotateX(2deg) rotateY(-2deg); box-shadow: 0 22px 46px rgba(0,0,0,0.32); }
 .bp-icon{ transition: transform .3s cubic-bezier(.34,1.56,.64,1); }
@@ -1174,7 +1166,7 @@ body::before{
 .gate-code{ transition: transform .25s cubic-bezier(.34,1.56,.64,1), color .2s ease; }
 .gate-card:not(.locked):hover .gate-code{ transform: translateX(2px); color: var(--red); }
 
-/* ---- LECCIÓN: ecualizador visual mientras suena el audio + pestañas y
+/* ---- LESSON: visual equalizer while audio plays + tabs and
    opciones de quiz con más respuesta al tacto ---- */
 .player-visual{ position: relative; overflow:hidden; }
 #player-icon{ transition: transform .3s ease; z-index:1; }
@@ -1224,7 +1216,7 @@ body::before{
   .certificate-card:has(#certificate-btn:not(:disabled)){ animation: certGlow 2.6s ease-in-out infinite; }
 }
 
-/* ---- FOOTER: misma sensación de brillo recorriendo el borde, como el header ---- */
+/* ---- FOOTER: same glow-along-the-edge feel as the header ---- */
 .site-footer{ position: relative; overflow:hidden; }
 @media (prefers-reduced-motion: no-preference){
   .site-footer::before{
@@ -1243,7 +1235,7 @@ body::before{
 .avatar-option:hover{ transform: scale(1.08); }
 .auth-tab{ transition: color .2s ease, border-color .2s ease; }
 
-/* ---- MATERIAL DE APOYO: acento de color (va después de la capa de cristal
+/* ---- SUPPORT MATERIAL: color accent (goes after the glass layer
    para que sobreviva al border shorthand) + entrada suave de cada bloque ---- */
 .material-block{ border-left: 4px solid var(--blue); }
 .material-table th:first-child, .material-table th:last-child{ border-radius: 0; }
@@ -1317,7 +1309,7 @@ body::before{
   background: var(--skill-accent, var(--blue)); padding: 6px 14px; border-radius: 999px;
 }
 .skill-card.done::after{
-  content:"✓ Completado"; position:absolute; top:14px; right:14px;
+  content:"✓ Completed"; position:absolute; top:14px; right:14px;
   font-family: var(--font-display); font-size:10px; font-weight:700; color: var(--green-dark);
   background: rgba(12,156,97,0.14); padding:3px 9px; border-radius:999px;
 }
@@ -1438,7 +1430,7 @@ body::before{
 :root[data-theme="dark"] .letter-blank{ color: #7FA8EA; }
 :root[data-theme="dark"] .skills-level-chip{ background: rgba(255,255,255,0.06); }
 
-/* ============ GRAMÁTICA ============ */
+/* ============ GRAMMAR ============ */
 .grammar-template-card{
   background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card); padding: 26px 28px; margin-bottom: 28px;

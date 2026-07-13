@@ -6,12 +6,12 @@
   function show(el) { el.hidden = false; }
   function hide(el) { el.hidden = true; }
 
-  function defaultProgress(nombre) {
+  function defaultProgress(name) {
     return {
       currentLevelIndex: 0,
       completedLessons: [],
       stamps: [],
-      profile: { name: nombre || "Estudiante UTN", avatar: "🎓" },
+      profile: { name: name || "UTN Student", avatar: "🎓" },
       congratsShown: false
     };
   }
@@ -65,39 +65,31 @@
   $("auth-close").addEventListener("click", function () { hide(gate); });
   gate.addEventListener("click", function (e) { if (e.target === gate) hide(gate); });
 
-  /* ============ TODAS LAS SECCIONES SON PÚBLICAS ============
-<<<<<<< HEAD
-     Cualquier persona puede navegar y ver Inicio, Niveles, Lección, Habilidades,
-=======
-<<<<<<< HEAD
-     Cualquier persona puede navegar y ver Inicio, Leveles, Lesson, Habilidades,
-=======
-     Cualquier persona puede navegar y ver Inicio, Niveles, Lección, Habilidades,
->>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
->>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
-     Progreso, Material de apoyo y Gramática sin iniciar sesión ni registrarse.
-     js/app.js se carga siempre y controla la navegación completa (para
-     invitados usa localStorage bajo la clave "local"; para estudiantes,
-     bajo su UID). Lo único que sigue requiriendo cuenta es RESOLVER o
-     ENVIAR una actividad (quiz, ejercicio de habilidad, certificado):
-     ver el bloque "GATE DE ACTIVIDADES" más abajo. */
+  /* ============ ALL SECTIONS ARE PUBLIC ============
+     Anyone can browse and view Home, Levels, Lesson, Skills,
+     Progress, Support Material, and Grammar without logging in or registering.
+     js/app.js is always loaded and controls full navigation (for
+     guests it uses localStorage under the "local" key; for students,
+     under their UID). The only thing that still requires an account is SOLVING
+     or SUBMITTING an activity (quiz, skill exercise, certificate):
+     see the "ACTIVITY GATE" block below. */
 
-  /* ============ GATE DE ACTIVIDADES (resolver/enviar) ============
-     Intercepta en fase de captura -antes de que los propios manejadores de
-     app.js se ejecuten- cualquier clic sobre un control que "resuelve" una
-     actividad. Si no hay sesión de estudiante, cancela el clic y abre el
-     login/registro en vez de procesar la respuesta. La navegación entre
-     secciones NO se ve afectada: solo se bloquea la acción de resolver. */
+  /* ============ ACTIVITY GATE (solve/submit) ============
+     Intercepts in the capture phase -before app.js's own handlers
+     run- any click on a control that "solves" an
+     activity. If there is no student session, it cancels the click and opens
+     login/register instead of processing the answer. Navigation between
+     sections is NOT affected: only the solving action is blocked. */
   var ACTIVITY_SELECTORS = [
-    ".quiz-option",          // opción de opción múltiple (lección y reading)
-    ".fill-check",           // verificar respuesta de completar espacio
-    ".match-item",           // relacionar conceptos
-    "#quiz-next-btn",        // sellar avance y continuar
-    "#builder-check",        // verificar oración (writing)
-    ".speak-btn.record",     // practicar pronunciación (speaking)
-    "#speaking-finish",      // sellar habilidad de speaking
-    "#letter-check",         // verificar carta
-    "#certificate-btn"       // descargar certificado
+    ".quiz-option",          // multiple-choice option (lesson and reading)
+    ".fill-check",           // check fill-in-the-blank answer
+    ".match-item",           // matching exercise
+    "#quiz-next-btn",        // stamp progress and continue
+    "#builder-check",        // check sentence (writing)
+    ".speak-btn.record",     // practice pronunciation (speaking)
+    "#speaking-finish",      // stamp speaking skill
+    "#letter-check",         // check letter
+    "#certificate-btn"       // download certificate
   ].join(", ");
 
   document.addEventListener("click", function (e) {
@@ -108,24 +100,24 @@
     e.stopPropagation();
     if (typeof e.stopImmediatePropagation === "function") e.stopImmediatePropagation();
     openGate("login");
-    setGateError("Inicia sesión o regístrate para resolver esta actividad.");
+    setGateError("Log in or sign up to complete this activity.");
   }, true);
 
   function friendlyAuthError(err) {
     var code = err && err.code;
     var map = {
-      "auth/invalid-email": "El correo no tiene un formato válido.",
-      "auth/user-not-found": "No existe una cuenta con ese correo.",
-      "auth/wrong-password": "Contraseña incorrecta.",
-      "auth/invalid-credential": "Correo o contraseña incorrectos.",
-      "auth/email-already-in-use": "Ya existe una cuenta registrada con ese correo.",
-      "auth/weak-password": "La contraseña debe tener al menos 6 caracteres.",
-      "auth/too-many-requests": "Demasiados intentos. Espera un momento e intenta de nuevo."
+      "auth/invalid-email": "The email format is not valid.",
+      "auth/user-not-found": "No account exists with that email.",
+      "auth/wrong-password": "Incorrect password.",
+      "auth/invalid-credential": "Incorrect email or password.",
+      "auth/email-already-in-use": "An account with that email already exists.",
+      "auth/weak-password": "The password must be at least 6 characters long.",
+      "auth/too-many-requests": "Too many attempts. Wait a moment and try again."
     };
-    return (map[code]) || "Ocurrió un error. Intenta de nuevo.";
+    return (map[code]) || "An error occurred. Please try again.";
   }
 
-  /* ============ MOSTRAR/OCULTAR CONTRASEÑA ============ */
+  /* ============ SHOW/HIDE PASSWORD ============ */
   document.addEventListener("click", function (e) {
     var btn = e.target.closest(".password-toggle");
     if (!btn) return;
@@ -134,7 +126,7 @@
     var showing = input.type === "text";
     input.type = showing ? "password" : "text";
     btn.textContent = showing ? "👁" : "🙈";
-    btn.setAttribute("aria-label", showing ? "Mostrar contraseña" : "Ocultar contraseña");
+    btn.setAttribute("aria-label", showing ? "Show password" : "Hide password");
   });
 
   /* ============ LOGIN ============ */
@@ -144,67 +136,67 @@
     if (!window.__UTN_FIREBASE_READY__) { show(gateConfigWarning); return; }
     var email = normalizeEmail($("login-email").value);
     var pass = $("login-password").value;
-    if (!email || !pass) { setGateError("Completa correo y contraseña."); return; }
+    if (!email || !pass) { setGateError("Fill in email and password."); return; }
 
     var btn = $("login-submit");
-    btn.disabled = true; btn.textContent = "Entrando…";
+    btn.disabled = true; btn.textContent = "Logging in…";
 
     auth.signInWithEmailAndPassword(email, pass)
       .catch(function (err) {
         setGateError(friendlyAuthError(err));
       })
       .finally(function () {
-        btn.disabled = false; btn.textContent = "Iniciar sesión";
+        btn.disabled = false; btn.textContent = "Log In";
       });
   });
 
   $("forgot-password").addEventListener("click", function (e) {
     e.preventDefault();
     var email = normalizeEmail($("login-email").value);
-    if (!email) { setGateError("Escribe tu correo arriba y vuelve a presionar 'Olvidé mi contraseña'."); return; }
+    if (!email) { setGateError("Enter your email above and press 'Forgot my password' again."); return; }
     auth.sendPasswordResetEmail(email)
-      .then(function () { setGateError("Te enviamos un correo para restablecer tu contraseña."); })
+      .then(function () { setGateError("We sent you an email to reset your password."); })
       .catch(function (err) { setGateError(friendlyAuthError(err)); });
   });
 
-  /* ============ REGISTRO (solo estudiantes) ============ */
+  /* ============ REGISTRATION (students only) ============ */
   registerForm.addEventListener("submit", function (e) {
     e.preventDefault();
     setGateError("");
     if (!window.__UTN_FIREBASE_READY__) { show(gateConfigWarning); return; }
-    var nombre = $("reg-nombre").value.trim();
+    var name = $("reg-nombre").value.trim();
     var email = normalizeEmail($("reg-email").value);
-    var boleta = $("reg-boleta").value.trim();
+    var studentId = $("reg-boleta").value.trim();
     var pass = $("reg-password").value;
     var pass2 = $("reg-password2").value;
 
-    if (!nombre || !email || !boleta || !pass) { setGateError("Completa todos los campos."); return; }
-    if (pass.length < 6) { setGateError("La contraseña debe tener al menos 6 caracteres."); return; }
-    if (pass !== pass2) { setGateError("Las contraseñas no coinciden."); return; }
-    if (normalizeEmail(email) === normalizeEmail(ADMIN_EMAIL)) { setGateError("Ese correo está reservado para el administrador."); return; }
-    if (!emailDomainOk(email)) { setGateError("Usa tu correo institucional (@" + ALLOWED_EMAIL_DOMAIN + ")."); return; }
+    if (!name || !email || !studentId || !pass) { setGateError("Fill in all fields."); return; }
+    if (pass.length < 6) { setGateError("The password must be at least 6 characters long."); return; }
+    if (pass !== pass2) { setGateError("Passwords do not match."); return; }
+    if (normalizeEmail(email) === normalizeEmail(ADMIN_EMAIL)) { setGateError("That email is reserved for the administrator."); return; }
+    if (!emailDomainOk(email)) { setGateError("Use your institutional email (@" + ALLOWED_EMAIL_DOMAIN + ")."); return; }
 
     var btn = $("register-submit");
-    btn.disabled = true; btn.textContent = "Creando cuenta…";
+    btn.disabled = true; btn.textContent = "Creating account…";
 
     auth.createUserWithEmailAndPassword(email, pass)
       .then(function (cred) {
         return db.collection("students").doc(cred.user.uid).set({
-          nombre: nombre,
+          nombre: name,
           correo: email,
-          boleta: boleta,
+          boleta: studentId,
           grupo: "",
           disabled: false,
           createdAt: firebase.firestore.FieldValue.serverTimestamp(),
           updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-          progress: defaultProgress(nombre)
+          progress: defaultProgress(name)
         });
       })
       .catch(function (err) {
         setGateError(friendlyAuthError(err));
       })
       .finally(function () {
-        btn.disabled = false; btn.textContent = "Crear cuenta";
+        btn.disabled = false; btn.textContent = "Create Account";
       });
   });
 
@@ -218,7 +210,7 @@
   wireLogout("logout-btn");
   wireLogout("admin-logout-btn");
 
-  /* ============ SYNC DE PROGRESO (estudiante) ============ */
+  /* ============ PROGRESS SYNC (student) ============ */
   var syncTimer = null;
   function makeSync(uid) {
     return function (progress) {
@@ -227,7 +219,7 @@
         db.collection("students").doc(uid).update({
           progress: progress,
           updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-        }).catch(function () { /* se reintentará en el próximo cambio */ });
+        }).catch(function () { /* will retry on the next change */ });
       }, 800);
     };
   }
@@ -240,17 +232,17 @@
     show($("main"));
     show($("header-authed-actions"));
     hide($("auth-open-btn"));
-    $("nav-student-name").textContent = data.nombre || "Estudiante UTN";
+    $("nav-student-name").textContent = data.nombre || "UTN Student";
 
-    if (window.__UTN_UID__ === uid) return; // ya estaba cargado el estado de este estudiante
+    if (window.__UTN_UID__ === uid) return; // this student's state was already loaded
 
     window.__UTN_UID__ = uid;
     window.__UTN_SYNC__ = makeSync(uid);
     try {
       localStorage.setItem("myutn_progress_v2_" + uid, JSON.stringify(data.progress || defaultProgress(data.nombre)));
     } catch (e) {}
-    /* app.js ya está cargado (sirvió el contenido como invitado). Le pedimos
-       que relea el progreso, ahora bajo la clave del estudiante real. */
+    /* app.js is already loaded (it served the content as a guest). We ask it
+       to reread progress, now under the real student's key. */
     if (typeof window.__UTN_APP_RELOAD__ === "function") window.__UTN_APP_RELOAD__();
   }
 
@@ -263,7 +255,7 @@
     show($("main"));
   }
 
-  /* ============ SESIÓN ============ */
+  /* ============ SESSION ============ */
   auth.onAuthStateChanged(function (user) {
     if (suppressNextNullReset && !user) { suppressNextNullReset = false; return; }
 
@@ -287,7 +279,7 @@
 
     db.collection("students").doc(user.uid).get().then(function (doc) {
       if (!doc.exists) {
-        setGateError("No encontramos tu registro de estudiante. Contacta a tu profesor.");
+        setGateError("We could not find your student record. Contact your teacher.");
         show(gate);
         suppressNextNullReset = true;
         auth.signOut();
@@ -295,7 +287,7 @@
       }
       var data = doc.data();
       if (data.disabled) {
-        setGateError("Tu cuenta fue deshabilitada por el profesor. Contacta a tu profesor.");
+        setGateError("Your account was disabled by the teacher. Contact your teacher.");
         show(gate);
         suppressNextNullReset = true;
         auth.signOut();
@@ -303,39 +295,39 @@
       }
       startStudentSession(user.uid, data);
     }).catch(function () {
-      setGateError("No se pudo verificar tu cuenta. Revisa tu conexión e intenta de nuevo.");
+      setGateError("We could not verify your account. Check your connection and try again.");
       show(gate);
       suppressNextNullReset = true;
       auth.signOut();
     });
   });
 
-  /* ============ PANEL DE ADMINISTRADOR ============ */
+  /* ============ ADMIN PANEL ============ */
   var LEVEL_CODES = ["A1", "A2", "B1", "B2", "C1", "C2"];
   var allStudents = [];
 
   function fmtDate(ts) {
     if (!ts || !ts.toDate) return "—";
-    return ts.toDate().toLocaleDateString("es-MX", { year: "numeric", month: "short", day: "numeric" });
+    return ts.toDate().toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
   }
 
   function studentRowHtml(id, d) {
     var progress = d.progress || {};
-    var nivel = LEVEL_CODES[progress.currentLevelIndex || 0] || "A1";
-    var sellos = (progress.stamps || []).length;
+    var level = LEVEL_CODES[progress.currentLevelIndex || 0] || "A1";
+    var stamps = (progress.stamps || []).length;
     return (
       '<tr data-id="' + id + '">' +
-      '<td>' + (d.disabled ? '<span class="admin-badge disabled">Deshabilitado</span> ' : '') + escapeHtml(d.nombre || "") + "</td>" +
+      '<td>' + (d.disabled ? '<span class="admin-badge disabled">Disabled</span> ' : '') + escapeHtml(d.nombre || "") + "</td>" +
       "<td>" + escapeHtml(d.correo || "") + "</td>" +
       "<td>" + escapeHtml(d.boleta || "") + "</td>" +
-      '<td><select class="group-select" data-id="' + id + '" aria-label="Grupo de ' + escapeHtml(d.nombre || "el estudiante") + '">' + groupOptionsHtml(d.grupo || "") + "</select></td>" +
-      "<td>" + nivel + "</td>" +
-      "<td>" + sellos + "/6</td>" +
+      '<td><select class="group-select" data-id="' + id + '" aria-label="Group for ' + escapeHtml(d.nombre || "the student") + '">' + groupOptionsHtml(d.grupo || "") + "</select></td>" +
+      "<td>" + level + "</td>" +
+      "<td>" + stamps + "/6</td>" +
       "<td>" + fmtDate(d.createdAt) + "</td>" +
       '<td class="admin-actions">' +
-      '<button class="btn-mini" data-action="view">Ver</button>' +
-      '<button class="btn-mini" data-action="edit">Editar</button>' +
-      '<button class="btn-mini" data-action="toggle">' + (d.disabled ? "Habilitar" : "Deshabilitar") + "</button>" +
+      '<button class="btn-mini" data-action="view">View</button>' +
+      '<button class="btn-mini" data-action="edit">Edit</button>' +
+      '<button class="btn-mini" data-action="toggle">' + (d.disabled ? "Enable" : "Disable") + "</button>" +
       "</td></tr>"
     );
   }
@@ -351,11 +343,11 @@
 
   function groupOptionsHtml(selected) {
     var groups = collectGroups();
-    var html = '<option value=""' + (selected ? "" : " selected") + '>Sin asignar</option>';
+    var html = '<option value=""' + (selected ? "" : " selected") + '>Unassigned</option>';
     groups.forEach(function (g) {
       html += '<option value="' + escapeHtml(g) + '"' + (g === selected ? " selected" : "") + '>' + escapeHtml(g) + "</option>";
     });
-    html += '<option value="__new__">+ Nuevo grupo…</option>';
+    html += '<option value="__new__">+ New group…</option>';
     return html;
   }
 
@@ -364,7 +356,7 @@
     if (!sel) return;
     var current = sel.value;
     var groups = collectGroups();
-    var html = '<option value="">Todos los grupos</option><option value="__none__">Sin asignar</option>';
+    var html = '<option value="">All groups</option><option value="__none__">Unassigned</option>';
     groups.forEach(function (g) {
       html += '<option value="' + escapeHtml(g) + '">' + escapeHtml(g) + "</option>";
     });
@@ -384,10 +376,10 @@
     var avgStamps = total ? (totalStamps / total).toFixed(1) : "0.0";
     var grupos = collectGroups().length;
     wrap.innerHTML =
-      '<div class="admin-stat-card"><span class="admin-stat-num">' + total + '</span><span class="admin-stat-label">Estudiantes</span></div>' +
-      '<div class="admin-stat-card"><span class="admin-stat-num">' + activos + '</span><span class="admin-stat-label">Activos</span></div>' +
-      '<div class="admin-stat-card"><span class="admin-stat-num">' + avgStamps + '</span><span class="admin-stat-label">Sellos promedio</span></div>' +
-      '<div class="admin-stat-card"><span class="admin-stat-num">' + grupos + '</span><span class="admin-stat-label">Grupos asignados</span></div>';
+      '<div class="admin-stat-card"><span class="admin-stat-num">' + total + '</span><span class="admin-stat-label">Students</span></div>' +
+      '<div class="admin-stat-card"><span class="admin-stat-num">' + activos + '</span><span class="admin-stat-label">Active</span></div>' +
+      '<div class="admin-stat-card"><span class="admin-stat-num">' + avgStamps + '</span><span class="admin-stat-label">Average Stamps</span></div>' +
+      '<div class="admin-stat-card"><span class="admin-stat-num">' + grupos + '</span><span class="admin-stat-label">Groups Assigned</span></div>';
   }
 
   function escapeHtml(s) {
@@ -399,7 +391,7 @@
   function renderStudentTable(list) {
     var tbody = $("admin-table-body");
     if (!list.length) {
-      tbody.innerHTML = '<tr><td colspan="8" class="admin-empty">No hay estudiantes registrados todavía.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="8" class="admin-empty">No students registered yet.</td></tr>';
       return;
     }
     tbody.innerHTML = list.map(function (s) { return studentRowHtml(s.id, s.data); }).join("");
@@ -407,7 +399,7 @@
 
   function refreshStudents() {
     var tbody = $("admin-table-body");
-    tbody.innerHTML = '<tr><td colspan="8" class="admin-empty">Cargando…</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="8" class="admin-empty">Loading…</td></tr>';
     db.collection("students").orderBy("nombre").get().then(function (snap) {
       allStudents = [];
       snap.forEach(function (doc) { allStudents.push({ id: doc.id, data: doc.data() }); });
@@ -415,7 +407,7 @@
       refreshGroupFilterOptions();
       applyFilter();
     }).catch(function () {
-      tbody.innerHTML = '<tr><td colspan="8" class="admin-empty">No se pudo cargar la lista. Revisa las reglas de Firestore.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="8" class="admin-empty">Could not load the list. Check your Firestore rules.</td></tr>';
     });
   }
 
@@ -448,38 +440,30 @@
     return null;
   }
 
-  /* --- Ver progreso --- */
+  /* --- View progress --- */
   var viewModal = $("admin-view-modal");
   function openViewModal(id) {
     var s = findStudent(id);
     if (!s) return;
     var d = s.data, p = d.progress || {};
-    $("admin-view-title").textContent = d.nombre || "Estudiante";
-    var nivel = LEVEL_CODES[p.currentLevelIndex || 0] || "A1";
+    $("admin-view-title").textContent = d.nombre || "Student";
+    var level = LEVEL_CODES[p.currentLevelIndex || 0] || "A1";
     var stamps = p.stamps || [];
     var body =
-      "<p><strong>Correo:</strong> " + escapeHtml(d.correo || "") + "</p>" +
-      "<p><strong>Matrícula:</strong> " + escapeHtml(d.boleta || "") + "</p>" +
-      "<p><strong>Grupo:</strong> " + escapeHtml(d.grupo || "Sin asignar") + "</p>" +
-<<<<<<< HEAD
-      "<p><strong>Nivel actual:</strong> " + nivel + "</p>" +
-=======
-<<<<<<< HEAD
-      "<p><strong>Level actual:</strong> " + nivel + "</p>" +
-=======
-      "<p><strong>Nivel actual:</strong> " + nivel + "</p>" +
->>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
->>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
-      "<p><strong>Sellos obtenidos:</strong> " + stamps.length + " de 6 (" + (stamps.join(", ") || "ninguno") + ")</p>" +
-      "<p><strong>Lecciones completadas:</strong> " + ((p.completedLessons || []).length) + "</p>" +
-      "<p><strong>Certificado disponible:</strong> " + (stamps.length === 6 ? "Sí" : "No") + "</p>";
+      "<p><strong>Email:</strong> " + escapeHtml(d.correo || "") + "</p>" +
+      "<p><strong>Student ID:</strong> " + escapeHtml(d.boleta || "") + "</p>" +
+      "<p><strong>Group:</strong> " + escapeHtml(d.grupo || "Unassigned") + "</p>" +
+      "<p><strong>Current Level:</strong> " + level + "</p>" +
+      "<p><strong>Stamps Earned:</strong> " + stamps.length + " of 6 (" + (stamps.join(", ") || "none") + ")</p>" +
+      "<p><strong>Lessons Completed:</strong> " + ((p.completedLessons || []).length) + "</p>" +
+      "<p><strong>Certificate Available:</strong> " + (stamps.length === 6 ? "Yes" : "No") + "</p>";
     $("admin-view-body").innerHTML = body;
     show(viewModal);
   }
   $("admin-view-close").addEventListener("click", function () { hide(viewModal); });
   viewModal.addEventListener("click", function (e) { if (e.target === viewModal) hide(viewModal); });
 
-  /* --- Editar --- */
+  /* --- Edit --- */
   var editModal = $("admin-edit-modal");
   var editingId = null;
 
@@ -497,14 +481,14 @@
   editModal.addEventListener("click", function (e) { if (e.target === editModal) { hide(editModal); } });
   $("admin-edit-save").addEventListener("click", function () {
     if (!editingId) return;
-    var nombre = $("edit-nombre").value.trim();
-    var boleta = $("edit-boleta").value.trim();
+    var name = $("edit-nombre").value.trim();
+    var studentId = $("edit-boleta").value.trim();
     var grupo = $("edit-grupo").value.trim();
-    if (!nombre) { return; }
+    if (!name) { return; }
     var s = findStudent(editingId);
-    var updates = { nombre: nombre, boleta: boleta, grupo: grupo };
+    var updates = { nombre: name, boleta: studentId, grupo: grupo };
     if (s && s.data.progress) {
-      updates["progress.profile.name"] = nombre;
+      updates["progress.profile.name"] = name;
     }
     db.collection("students").doc(editingId).update(updates).then(function () {
       hide(editModal);
@@ -512,10 +496,10 @@
     });
   });
 
-  /* --- Deshabilitar --- */
-  /* Las cuentas de estudiantes nunca se eliminan, ni desde este panel ni desde
-     ningún otro lugar. La única acción disponible para restringir el acceso
-     de un estudiante es deshabilitar su cuenta (ver toggleDisabled). */
+  /* --- Disable --- */
+  /* Student accounts are never deleted, either from this panel or from
+     anywhere else. The only action available to restrict a student's
+     access is disabling their account (see toggleDisabled). */
   function toggleDisabled(id) {
     var s = findStudent(id);
     if (!s) return;
@@ -539,7 +523,7 @@
     var s = findStudent(id);
     var val = sel.value;
     if (val === "__new__") {
-      var nuevo = prompt("Escribe el nombre del nuevo grupo (ej. IDS-501):");
+      var nuevo = prompt("Enter the new group's name (e.g. IDS-501):");
       if (!nuevo || !nuevo.trim()) { sel.value = (s && s.data.grupo) || ""; return; }
       val = nuevo.trim();
     }

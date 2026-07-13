@@ -1,18 +1,10 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MyUTNEnglishClass — Aprende inglés a tu ritmo</title>
-<<<<<<< HEAD
-<meta name="description" content="Plataforma de inglés de la UTN Nezahualcóyotl. Niveles, lecciones, quizzes y seguimiento de tu avance.">
-=======
-<<<<<<< HEAD
-<meta name="description" content="Plataforma de inglés de la UTN Nezahualcóyotl. Leveles, lecciones, quizzes y seguimiento de tu avance.">
-=======
-<meta name="description" content="Plataforma de inglés de la UTN Nezahualcóyotl. Niveles, lecciones, quizzes y seguimiento de tu avance.">
->>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
->>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
+<title>MyUTNEnglishClass — Learn English at Your Own Pace</title>
+<meta name="description" content="English learning platform by UTN Nezahualcóyotl. Levels, lessons, quizzes, and progress tracking.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -20,12 +12,12 @@
 </head>
 <body>
 
-<div class="skip-link"><a href="#main">Saltar al contenido</a></div>
+<div class="skip-link"><a href="#main">Skip to content</a></div>
 
-<!-- ============ AUTH GATE (login / registro) — se muestra solo cuando hace falta ============ -->
+<!-- ============ AUTH GATE (login / register) — shown only when needed ============ -->
 <div class="auth-gate" id="auth-gate" hidden>
   <div class="auth-card">
-    <button type="button" class="auth-close" id="auth-close" aria-label="Cerrar">✕</button>
+    <button type="button" class="auth-close" id="auth-close" aria-label="Close">✕</button>
     <div class="auth-brand">
       <svg class="logo-mark" viewBox="0 0 40 40" aria-hidden="true">
         <circle cx="20" cy="20" r="19" fill="#0C4EB8" stroke="#121212" stroke-width="1"/>
@@ -37,87 +29,87 @@
       </svg>
       <span class="logo-text">
         <span class="logo-name">MyUTN<strong>EnglishClass</strong></span>
-        <span class="logo-tag">Excelencia académica</span>
+        <span class="logo-tag">Academic Excellence</span>
       </span>
     </div>
 
     <div class="auth-tabs">
-      <button type="button" class="auth-tab active" id="auth-tab-login">Iniciar sesión</button>
-      <button type="button" class="auth-tab" id="auth-tab-register">Registrarme</button>
+      <button type="button" class="auth-tab active" id="auth-tab-login">Log In</button>
+      <button type="button" class="auth-tab" id="auth-tab-register">Sign Up</button>
     </div>
 
     <p class="auth-error" id="auth-error" hidden></p>
     <p class="auth-config-warning" id="auth-config-warning" hidden>
-      ⚠️ Falta terminar de configurar Firebase. Revisa <strong>SETUP.md</strong> (paso 5) y
-      pega tus valores reales en <code>js/firebase-config.js</code>.
+      ⚠️ Firebase setup is incomplete. Check <strong>SETUP.md</strong> (step 5) and
+      paste your real values into <code>js/firebase-config.js</code>.
     </p>
 
     <form id="login-form" class="auth-form">
-      <label class="modal-label" for="login-email">Correo institucional</label>
-      <input type="email" id="login-email" class="modal-input" placeholder="tucorreo@utn.mx" required autocomplete="username">
-      <label class="modal-label" for="login-password">Contraseña</label>
+      <label class="modal-label" for="login-email">Institutional Email</label>
+      <input type="email" id="login-email" class="modal-input" placeholder="youremail@utn.mx" required autocomplete="username">
+      <label class="modal-label" for="login-password">Password</label>
       <div class="password-field">
         <input type="password" id="login-password" class="modal-input" placeholder="••••••••" required autocomplete="current-password">
-        <button type="button" class="password-toggle" data-target="login-password" aria-label="Mostrar contraseña">👁</button>
+        <button type="button" class="password-toggle" data-target="login-password" aria-label="Show password">👁</button>
       </div>
-      <a href="#" class="auth-link" id="forgot-password">¿Olvidaste tu contraseña?</a>
-      <button type="submit" class="btn btn-primary auth-submit" id="login-submit">Iniciar sesión</button>
-      <p class="auth-hint">Estudiantes: usa el correo y contraseña con los que te registraste.<br>Profesor: esta es también tu puerta de entrada al panel de administrador.</p>
+      <a href="#" class="auth-link" id="forgot-password">Forgot your password?</a>
+      <button type="submit" class="btn btn-primary auth-submit" id="login-submit">Log In</button>
+      <p class="auth-hint">Students: use the email and password you registered with.<br>Teacher: this is also your gateway to the admin panel.</p>
     </form>
 
     <form id="register-form" class="auth-form" hidden>
-      <label class="modal-label" for="reg-nombre">Nombre completo</label>
-      <input type="text" id="reg-nombre" class="modal-input" placeholder="Tu nombre" required autocomplete="name">
-      <label class="modal-label" for="reg-email">Correo institucional</label>
-      <input type="email" id="reg-email" class="modal-input" placeholder="tucorreo@utn.mx" required autocomplete="username">
-      <label class="modal-label" for="reg-boleta">Matrícula</label>
-      <input type="text" id="reg-boleta" class="modal-input" placeholder="Ej. 2023030123" required>
-      <label class="modal-label" for="reg-password">Contraseña</label>
+      <label class="modal-label" for="reg-nombre">Full Name</label>
+      <input type="text" id="reg-nombre" class="modal-input" placeholder="Your name" required autocomplete="name">
+      <label class="modal-label" for="reg-email">Institutional Email</label>
+      <input type="email" id="reg-email" class="modal-input" placeholder="youremail@utn.mx" required autocomplete="username">
+      <label class="modal-label" for="reg-boleta">Student ID</label>
+      <input type="text" id="reg-boleta" class="modal-input" placeholder="E.g. 2023030123" required>
+      <label class="modal-label" for="reg-password">Password</label>
       <div class="password-field">
-        <input type="password" id="reg-password" class="modal-input" placeholder="Mínimo 6 caracteres" required autocomplete="new-password">
-        <button type="button" class="password-toggle" data-target="reg-password" aria-label="Mostrar contraseña">👁</button>
+        <input type="password" id="reg-password" class="modal-input" placeholder="Minimum 6 characters" required autocomplete="new-password">
+        <button type="button" class="password-toggle" data-target="reg-password" aria-label="Show password">👁</button>
       </div>
-      <label class="modal-label" for="reg-password2">Confirmar contraseña</label>
+      <label class="modal-label" for="reg-password2">Confirm Password</label>
       <div class="password-field">
-        <input type="password" id="reg-password2" class="modal-input" placeholder="Repite tu contraseña" required autocomplete="new-password">
-        <button type="button" class="password-toggle" data-target="reg-password2" aria-label="Mostrar contraseña">👁</button>
+        <input type="password" id="reg-password2" class="modal-input" placeholder="Repeat your password" required autocomplete="new-password">
+        <button type="button" class="password-toggle" data-target="reg-password2" aria-label="Show password">👁</button>
       </div>
-      <button type="submit" class="btn btn-primary auth-submit" id="register-submit">Crear cuenta</button>
-      <p class="auth-hint">Este registro es exclusivo para estudiantes. El profesor tiene una cuenta aparte creada por el administrador del sistema.</p>
+      <button type="submit" class="btn btn-primary auth-submit" id="register-submit">Create Account</button>
+      <p class="auth-hint">This registration is exclusive to students. The teacher has a separate account created by the system administrator.</p>
     </form>
   </div>
 </div>
 
-<!-- ============ PANEL DE ADMINISTRADOR (profesor) ============ -->
+<!-- ============ ADMIN PANEL (teacher) ============ -->
 <div class="admin-shell" id="admin-shell" hidden>
   <header class="admin-header">
     <div class="admin-header-inner">
       <span class="logo-text">
         <span class="logo-name">MyUTN<strong>EnglishClass</strong></span>
-        <span class="logo-tag">Panel del profesor</span>
+        <span class="logo-tag">Teacher's Panel</span>
       </span>
       <div class="admin-header-actions">
         <span class="student-name-chip" id="admin-name"></span>
-        <button class="icon-btn theme-toggle-btn" id="admin-theme-toggle" aria-label="Cambiar tema" title="Cambiar tema">
+        <button class="icon-btn theme-toggle-btn" id="admin-theme-toggle" aria-label="Toggle theme" title="Toggle theme">
           <span class="theme-toggle-icon" id="admin-theme-toggle-icon">🌙</span>
         </button>
-        <button class="icon-btn" id="admin-logout-btn" aria-label="Cerrar sesión" title="Cerrar sesión">⏻</button>
+        <button class="icon-btn" id="admin-logout-btn" aria-label="Log out" title="Log out">⏻</button>
       </div>
     </div>
   </header>
   <main class="admin-main">
     <div class="section-head">
-      <p class="eyebrow">Administración · Turno matutino</p>
-      <h2>Estudiantes registrados</h2>
-      <p class="lead">Consulta el avance de cada estudiante, asígnalo a su grupo y gestiona el acceso a la plataforma.</p>
+      <p class="eyebrow">Administration · Morning Shift</p>
+      <h2>Registered Students</h2>
+      <p class="lead">Check each student's progress, assign them to a group, and manage platform access.</p>
     </div>
 
-    <div class="admin-stats" id="admin-stats"><!-- generado por JS --></div>
+    <div class="admin-stats" id="admin-stats"><!-- generated by JS --></div>
 
     <div class="admin-toolbar">
-      <input type="text" id="admin-search" class="modal-input admin-search" placeholder="Buscar por nombre, correo o matrícula…">
+      <input type="text" id="admin-search" class="modal-input admin-search" placeholder="Search by name, email, or student ID…">
       <select id="admin-group-filter" class="modal-input admin-group-filter">
-        <option value="">Todos los grupos</option>
+        <option value="">All groups</option>
       </select>
     </div>
 
@@ -125,59 +117,43 @@
       <table class="admin-table">
         <thead>
           <tr>
-<<<<<<< HEAD
-            <th>Nombre</th><th>Correo</th><th>Matrícula</th><th>Grupo</th><th>Nivel</th><th>Sellos</th><th>Registrado</th><th>Acciones</th>
-=======
-<<<<<<< HEAD
-            <th>Nombre</th><th>Correo</th><th>Matrícula</th><th>Grupo</th><th>Level</th><th>Sellos</th><th>Registrado</th><th>Acciones</th>
-=======
-            <th>Nombre</th><th>Correo</th><th>Matrícula</th><th>Grupo</th><th>Nivel</th><th>Sellos</th><th>Registrado</th><th>Acciones</th>
->>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
->>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
+            <th>Name</th><th>Email</th><th>Student ID</th><th>Group</th><th>Level</th><th>Stamps</th><th>Registered</th><th>Actions</th>
           </tr>
         </thead>
         <tbody id="admin-table-body">
-          <tr><td colspan="8" class="admin-empty">Cargando…</td></tr>
+          <tr><td colspan="8" class="admin-empty">Loading…</td></tr>
         </tbody>
       </table>
     </div>
   </main>
 </div>
 
-<!-- ============ MODAL: VER PROGRESO (admin) ============ -->
+<!-- ============ MODAL: VIEW PROGRESS (admin) ============ -->
 <div class="modal-overlay" id="admin-view-modal" hidden>
   <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="admin-view-title">
-    <p class="modal-title" id="admin-view-title">Progreso del estudiante</p>
+    <p class="modal-title" id="admin-view-title">Student's Progress</p>
     <div id="admin-view-body" class="admin-view-body"></div>
     <div class="modal-actions">
-      <button class="btn btn-primary" id="admin-view-close">Cerrar</button>
+      <button class="btn btn-primary" id="admin-view-close">Close</button>
     </div>
   </div>
 </div>
 
-<!-- ============ MODAL: EDITAR ESTUDIANTE (admin) ============ -->
+<!-- ============ MODAL: EDIT STUDENT (admin) ============ -->
 <div class="modal-overlay" id="admin-edit-modal" hidden>
   <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="admin-edit-title">
-    <p class="modal-title" id="admin-edit-title">Editar estudiante</p>
-    <label class="modal-label">Correo (no editable)</label>
+    <p class="modal-title" id="admin-edit-title">Edit Student</p>
+    <label class="modal-label">Email (not editable)</label>
     <p class="edit-correo-display" id="edit-correo-display"></p>
-    <label class="modal-label" for="edit-nombre">Nombre</label>
+    <label class="modal-label" for="edit-nombre">Name</label>
     <input type="text" id="edit-nombre" class="modal-input">
-    <label class="modal-label" for="edit-boleta">Matrícula</label>
+    <label class="modal-label" for="edit-boleta">Student ID</label>
     <input type="text" id="edit-boleta" class="modal-input">
-    <label class="modal-label" for="edit-grupo">Grupo (turno matutino)</label>
-    <input type="text" id="edit-grupo" class="modal-input" placeholder="Ej. IDS-501, ITIC-901V…">
+    <label class="modal-label" for="edit-grupo">Group (morning shift)</label>
+    <input type="text" id="edit-grupo" class="modal-input" placeholder="E.g. IDS-501, ITIC-901V…">
     <div class="modal-actions">
-      <button class="btn btn-ghost-light" id="admin-edit-cancel">Cancelar</button>
-<<<<<<< HEAD
-      <button class="btn btn-primary" id="admin-edit-save">Guardar</button>
-=======
-<<<<<<< HEAD
+      <button class="btn btn-ghost-light" id="admin-edit-cancel">Cancel</button>
       <button class="btn btn-primary" id="admin-edit-save">Save</button>
-=======
-      <button class="btn btn-primary" id="admin-edit-save">Guardar</button>
->>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
->>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
     </div>
   </div>
 </div>
@@ -196,30 +172,30 @@
       </svg>
       <span class="logo-text">
         <span class="logo-name">MyUTN<strong>EnglishClass</strong></span>
-        <span class="logo-tag">Excelencia académica</span>
+        <span class="logo-tag">Academic Excellence</span>
       </span>
     </a>
 
     <nav class="main-nav" id="main-nav">
-      <a href="#inicio" data-nav="inicio">Inicio</a>
-      <a href="#niveles" data-nav="aprender">Aprender</a>
-      <a href="#progreso" data-nav="progreso">Progreso</a>
-      <a href="#material" data-nav="recursos">Recursos</a>
+      <a href="#inicio" data-nav="inicio">Home</a>
+      <a href="#niveles" data-nav="aprender">Learn</a>
+      <a href="#progreso" data-nav="progreso">Progress</a>
+      <a href="#material" data-nav="recursos">Resources</a>
     </nav>
 
     <div class="header-actions">
-      <button class="icon-btn theme-toggle-btn" id="theme-toggle" aria-label="Cambiar tema" title="Cambiar tema">
+      <button class="icon-btn theme-toggle-btn" id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
         <span class="theme-toggle-icon" id="theme-toggle-icon">🌙</span>
       </button>
-      <button class="btn btn-primary btn-header-auth" id="auth-open-btn">Iniciar sesión</button>
+      <button class="btn btn-primary btn-header-auth" id="auth-open-btn">Log In</button>
       <span class="header-authed-actions" id="header-authed-actions" hidden>
         <span class="student-name-chip" id="nav-student-name"></span>
-        <button class="profile-chip" id="profile-open" aria-label="Editar perfil" title="Editar perfil">
+        <button class="profile-chip" id="profile-open" aria-label="Edit profile" title="Edit profile">
           <span id="profile-chip-avatar">🎓</span>
         </button>
-        <button class="icon-btn" id="logout-btn" aria-label="Cerrar sesión" title="Cerrar sesión">⏻</button>
+        <button class="icon-btn" id="logout-btn" aria-label="Log out" title="Log out">⏻</button>
       </span>
-      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Abrir menú">
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Open menu">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -232,59 +208,35 @@
   <section class="view" id="view-inicio" data-view="inicio">
     <div class="hero">
       <div class="hero-copy">
-<<<<<<< HEAD
-        <p class="eyebrow">Programa de servicio social · Educación, arte, cultura y deporte</p>
-=======
-<<<<<<< HEAD
         <p class="eyebrow">Social Service Program · Education, Arts, Culture and Sports</p>
-=======
-        <p class="eyebrow">Programa de servicio social · Educación, arte, cultura y deporte</p>
->>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
->>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
-        <h1>Tu pase de abordar hacia el inglés</h1>
-        <p class="lead">Recorre los niveles del A1 al C2 como si fueran puertas de embarque. Escucha, practica y resuelve retos para conseguir tu siguiente sello de avance.</p>
+        <h1>Your Boarding Pass to English</h1>
+        <p class="lead">Travel through levels A1 to C2 as if they were boarding gates. Listen, practice, and solve challenges to earn your next progress stamp.</p>
         <div class="hero-actions">
-          <button class="btn btn-primary" data-goto="leccion">Empezar lección</button>
-          <button class="btn btn-ghost" data-goto="niveles">Ver niveles</button>
+          <button class="btn btn-primary" data-goto="leccion">Start Lesson</button>
+          <button class="btn btn-ghost" data-goto="niveles">View Levels</button>
         </div>
       </div>
 
       <div class="boarding-pass" id="boarding-pass">
         <div class="bp-main">
-          <p class="bp-label">Pase de abordar</p>
-          <p class="bp-title">Vuelo a la fluidez</p>
+          <p class="bp-label">Boarding Pass</p>
+          <p class="bp-title">Flight to Fluency</p>
           <div class="bp-grid">
             <div>
-              <span class="bp-field">Pasajero</span>
-              <span class="bp-value" id="bp-name">Estudiante UTN</span>
+              <span class="bp-field">Passenger</span>
+              <span class="bp-value" id="bp-name">UTN Student</span>
             </div>
             <div>
-<<<<<<< HEAD
-              <span class="bp-field">Nivel actual</span>
-=======
-<<<<<<< HEAD
-              <span class="bp-field">Level actual</span>
-=======
-              <span class="bp-field">Nivel actual</span>
->>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
->>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
-              <span class="bp-value" id="bp-level">A1 · Principiante</span>
+              <span class="bp-field">Current Level</span>
+              <span class="bp-value" id="bp-level">A1 · Beginner</span>
             </div>
             <div>
-              <span class="bp-field">Destino</span>
-              <span class="bp-value" id="bp-skill">Vocabulario esencial</span>
+              <span class="bp-field">Destination</span>
+              <span class="bp-value" id="bp-skill">Essential Vocabulary</span>
             </div>
             <div>
-              <span class="bp-field">Puerta</span>
-<<<<<<< HEAD
-              <span class="bp-value" id="bp-gate">Lección 1</span>
-=======
-<<<<<<< HEAD
+              <span class="bp-field">Gate</span>
               <span class="bp-value" id="bp-gate">Lesson 1</span>
-=======
-              <span class="bp-value" id="bp-gate">Lección 1</span>
->>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
->>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
             </div>
           </div>
           <div class="bp-progress-track" aria-hidden="true">
@@ -302,70 +254,49 @@
     <div class="features">
       <article class="feature-card">
         <span class="feature-icon" aria-hidden="true">▶</span>
-        <h3>Reproductor integrado</h3>
-        <p>Audio y video por lección, con control de velocidad y subtítulos, para practicar oído y pronunciación.</p>
+        <h3>Built-in Player</h3>
+        <p>Audio and video per lesson, with speed control and subtitles, to practice listening and pronunciation.</p>
       </article>
       <article class="feature-card">
         <span class="feature-icon" aria-hidden="true">✓</span>
-        <h3>Ejercicios variados</h3>
-        <p>Opción múltiple, completar espacios y relacionar conceptos, con retroalimentación inmediata.</p>
+        <h3>Varied Exercises</h3>
+        <p>Multiple choice, fill-in-the-blank, and matching, with instant feedback.</p>
       </article>
       <article class="feature-card">
         <span class="feature-icon" aria-hidden="true">◆</span>
-        <h3>Sellos y certificado</h3>
-        <p>Cada entregable aprobado suma un sello, y al completar el programa obtienes tu certificado descargable.</p>
+        <h3>Stamps and Certificate</h3>
+        <p>Each approved deliverable earns a stamp, and completing the program unlocks your downloadable certificate.</p>
       </article>
     </div>
   </section>
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-  <!-- ============ GRUPO: APRENDER (Leveles + Lesson + Habilidades) ============ -->
+  <!-- ============ GROUP: LEARN (Levels + Lesson + Skills) ============ -->
   <div class="group-tabbar" id="tabbar-aprender" data-group="aprender" hidden>
-    <button type="button" class="group-tab" data-nav="niveles">🗺 Leveles</button>
+    <button type="button" class="group-tab" data-nav="niveles">🗺 Levels</button>
     <button type="button" class="group-tab" data-nav="leccion">🎧 Lesson</button>
-=======
->>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
-  <!-- ============ GRUPO: APRENDER (Niveles + Lección + Habilidades) ============ -->
-  <div class="group-tabbar" id="tabbar-aprender" data-group="aprender" hidden>
-    <button type="button" class="group-tab" data-nav="niveles">🗺 Niveles</button>
-    <button type="button" class="group-tab" data-nav="leccion">🎧 Lección</button>
-<<<<<<< HEAD
-=======
->>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
->>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
-    <button type="button" class="group-tab" data-nav="habilidades">🎯 Habilidades</button>
+    <button type="button" class="group-tab" data-nav="habilidades">🎯 Skills</button>
   </div>
 
-  <!-- ============ NIVELES ============ -->
+  <!-- ============ LEVELS ============ -->
   <section class="view" id="view-niveles" data-view="niveles" hidden>
     <div class="section-head">
-      <p class="eyebrow">Mapa de vuelo</p>
-      <h2>Puertas de embarque</h2>
-      <p class="lead">Cada nivel se desbloquea al completar el anterior. Este es el recorrido completo del programa, de A1 a C2.</p>
+      <p class="eyebrow">Flight Map</p>
+      <h2>Gates de embarque</h2>
+      <p class="lead">Each level unlocks after completing the previous one. This is the complete path of the program, from A1 to C2.</p>
     </div>
 
-    <div class="gates-grid" id="gates-grid"><!-- generado por JS --></div>
+    <div class="gates-grid" id="gates-grid"><!-- generated by JS --></div>
   </section>
 
-  <!-- ============ LECCIÓN ============ -->
+  <!-- ============ LESSON ============ -->
   <section class="view" id="view-leccion" data-view="leccion" hidden>
     <div class="section-head">
-<<<<<<< HEAD
-      <p class="eyebrow" id="leccion-eyebrow">Nivel A1 · Lección 1</p>
-=======
-<<<<<<< HEAD
       <p class="eyebrow" id="leccion-eyebrow">Level A1 · Lesson 1</p>
-=======
-      <p class="eyebrow" id="leccion-eyebrow">Nivel A1 · Lección 1</p>
->>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
->>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
-      <h2 id="leccion-title">Vocabulario esencial</h2>
-      <p class="lead" id="leccion-desc">Escucha el audio, sigue la transcripción y resuelve el quiz para sellar tu avance.</p>
+      <h2 id="leccion-title">Essential Vocabulary</h2>
+      <p class="lead" id="leccion-desc">Listen to the audio, follow the transcript, and complete the quiz to stamp your progress.</p>
     </div>
 
-    <div class="lesson-tabs" id="lesson-tabs"><!-- generado por JS --></div>
+    <div class="lesson-tabs" id="lesson-tabs"><!-- generated by JS --></div>
 
     <div class="lesson-layout">
       <div class="player-card">
@@ -373,7 +304,7 @@
           <span id="player-icon">🎧</span>
         </div>
         <div class="player-controls">
-          <button class="player-play" id="player-play" aria-label="Reproducir">
+          <button class="player-play" id="player-play" aria-label="Play">
             <span id="player-play-icon">▶</span>
           </button>
           <div class="player-bar">
@@ -386,7 +317,7 @@
             </div>
           </div>
           <div class="player-speed">
-            <label for="player-speed-select">Velocidad</label>
+            <label for="player-speed-select">Speed</label>
             <select id="player-speed-select">
               <option value="0.75">0.75x</option>
               <option value="1" selected>1x</option>
@@ -394,34 +325,26 @@
             </select>
           </div>
         </div>
-        <p class="player-caption" id="player-caption">Presiona reproducir para ver la transcripción en vivo.</p>
+        <p class="player-caption" id="player-caption">Press play to see the live transcript.</p>
       </div>
 
       <div class="quiz-card">
-        <p class="quiz-heading">Comprueba lo aprendido</p>
-        <div id="quiz-body"><!-- generado por JS --></div>
+        <p class="quiz-heading">Check What You Learned</p>
+        <div id="quiz-body"><!-- generated by JS --></div>
         <div class="quiz-result" id="quiz-result" hidden>
           <p id="quiz-score-text"></p>
-          <button class="btn btn-primary" id="quiz-next-btn">Sellar avance y continuar</button>
+          <button class="btn btn-primary" id="quiz-next-btn">Stamp Progress and Continue</button>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ HABILIDADES ============ -->
+  <!-- ============ SKILLS ============ -->
   <section class="view" id="view-habilidades" data-view="habilidades" hidden>
     <div class="section-head">
-<<<<<<< HEAD
-      <p class="eyebrow">Zona de práctica · Nivel <span id="skills-level-label">A1</span></p>
-=======
-<<<<<<< HEAD
-      <p class="eyebrow">Zona de práctica · Level <span id="skills-level-label">A1</span></p>
-=======
-      <p class="eyebrow">Zona de práctica · Nivel <span id="skills-level-label">A1</span></p>
->>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
->>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
-      <h2>Habilidades en acción</h2>
-      <p class="lead">Cuatro formas de poner en práctica tu inglés. Gana XP, mantén tu racha y sella cada habilidad.</p>
+      <p class="eyebrow">Practice Zone · Level <span id="skills-level-label">A1</span></p>
+      <h2>Skills in Action</h2>
+      <p class="lead">Four ways to practice your English. Earn XP, keep your streak, and stamp each skill.</p>
     </div>
 
     <div class="skills-statusbar">
@@ -429,158 +352,134 @@
         <span class="skills-stat-icon" aria-hidden="true">🔥</span>
         <div>
           <span class="skills-stat-num" id="skills-streak">0</span>
-          <span class="skills-stat-label">días de racha</span>
+          <span class="skills-stat-label">day streak</span>
         </div>
       </div>
       <div class="skills-stat">
         <span class="skills-stat-icon" aria-hidden="true">⚡</span>
         <div>
           <span class="skills-stat-num" id="skills-xp">0</span>
-          <span class="skills-stat-label">XP total</span>
+          <span class="skills-stat-label">Total XP</span>
         </div>
       </div>
-      <div class="skills-level-switch" id="skills-level-switch"><!-- generado por JS --></div>
+      <div class="skills-level-switch" id="skills-level-switch"><!-- generated by JS --></div>
     </div>
 
-    <div class="skill-grid" id="skill-grid"><!-- generado por JS --></div>
+    <div class="skill-grid" id="skill-grid"><!-- generated by JS --></div>
 
-    <!-- ============ PANEL DE EJERCICIO (se llena dinámicamente) ============ -->
+    <!-- ============ EXERCISE PANEL (filled dynamically) ============ -->
     <div class="skill-panel" id="skill-panel" hidden>
-      <button type="button" class="skill-back" id="skill-back">← Volver a habilidades</button>
-      <div class="skill-panel-inner" id="skill-panel-inner"><!-- generado por JS --></div>
+      <button type="button" class="skill-back" id="skill-back">← Back to Skills</button>
+      <div class="skill-panel-inner" id="skill-panel-inner"><!-- generated by JS --></div>
     </div>
   </section>
 
-  <!-- ============ PROGRESO ============ -->
+  <!-- ============ PROGRESS ============ -->
   <section class="view" id="view-progreso" data-view="progreso" hidden>
     <div class="section-head">
-      <p class="eyebrow">Pasaporte de aprendizaje</p>
-      <h2>Tu progreso</h2>
-      <p class="lead">Revisa los sellos que has conseguido y los entregables pendientes del programa.</p>
+      <p class="eyebrow">Learning Passport</p>
+      <h2>Your Progress</h2>
+      <p class="lead">Check the stamps you've earned and the program's pending deliverables.</p>
     </div>
 
     <div class="progress-summary">
       <div class="summary-card">
         <span class="summary-num" id="summary-level">A1</span>
-<<<<<<< HEAD
-        <span class="summary-label">Nivel actual</span>
-=======
-<<<<<<< HEAD
-        <span class="summary-label">Level actual</span>
-=======
-        <span class="summary-label">Nivel actual</span>
->>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
->>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
+        <span class="summary-label">Current Level</span>
       </div>
       <div class="summary-card">
         <span class="summary-num" id="summary-stamps">0</span>
-        <span class="summary-label">Sellos obtenidos</span>
+        <span class="summary-label">Stamps Earned</span>
       </div>
       <div class="summary-card">
         <span class="summary-num" id="summary-percent">0%</span>
-<<<<<<< HEAD
-        <span class="summary-label">Programa completado</span>
-=======
-<<<<<<< HEAD
-        <span class="summary-label">Program completed</span>
-=======
-        <span class="summary-label">Programa completado</span>
->>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
->>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
+        <span class="summary-label">Program Completed</span>
       </div>
     </div>
 
-    <div class="passport" id="passport-stamps"><!-- generado por JS --></div>
+    <div class="passport" id="passport-stamps"><!-- generated by JS --></div>
 
     <div class="certificate-card" id="certificate-card">
       <div class="certificate-info">
-<<<<<<< HEAD
-        <p class="quiz-heading">Certificado del programa</p>
-=======
-<<<<<<< HEAD
         <p class="quiz-heading">Program Certificate</p>
-=======
-        <p class="quiz-heading">Certificado del programa</p>
->>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
->>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
-        <p class="certificate-desc" id="certificate-desc">Completa los seis niveles (A1 a C2) para desbloquear tu certificado descargable.</p>
+        <p class="certificate-desc" id="certificate-desc">Complete all six levels (A1 to C2) to unlock your downloadable certificate.</p>
       </div>
-      <button class="btn btn-primary" id="certificate-btn" disabled>Descargar certificado</button>
+      <button class="btn btn-primary" id="certificate-btn" disabled>Download Certificate</button>
     </div>
 
     <div class="deliverables">
-      <p class="quiz-heading">Entregables del servicio social</p>
-      <ul class="deliverables-list" id="deliverables-list"><!-- generado por JS --></ul>
+      <p class="quiz-heading">Social Service Deliverables</p>
+      <ul class="deliverables-list" id="deliverables-list"><!-- generated by JS --></ul>
     </div>
   </section>
 
-  <!-- ============ GRUPO: RECURSOS (Material de apoyo + Gramática) ============ -->
+  <!-- ============ GROUP: RESOURCES (Support Material + Grammar) ============ -->
   <div class="group-tabbar" id="tabbar-recursos" data-group="recursos" hidden>
-    <button type="button" class="group-tab" data-nav="material">📗 Material de apoyo</button>
-    <button type="button" class="group-tab" data-nav="gramatica">📐 Gramática</button>
+    <button type="button" class="group-tab" data-nav="material">📗 Support Material</button>
+    <button type="button" class="group-tab" data-nav="gramatica">📐 Grammar</button>
   </div>
 
-  <!-- ============ MATERIAL DE APOYO ============ -->
+  <!-- ============ SUPPORT MATERIAL ============ -->
   <section class="view" id="view-material" data-view="material" hidden>
     <div class="section-head">
-      <p class="eyebrow">Recursos de gramática</p>
-      <h2>Material de apoyo</h2>
-      <p class="lead">Verbos irregulares en inglés organizados por patrón. Consulta la forma base, el pasado simple, el participio pasado y su traducción.</p>
+      <p class="eyebrow">Grammar Resources</p>
+      <h2>Support Material</h2>
+      <p class="lead">Irregular English verbs organized by pattern. Check the base form, simple past, past participle, and translation.</p>
     </div>
 
     <div class="material-groups" id="material-groups">
       <article class="material-block">
         <div class="material-block-head">
-          <span class="material-tag">Patrón 1</span>
+          <span class="material-tag">Pattern 1</span>
           <div>
             <h3>All the same</h3>
-            <p class="material-block-desc">Las tres formas del verbo son idénticas: base, pasado simple y participio pasado se escriben igual.</p>
+            <p class="material-block-desc">All three verb forms are identical: base, simple past, and past participle are written the same way.</p>
           </div>
         </div>
         <div class="material-table-wrap">
           <table class="material-table">
             <thead>
-              <tr><th>Base Form</th><th>Past Simple</th><th>Past Participle</th><th>Traducción</th></tr>
+              <tr><th>Base Form</th><th>Past Simple</th><th>Past Participle</th><th>Translation</th></tr>
             </thead>
             <tbody>
-              <tr><td>bet</td><td>bet</td><td>bet</td><td>apostar</td></tr>
-              <tr><td>bid</td><td>bid</td><td>bid</td><td>pujar, ofertar</td></tr>
-              <tr><td>broadcast</td><td>broadcast</td><td>broadcast</td><td>transmitir, difundir</td></tr>
-              <tr><td>burst</td><td>burst</td><td>burst</td><td>reventar, estallar</td></tr>
-              <tr><td>cost</td><td>cost</td><td>cost</td><td>costar</td></tr>
-              <tr><td>cut</td><td>cut</td><td>cut</td><td>cortar</td></tr>
-              <tr><td>hit</td><td>hit</td><td>hit</td><td>golpear</td></tr>
-              <tr><td>hurt</td><td>hurt</td><td>hurt</td><td>herir, doler</td></tr>
-              <tr><td>let</td><td>let</td><td>let</td><td>dejar, permitir</td></tr>
-              <tr><td>put</td><td>put</td><td>put</td><td>poner</td></tr>
-              <tr><td>quit</td><td>quit</td><td>quit</td><td>dejar, renunciar</td></tr>
-              <tr><td>set</td><td>set</td><td>set</td><td>poner, fijar</td></tr>
-              <tr><td>shut</td><td>shut</td><td>shut</td><td>cerrar</td></tr>
-              <tr><td>split</td><td>split</td><td>split</td><td>dividir, partir</td></tr>
-              <tr><td>spread</td><td>spread</td><td>spread</td><td>esparcir, extender</td></tr>
+              <tr><td>bet</td><td>bet</td><td>bet</td><td>to bet</td></tr>
+              <tr><td>bid</td><td>bid</td><td>bid</td><td>to bid</td></tr>
+              <tr><td>broadcast</td><td>broadcast</td><td>broadcast</td><td>to broadcast</td></tr>
+              <tr><td>burst</td><td>burst</td><td>burst</td><td>to burst</td></tr>
+              <tr><td>cost</td><td>cost</td><td>cost</td><td>to cost</td></tr>
+              <tr><td>cut</td><td>cut</td><td>cut</td><td>to cut</td></tr>
+              <tr><td>hit</td><td>hit</td><td>hit</td><td>to hit</td></tr>
+              <tr><td>hurt</td><td>hurt</td><td>hurt</td><td>to hurt</td></tr>
+              <tr><td>let</td><td>let</td><td>let</td><td>to let</td></tr>
+              <tr><td>put</td><td>put</td><td>put</td><td>to put</td></tr>
+              <tr><td>quit</td><td>quit</td><td>quit</td><td>to quit</td></tr>
+              <tr><td>set</td><td>set</td><td>set</td><td>to set</td></tr>
+              <tr><td>shut</td><td>shut</td><td>shut</td><td>to shut</td></tr>
+              <tr><td>split</td><td>split</td><td>split</td><td>to split</td></tr>
+              <tr><td>spread</td><td>spread</td><td>spread</td><td>to spread</td></tr>
             </tbody>
           </table>
         </div>
-        <p class="material-source">Fuente: <a href="https://www.learnenglish.de/grammar/irregularverbs.html" target="_blank" rel="noopener">learnenglish.de — Irregular Verbs</a></p>
+        <p class="material-source">Source: <a href="https://www.learnenglish.de/grammar/irregularverbs.html" target="_blank" rel="noopener">learnenglish.de — Irregular Verbs</a></p>
       </article>
     </div>
   </section>
 
-  <!-- ============ GRAMÁTICA ============ -->
+  <!-- ============ GRAMMAR ============ -->
   <section class="view" id="view-gramatica" data-view="gramatica" hidden>
     <div class="section-head">
-      <p class="eyebrow">Guía de referencia · En construcción</p>
+      <p class="eyebrow">Reference Guide · Under Construction</p>
       <h2>Grammar</h2>
-      <p class="lead">Gramática es la base de la comunicación efectiva. Esta sección está diseñada como una guía de referencia completa que explica la gramática del inglés con lenguaje sencillo, ejemplos claros, reglas prácticas y actividades interactivas.</p>
+      <p class="lead">Grammar is the foundation of effective communication. This section is designed as a complete reference guide that explains English grammar in simple language, with clear examples, practical rules, and interactive activities.</p>
     </div>
 
-    <!-- Plantilla estándar por lección -->
+    <!-- Standard template per lesson -->
     <article class="grammar-template-card">
       <div class="grammar-template-head">
         <span class="grammar-template-icon" aria-hidden="true">📐</span>
         <div>
-          <h3>Estructura estándar de cada lección</h3>
-          <p>Para que todo el sitio mantenga la misma calidad, cada tema seguirá exactamente esta plantilla.</p>
+          <h3>Standard Structure for Each Lesson</h3>
+          <p>To keep the whole site at the same quality, every topic will follow this exact template.</p>
         </div>
       </div>
       <div class="grammar-template-grid">
@@ -605,7 +504,7 @@
       </div>
     </article>
 
-    <!-- Menú de temario (acordeón) -->
+    <!-- Syllabus menu (accordion) -->
     <div class="grammar-menu" id="grammar-menu">
 
       <details class="grammar-cat" data-color="blue">
@@ -614,7 +513,7 @@
           <span class="grammar-cat-title">Parts of Speech</span>
           <span class="grammar-cat-count">9 temas</span>
         </summary>
-        <p class="grammar-cat-desc">Las categorías básicas de las palabras en inglés.</p>
+        <p class="grammar-cat-desc">The basic categories of words in English.</p>
         <div class="grammar-topics">
           <span class="grammar-topic">Nouns</span>
           <span class="grammar-topic">Articles</span>
@@ -634,7 +533,7 @@
           <span class="grammar-cat-title">Verb System</span>
           <span class="grammar-cat-count">4 bloques</span>
         </summary>
-        <p class="grammar-cat-desc">Entender el sistema verbal del inglés es esencial: los verbos expresan acciones, eventos, estados, tiempo y actitud.</p>
+        <p class="grammar-cat-desc">Understanding the English verb system is essential: verbs express actions, events, states, time, and attitude.</p>
 
         <p class="grammar-subgroup">1. Main Verbs</p>
         <div class="grammar-topics">
@@ -677,7 +576,7 @@
         </div>
 
         <p class="grammar-subgroup grammar-subgroup-tenses">4. Verb Tenses</p>
-        <p class="grammar-cat-desc">Cada tiempo incluye: propósito de uso, línea de tiempo, palabras señal, fórmula, estructura afirmativa/negativa/interrogativa, preguntas Wh-, contracciones, errores comunes, ejemplos y práctica.</p>
+        <p class="grammar-cat-desc">Each tense includes: purpose of use, timeline, signal words, formula, affirmative/negative/interrogative structure, Wh- questions, contractions, common mistakes, examples, and practice.</p>
         <div class="grammar-topics">
           <span class="grammar-topic">Present Simple</span>
           <span class="grammar-topic">Present Continuous</span>
@@ -701,7 +600,7 @@
           <span class="grammar-cat-title">Non-Finite Verbs</span>
           <span class="grammar-cat-count">3 temas</span>
         </summary>
-        <p class="grammar-cat-desc">Los verbos no finitos no indican tiempo gramatical.</p>
+        <p class="grammar-cat-desc">Non-finite verbs do not indicate grammatical tense.</p>
         <div class="grammar-topics">
           <span class="grammar-topic">Infinitives</span>
           <span class="grammar-topic">Gerunds</span>
@@ -858,63 +757,39 @@
 
     </div>
 
-    <p class="grammar-note">📌 Este menú es el esqueleto del temario solicitado por el profesor Miguel Ángel Aguilar. Cada tema se irá activando conforme se desarrolle su lección completa con la plantilla de arriba.</p>
+    <p class="grammar-note">📌 This menu is the skeleton of the syllabus requested by professor Miguel Ángel Aguilar. Each topic will be activated as its full lesson is developed using the template above.</p>
   </section>
 
 </main>
 
 <footer class="site-footer">
-<<<<<<< HEAD
-  <p>MyUTNEnglishClass — Proyecto de servicio social, programa Educación, arte, cultura y deporte. <strong>Universidad Tecnológica de Nezahualcóyotl</strong> · Excelencia académica, Estado de México.</p>
-=======
-<<<<<<< HEAD
-  <p>MyUTNEnglishClass — Proyecto de servicio social, programa Education, Arts, Culture and Sports. <strong>Universidad Tecnológica de Nezahualcóyotl</strong> · Excelencia académica, Estado de México.</p>
-=======
-  <p>MyUTNEnglishClass — Proyecto de servicio social, programa Educación, arte, cultura y deporte. <strong>Universidad Tecnológica de Nezahualcóyotl</strong> · Excelencia académica, Estado de México.</p>
->>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
->>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
+  <p>MyUTNEnglishClass — Social service project, Education, Arts, Culture and Sports program. <strong>Universidad Tecnológica de Nezahualcóyotl</strong> · Academic Excellence, State of Mexico.</p>
 </footer>
 
-<!-- ============ MODAL: PERFIL ============ -->
+<!-- ============ MODAL: PROFILE ============ -->
 <div class="modal-overlay" id="profile-modal" hidden>
   <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="profile-modal-title">
-    <p class="modal-title" id="profile-modal-title">Tu perfil</p>
-    <label class="modal-label" for="profile-name-input">Nombre</label>
-    <input type="text" id="profile-name-input" class="modal-input" maxlength="28" placeholder="Tu nombre">
+    <p class="modal-title" id="profile-modal-title">Your Profile</p>
+    <label class="modal-label" for="profile-name-input">Name</label>
+    <input type="text" id="profile-name-input" class="modal-input" maxlength="28" placeholder="Your name">
     <p class="modal-label">Avatar</p>
-    <div class="avatar-grid" id="avatar-grid"><!-- generado por JS --></div>
+    <div class="avatar-grid" id="avatar-grid"><!-- generated by JS --></div>
     <div class="modal-actions">
-      <button class="btn btn-ghost-light" id="profile-cancel">Cancelar</button>
-<<<<<<< HEAD
-      <button class="btn btn-primary" id="profile-save">Guardar</button>
-=======
-<<<<<<< HEAD
+      <button class="btn btn-ghost-light" id="profile-cancel">Cancel</button>
       <button class="btn btn-primary" id="profile-save">Save</button>
-=======
-      <button class="btn btn-primary" id="profile-save">Guardar</button>
->>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
->>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
     </div>
   </div>
 </div>
 
-<!-- ============ MODAL: FELICITACIÓN ============ -->
+<!-- ============ MODAL: CONGRATULATIONS ============ -->
 <div class="modal-overlay" id="congrats-modal" hidden>
   <div class="modal-card congrats-card" role="dialog" aria-modal="true" aria-labelledby="congrats-title">
     <div class="confetti" aria-hidden="true"></div>
     <p class="congrats-emoji" aria-hidden="true">🎉</p>
-<<<<<<< HEAD
-    <p class="modal-title" id="congrats-title">¡Programa completado!</p>
-=======
-<<<<<<< HEAD
-    <p class="modal-title" id="congrats-title">¡Program completed!</p>
-=======
-    <p class="modal-title" id="congrats-title">¡Programa completado!</p>
->>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
->>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
-    <p class="congrats-text">Terminaste los seis niveles, de A1 a C2. Tu certificado ya está disponible en la sección Progreso.</p>
+    <p class="modal-title" id="congrats-title">¡Program Completed!</p>
+    <p class="congrats-text">You finished all six levels, from A1 to C2. Your certificate is now available in the Progress section.</p>
     <div class="modal-actions">
-      <button class="btn btn-primary" id="congrats-close">Ver mi progreso</button>
+      <button class="btn btn-primary" id="congrats-close">View My Progress</button>
     </div>
   </div>
 </div>
@@ -929,18 +804,10 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script src="js/firebase-config.js"></script>
 <script src="js/auth.js"></script>
-<<<<<<< HEAD
-<!-- app.js controla todas las secciones (Niveles, Lección, Habilidades, Progreso,
-=======
-<<<<<<< HEAD
-<!-- app.js controls all sections (Leveles, Lesson, Habilidades, Progreso,
-=======
-<!-- app.js controla todas las secciones (Niveles, Lección, Habilidades, Progreso,
->>>>>>> b609fc87bab8bb42d5c14eb5c1e0759a1c1c638c
->>>>>>> 8fae643b12bb88bbe560f2e6df17123b41c3b8ec
-     Material de apoyo, Gramática) y ahora se carga siempre, para invitados y
-     estudiantes por igual. Resolver/enviar actividades sigue requiriendo cuenta;
-     eso se controla desde auth.js (bloque "GATE DE ACTIVIDADES"). -->
+<!-- app.js controls all sections (Levels, Lesson, Skills, Progress,
+     Support Material, Grammar) and is now always loaded, for guests and
+     students alike. Solving/submitting activities still requires an account;
+     that is controlled from auth.js (the "ACTIVITY GATE" block). -->
 <script src="js/app.js"></script>
 </body>
 </html>
