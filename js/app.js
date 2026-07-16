@@ -362,6 +362,12 @@
       goto(a.dataset.nav);
     });
   });
+  document.querySelectorAll(".logo[data-nav]").forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      e.preventDefault();
+      goto(a.dataset.nav);
+    });
+  });
   document.querySelectorAll(".group-tab").forEach(function (btn) {
     btn.addEventListener("click", function () {
       if (btn.dataset.nav === "leccion") {
@@ -1654,6 +1660,9 @@
   var GRAMMAR_CONTENT = {
     nouns: {
       label: "Nouns",
+      definitionTitle: "What is a Noun?",
+      definition: "A noun is a word that names a person, animal, place, thing, idea, or quality. Nouns are one of the most essential building blocks of English &mdash; almost every sentence contains at least one.",
+      definitionExamples: ["teacher", "Mexico", "book", "happiness", "team", "water"],
       modules: [
         {
           title: "Rules for Forming Plural Nouns",
@@ -2003,24 +2012,55 @@
     var topic = GRAMMAR_CONTENT[slug];
     if (!topic) return;
     document.getElementById("grammar-browse").hidden = true;
+    var sectionHead = document.getElementById("grammar-section-head");
+    if (sectionHead) sectionHead.hidden = true;
     var panel = document.getElementById("grammar-panel");
     panel.hidden = false;
     var inner = document.getElementById("grammar-panel-inner");
-    var html = topic.modules.map(renderGrammarModule).join("");
+    var html = "";
+    if (topic.definition) {
+      html += '<div class="grammar-definition-hero">' +
+        '<p class="eyebrow">📚 Definition</p>' +
+        "<h2>" + (topic.definitionTitle || topic.label) + "</h2>" +
+        "<p>" + topic.definition + "</p>" +
+        (topic.definitionExamples ? '<div class="grammar-definition-examples">' +
+          topic.definitionExamples.map(function (ex) { return '<span class="grammar-def-chip">' + ex + "</span>"; }).join("") +
+          "</div>" : "") +
+        "</div>";
+    }
     if (topic.practice && topic.practice.length) {
-      html += '<div class="grammar-practice-section">' +
+      html += '<div class="grammar-practice-cta">' +
+        '<span class="grammar-practice-cta-text">🎯 <strong>New!</strong> Practice what you learn here with ' +
+          topic.practice.length + ' interactive quizzes.</span>' +
+        '<button type="button" class="btn btn-primary btn-sm grammar-practice-cta-btn" id="' + slug + '-cta-btn">Go to Quizzes ↓</button>' +
+        "</div>";
+    }
+    html += topic.modules.map(renderGrammarModule).join("");
+    if (topic.practice && topic.practice.length) {
+      html += '<div class="grammar-practice-section" id="' + slug + '-practice">' +
         '<p class="grammar-section-title">🎮 Interactive Exercises</p>' +
         topic.practice.map(grammarPracticeQuizHtml).join("") +
         "</div>";
     }
     inner.innerHTML = html;
-    if (topic.practice) initGrammarPracticeQuizzes(inner, topic.practice);
+    if (topic.practice) {
+      initGrammarPracticeQuizzes(inner, topic.practice);
+      var ctaBtn = document.getElementById(slug + "-cta-btn");
+      if (ctaBtn) {
+        ctaBtn.addEventListener("click", function () {
+          var target = document.getElementById(slug + "-practice");
+          if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      }
+    }
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function closeGrammarPanel() {
     document.getElementById("grammar-panel").hidden = true;
     document.getElementById("grammar-browse").hidden = false;
+    var sectionHead = document.getElementById("grammar-section-head");
+    if (sectionHead) sectionHead.hidden = false;
   }
   document.getElementById("grammar-back").addEventListener("click", closeGrammarPanel);
 
@@ -2030,6 +2070,10 @@
       span.classList.add("has-content");
       span.tabIndex = 0;
       span.setAttribute("role", "button");
+      if (GRAMMAR_CONTENT[slug].practice && GRAMMAR_CONTENT[slug].practice.length) {
+        span.classList.add("has-quiz");
+        span.title = "Includes interactive practice quizzes";
+      }
       span.addEventListener("click", function () { openGrammarTopic(slug); });
       span.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openGrammarTopic(slug); } });
     } else {
