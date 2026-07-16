@@ -84,7 +84,7 @@ ul{ margin:0; padding:0; list-style:none; }
   padding: 12px 24px;
 }
 .logo{ display:flex; align-items:center; gap:10px; text-decoration:none; color:#fff; }
-.logo-mark{ width: 36px; height:36px; flex-shrink:0; display:block; }
+.logo-mark{ width: 36px; height:36px; flex-shrink:0; display:block; object-fit: contain; }
 .logo-text{ display:flex; flex-direction:column; line-height:1.1; }
 .logo-text .logo-name{ font-family: var(--font-display); font-size: 15px; font-weight: 400; }
 .logo-text .logo-name strong{ font-weight: 700; }
