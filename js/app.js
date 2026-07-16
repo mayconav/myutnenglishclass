@@ -2006,32 +2006,15 @@
     var panel = document.getElementById("grammar-panel");
     panel.hidden = false;
     var inner = document.getElementById("grammar-panel-inner");
-    var html = "";
+    var html = topic.modules.map(renderGrammarModule).join("");
     if (topic.practice && topic.practice.length) {
-      html += '<div class="grammar-practice-cta">' +
-        '<span class="grammar-practice-cta-text">🎯 <strong>New!</strong> Practice what you learn here with ' +
-          topic.practice.length + ' interactive quizzes.</span>' +
-        '<button type="button" class="btn btn-primary btn-sm grammar-practice-cta-btn" id="' + slug + '-cta-btn">Go to Quizzes ↓</button>' +
-        "</div>";
-    }
-    html += topic.modules.map(renderGrammarModule).join("");
-    if (topic.practice && topic.practice.length) {
-      html += '<div class="grammar-practice-section" id="' + slug + '-practice">' +
+      html += '<div class="grammar-practice-section">' +
         '<p class="grammar-section-title">🎮 Interactive Exercises</p>' +
         topic.practice.map(grammarPracticeQuizHtml).join("") +
         "</div>";
     }
     inner.innerHTML = html;
-    if (topic.practice) {
-      initGrammarPracticeQuizzes(inner, topic.practice);
-      var ctaBtn = document.getElementById(slug + "-cta-btn");
-      if (ctaBtn) {
-        ctaBtn.addEventListener("click", function () {
-          var target = document.getElementById(slug + "-practice");
-          if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
-        });
-      }
-    }
+    if (topic.practice) initGrammarPracticeQuizzes(inner, topic.practice);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
@@ -2047,10 +2030,6 @@
       span.classList.add("has-content");
       span.tabIndex = 0;
       span.setAttribute("role", "button");
-      if (GRAMMAR_CONTENT[slug].practice && GRAMMAR_CONTENT[slug].practice.length) {
-        span.classList.add("has-quiz");
-        span.title = "Includes interactive practice quizzes";
-      }
       span.addEventListener("click", function () { openGrammarTopic(slug); });
       span.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openGrammarTopic(slug); } });
     } else {

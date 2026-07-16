@@ -243,20 +243,6 @@ main{ max-width: 1100px; margin: 0 auto; padding: 48px 24px 80px; }
 .grammar-topic.has-content::before{ content:"📖"; opacity:1; }
 .grammar-topic.has-content:hover{ background: var(--blue-tint); border-color: var(--blue); color: var(--blue); }
 ::root[data-theme="dark"] .grammar-topic.has-content:hover{ background: rgba(59,116,214,0.16); }
-.grammar-topic.has-quiz{ position:relative; padding-right: 30px; }
-.grammar-topic.has-quiz::after{
-  content:"✎"; position:absolute; top:-6px; right:-6px; width:18px; height:18px; border-radius:50%;
-  background: var(--red); color:#fff; font-size: 10px; display:flex; align-items:center; justify-content:center;
-  box-shadow: 0 0 0 2px var(--surface, #fff);
-}
-
-.grammar-practice-cta{
-  display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap: 14px;
-  background: var(--blue-tint); border: 1px solid var(--blue); border-radius: var(--radius-md);
-  padding: 14px 18px; margin-bottom: 24px;
-}
-.grammar-practice-cta-text{ font-size: 14px; color: var(--ink); }
-.btn-sm{ padding: 8px 16px; font-size: 13px; white-space: nowrap; }
 
 /* ---- Grammar lesson panel ---- */
 .grammar-panel{ padding: 0; margin-top: 4px; animation: fadeIn .3s ease; }
