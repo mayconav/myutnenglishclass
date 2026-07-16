@@ -243,6 +243,20 @@ main{ max-width: 1100px; margin: 0 auto; padding: 48px 24px 80px; }
 .grammar-topic.has-content::before{ content:"📖"; opacity:1; }
 .grammar-topic.has-content:hover{ background: var(--blue-tint); border-color: var(--blue); color: var(--blue); }
 ::root[data-theme="dark"] .grammar-topic.has-content:hover{ background: rgba(59,116,214,0.16); }
+.grammar-topic.has-quiz{ position:relative; padding-right: 30px; }
+.grammar-topic.has-quiz::after{
+  content:"✎"; position:absolute; top:-6px; right:-6px; width:18px; height:18px; border-radius:50%;
+  background: var(--red); color:#fff; font-size: 10px; display:flex; align-items:center; justify-content:center;
+  box-shadow: 0 0 0 2px var(--surface, #fff);
+}
+
+.grammar-practice-cta{
+  display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap: 14px;
+  background: var(--blue-tint); border: 1px solid var(--blue); border-radius: var(--radius-md);
+  padding: 14px 18px; margin-bottom: 24px;
+}
+.grammar-practice-cta-text{ font-size: 14px; color: var(--ink); }
+.btn-sm{ padding: 8px 16px; font-size: 13px; white-space: nowrap; }
 
 /* ---- Grammar lesson panel ---- */
 .grammar-panel{ padding: 0; margin-top: 4px; animation: fadeIn .3s ease; }
@@ -310,6 +324,27 @@ main{ max-width: 1100px; margin: 0 auto; padding: 48px 24px 80px; }
   font-family: var(--font-display); font-size: 13px; font-weight:700; text-transform:uppercase;
   letter-spacing:.05em; color: var(--blue); margin: 26px 0 12px;
 }
+
+/* ---- Practice quizzes (self-checking worksheets under a grammar topic) ---- */
+.grammar-practice-section{ margin-top: 8px; }
+.practice-quiz-card{
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md);
+  padding: 20px 22px; margin-bottom: 18px; box-shadow: var(--shadow-card);
+}
+.practice-quiz-instructions{ font-size: 13.5px; color: var(--text-secondary); margin: 0 0 6px; }
+.practice-quiz-example{ font-size: 13px; color: var(--text-secondary); margin: 0 0 16px; }
+.practice-quiz-items{ display:flex; flex-direction:column; gap: 12px; }
+.practice-quiz-row{ display:flex; flex-wrap:wrap; align-items:center; gap: 6px; font-size: 14.5px; }
+.practice-quiz-num{ font-weight:700; color: var(--blue); font-family: var(--font-display); min-width: 20px; }
+.practice-quiz-text{ color: var(--ink); }
+.practice-quiz-arrow{ color: var(--text-secondary); font-weight:700; }
+.practice-blank{
+  width: 130px; padding: 6px 10px; font-size: 14px; border-radius: var(--radius-sm);
+  border: 1px solid var(--border); background: var(--paper, #fff);
+}
+.practice-blank-article{ width: 64px; text-align:center; }
+.practice-quiz-actions{ display:flex; gap: 10px; margin-top: 18px; }
+.practice-quiz-result{ margin: 12px 0 0; font-size: 14px; font-weight:600; }
 
 /* ============ GATES / NIVELES ============ */
 .gates-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }

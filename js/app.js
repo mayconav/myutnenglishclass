@@ -1782,6 +1782,47 @@
     }
   };
 
+  /* Practice quizzes sent by Professor Aguilar (Quizes 1-2 Nouns.docx).
+     Rendered as a self-checking worksheet under the Nouns topic. */
+  GRAMMAR_CONTENT.nouns.practice = [
+    {
+      id: "nouns-quiz-1",
+      title: "Quiz 1 — Write the Plurals",
+      instructions: "Write the plural of each singular word or phrase.",
+      example: { text: "a nice sofa", prefix: "", suffix: "", result: "nice sofas" },
+      items: [
+        { text: "a university", prefix: "", suffix: "", answers: ["universities"] },
+        { text: "a sandwich", prefix: "", suffix: "", answers: ["sandwiches"] },
+        { text: "a street", prefix: "", suffix: "", answers: ["streets"] },
+        { text: "a rich man", prefix: "rich ", suffix: "", answers: ["men"] },
+        { text: "one foot", prefix: "two ", suffix: "", answers: ["feet"] },
+        { text: "a dirty bag", prefix: "dirty ", suffix: "", answers: ["bags"] },
+        { text: "an expensive watch", prefix: "expensive ", suffix: "", answers: ["watches"] },
+        { text: "a new phone", prefix: "new ", suffix: "", answers: ["phones"] },
+        { text: "a nice photograph", prefix: "nice ", suffix: "", answers: ["photographs"] },
+        { text: "one glass of wine", prefix: "two ", suffix: " of wine", answers: ["glasses"] }
+      ]
+    },
+    {
+      id: "nouns-quiz-2",
+      title: "Quiz 2 — Articles (a/an) and Plurals",
+      instructions: "Write a/an before the singular word, then write the plural form.",
+      example: { text: "olive", article: "an", prefix: "", suffix: "", result: "olives" },
+      items: [
+        { text: "bus", article: ["a"], prefix: "", suffix: "", answers: ["buses"] },
+        { text: "nice family", article: ["a"], prefix: "nice ", suffix: "", answers: ["families"] },
+        { text: "Italian child", article: ["an"], prefix: "Italian ", suffix: "", answers: ["children"] },
+        { text: "strong tooth", article: ["a"], prefix: "strong ", suffix: "", answers: ["teeth"] },
+        { text: "nice dress", article: ["a"], prefix: "nice ", suffix: "", answers: ["dresses"] },
+        { text: "angry wife", article: ["an"], prefix: "angry ", suffix: "", answers: ["wives"] },
+        { text: "uniform", article: ["a"], prefix: "", suffix: "", answers: ["uniforms"] },
+        { text: "amazing website", article: ["an"], prefix: "amazing ", suffix: "", answers: ["websites"] },
+        { text: "elephant", article: ["an"], prefix: "", suffix: "", answers: ["elephants"] },
+        { text: "empty library", article: ["an"], prefix: "empty ", suffix: "", answers: ["libraries"] }
+      ]
+    }
+  ];
+
   function grammarRuleCardHtml(rule) {
     var html = '<div class="grammar-rule-card">' +
       '<div class="grammar-rule-head">' +
@@ -1858,6 +1899,106 @@
     return html;
   }
 
+  /* ---- Practice quizzes (self-checking worksheets attached to a grammar topic) ---- */
+  function grammarPracticeQuizHtml(quiz) {
+    var html = '<div class="practice-quiz-card" data-quiz-id="' + quiz.id + '">' +
+      '<p class="quiz-heading">📝 ' + quiz.title + "</p>" +
+      '<p class="practice-quiz-instructions">' + quiz.instructions + "</p>";
+
+    if (quiz.example) {
+      html += '<p class="practice-quiz-example"><em>Example: ' +
+        (quiz.example.article ? quiz.example.article + " " : "") + quiz.example.text +
+        " &rArr; " + quiz.example.prefix + quiz.example.result + quiz.example.suffix + "</em></p>";
+    }
+
+    html += '<div class="practice-quiz-items">';
+    quiz.items.forEach(function (item, ii) {
+      html += '<div class="practice-quiz-row">' +
+        '<span class="practice-quiz-num">' + (ii + 1) + ".</span>";
+      if (item.article) {
+        html += '<input type="text" class="fill-input practice-blank practice-blank-article" ' +
+          'data-quiz="' + quiz.id + '" data-item="' + ii + '" data-kind="article" autocomplete="off" placeholder="a/an">';
+      }
+      html += ' <span class="practice-quiz-text">' + item.text + '</span> <span class="practice-quiz-arrow">&rArr;</span> ';
+      if (item.prefix) html += '<span class="practice-quiz-text">' + item.prefix + "</span>";
+      html += '<input type="text" class="fill-input practice-blank" ' +
+        'data-quiz="' + quiz.id + '" data-item="' + ii + '" data-kind="plural" autocomplete="off" placeholder="plural">';
+      if (item.suffix) html += '<span class="practice-quiz-text">' + item.suffix + "</span>";
+      html += "</div>";
+    });
+    html += "</div>";
+
+    html += '<div class="practice-quiz-actions">' +
+      '<button class="btn btn-primary practice-check-btn" type="button" data-quiz="' + quiz.id + '">Check Answers</button>' +
+      '<button class="btn btn-ghost-light practice-reset-btn" type="button" data-quiz="' + quiz.id + '">Reset</button>' +
+      "</div>" +
+      '<p class="practice-quiz-result" id="practice-result-' + quiz.id + '" hidden></p>' +
+      "</div>";
+    return html;
+  }
+
+  function initGrammarPracticeQuizzes(container, quizzes) {
+    (quizzes || []).forEach(function (quiz) {
+      var card = container.querySelector('.practice-quiz-card[data-quiz-id="' + quiz.id + '"]');
+      if (!card) return;
+      var checkBtn = card.querySelector(".practice-check-btn");
+      var resetBtn = card.querySelector(".practice-reset-btn");
+      var resultEl = card.querySelector(".practice-quiz-result");
+
+      var blankInputs = Array.prototype.slice.call(card.querySelectorAll(".practice-blank"));
+      blankInputs.forEach(function (input, i) {
+        input.addEventListener("keydown", function (e) {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            if (i < blankInputs.length - 1) blankInputs[i + 1].focus();
+            else checkBtn.click();
+          }
+        });
+      });
+
+      checkBtn.addEventListener("click", function () {
+        var total = 0;
+        var correct = 0;
+        quiz.items.forEach(function (item, ii) {
+          var pluralInput = card.querySelector('.practice-blank[data-item="' + ii + '"][data-kind="plural"]');
+          total++;
+          var pluralVal = pluralInput.value.trim().toLowerCase();
+          var pluralOk = item.answers.some(function (a) { return a.toLowerCase() === pluralVal; });
+          pluralInput.classList.remove("correct", "incorrect");
+          pluralInput.classList.add(pluralOk ? "correct" : "incorrect");
+          pluralInput.disabled = true;
+          if (pluralOk) correct++;
+
+          if (item.article) {
+            var articleInput = card.querySelector('.practice-blank[data-item="' + ii + '"][data-kind="article"]');
+            total++;
+            var articleVal = articleInput.value.trim().toLowerCase();
+            var articleOk = item.article.indexOf(articleVal) !== -1;
+            articleInput.classList.remove("correct", "incorrect");
+            articleInput.classList.add(articleOk ? "correct" : "incorrect");
+            articleInput.disabled = true;
+            if (articleOk) correct++;
+          }
+        });
+        checkBtn.disabled = true;
+        resultEl.hidden = false;
+        resultEl.textContent = "You got " + correct + " out of " + total + " correct.";
+        resultEl.style.color = correct === total ? "var(--green-dark)" : "var(--red)";
+      });
+
+      resetBtn.addEventListener("click", function () {
+        blankInputs.forEach(function (input) {
+          input.value = "";
+          input.disabled = false;
+          input.classList.remove("correct", "incorrect");
+        });
+        checkBtn.disabled = false;
+        resultEl.hidden = true;
+        if (blankInputs[0]) blankInputs[0].focus();
+      });
+    });
+  }
+
   function openGrammarTopic(slug) {
     var topic = GRAMMAR_CONTENT[slug];
     if (!topic) return;
@@ -1865,7 +2006,32 @@
     var panel = document.getElementById("grammar-panel");
     panel.hidden = false;
     var inner = document.getElementById("grammar-panel-inner");
-    inner.innerHTML = topic.modules.map(renderGrammarModule).join("");
+    var html = "";
+    if (topic.practice && topic.practice.length) {
+      html += '<div class="grammar-practice-cta">' +
+        '<span class="grammar-practice-cta-text">🎯 <strong>New!</strong> Practice what you learn here with ' +
+          topic.practice.length + ' interactive quizzes.</span>' +
+        '<button type="button" class="btn btn-primary btn-sm grammar-practice-cta-btn" id="' + slug + '-cta-btn">Go to Quizzes ↓</button>' +
+        "</div>";
+    }
+    html += topic.modules.map(renderGrammarModule).join("");
+    if (topic.practice && topic.practice.length) {
+      html += '<div class="grammar-practice-section" id="' + slug + '-practice">' +
+        '<p class="grammar-section-title">🎮 Interactive Exercises</p>' +
+        topic.practice.map(grammarPracticeQuizHtml).join("") +
+        "</div>";
+    }
+    inner.innerHTML = html;
+    if (topic.practice) {
+      initGrammarPracticeQuizzes(inner, topic.practice);
+      var ctaBtn = document.getElementById(slug + "-cta-btn");
+      if (ctaBtn) {
+        ctaBtn.addEventListener("click", function () {
+          var target = document.getElementById(slug + "-practice");
+          if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      }
+    }
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
@@ -1881,6 +2047,10 @@
       span.classList.add("has-content");
       span.tabIndex = 0;
       span.setAttribute("role", "button");
+      if (GRAMMAR_CONTENT[slug].practice && GRAMMAR_CONTENT[slug].practice.length) {
+        span.classList.add("has-quiz");
+        span.title = "Includes interactive practice quizzes";
+      }
       span.addEventListener("click", function () { openGrammarTopic(slug); });
       span.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openGrammarTopic(slug); } });
     } else {
