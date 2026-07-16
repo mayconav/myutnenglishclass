@@ -239,6 +239,78 @@ main{ max-width: 1100px; margin: 0 auto; padding: 48px 24px 80px; }
   .teacher-intro-text p{ text-align:left; }
 }
 
+.grammar-topic.has-content{ cursor:pointer; }
+.grammar-topic.has-content::before{ content:"📖"; opacity:1; }
+.grammar-topic.has-content:hover{ background: var(--blue-tint); border-color: var(--blue); color: var(--blue); }
+::root[data-theme="dark"] .grammar-topic.has-content:hover{ background: rgba(59,116,214,0.16); }
+
+/* ---- Grammar lesson panel ---- */
+.grammar-panel{ padding: 0; margin-top: 4px; animation: fadeIn .3s ease; }
+.grammar-back{
+  background:none; border:none; font-family: var(--font-display); font-size: 13px; font-weight:600;
+  color: var(--blue); padding: 0 0 18px; display:flex; align-items:center; gap:4px; cursor:pointer;
+}
+.grammar-back:hover{ text-decoration: underline; }
+
+.grammar-module{ margin-bottom: 28px; }
+.grammar-module-head{ margin-bottom: 20px; }
+.grammar-module-head .eyebrow{ margin-bottom:4px; }
+.grammar-module-head h3{ font-size: 24px; margin: 0 0 6px; color: var(--ink); }
+
+.grammar-objectives{
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md);
+  border-left: 3px solid var(--blue); padding: 16px 20px; margin-bottom: 22px; box-shadow: var(--shadow-card);
+}
+.grammar-objectives p{ font-family: var(--font-display); font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color: var(--blue); margin:0 0 8px; }
+.grammar-objectives ul{ margin:0; padding-left: 20px; }
+.grammar-objectives li{ font-size: 14px; color: var(--text-secondary); margin-bottom: 4px; }
+
+.grammar-rule-card{
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md);
+  padding: 20px 22px; margin-bottom: 16px; box-shadow: var(--shadow-card);
+}
+.grammar-rule-head{ display:flex; align-items:center; gap:10px; margin-bottom: 8px; }
+.grammar-rule-num{
+  flex-shrink:0; width:26px; height:26px; border-radius:50%; background: var(--blue); color:#fff;
+  display:flex; align-items:center; justify-content:center; font-family: var(--font-display); font-size:12px; font-weight:700;
+}
+.grammar-rule-head h4{ font-size: 15.5px; margin:0; color: var(--ink); }
+.grammar-rule-desc{ font-size: 14px; color: var(--text-secondary); margin: 0 0 14px; }
+.grammar-rule-structure{
+  font-family: var(--font-mono); font-size: 13px; color: var(--green-dark); background: var(--blue-tint);
+  display:inline-block; padding: 6px 12px; border-radius: 6px; margin-bottom: 14px;
+}
+::root[data-theme="dark"] .grammar-rule-structure{ background: rgba(59,116,214,0.14); }
+
+.grammar-examples{ list-style:none; margin: 14px 0 0; padding:0; display:flex; flex-direction:column; gap:6px; }
+.grammar-examples li{ font-size: 13.5px; color: var(--text-secondary); padding-left: 18px; position:relative; }
+.grammar-examples li::before{ content:"💬"; position:absolute; left:0; font-size: 11px; }
+.grammar-examples strong{ color: var(--ink); }
+
+.grammar-tip-box{
+  background: color-mix(in srgb, var(--yellow) 12%, transparent); border: 1px solid var(--yellow);
+  border-radius: var(--radius-md); padding: 14px 18px; margin: 18px 0; font-size: 14px; color: var(--text-primary);
+}
+.grammar-tip-box strong{ color: var(--yellow-dark); }
+
+.grammar-mistakes-grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap:10px; margin: 14px 0 6px; }
+.grammar-mistake{
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 10px 14px; font-size: 13.5px;
+}
+.grammar-mistake .wrong{ color: var(--red); display:block; }
+.grammar-mistake .right{ color: var(--green-dark); display:block; margin-top:2px; }
+.grammar-mistakes-note{ font-size: 13px; color: var(--text-secondary); font-style: italic; margin: 8px 0 0; }
+
+.grammar-memory-list{ margin: 0; padding-left: 20px; }
+.grammar-memory-list li{ font-size: 14px; color: var(--text-secondary); margin-bottom: 6px; }
+.grammar-memory-list strong{ color: var(--ink); }
+
+.grammar-section-title{
+  font-family: var(--font-display); font-size: 13px; font-weight:700; text-transform:uppercase;
+  letter-spacing:.05em; color: var(--blue); margin: 26px 0 12px;
+}
+
 /* ============ GATES / NIVELES ============ */
 .gates-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .gate-card{

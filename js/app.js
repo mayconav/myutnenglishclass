@@ -340,6 +340,7 @@
     if (target === "niveles") renderGates();
     if (target === "progreso") renderProgress();
     if (target === "habilidades") openSkillsHub();
+    if (target === "gramatica") closeGrammarPanel();
     window.scrollTo({ top: 0, behavior: "smooth" });
     var nav = document.getElementById("main-nav");
     nav.classList.remove("open");
@@ -1644,6 +1645,262 @@
     goto(currentView ? currentView.dataset.view : "inicio");
   }
   window.__UTN_APP_RELOAD__ = reloadAppState;
+
+  /* ============ GRAMMAR LESSONS ============
+     Content arrives progressively from Professor Aguilar. Each entry in
+     GRAMMAR_CONTENT unlocks its matching topic in the syllabus menu
+     (data-topic attribute). Topics with no entry stay locked (🔒) and
+     show a "coming soon" toast when tapped. */
+  var GRAMMAR_CONTENT = {
+    nouns: {
+      label: "Nouns",
+      modules: [
+        {
+          title: "Rules for Forming Plural Nouns",
+          objectives: [
+            "Form the plural of regular and irregular nouns correctly.",
+            "Identify spelling changes when making nouns plural.",
+            "Recognize nouns that do not change in the plural.",
+            "Avoid common mistakes made by Spanish-speaking learners."
+          ],
+          rules: [
+            {
+              title: "General Rule",
+              desc: "Most nouns form the plural by adding <strong>-s</strong> to the singular form.",
+              structure: "Singular + -s = Plural",
+              table: [["book","books"],["student","students"],["computer","computers"],["teacher","teachers"],["phone","phones"]],
+              examples: ["I have two <strong>books</strong>.", "There are thirty <strong>students</strong> in the classroom.", "My brothers have new <strong>computers</strong>."]
+            },
+            {
+              number: 1,
+              title: "Add -es to nouns ending in -s, -ss, -sh, -ch, -x, or -z",
+              desc: "If a noun ends in one of these sounds, add <strong>-es</strong>.",
+              table: [["bus","buses"],["class","classes"],["watch","watches"],["dish","dishes"],["box","boxes"],["quiz","quizzes"]],
+              examples: ["There are many <strong>boxes</strong> in the office.", "The students took several <strong>quizzes</strong>.", "She washed the <strong>dishes</strong>."]
+            },
+            {
+              number: 2,
+              title: "Nouns Ending in Consonant + y",
+              desc: "If a noun ends in a <strong>consonant + y</strong>, change the <strong>y</strong> to <strong>i</strong> and add -es.",
+              table: [["city","cities"],["country","countries"],["baby","babies"],["family","families"],["dictionary","dictionaries"]],
+              examples: ["Mexico has many beautiful <strong>cities</strong>.", "Their <strong>families</strong> are very friendly."]
+            },
+            {
+              number: 3,
+              title: "Nouns Ending in Vowel + y",
+              desc: "If the <strong>y</strong> comes after a vowel, simply add <strong>-s</strong>.",
+              table: [["boy","boys"],["toy","toys"],["key","keys"],["monkey","monkeys"],["day","days"]],
+              examples: ["The children have many <strong>toys</strong>.", "We found our <strong>keys</strong>."]
+            },
+            {
+              number: 4,
+              title: "Nouns Ending in -o",
+              desc: "<strong>A. Most nouns ending in -o add -es:</strong>",
+              table: [["potato","potatoes"],["tomato","tomatoes"],["hero","heroes"],["echo","echoes"]],
+              examples: ["We bought several <strong>potatoes</strong>.", "The <strong>heroes</strong> received awards."],
+              table2Label: "B. Many borrowed words simply add -s:",
+              table2: [["photo","photos"],["piano","pianos"],["radio","radios"],["video","videos"],["studio","studios"],["zoo","zoos"]],
+              examples2: ["She takes many <strong>photos</strong>.", "There are two <strong>pianos</strong> in the music room."],
+              tip: "There is no single rule for all nouns ending in <strong>-o</strong>. When in doubt, consult a reliable dictionary."
+            },
+            {
+              number: 5,
+              title: "Nouns Ending in -f or -fe",
+              desc: "Some nouns change <strong>-f</strong> or <strong>-fe</strong> to <strong>-ves</strong>.",
+              table: [["leaf","leaves"],["life","lives"],["wife","wives"],["knife","knives"],["wolf","wolves"],["shelf","shelves"]],
+              examples: ["The trees lost their <strong>leaves</strong>.", "The <strong>wolves</strong> live in the forest."],
+              table2Label: "Exceptions (add -s):",
+              table2: [["roof","roofs"],["chief","chiefs"],["belief","beliefs"],["cliff","cliffs"],["proof","proofs"]],
+              examples2: ["The houses have red <strong>roofs</strong>.", "The <strong>chiefs</strong> attended the meeting."]
+            },
+            {
+              number: 6,
+              title: "Irregular Plurals",
+              desc: "Some nouns have completely irregular plural forms.",
+              table: [["man","men"],["woman","women"],["child","children"],["person","people"],["mouse","mice"],["goose","geese"],["foot","feet"],["tooth","teeth"],["ox","oxen"],["louse","lice"]],
+              examples: ["The <strong>children</strong> are playing.", "Two <strong>men</strong> entered the classroom.", "My <strong>feet</strong> hurt after the walk."]
+            },
+            {
+              number: 7,
+              title: "Nouns with the Same Singular and Plural Form",
+              desc: "Some nouns do not change.",
+              table: [["sheep","sheep"],["deer","deer"],["fish*","fish"],["aircraft","aircraft"],["series","series"],["species","species"]],
+              examples: ["We saw three <strong>deer</strong>.", "The farmer has many <strong>sheep</strong>."],
+              tip: "*<strong>Fishes</strong> is also used in biology when referring to different species of fish."
+            },
+            {
+              number: 8,
+              title: "Foreign Plurals",
+              desc: "Some nouns borrowed from Latin or Greek keep their original plural forms.",
+              table: [["datum","data"],["phenomenon","phenomena"],["criterion","criteria"],["analysis","analyses"],["basis","bases"],["thesis","theses"],["crisis","crises"],["cactus","cacti / cactuses"],["fungus","fungi / funguses"],["nucleus","nuclei"]],
+              examples: ["The <strong>analyses</strong> were completed yesterday.", "Several <strong>criteria</strong> were considered."]
+            },
+            {
+              number: 9,
+              title: "Compound Nouns",
+              desc: "Usually, the main noun becomes plural:",
+              table: [["mother-in-law","mothers-in-law"],["passer-by","passers-by"],["editor-in-chief","editors-in-chief"],["attorney general","attorneys general"]],
+              examples: ["Two <strong>mothers-in-law</strong> attended the party."],
+              table2Label: "Other compounds simply add -s:",
+              table2: [["notebook","notebooks"],["toothbrush","toothbrushes"],["classroom","classrooms"]],
+              examples2: ["We bought new <strong>notebooks</strong>."]
+            },
+            {
+              number: 10,
+              title: "Numbers, Letters, and Symbols",
+              desc: "To avoid confusion, apostrophes may occasionally be used with letters, but modern style generally prefers <strong>-s</strong>.",
+              examples: ["Mind your <strong>p's</strong> and <strong>q's</strong>. <em>(traditional style)</em>", "She got three <strong>As</strong> in her exams. <em>(modern style)</em>"]
+            }
+          ],
+          commonMistakes: [
+            ["childs","children"], ["womans","women"], ["informations","information"],
+            ["furnitures","furniture"], ["advices","advice"], ["peoples","people"]
+          ],
+          commonMistakesNote: "\"Peoples\" is correct only when referring to different ethnic groups or nations (e.g., the Indigenous peoples of the Americas) — as the plural of \"person\" in general, use \"people\".",
+          quickReference: [
+            ["Most nouns", "+ s", "book → books"],
+            ["-s, -ss, -sh, -ch, -x, -z", "+ es", "bus → buses"],
+            ["Consonant + y", "y → ies", "city → cities"],
+            ["Vowel + y", "+ s", "boy → boys"],
+            ["Some -o", "+ es", "potato → potatoes"],
+            ["Many borrowed -o", "+ s", "photo → photos"],
+            ["Some -f / -fe", "→ ves", "knife → knives"],
+            ["Exceptions", "+ s", "roof → roofs"],
+            ["Irregular", "change form", "child → children"],
+            ["Same form", "no change", "sheep → sheep"]
+          ],
+          memoryTips: [
+            "<strong>Most nouns:</strong> add -s.",
+            "<strong>Hissing endings</strong> (s, sh, ch, x, z): add -es.",
+            "<strong>Consonant + y:</strong> change y to ies.",
+            "<strong>Vowel + y:</strong> just add -s.",
+            "Learn irregular plurals by memory — they do not follow a predictable pattern.",
+            "Use a dictionary when unsure about nouns ending in -o or -f/-fe."
+          ]
+        }
+      ]
+    }
+  };
+
+  function grammarRuleCardHtml(rule) {
+    var html = '<div class="grammar-rule-card">' +
+      '<div class="grammar-rule-head">' +
+      (rule.number ? '<span class="grammar-rule-num">' + rule.number + "</span>" : "") +
+      "<h4>" + rule.title + "</h4>" +
+      "</div>" +
+      '<p class="grammar-rule-desc">' + rule.desc + "</p>";
+    if (rule.structure) html += '<div class="grammar-rule-structure">' + rule.structure + "</div>";
+    if (rule.table) html += grammarTableHtml(rule.table);
+    if (rule.examples) html += grammarExamplesHtml(rule.examples);
+    if (rule.table2Label) html += '<p class="grammar-rule-desc" style="margin-top:16px;"><strong>' + rule.table2Label + "</strong></p>";
+    if (rule.table2) html += grammarTableHtml(rule.table2);
+    if (rule.examples2) html += grammarExamplesHtml(rule.examples2);
+    if (rule.tip) html += '<div class="grammar-tip-box">💡 <strong>Grammar Tip:</strong> ' + rule.tip + "</div>";
+    html += "</div>";
+    return html;
+  }
+
+  function grammarTableHtml(rows) {
+    var html = '<div class="material-table-wrap"><table class="material-table"><thead><tr><th>Singular</th><th>Plural</th></tr></thead><tbody>';
+    rows.forEach(function (r) { html += "<tr><td>" + r[0] + "</td><td>" + r[1] + "</td></tr>"; });
+    html += "</tbody></table></div>";
+    return html;
+  }
+
+  function grammarExamplesHtml(examples) {
+    var html = '<ul class="grammar-examples">';
+    examples.forEach(function (ex) { html += "<li>" + ex + "</li>"; });
+    html += "</ul>";
+    return html;
+  }
+
+  function renderGrammarModule(mod) {
+    var html = '<div class="grammar-module">' +
+      '<div class="grammar-module-head">' +
+      '<p class="eyebrow">Parts of Speech · Nouns</p>' +
+      "<h3>" + mod.title + "</h3>" +
+      "</div>";
+
+    if (mod.objectives) {
+      html += '<div class="grammar-objectives"><p>🎯 Learning Objective</p><ul>';
+      mod.objectives.forEach(function (o) { html += "<li>" + o + "</li>"; });
+      html += "</ul></div>";
+    }
+
+    html += '<p class="grammar-section-title">🧩 Grammar Rules</p>';
+    mod.rules.forEach(function (rule) { html += grammarRuleCardHtml(rule); });
+
+    if (mod.commonMistakes) {
+      html += '<p class="grammar-section-title">⚠ Common Mistakes</p><div class="grammar-mistakes-grid">';
+      mod.commonMistakes.forEach(function (pair) {
+        html += '<div class="grammar-mistake"><span class="wrong">❌ ' + pair[0] + '</span><span class="right">✅ ' + pair[1] + "</span></div>";
+      });
+      html += "</div>";
+      if (mod.commonMistakesNote) html += '<p class="grammar-mistakes-note">' + mod.commonMistakesNote + "</p>";
+    }
+
+    if (mod.quickReference) {
+      html += '<p class="grammar-section-title">📄 Quick Reference Table</p>' +
+        '<div class="material-table-wrap"><table class="material-table"><thead><tr><th>Ending</th><th>Rule</th><th>Example</th></tr></thead><tbody>';
+      mod.quickReference.forEach(function (row) {
+        html += "<tr><td>" + row[0] + "</td><td>" + row[1] + "</td><td>" + row[2] + "</td></tr>";
+      });
+      html += "</tbody></table></div>";
+    }
+
+    if (mod.memoryTips) {
+      html += '<p class="grammar-section-title">💡 Memory Tips</p><ul class="grammar-memory-list">';
+      mod.memoryTips.forEach(function (t) { html += "<li>" + t + "</li>"; });
+      html += "</ul>";
+    }
+
+    html += "</div>";
+    return html;
+  }
+
+  function openGrammarTopic(slug) {
+    var topic = GRAMMAR_CONTENT[slug];
+    if (!topic) return;
+    document.getElementById("grammar-browse").hidden = true;
+    var panel = document.getElementById("grammar-panel");
+    panel.hidden = false;
+    var inner = document.getElementById("grammar-panel-inner");
+    inner.innerHTML = topic.modules.map(renderGrammarModule).join("");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function closeGrammarPanel() {
+    document.getElementById("grammar-panel").hidden = true;
+    document.getElementById("grammar-browse").hidden = false;
+  }
+  document.getElementById("grammar-back").addEventListener("click", closeGrammarPanel);
+
+  document.querySelectorAll(".grammar-topic").forEach(function (span) {
+    var slug = span.dataset.topic;
+    if (slug && GRAMMAR_CONTENT[slug]) {
+      span.classList.add("has-content");
+      span.tabIndex = 0;
+      span.setAttribute("role", "button");
+      span.addEventListener("click", function () { openGrammarTopic(slug); });
+      span.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openGrammarTopic(slug); } });
+    } else {
+      span.addEventListener("click", function () { showGenericToast("🔒 This topic is coming soon."); });
+    }
+  });
+
+  /* ---- Generic small toast (reuses the XP toast element) ---- */
+  var genericToastTimer = null;
+  function showGenericToast(message) {
+    var toast = document.getElementById("xp-toast");
+    toast.textContent = message;
+    toast.hidden = false;
+    requestAnimationFrame(function () { toast.classList.add("show"); });
+    if (genericToastTimer) clearTimeout(genericToastTimer);
+    genericToastTimer = setTimeout(function () {
+      toast.classList.remove("show");
+      setTimeout(function () { toast.hidden = true; }, 250);
+    }, 1700);
+  }
 
   /* ============ INIT ============ */
   updateBoardingPass();
