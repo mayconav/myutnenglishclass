@@ -3,20 +3,20 @@
 
   /* ============ CONTENT DATA ============ */
   var LEVELS = [
-    { code: "A1", name: "Principiante", skill: "Vocabulario esencial", desc: "Saludos, presentaciones y vocabulario cotidiano." },
-    { code: "A2", name: "Elemental", skill: "Rutinas diarias", desc: "Describir rutinas, lugares y planes simples." },
-    { code: "B1", name: "Intermedio", skill: "Speaking fluido", desc: "Conversaciones sobre estudios, trabajo y opiniones." },
-    { code: "B2", name: "Intermedio alto", skill: "Comprensión auditiva", desc: "Escuchar y debatir temas académicos." },
-    { code: "C1", name: "Avanzado", skill: "Escritura académica", desc: "Redacción de ensayos y argumentación." },
-    { code: "C2", name: "Dominio", skill: "Fluidez profesional", desc: "Presentaciones y comunicación especializada." }
+    { code: "A1", name: "Beginner", skill: "Essential Vocabulary", desc: "Greetings, introductions, and everyday vocabulary." },
+    { code: "A2", name: "Elementary", skill: "Daily Routines", desc: "Describing routines, places, and simple plans." },
+    { code: "B1", name: "Intermediate", skill: "Fluent Speaking", desc: "Conversations about studies, work, and opinions." },
+    { code: "B2", name: "Upper Intermediate", skill: "Listening Comprehension", desc: "Listening to and discussing academic topics." },
+    { code: "C1", name: "Advanced", skill: "Academic Writing", desc: "Essay writing and argumentation." },
+    { code: "C2", name: "Mastery", skill: "Professional Fluency", desc: "Presentations and specialized communication." }
   ];
 
-  /* Cada nivel tiene 2 lecciones. La lección 1 usa opción múltiple;
-     la lección 2 mezcla completar-espacio y relacionar, para variar el tipo de ejercicio. */
+  /* Each level has 2 lessons. Lesson 1 uses multiple choice;
+     lesson 2 mixes fill-in-the-blank and matching, to vary the exercise type. */
   var LESSONS = {
     A1: [
       {
-        title: "Vocabulario esencial",
+        title: "Essential Vocabulary",
         duration: 40,
         captions: [
           { t: 0, text: "Hello! My name is Sofía and I study at UTN." },
@@ -25,12 +25,12 @@
           { t: 30, text: "Great! Let's practice some everyday words." }
         ],
         quiz: [
-          { type: "mcq", q: "¿Cómo se dice 'encantado de conocerte'?", options: ["Nice to meet you", "See you later", "Good night"], correct: 0 },
-          { type: "mcq", q: "'Where are you from?' pregunta sobre...", options: ["La edad", "El origen", "La hora"], correct: 1 }
+          { type: "mcq", q: "How do you say 'nice to meet you'?", options: ["Nice to meet you", "See you later", "Good night"], correct: 0 },
+          { type: "mcq", q: "'Where are you from?' asks about...", options: ["Age", "Origin", "Time"], correct: 1 }
         ]
       },
       {
-        title: "Saludos y despedidas",
+        title: "Greetings and Farewells",
         duration: 35,
         captions: [
           { t: 0, text: "Good morning! How are you today?" },
@@ -38,8 +38,8 @@
           { t: 20, text: "See you later, have a nice day!" }
         ],
         quiz: [
-          { type: "fill", q: "Completa: 'Good ___, how are you?' (saludo de mañana)", answer: ["morning"] },
-          { type: "match", instructions: "Relaciona cada saludo en inglés con su traducción.", pairs: [
+          { type: "fill", q: "Complete: 'Good ___, how are you?' (morning greeting)", answer: ["morning"] },
+          { type: "match", instructions: "Match each English greeting with its translation.", pairs: [
             ["Good morning", "Buenos días"],
             ["See you later", "Nos vemos luego"],
             ["Thank you", "Gracias"]
@@ -49,7 +49,7 @@
     ],
     A2: [
       {
-        title: "Rutinas diarias",
+        title: "Daily Routines",
         duration: 40,
         captions: [
           { t: 0, text: "I usually wake up at seven in the morning." },
@@ -58,12 +58,12 @@
           { t: 30, text: "What is your daily routine like?" }
         ],
         quiz: [
-          { type: "mcq", q: "'I usually wake up at seven' describe...", options: ["Un plan futuro", "Una rutina", "Un consejo"], correct: 1 },
-          { type: "mcq", q: "¿Qué palabra indica frecuencia?", options: ["Usually", "Library", "Afternoon"], correct: 0 }
+          { type: "mcq", q: "'I usually wake up at seven' describes...", options: ["A future plan", "A routine", "A piece of advice"], correct: 1 },
+          { type: "mcq", q: "Which word indicates frequency?", options: ["Usually", "Library", "Afternoon"], correct: 0 }
         ]
       },
       {
-        title: "Lugares y planes",
+        title: "Places and Plans",
         duration: 35,
         captions: [
           { t: 0, text: "Next weekend I am going to visit my family." },
@@ -71,8 +71,8 @@
           { t: 20, text: "After that, we will have lunch downtown." }
         ],
         quiz: [
-          { type: "fill", q: "Completa: 'I am going ___ visit my family.' (preposición de plan futuro)", answer: ["to"] },
-          { type: "match", instructions: "Relaciona el lugar en inglés con su traducción.", pairs: [
+          { type: "fill", q: "Complete: 'I am going ___ visit my family.' (future plan preposition)", answer: ["to"] },
+          { type: "match", instructions: "Match the English place with its translation.", pairs: [
             ["Park", "Parque"],
             ["Downtown", "Centro"],
             ["Library", "Biblioteca"]
@@ -82,7 +82,7 @@
     ],
     B1: [
       {
-        title: "Speaking fluido",
+        title: "Fluent Speaking",
         duration: 45,
         captions: [
           { t: 0, text: "In my opinion, learning English opens many doors." },
@@ -91,12 +91,12 @@
           { t: 36, text: "Let's discuss the advantages and disadvantages." }
         ],
         quiz: [
-          { type: "mcq", q: "'In my opinion' se usa para...", options: ["Dar un dato", "Expresar un punto de vista", "Hacer una pregunta"], correct: 1 },
-          { type: "mcq", q: "Sinónimo de 'advantages'", options: ["Beneficios", "Errores", "Horarios"], correct: 0 }
+          { type: "mcq", q: "'In my opinion' is used to...", options: ["State a fact", "Express a point of view", "Ask a question"], correct: 1 },
+          { type: "mcq", q: "Synonym for 'advantages'", options: ["Benefits", "Mistakes", "Schedules"], correct: 0 }
         ]
       },
       {
-        title: "Dar opiniones",
+        title: "Giving Opinions",
         duration: 38,
         captions: [
           { t: 0, text: "I believe practice makes progress, not perfection." },
@@ -104,8 +104,8 @@
           { t: 20, text: "Personally, I enjoy group discussions." }
         ],
         quiz: [
-          { type: "fill", q: "Completa: 'On the other ___, some people prefer studying alone.'", answer: ["hand"] },
-          { type: "match", instructions: "Relaciona la frase de opinión con su traducción.", pairs: [
+          { type: "fill", q: "Complete: 'On the other ___, some people prefer studying alone.'", answer: ["hand"] },
+          { type: "match", instructions: "Match the opinion phrase with its translation.", pairs: [
             ["I believe", "Yo creo"],
             ["Personally", "Personalmente"],
             ["On the other hand", "Por otro lado"]
@@ -115,7 +115,7 @@
     ],
     B2: [
       {
-        title: "Comprensión auditiva",
+        title: "Listening Comprehension",
         duration: 45,
         captions: [
           { t: 0, text: "Today's lecture is about renewable energy sources." },
@@ -124,12 +124,12 @@
           { t: 36, text: "Let's summarize the key points together." }
         ],
         quiz: [
-          { type: "mcq", q: "El tema principal de la conferencia es...", options: ["Energías renovables", "Historia mundial", "Finanzas"], correct: 0 },
-          { type: "mcq", q: "'Challenge' en este contexto significa...", options: ["Logro", "Reto", "Premio"], correct: 1 }
+          { type: "mcq", q: "The main topic of the lecture is...", options: ["Renewable energy", "World history", "Finance"], correct: 0 },
+          { type: "mcq", q: "'Challenge' in this context means...", options: ["Achievement", "Difficulty", "Award"], correct: 1 }
         ]
       },
       {
-        title: "Debatir temas académicos",
+        title: "Debating Academic Topics",
         duration: 40,
         captions: [
           { t: 0, text: "Some researchers argue that storage technology will improve soon." },
@@ -137,8 +137,8 @@
           { t: 24, text: "Let's weigh both sides of the argument." }
         ],
         quiz: [
-          { type: "fill", q: "Completa: 'Let's weigh both ___ of the argument.'", answer: ["sides"] },
-          { type: "match", instructions: "Relaciona el término académico con su traducción.", pairs: [
+          { type: "fill", q: "Complete: 'Let's weigh both ___ of the argument.'", answer: ["sides"] },
+          { type: "match", instructions: "Match the academic term with its translation.", pairs: [
             ["Researchers", "Investigadores"],
             ["Skeptical", "Escéptico"],
             ["Argument", "Argumento"]
@@ -148,7 +148,7 @@
     ],
     C1: [
       {
-        title: "Escritura académica",
+        title: "Academic Writing",
         duration: 45,
         captions: [
           { t: 0, text: "A strong thesis statement guides the entire essay." },
@@ -157,12 +157,12 @@
           { t: 36, text: "Finally, the conclusion restates your position." }
         ],
         quiz: [
-          { type: "mcq", q: "La tesis de un ensayo debe...", options: ["Ir al final", "Guiar el argumento", "Ser irrelevante"], correct: 1 },
-          { type: "mcq", q: "'Evidence' se traduce como...", options: ["Evidencia", "Emoción", "Extensión"], correct: 0 }
+          { type: "mcq", q: "An essay's thesis should...", options: ["Go at the end", "Guide the argument", "Be irrelevant"], correct: 1 },
+          { type: "mcq", q: "'Evidence' translates to...", options: ["Evidence", "Emotion", "Extension"], correct: 0 }
         ]
       },
       {
-        title: "Redactar con evidencia",
+        title: "Writing with Evidence",
         duration: 38,
         captions: [
           { t: 0, text: "Every claim needs supporting evidence from a reliable source." },
@@ -170,8 +170,8 @@
           { t: 24, text: "A clear conclusion restates your main point." }
         ],
         quiz: [
-          { type: "fill", q: "Completa: 'Every claim needs supporting ___.'", answer: ["evidence"] },
-          { type: "match", instructions: "Relaciona el término de escritura académica con su traducción.", pairs: [
+          { type: "fill", q: "Complete: 'Every claim needs supporting ___.'", answer: ["evidence"] },
+          { type: "match", instructions: "Match the academic writing term with its translation.", pairs: [
             ["Claim", "Afirmación"],
             ["Source", "Fuente"],
             ["Conclusion", "Conclusión"]
@@ -181,7 +181,7 @@
     ],
     C2: [
       {
-        title: "Fluidez profesional",
+        title: "Professional Fluency",
         duration: 45,
         captions: [
           { t: 0, text: "Good morning everyone, thank you for joining this call." },
@@ -190,12 +190,12 @@
           { t: 36, text: "Let's begin with an overview of the project." }
         ],
         quiz: [
-          { type: "mcq", q: "Esta lección simula...", options: ["Una fiesta", "Una presentación profesional", "Una receta"], correct: 1 },
-          { type: "mcq", q: "'Feel free to ask' invita a...", options: ["Guardar silencio", "Hacer preguntas", "Terminar la llamada"], correct: 0 }
+          { type: "mcq", q: "This lesson simulates...", options: ["A party", "A professional presentation", "A recipe"], correct: 1 },
+          { type: "mcq", q: "'Feel free to ask' invites you to...", options: ["Stay silent", "Ask questions", "End the call"], correct: 0 }
         ]
       },
       {
-        title: "Presentaciones especializadas",
+        title: "Specialized Presentations",
         duration: 40,
         captions: [
           { t: 0, text: "Let's move on to the next slide of our roadmap." },
@@ -203,8 +203,8 @@
           { t: 24, text: "I'll now hand it over to my colleague for questions." }
         ],
         quiz: [
-          { type: "fill", q: "Completa: 'Let's move on to the next ___.'", answer: ["slide"] },
-          { type: "match", instructions: "Relaciona la frase profesional con su traducción.", pairs: [
+          { type: "fill", q: "Complete: 'Let's move on to the next ___.'", answer: ["slide"] },
+          { type: "match", instructions: "Match the professional phrase with its translation.", pairs: [
             ["Roadmap", "Hoja de ruta"],
             ["Exceeded expectations", "Superó las expectativas"],
             ["Hand it over", "Cederle la palabra"]
@@ -217,14 +217,14 @@
   var AVATARS = ["🎓", "🦉", "🦅", "🐺", "🦊", "🐢", "🌵", "⭐"];
 
   var DELIVERABLES = LEVELS.map(function (lvl) {
-    return { code: lvl.code, text: "Entregable " + lvl.code + ": " + lvl.skill };
+    return { code: lvl.code, text: "Deliverable " + lvl.code + ": " + lvl.skill };
   });
 
   /* ============ STATE ============ */
-  /* Se recalcula en cada llamada (no una sola vez al cargar el script) porque
-     app.js ahora se carga siempre, incluso para invitados sin sesión. Cuando
-     alguien inicia sesión, window.__UTN_UID__ cambia y __UTN_APP_RELOAD__
-     vuelve a leer el progreso, esta vez con la clave del estudiante real. */
+  /* Recalculated on every call (not just once when the script loads) because
+     app.js is now always loaded, even for guests without a session. When
+     someone logs in, window.__UTN_UID__ changes and __UTN_APP_RELOAD__
+     re-reads progress, this time with the real student's key. */
   function storageKey() { return "myutn_progress_v2_" + (window.__UTN_UID__ || "local"); }
 
   function defaultState() {
@@ -232,7 +232,7 @@
       currentLevelIndex: 0,
       completedLessons: [],
       stamps: [],
-      profile: { name: "Estudiante UTN", avatar: "🎓" },
+      profile: { name: "UTN Student", avatar: "🎓" },
       congratsShown: false,
       skillsXP: 0,
       skillsStreak: 0,
@@ -264,7 +264,7 @@
           } : base.skillProgress
         };
       }
-      /* Migración desde versión anterior (myutn_progress_v1) */
+      /* Migration from previous version (myutn_progress_v1) */
       var oldRaw = localStorage.getItem("myutn_progress_v1");
       if (oldRaw) {
         var old = JSON.parse(oldRaw);
@@ -297,9 +297,9 @@
   var navLinks = document.querySelectorAll(".main-nav a");
   var groupTabbars = document.querySelectorAll(".group-tabbar");
 
-  /* Grupos de navegación: el navbar principal solo muestra Inicio, Aprender,
-     Progreso y Recursos; cada grupo despliega sus vistas reales como pestañas
-     internas para no perder ninguna sección existente. */
+  /* Navigation groups: the main navbar only shows Home, Learn,
+     Progress, and Resources; each group reveals its real views as internal
+     tabs so no existing section is lost. */
   var GROUPS = {
     aprender: ["niveles", "leccion", "habilidades"],
     recursos: ["material", "gramatica"]
@@ -314,8 +314,8 @@
   }
 
   function goto(name) {
-    /* Si se navega a un grupo (clic en "Aprender"/"Recursos" del navbar),
-       resolver a la última pestaña visitada dentro de ese grupo. */
+    /* If navigating to a group (click on "Learn"/"Resources" in the navbar),
+       resolve to the last visited tab within that group. */
     var target = GROUPS[name] ? (lastGroupView[name] || GROUPS[name][0]) : name;
     var activeGroup = groupOf(target);
     if (activeGroup) lastGroupView[activeGroup] = target;
@@ -340,6 +340,7 @@
     if (target === "niveles") renderGates();
     if (target === "progreso") renderProgress();
     if (target === "habilidades") openSkillsHub();
+    if (target === "gramatica") closeGrammarPanel();
     window.scrollTo({ top: 0, behavior: "smooth" });
     var nav = document.getElementById("main-nav");
     nav.classList.remove("open");
@@ -356,6 +357,12 @@
     });
   });
   navLinks.forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      e.preventDefault();
+      goto(a.dataset.nav);
+    });
+  });
+  document.querySelectorAll(".logo[data-nav]").forEach(function (a) {
     a.addEventListener("click", function (e) {
       e.preventDefault();
       goto(a.dataset.nav);
@@ -378,7 +385,7 @@
     navToggle.setAttribute("aria-expanded", open ? "true" : "false");
   });
 
-  /* ============ PERFIL ============ */
+  /* ============ PROFILE ============ */
   var avatarGrid = document.getElementById("avatar-grid");
   var selectedAvatar = state.profile.avatar;
 
@@ -410,7 +417,7 @@
   document.getElementById("profile-cancel").addEventListener("click", closeProfileModal);
   document.getElementById("profile-save").addEventListener("click", function () {
     var name = document.getElementById("profile-name-input").value.trim();
-    state.profile.name = name || "Estudiante UTN";
+    state.profile.name = name || "UTN Student";
     state.profile.avatar = selectedAvatar;
     saveProgress(state);
     updateProfileUI();
@@ -435,7 +442,7 @@
     }).length;
     document.getElementById("bp-level").textContent = lvl.code + " · " + lvl.name;
     document.getElementById("bp-skill").textContent = lvl.skill;
-    document.getElementById("bp-gate").textContent = "Lección " + Math.min(doneInLevel + 1, totalLessons) + " de " + totalLessons;
+    document.getElementById("bp-gate").textContent = "Lesson " + Math.min(doneInLevel + 1, totalLessons) + " of " + totalLessons;
     document.getElementById("bp-code").textContent = "UTN-" + lvl.code + "-0" + (doneInLevel + 1);
     var pct = Math.round((state.stamps.length / LEVELS.length) * 100);
     document.getElementById("bp-progress-fill").style.width = Math.max(6, pct) + "%";
@@ -450,7 +457,7 @@
       var earned = state.stamps.indexOf(lvl.code) !== -1;
       var locked = i > state.currentLevelIndex;
       var statusClass = earned ? "done" : (locked ? "locked" : "active");
-      var statusText = earned ? "completo" : (locked ? "bloqueado" : "en curso");
+      var statusText = earned ? "completed" : (locked ? "locked" : "in progress");
       var lessons = LESSONS[lvl.code];
 
       var card = document.createElement("article");
@@ -484,7 +491,7 @@
     });
   }
 
-  /* ============ LECCIÓN / TABS ============ */
+  /* ============ LESSON / TABS ============ */
   function renderLessonTabs(levelIdx, lessonIdx) {
     var lvl = LEVELS[levelIdx];
     var lessons = LESSONS[lvl.code];
@@ -494,7 +501,7 @@
       var done = state.completedLessons.indexOf(lessonId(lvl.code, i)) !== -1;
       var tab = document.createElement("button");
       tab.className = "lesson-tab" + (i === lessonIdx ? " active" : "") + (done ? " done" : "");
-      tab.textContent = (done ? "✓ " : "") + "Lección " + (i + 1);
+      tab.textContent = (done ? "✓ " : "") + "Lesson " + (i + 1);
       tab.addEventListener("click", function () {
         activeLessonIndex = i;
         renderLesson(levelIdx, i);
@@ -525,11 +532,11 @@
   function renderLesson(levelIdx, lessonIdx) {
     var lvl = LEVELS[levelIdx];
     var lesson = LESSONS[lvl.code][lessonIdx];
-    document.getElementById("leccion-eyebrow").textContent = "Nivel " + lvl.code + " · Lección " + (lessonIdx + 1) + " de " + LESSONS[lvl.code].length;
+    document.getElementById("leccion-eyebrow").textContent = "Level " + lvl.code + " · Lesson " + (lessonIdx + 1) + " of " + LESSONS[lvl.code].length;
     document.getElementById("leccion-title").textContent = lesson.title;
-    document.getElementById("leccion-desc").textContent = "Escucha el audio, sigue la transcripción y resuelve el quiz para sellar tu avance.";
+    document.getElementById("leccion-desc").textContent = "Listen to the audio, follow the transcript, and complete the quiz to stamp your progress.";
     document.getElementById("player-total").textContent = formatTime(lesson.duration);
-    document.getElementById("player-caption").textContent = "Presiona reproducir para ver la transcripción en vivo.";
+    document.getElementById("player-caption").textContent = "Press play to see the live transcript.";
     stopPlayer();
     renderLessonTabs(levelIdx, lessonIdx);
     renderQuiz(levelIdx, lessonIdx, lesson);
@@ -583,7 +590,7 @@
 
     function checkAllAnswered() {
       if (answered.every(Boolean)) {
-        var scoreText = "Obtuviste " + correctCount + " de " + lesson.quiz.length + " correctas.";
+        var scoreText = "You got " + correctCount + " out of " + lesson.quiz.length + " correct.";
         document.getElementById("quiz-score-text").textContent = scoreText;
         resultBox.hidden = false;
       }
@@ -597,8 +604,8 @@
         qEl.innerHTML =
           "<p>" + (qi + 1) + ". " + q.q + "</p>" +
           '<div class="fill-row">' +
-            '<input type="text" class="fill-input" data-qi="' + qi + '" autocomplete="off" placeholder="Escribe tu respuesta">' +
-            '<button class="btn btn-primary fill-check" data-qi="' + qi + '">Verificar</button>' +
+            '<input type="text" class="fill-input" data-qi="' + qi + '" autocomplete="off" placeholder="Type your answer">' +
+            '<button class="btn btn-primary fill-check" data-qi="' + qi + '">Check</button>' +
           "</div>" +
           '<p class="fill-feedback" id="fill-feedback-' + qi + '"></p>';
         body.appendChild(qEl);
@@ -615,11 +622,11 @@
           if (ok) {
             correctCount++;
             input.classList.add("correct");
-            fb.textContent = "¡Correcto!";
+            fb.textContent = "Correct!";
             fb.className = "fill-feedback ok";
           } else {
             input.classList.add("incorrect");
-            fb.textContent = "Respuesta esperada: " + q.answer[0];
+            fb.textContent = "Expected answer: " + q.answer[0];
             fb.className = "fill-feedback bad";
           }
           checkAllAnswered();
@@ -642,7 +649,7 @@
         }).join("");
 
         qEl.innerHTML =
-          "<p>" + (qi + 1) + ". " + (q.instructions || "Relaciona los conceptos.") + "</p>" +
+          "<p>" + (qi + 1) + ". " + (q.instructions || "Match the concepts.") + "</p>" +
           '<div class="match-columns">' +
             '<div class="match-col">' + leftHtml + "</div>" +
             '<div class="match-col">' + rightHtml + "</div>" +
@@ -687,7 +694,7 @@
         });
 
       } else {
-        /* mcq (por defecto) */
+        /* mcq (default) */
         var optsHtml = q.options.map(function (opt, oi) {
           return '<button class="quiz-option" data-qi="' + qi + '" data-oi="' + oi + '">' + opt + "</button>";
         }).join("");
@@ -752,7 +759,7 @@
     return arr;
   }
 
-  /* ============ PROGRESO ============ */
+  /* ============ PROGRESS ============ */
   function renderProgress() {
     var lvl = LEVELS[state.currentLevelIndex];
     document.getElementById("summary-level").textContent = lvl.code;
@@ -784,11 +791,11 @@
     var certDesc = document.getElementById("certificate-desc");
     certBtn.disabled = !complete;
     certDesc.textContent = complete
-      ? "¡Completaste los seis niveles! Descarga tu certificado del programa."
-      : "Completa los seis niveles (A1 a C2) para desbloquear tu certificado descargable.";
+      ? "You completed all six levels! Download your program certificate."
+      : "Complete all six levels (A1 to C2) to unlock your downloadable certificate.";
   }
 
-  /* ============ CERTIFICADO ============ */
+  /* ============ CERTIFICATE ============ */
   function drawCertificate() {
     var canvas = document.getElementById("certificate-canvas");
     var ctx = canvas.getContext("2d");
@@ -797,7 +804,7 @@
     ctx.fillStyle = "#FAFBFA";
     ctx.fillRect(0, 0, w, h);
 
-    /* franja tricolor superior */
+    /* top tricolor stripe */
     var stripeH = 16;
     ctx.fillStyle = "#0C4EB8"; ctx.fillRect(0, 0, w / 3, stripeH);
     ctx.fillStyle = "#E2141B"; ctx.fillRect(w / 3, 0, w / 3, stripeH);
@@ -806,12 +813,12 @@
     ctx.fillStyle = "#E2141B"; ctx.fillRect(w / 3, h - stripeH, w / 3, stripeH);
     ctx.fillStyle = "#0C9C61"; ctx.fillRect((w / 3) * 2, h - stripeH, w / 3, stripeH);
 
-    /* borde */
+    /* border */
     ctx.strokeStyle = "#121212";
     ctx.lineWidth = 3;
     ctx.strokeRect(24, 40, w - 48, h - 80);
 
-    /* sello circular */
+    /* circular seal */
     var cx = w - 140, cy = h - 160, r = 70;
     ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.fillStyle = "#0C4EB8"; ctx.fill();
     ctx.beginPath(); ctx.arc(cx, cy, r * 0.78, 0, Math.PI * 2); ctx.fillStyle = "#FAFBFA"; ctx.fill();
@@ -823,19 +830,19 @@
     ctx.textAlign = "center"; ctx.textBaseline = "middle";
     ctx.fillText("UT", cx, cy + 2);
 
-    /* textos */
+    /* texts */
     ctx.fillStyle = "#565B5E";
     ctx.font = "13px 'Space Grotesk', sans-serif";
     ctx.textAlign = "center";
-    ctx.fillText("UNIVERSIDAD TECNOLÓGICA DE NEZAHUALCÓYOTL · EXCELENCIA ACADÉMICA", w / 2, 90);
+    ctx.fillText("UNIVERSIDAD TECNOLÓGICA DE NEZAHUALCÓYOTL · ACADEMIC EXCELLENCE", w / 2, 90);
 
     ctx.fillStyle = "#0C4EB8";
     ctx.font = "bold 40px 'Space Grotesk', sans-serif";
-    ctx.fillText("Certificado de finalización", w / 2, 150);
+    ctx.fillText("Certificate of Completion", w / 2, 150);
 
     ctx.fillStyle = "#16181A";
     ctx.font = "17px 'Source Serif 4', Georgia, serif";
-    ctx.fillText("Se certifica que", w / 2, 230);
+    ctx.fillText("This certifies that", w / 2, 230);
 
     ctx.fillStyle = "#E2141B";
     ctx.font = "bold 34px 'Space Grotesk', sans-serif";
@@ -843,20 +850,20 @@
 
     ctx.fillStyle = "#16181A";
     ctx.font = "17px 'Source Serif 4', Georgia, serif";
-    wrapText(ctx, "ha completado exitosamente el programa de inglés MyUTNEnglishClass,", w / 2, 335, w - 200, 24);
-    wrapText(ctx, "cursando los seis niveles del Marco Común Europeo, de A1 a C2.", w / 2, 359, w - 200, 24);
+    wrapText(ctx, "has successfully completed the MyUTNEnglishClass English program,", w / 2, 335, w - 200, 24);
+    wrapText(ctx, "completing all six levels of the Common European Framework, from A1 to C2.", w / 2, 359, w - 200, 24);
 
     ctx.fillStyle = "#565B5E";
     ctx.font = "14px 'Space Grotesk', sans-serif";
     var today = new Date();
-    var fecha = today.toLocaleDateString("es-MX", { year: "numeric", month: "long", day: "numeric" });
-    ctx.fillText("Emitido el " + fecha, w / 2, 430);
+    var fecha = today.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+    ctx.fillText("Issued on " + fecha, w / 2, 430);
 
     ctx.textAlign = "left";
     ctx.fillStyle = "#16181A";
     ctx.font = "13px 'Space Grotesk', sans-serif";
-    ctx.fillText("Programa de Servicio Social", 70, h - 100);
-    ctx.fillText("Educación, arte, cultura y deporte", 70, h - 80);
+    ctx.fillText("Social Service Program", 70, h - 100);
+    ctx.fillText("Education, Arts, Culture and Sports", 70, h - 80);
   }
 
   function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
@@ -880,12 +887,12 @@
     drawCertificate();
     var canvas = document.getElementById("certificate-canvas");
     var link = document.createElement("a");
-    link.download = "Certificado-MyUTNEnglishClass-" + state.profile.name.replace(/\s+/g, "_") + ".png";
+    link.download = "Certificate-MyUTNEnglishClass-" + state.profile.name.replace(/\s+/g, "_") + ".png";
     link.href = canvas.toDataURL("image/png");
     link.click();
   });
 
-  /* ============ MODAL FELICITACIÓN ============ */
+  /* ============ CONGRATULATIONS MODAL ============ */
   function openCongratsModal() { document.getElementById("congrats-modal").hidden = false; }
   function closeCongratsModal() { document.getElementById("congrats-modal").hidden = true; }
   document.getElementById("congrats-close").addEventListener("click", function () {
@@ -894,9 +901,9 @@
   });
 
   /* ============================================================
-     HABILIDADES — Reading / Writing / Speaking / Letter
-     Zona de práctica gamificada estilo "app de idiomas", con XP,
-     racha diaria y cuatro tipos de ejercicio interactivo.
+     SKILLS — Reading / Writing / Speaking / Letter
+     Gamified "language app" style practice zone, with XP,
+     daily streak, and four types of interactive exercise.
      ============================================================ */
 
   var SKILLS = {
@@ -905,8 +912,8 @@
         title: "My name is Sofía",
         passage: "Hello! My name is Sofía and I {{study|estudiar}} Software Engineering at UTN. I am {{from|de / desde}} Nezahualcóyotl, in Mexico. Nice to meet you!",
         questions: [
-          { q: "¿Dónde estudia Sofía?", options: ["En su casa", "En la UTN", "En un café"], correct: 1 },
-          { q: "¿De dónde es Sofía?", options: ["España", "Nezahualcóyotl", "Canadá"], correct: 1 }
+          { q: "Where does Sofía study?", options: ["At home", "At UTN", "At a café"], correct: 1 },
+          { q: "Where is Sofía from?", options: ["Spain", "Nezahualcóyotl", "Canada"], correct: 1 }
         ]
       },
       writing: {
@@ -918,10 +925,10 @@
       },
       speaking: {
         phrases: [
-          { en: "Hello, my name is Sofía.", es: "Saludo básico con presentación" },
-          { en: "Nice to meet you.", es: "Encantado de conocerte" },
-          { en: "Where are you from?", es: "Preguntar el origen" },
-          { en: "See you later!", es: "Despedida informal" }
+          { en: "Hello, my name is Sofía.", es: "Basic greeting with introduction" },
+          { en: "Nice to meet you.", es: "Nice to meet you" },
+          { en: "Where are you from?", es: "Asking about origin" },
+          { en: "See you later!", es: "Informal farewell" }
         ]
       },
       letter: {
@@ -942,8 +949,8 @@
         title: "My daily routine",
         passage: "I {{usually|normalmente}} wake up at seven in the morning. After breakfast, I go to class at UTN. In the afternoon, I study at the {{library|biblioteca}}. On weekends, I visit my family or go to the park.",
         questions: [
-          { q: "¿Qué hace Sofía en la tarde?", options: ["Duerme", "Estudia en la biblioteca", "Trabaja"], correct: 1 },
-          { q: "¿A qué hora se despierta normalmente?", options: ["A las siete", "A las nueve", "A las doce"], correct: 0 }
+          { q: "What does Sofía do in the afternoon?", options: ["She sleeps", "She studies at the library", "She works"], correct: 1 },
+          { q: "What time does she usually wake up?", options: ["At seven", "At nine", "At twelve"], correct: 0 }
         ]
       },
       writing: {
@@ -955,10 +962,10 @@
       },
       speaking: {
         phrases: [
-          { en: "I usually wake up at seven.", es: "Describir una rutina" },
-          { en: "I go to class every morning.", es: "Hablar de hábitos" },
-          { en: "What is your daily routine like?", es: "Preguntar por la rutina de alguien" },
-          { en: "See you at the library!", es: "Despedida con lugar de encuentro" }
+          { en: "I usually wake up at seven.", es: "Describing a routine" },
+          { en: "I go to class every morning.", es: "Talking about habits" },
+          { en: "What is your daily routine like?", es: "Asking about someone's routine" },
+          { en: "See you at the library!", es: "Farewell with meeting place" }
         ]
       },
       letter: {
@@ -978,8 +985,8 @@
         title: "Learning English",
         passage: "In my opinion, learning English opens many doors. Some people believe {{practice|práctica}} is more important than perfection, while others prefer studying grammar first. Personally, I enjoy group {{discussions|discusiones}} because they help me improve my speaking skills quickly.",
         questions: [
-          { q: "¿Qué disfruta la autora?", options: ["Estudiar sola", "Las discusiones en grupo", "Ver televisión"], correct: 1 },
-          { q: "Para algunas personas, ¿qué es más importante que la perfección?", options: ["La práctica", "La gramática", "El vocabulario"], correct: 0 }
+          { q: "What does the author enjoy?", options: ["Studying alone", "Group discussions", "Watching TV"], correct: 1 },
+          { q: "For some people, what is more important than perfection?", options: ["Practice", "Grammar", "Vocabulary"], correct: 0 }
         ]
       },
       writing: {
@@ -991,10 +998,10 @@
       },
       speaking: {
         phrases: [
-          { en: "In my opinion, practice matters most.", es: "Dar un punto de vista" },
-          { en: "I believe practice makes progress.", es: "Expresar una creencia" },
-          { en: "What do you think about studying abroad?", es: "Pedir la opinión de alguien" },
-          { en: "Let's discuss the advantages and disadvantages.", es: "Proponer un debate" }
+          { en: "In my opinion, practice matters most.", es: "Giving a point of view" },
+          { en: "I believe practice makes progress.", es: "Expressing a belief" },
+          { en: "What do you think about studying abroad?", es: "Asking someone's opinion" },
+          { en: "Let's discuss the advantages and disadvantages.", es: "Proposing a debate" }
         ]
       },
       letter: {
@@ -1014,8 +1021,8 @@
         title: "Renewable energy",
         passage: "Today's lecture is about renewable energy sources. Solar and wind power are growing rapidly worldwide because they reduce dependence on {{fossil fuels|combustibles fósiles}}. However, {{storage|almacenamiento}} remains a technical challenge that researchers are still trying to solve.",
         questions: [
-          { q: "¿De qué trata la conferencia?", options: ["Energías renovables", "Historia mundial", "Finanzas"], correct: 0 },
-          { q: "¿Cuál es el reto mencionado?", options: ["El costo", "El almacenamiento", "El transporte"], correct: 1 }
+          { q: "What is the lecture about?", options: ["Renewable energy", "World history", "Finance"], correct: 0 },
+          { q: "What is the challenge mentioned?", options: ["Cost", "Storage", "Transportation"], correct: 1 }
         ]
       },
       writing: {
@@ -1027,10 +1034,10 @@
       },
       speaking: {
         phrases: [
-          { en: "Today's lecture is about renewable energy.", es: "Introducir un tema" },
-          { en: "However, storage remains a challenge.", es: "Contrastar una idea" },
-          { en: "Let's summarize the key points.", es: "Cerrar una explicación" },
-          { en: "Some researchers argue that timelines vary.", es: "Citar una postura académica" }
+          { en: "Today's lecture is about renewable energy.", es: "Introducing a topic" },
+          { en: "However, storage remains a challenge.", es: "Contrasting an idea" },
+          { en: "Let's summarize the key points.", es: "Closing an explanation" },
+          { en: "Some researchers argue that timelines vary.", es: "Citing an academic stance" }
         ]
       },
       letter: {
@@ -1050,8 +1057,8 @@
         title: "Academic writing",
         passage: "A strong {{thesis statement|declaración de tesis}} guides the entire essay. Each paragraph should support the main argument with clear {{evidence|evidencia}}. Avoid vague statements without proof, and remember that a well-structured conclusion restates your position without repeating it word for word.",
         questions: [
-          { q: "¿Qué guía todo el ensayo?", options: ["La conclusión", "La declaración de tesis", "El título"], correct: 1 },
-          { q: "¿Qué debe hacer una buena conclusión?", options: ["Repetir todo el texto", "Restablecer la posición sin repetir literalmente", "Añadir nueva evidencia"], correct: 1 }
+          { q: "What guides the whole essay?", options: ["The conclusion", "The thesis statement", "The title"], correct: 1 },
+          { q: "What should a good conclusion do?", options: ["Repeat the whole text", "Restate the position without repeating word for word", "Add new evidence"], correct: 1 }
         ]
       },
       writing: {
@@ -1063,10 +1070,10 @@
       },
       speaking: {
         phrases: [
-          { en: "A strong thesis guides the essay.", es: "Explicar la función de la tesis" },
-          { en: "Let me support this claim with evidence.", es: "Reforzar un argumento" },
-          { en: "In conclusion, my position is clear.", es: "Cerrar una argumentación" },
-          { en: "This argument is backed by reliable sources.", es: "Citar fuentes confiables" }
+          { en: "A strong thesis guides the essay.", es: "Explaining the thesis's function" },
+          { en: "Let me support this claim with evidence.", es: "Reinforcing an argument" },
+          { en: "In conclusion, my position is clear.", es: "Closing an argument" },
+          { en: "This argument is backed by reliable sources.", es: "Citing reliable sources" }
         ]
       },
       letter: {
@@ -1087,8 +1094,8 @@
         title: "A quarterly call",
         passage: "Good morning everyone, thank you for joining this call. Today we will present our {{quarterly results|resultados trimestrales}}, which exceeded expectations. Please feel free to ask questions at any point, and I will now hand it over to my colleague for the {{roadmap|hoja de ruta}}.",
         questions: [
-          { q: "¿Qué superó las expectativas?", options: ["El clima", "Los resultados trimestrales", "El presupuesto"], correct: 1 },
-          { q: "¿Qué ocurre después de la presentación?", options: ["Se cancela la llamada", "Se cede la palabra a un colega", "Se repite la introducción"], correct: 1 }
+          { q: "What exceeded expectations?", options: ["The weather", "The quarterly results", "The budget"], correct: 1 },
+          { q: "What happens after the presentation?", options: ["The call is cancelled", "The floor is handed to a colleague", "The introduction is repeated"], correct: 1 }
         ]
       },
       writing: {
@@ -1100,10 +1107,10 @@
       },
       speaking: {
         phrases: [
-          { en: "Thank you for joining this call.", es: "Abrir una reunión formal" },
-          { en: "Our results exceeded expectations.", es: "Presentar resultados positivos" },
-          { en: "I'll hand it over to my colleague.", es: "Ceder la palabra" },
-          { en: "Let's move on to the next slide.", es: "Transicionar en una presentación" }
+          { en: "Thank you for joining this call.", es: "Opening a formal meeting" },
+          { en: "Our results exceeded expectations.", es: "Presenting positive results" },
+          { en: "I'll hand it over to my colleague.", es: "Handing over the floor" },
+          { en: "Let's move on to the next slide.", es: "Transitioning in a presentation" }
         ]
       },
       letter: {
@@ -1122,10 +1129,10 @@
   };
 
   var SKILL_META = {
-    reading: { icon: "📖", label: "Reading", desc: "Lee un texto corto y responde preguntas de comprensión.", xp: 15 },
-    writing: { icon: "✍️", label: "Writing", desc: "Arma oraciones en inglés arrastrando palabras.", xp: 15 },
-    speaking: { icon: "🗣️", label: "Speaking", desc: "Escucha y practica tu pronunciación en voz alta.", xp: 15 },
-    letter: { icon: "✉️", label: "Letter", desc: "Completa una carta o correo usando el banco de palabras.", xp: 20 }
+    reading: { icon: "📖", label: "Reading", desc: "Read a short text and answer comprehension questions.", xp: 15 },
+    writing: { icon: "✍️", label: "Writing", desc: "Build English sentences by dragging words.", xp: 15 },
+    speaking: { icon: "🗣️", label: "Speaking", desc: "Listen and practice your pronunciation out loud.", xp: 15 },
+    letter: { icon: "✉️", label: "Letter", desc: "Complete a letter or email using the word bank.", xp: 20 }
   };
   var SKILL_ORDER = ["reading", "writing", "speaking", "letter"];
 
@@ -1138,7 +1145,7 @@
     return (s || "").toLowerCase().replace(/[.,!?¿¡"']/g, "").trim();
   }
 
-  /* ---- Racha diaria ---- */
+  /* ---- Daily streak ---- */
   function touchStreak() {
     var today = new Date();
     var todayStr = today.toISOString().slice(0, 10);
@@ -1160,7 +1167,7 @@
   var xpToastTimer = null;
   function showXpToast(amount) {
     var toast = document.getElementById("xp-toast");
-    toast.textContent = "+" + amount + " XP ⚡ ¡Bien hecho!";
+    toast.textContent = "+" + amount + " XP ⚡ Well done!";
     toast.hidden = false;
     requestAnimationFrame(function () { toast.classList.add("show"); });
     if (xpToastTimer) clearTimeout(xpToastTimer);
@@ -1186,7 +1193,7 @@
     document.getElementById("skills-level-label").textContent = activeSkillsLevel;
   }
 
-  /* ---- Hub principal (grid de 4 tarjetas) ---- */
+  /* ---- Main hub (4-card grid) ---- */
   function openSkillsHub() {
     touchStreak();
     if (LEVELS.indexOf(LEVELS.filter(function (l) { return l.code === activeSkillsLevel; })[0]) === -1) {
@@ -1250,8 +1257,8 @@
         "<h3>" + meta.label + "</h3>" +
         "<p>" + meta.desc + "</p>" +
         '<div class="skill-card-foot">' +
-          '<span class="skill-card-xp">' + (done ? "✓ Sellado" : "+" + meta.xp + " XP") + "</span>" +
-          '<span class="skill-card-cta">' + (done ? "Repasar" : "Practicar") + "</span>" +
+          '<span class="skill-card-xp">' + (done ? "✓ Stamped" : "+" + meta.xp + " XP") + "</span>" +
+          '<span class="skill-card-cta">' + (done ? "Review" : "Practice") + "</span>" +
         "</div>";
       card.addEventListener("click", function () { openSkill(key); });
       card.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openSkill(key); } });
@@ -1278,7 +1285,7 @@
     var inner = document.getElementById("skill-panel-inner");
     inner.innerHTML =
       '<div class="skill-panel-head">' +
-        '<p class="eyebrow">Nivel ' + activeSkillsLevel + " · " + SKILL_META[key].label + "</p>" +
+        '<p class="eyebrow">Level ' + activeSkillsLevel + " · " + SKILL_META[key].label + "</p>" +
         "<h3>" + (data.title || SKILL_META[key].label) + "</h3>" +
         "<p>" + SKILL_META[key].desc + "</p>" +
       "</div>" +
@@ -1303,7 +1310,7 @@
 
     var quizCard = document.createElement("div");
     quizCard.className = "exercise-card";
-    quizCard.innerHTML = '<p class="quiz-heading">Comprensión de lectura</p><div id="reading-quiz-body"></div><div class="quiz-result" id="reading-quiz-result" hidden><p id="reading-quiz-score"></p></div>';
+    quizCard.innerHTML = '<p class="quiz-heading">Reading Comprehension</p><div id="reading-quiz-body"></div><div class="quiz-result" id="reading-quiz-result" hidden><p id="reading-quiz-score"></p></div>';
     body.appendChild(quizCard);
 
     var qBody = quizCard.querySelector("#reading-quiz-body");
@@ -1336,7 +1343,7 @@
         });
         if (oi === q.correct) correctCount++;
         if (answered.every(Boolean)) {
-          document.getElementById("reading-quiz-score").textContent = "Obtuviste " + correctCount + " de " + data.questions.length + " correctas.";
+          document.getElementById("reading-quiz-score").textContent = "You got " + correctCount + " out of " + data.questions.length + " correct.";
           document.getElementById("reading-quiz-result").hidden = false;
           if (correctCount === data.questions.length) {
             awardXP(SKILL_META.reading.xp, "reading", activeSkillsLevel);
@@ -1364,12 +1371,12 @@
             return '<span class="exercise-dot' + (i < idx ? " done" : i === idx ? " current" : "") + '"></span>';
           }).join("") +
         "</div>" +
-        '<p class="builder-prompt-es">Traduce: “' + prompt.es + '”</p>' +
+        '<p class="builder-prompt-es">Translate: “' + prompt.es + '”</p>' +
         '<div class="builder-target" id="builder-target"></div>' +
         '<div class="builder-bank" id="builder-bank"></div>' +
         '<div class="builder-actions">' +
-          '<button class="btn btn-ghost-light" id="builder-clear" type="button">Borrar</button>' +
-          '<button class="btn btn-primary" id="builder-check" type="button">Verificar</button>' +
+          '<button class="btn btn-ghost-light" id="builder-clear" type="button">Clear</button>' +
+          '<button class="btn btn-primary" id="builder-check" type="button">Check</button>' +
         "</div>" +
         '<p class="builder-feedback" id="builder-feedback"></p>';
 
@@ -1423,7 +1430,7 @@
         var fb = card.querySelector("#builder-feedback");
         if (ok) {
           correctCount++;
-          fb.textContent = "¡Correcto! " + (idx < data.prompts.length - 1 ? "Siguiente oración…" : "¡Terminaste el ejercicio!");
+          fb.textContent = "Correct! " + (idx < data.prompts.length - 1 ? "Next sentence…" : "You finished the exercise!");
           fb.className = "builder-feedback ok";
           setTimeout(function () {
             idx++;
@@ -1434,14 +1441,14 @@
             }
           }, 700);
         } else {
-          fb.textContent = "Casi. Revisa el orden de las palabras e inténtalo otra vez.";
+          fb.textContent = "Almost. Check the word order and try again.";
           fb.className = "builder-feedback bad";
         }
       });
     }
 
     function finishWriting() {
-      card.innerHTML = '<p class="builder-feedback ok">✓ Completaste las ' + data.prompts.length + " oraciones (" + correctCount + "/" + data.prompts.length + ' en el primer intento).</p>';
+      card.innerHTML = '<p class="builder-feedback ok">✓ You completed all ' + data.prompts.length + " sentences (" + correctCount + "/" + data.prompts.length + ' on the first try).</p>';
       awardXP(SKILL_META.writing.xp, "writing", activeSkillsLevel);
     }
 
@@ -1458,8 +1465,8 @@
         '<p class="speaking-phrase-text">' + phrase.en + "</p>" +
         '<p class="speaking-phrase-hint">' + phrase.es + "</p>" +
         '<div class="speaking-controls">' +
-          '<button type="button" class="speak-btn listen">🔊 Escuchar</button>' +
-          '<button type="button" class="speak-btn record">🎤 Practicar</button>' +
+          '<button type="button" class="speak-btn listen">🔊 Listen</button>' +
+          '<button type="button" class="speak-btn record">🎤 Practice</button>' +
         "</div>" +
         '<p class="speaking-feedback"></p>';
       body.appendChild(card);
@@ -1478,7 +1485,7 @@
 
       recordBtn.addEventListener("click", function () {
         if (!SpeechRecognitionCtor) {
-          feedback.textContent = "✓ Marcado como practicado (tu navegador no soporta reconocimiento de voz).";
+          feedback.textContent = "✓ Marked as practiced (your browser does not support speech recognition).";
           feedback.className = "speaking-feedback ok";
           awardXP(4, "speaking", activeSkillsLevel);
           return;
@@ -1488,7 +1495,7 @@
         recognition.interimResults = false;
         recognition.maxAlternatives = 1;
         recordBtn.classList.add("recording");
-        recordBtn.textContent = "🎙️ Escuchando…";
+        recordBtn.textContent = "🎙️ Listening…";
         recognition.start();
 
         recognition.onresult = function (e) {
@@ -1498,38 +1505,38 @@
           var matches = targetWords.filter(function (w) { return saidWords.indexOf(w) !== -1; }).length;
           var score = targetWords.length ? Math.round((matches / targetWords.length) * 100) : 0;
           if (score >= 70) {
-            feedback.textContent = "¡Excelente pronunciación! (" + score + "% de coincidencia) — Dijiste: “" + transcript + "”";
+            feedback.textContent = "Excellent pronunciation! (" + score + "% match) — You said: “" + transcript + "”";
             feedback.className = "speaking-feedback ok";
             awardXP(4, "speaking", activeSkillsLevel);
           } else {
-            feedback.textContent = "Sigue practicando (" + score + "% de coincidencia) — Dijiste: “" + transcript + "”";
+            feedback.textContent = "Keep practicing (" + score + "% match) — You said: “" + transcript + "”";
             feedback.className = "speaking-feedback meh";
           }
         };
         recognition.onerror = function () {
-          feedback.textContent = "No pudimos acceder al micrófono. Revisa los permisos e inténtalo de nuevo.";
+          feedback.textContent = "We could not access the microphone. Check your permissions and try again.";
           feedback.className = "speaking-feedback meh";
         };
         recognition.onend = function () {
           recordBtn.classList.remove("recording");
-          recordBtn.textContent = "🎤 Practicar";
+          recordBtn.textContent = "🎤 Practice";
         };
       });
     });
 
     var note = document.createElement("p");
     note.className = "speaking-note";
-    note.textContent = "Sugerencia: usa audífonos con micrófono en un lugar silencioso para mejores resultados.";
+    note.textContent = "Tip: use headphones with a microphone in a quiet place for best results.";
     body.appendChild(note);
 
     if (data.phrases.length && state.skillProgress.speaking.indexOf(activeSkillsLevel) === -1) {
       var finishRow = document.createElement("div");
       finishRow.className = "exercise-card";
-      finishRow.innerHTML = '<p class="quiz-heading">¿Ya practicaste las frases?</p><button class="btn btn-primary" id="speaking-finish">Sellar habilidad</button>';
+      finishRow.innerHTML = '<p class="quiz-heading">Have you practiced the phrases?</p><button class="btn btn-primary" id="speaking-finish">Stamp Skill</button>';
       body.appendChild(finishRow);
       finishRow.querySelector("#speaking-finish").addEventListener("click", function () {
         awardXP(SKILL_META.speaking.xp, "speaking", activeSkillsLevel);
-        finishRow.innerHTML = '<p class="builder-feedback ok">✓ ¡Speaking sellado para el nivel ' + activeSkillsLevel + "!</p>";
+        finishRow.innerHTML = '<p class="builder-feedback ok">✓ Speaking stamped for level ' + activeSkillsLevel + "!</p>";
       });
     }
   }
@@ -1548,9 +1555,9 @@
     var bankCard = document.createElement("div");
     bankCard.className = "exercise-card";
     var bankWords = shuffleCopy(data.blanks.map(function (b) { return b.answer; }).concat(data.distractors || []));
-    bankCard.innerHTML = '<p class="quiz-heading">Banco de palabras</p><div class="letter-bank" id="letter-bank"></div>' +
-      '<div class="letter-check-row"><button class="btn btn-primary" id="letter-check" type="button">Verificar carta</button>' +
-      '<button class="btn btn-ghost-light" id="letter-reset" type="button">Reiniciar</button></div>' +
+    bankCard.innerHTML = '<p class="quiz-heading">Word Bank</p><div class="letter-bank" id="letter-bank"></div>' +
+      '<div class="letter-check-row"><button class="btn btn-primary" id="letter-check" type="button">Check Letter</button>' +
+      '<button class="btn btn-ghost-light" id="letter-reset" type="button">Reset</button></div>' +
       '<p class="letter-result" id="letter-result"></p>';
     body.appendChild(bankCard);
 
@@ -1619,11 +1626,11 @@
       });
       var resultEl = bankCard.querySelector("#letter-result");
       if (correct === total) {
-        resultEl.textContent = "✓ ¡Carta completa y correcta! (" + correct + "/" + total + ")";
+        resultEl.textContent = "✓ Letter complete and correct! (" + correct + "/" + total + ")";
         resultEl.style.color = "var(--green-dark)";
         awardXP(SKILL_META.letter.xp, "letter", activeSkillsLevel);
       } else {
-        resultEl.textContent = "Tienes " + correct + " de " + total + " correctas. Ajusta los espacios en rojo.";
+        resultEl.textContent = "You have " + correct + " out of " + total + " correct. Fix the blanks in red.";
         resultEl.style.color = "var(--red)";
       }
     });
@@ -1631,9 +1638,9 @@
     renderBank();
   }
 
-  /* ============ RECARGA DE ESTADO (llamada por auth.js tras iniciar sesión) ============
-     No recargamos la página: releemos el progreso ya con window.__UTN_UID__
-     puesto, y volvemos a pintar la vista en la que la persona ya estaba. */
+  /* ============ STATE RELOAD (called by auth.js after logging in) ============
+     We don't reload the page: we reread progress now with window.__UTN_UID__
+     set, and repaint the view the person was already on. */
   function reloadAppState() {
     state = loadProgress();
     activeLevelIndex = state.currentLevelIndex;
@@ -1644,6 +1651,588 @@
     goto(currentView ? currentView.dataset.view : "inicio");
   }
   window.__UTN_APP_RELOAD__ = reloadAppState;
+
+  /* ============ GRAMMAR LESSONS ============
+     Content arrives progressively from Professor Aguilar. Each entry in
+     GRAMMAR_CONTENT unlocks its matching topic in the syllabus menu
+     (data-topic attribute). Topics with no entry stay locked (🔒) and
+     show a "coming soon" toast when tapped. */
+  var GRAMMAR_CONTENT = {
+    nouns: {
+      label: "Nouns",
+      definitionTitle: "What is a Noun?",
+      definition: "A noun is a word that names a person, animal, place, thing, idea, or quality. Nouns are one of the most essential building blocks of English &mdash; almost every sentence contains at least one.",
+      definitionExamples: ["teacher", "Mexico", "book", "happiness", "team", "water"],
+      modules: [
+        {
+          title: "Rules for Forming Plural Nouns",
+          objectives: [
+            "Form the plural of regular and irregular nouns correctly.",
+            "Identify spelling changes when making nouns plural.",
+            "Recognize nouns that do not change in the plural.",
+            "Avoid common mistakes made by Spanish-speaking learners."
+          ],
+          rules: [
+            {
+              title: "General Rule",
+              desc: "Most nouns form the plural by adding <strong>-s</strong> to the singular form.",
+              structure: "Singular + -s = Plural",
+              table: [["book","books"],["student","students"],["computer","computers"],["teacher","teachers"],["phone","phones"]],
+              examples: ["I have two <strong>books</strong>.", "There are thirty <strong>students</strong> in the classroom.", "My brothers have new <strong>computers</strong>."]
+            },
+            {
+              number: 1,
+              title: "Add -es to nouns ending in -s, -ss, -sh, -ch, -x, or -z",
+              desc: "If a noun ends in one of these sounds, add <strong>-es</strong>.",
+              table: [["bus","buses"],["class","classes"],["watch","watches"],["dish","dishes"],["box","boxes"],["quiz","quizzes"]],
+              examples: ["There are many <strong>boxes</strong> in the office.", "The students took several <strong>quizzes</strong>.", "She washed the <strong>dishes</strong>."]
+            },
+            {
+              number: 2,
+              title: "Nouns Ending in Consonant + y",
+              desc: "If a noun ends in a <strong>consonant + y</strong>, change the <strong>y</strong> to <strong>i</strong> and add -es.",
+              table: [["city","cities"],["country","countries"],["baby","babies"],["family","families"],["dictionary","dictionaries"]],
+              examples: ["Mexico has many beautiful <strong>cities</strong>.", "Their <strong>families</strong> are very friendly."]
+            },
+            {
+              number: 3,
+              title: "Nouns Ending in Vowel + y",
+              desc: "If the <strong>y</strong> comes after a vowel, simply add <strong>-s</strong>.",
+              table: [["boy","boys"],["toy","toys"],["key","keys"],["monkey","monkeys"],["day","days"]],
+              examples: ["The children have many <strong>toys</strong>.", "We found our <strong>keys</strong>."]
+            },
+            {
+              number: 4,
+              title: "Nouns Ending in -o",
+              desc: "<strong>A. Most nouns ending in -o add -es:</strong>",
+              table: [["potato","potatoes"],["tomato","tomatoes"],["hero","heroes"],["echo","echoes"]],
+              examples: ["We bought several <strong>potatoes</strong>.", "The <strong>heroes</strong> received awards."],
+              table2Label: "B. Many borrowed words simply add -s:",
+              table2: [["photo","photos"],["piano","pianos"],["radio","radios"],["video","videos"],["studio","studios"],["zoo","zoos"]],
+              examples2: ["She takes many <strong>photos</strong>.", "There are two <strong>pianos</strong> in the music room."],
+              tip: "There is no single rule for all nouns ending in <strong>-o</strong>. When in doubt, consult a reliable dictionary."
+            },
+            {
+              number: 5,
+              title: "Nouns Ending in -f or -fe",
+              desc: "Some nouns change <strong>-f</strong> or <strong>-fe</strong> to <strong>-ves</strong>.",
+              table: [["leaf","leaves"],["life","lives"],["wife","wives"],["knife","knives"],["wolf","wolves"],["shelf","shelves"]],
+              examples: ["The trees lost their <strong>leaves</strong>.", "The <strong>wolves</strong> live in the forest."],
+              table2Label: "Exceptions (add -s):",
+              table2: [["roof","roofs"],["chief","chiefs"],["belief","beliefs"],["cliff","cliffs"],["proof","proofs"]],
+              examples2: ["The houses have red <strong>roofs</strong>.", "The <strong>chiefs</strong> attended the meeting."]
+            },
+            {
+              number: 6,
+              title: "Irregular Plurals",
+              desc: "Some nouns have completely irregular plural forms.",
+              table: [["man","men"],["woman","women"],["child","children"],["person","people"],["mouse","mice"],["goose","geese"],["foot","feet"],["tooth","teeth"],["ox","oxen"],["louse","lice"]],
+              examples: ["The <strong>children</strong> are playing.", "Two <strong>men</strong> entered the classroom.", "My <strong>feet</strong> hurt after the walk."]
+            },
+            {
+              number: 7,
+              title: "Nouns with the Same Singular and Plural Form",
+              desc: "Some nouns do not change.",
+              table: [["sheep","sheep"],["deer","deer"],["fish*","fish"],["aircraft","aircraft"],["series","series"],["species","species"]],
+              examples: ["We saw three <strong>deer</strong>.", "The farmer has many <strong>sheep</strong>."],
+              tip: "*<strong>Fishes</strong> is also used in biology when referring to different species of fish."
+            },
+            {
+              number: 8,
+              title: "Foreign Plurals",
+              desc: "Some nouns borrowed from Latin or Greek keep their original plural forms.",
+              table: [["datum","data"],["phenomenon","phenomena"],["criterion","criteria"],["analysis","analyses"],["basis","bases"],["thesis","theses"],["crisis","crises"],["cactus","cacti / cactuses"],["fungus","fungi / funguses"],["nucleus","nuclei"]],
+              examples: ["The <strong>analyses</strong> were completed yesterday.", "Several <strong>criteria</strong> were considered."]
+            },
+            {
+              number: 9,
+              title: "Compound Nouns",
+              desc: "Usually, the main noun becomes plural:",
+              table: [["mother-in-law","mothers-in-law"],["passer-by","passers-by"],["editor-in-chief","editors-in-chief"],["attorney general","attorneys general"]],
+              examples: ["Two <strong>mothers-in-law</strong> attended the party."],
+              table2Label: "Other compounds simply add -s:",
+              table2: [["notebook","notebooks"],["toothbrush","toothbrushes"],["classroom","classrooms"]],
+              examples2: ["We bought new <strong>notebooks</strong>."]
+            },
+            {
+              number: 10,
+              title: "Numbers, Letters, and Symbols",
+              desc: "To avoid confusion, apostrophes may occasionally be used with letters, but modern style generally prefers <strong>-s</strong>.",
+              examples: ["Mind your <strong>p's</strong> and <strong>q's</strong>. <em>(traditional style)</em>", "She got three <strong>As</strong> in her exams. <em>(modern style)</em>"]
+            }
+          ],
+          commonMistakes: [
+            ["childs","children"], ["womans","women"], ["informations","information"],
+            ["furnitures","furniture"], ["advices","advice"], ["peoples","people"]
+          ],
+          commonMistakesNote: "\"Peoples\" is correct only when referring to different ethnic groups or nations (e.g., the Indigenous peoples of the Americas) — as the plural of \"person\" in general, use \"people\".",
+          quickReference: [
+            ["Most nouns", "+ s", "book → books"],
+            ["-s, -ss, -sh, -ch, -x, -z", "+ es", "bus → buses"],
+            ["Consonant + y", "y → ies", "city → cities"],
+            ["Vowel + y", "+ s", "boy → boys"],
+            ["Some -o", "+ es", "potato → potatoes"],
+            ["Many borrowed -o", "+ s", "photo → photos"],
+            ["Some -f / -fe", "→ ves", "knife → knives"],
+            ["Exceptions", "+ s", "roof → roofs"],
+            ["Irregular", "change form", "child → children"],
+            ["Same form", "no change", "sheep → sheep"]
+          ],
+          memoryTips: [
+            "<strong>Most nouns:</strong> add -s.",
+            "<strong>Hissing endings</strong> (s, sh, ch, x, z): add -es.",
+            "<strong>Consonant + y:</strong> change y to ies.",
+            "<strong>Vowel + y:</strong> just add -s.",
+            "Learn irregular plurals by memory — they do not follow a predictable pattern.",
+            "Use a dictionary when unsure about nouns ending in -o or -f/-fe."
+          ]
+        }
+      ]
+    }
+  };
+
+  /* Practice quizzes sent by Professor Aguilar (Quizes 1-2 Nouns.docx).
+     Rendered as a self-checking worksheet under the Nouns topic. */
+  GRAMMAR_CONTENT.nouns.practice = [
+    {
+      id: "nouns-quiz-1",
+      short: "Plurals",
+      title: "Quiz 1 — Write the Plurals",
+      instructions: "Write the plural of each singular word or phrase.",
+      example: { text: "a nice sofa", prefix: "", suffix: "", result: "nice sofas" },
+      items: [
+        { text: "a university", prefix: "", suffix: "", answers: ["universities"] },
+        { text: "a sandwich", prefix: "", suffix: "", answers: ["sandwiches"] },
+        { text: "a street", prefix: "", suffix: "", answers: ["streets"] },
+        { text: "a rich man", prefix: "rich ", suffix: "", answers: ["men"] },
+        { text: "one foot", prefix: "two ", suffix: "", answers: ["feet"] },
+        { text: "a dirty bag", prefix: "dirty ", suffix: "", answers: ["bags"] },
+        { text: "an expensive watch", prefix: "expensive ", suffix: "", answers: ["watches"] },
+        { text: "a new phone", prefix: "new ", suffix: "", answers: ["phones"] },
+        { text: "a nice photograph", prefix: "nice ", suffix: "", answers: ["photographs"] },
+        { text: "one glass of wine", prefix: "two ", suffix: " of wine", answers: ["glasses"] }
+      ]
+    },
+    {
+      id: "nouns-quiz-2",
+      short: "Articles & Plurals",
+      title: "Quiz 2 — Articles (a/an) and Plurals",
+      instructions: "Write a/an before the singular word, then write the plural form.",
+      example: { text: "olive", article: "an", prefix: "", suffix: "", result: "olives" },
+      items: [
+        { text: "bus", article: ["a"], prefix: "", suffix: "", answers: ["buses"] },
+        { text: "nice family", article: ["a"], prefix: "nice ", suffix: "", answers: ["families"] },
+        { text: "Italian child", article: ["an"], prefix: "Italian ", suffix: "", answers: ["children"] },
+        { text: "strong tooth", article: ["a"], prefix: "strong ", suffix: "", answers: ["teeth"] },
+        { text: "nice dress", article: ["a"], prefix: "nice ", suffix: "", answers: ["dresses"] },
+        { text: "angry wife", article: ["an"], prefix: "angry ", suffix: "", answers: ["wives"] },
+        { text: "uniform", article: ["a"], prefix: "", suffix: "", answers: ["uniforms"] },
+        { text: "amazing website", article: ["an"], prefix: "amazing ", suffix: "", answers: ["websites"] },
+        { text: "elephant", article: ["an"], prefix: "", suffix: "", answers: ["elephants"] },
+        { text: "empty library", article: ["an"], prefix: "empty ", suffix: "", answers: ["libraries"] }
+      ]
+    }
+  ];
+
+  function grammarRuleCardHtml(rule) {
+    var html = '<div class="grammar-rule-card">' +
+      '<div class="grammar-rule-head">' +
+      (rule.number ? '<span class="grammar-rule-num">' + rule.number + "</span>" : "") +
+      "<h4>" + rule.title + "</h4>" +
+      "</div>" +
+      '<p class="grammar-rule-desc">' + rule.desc + "</p>";
+    if (rule.structure) html += '<div class="grammar-rule-structure">' + rule.structure + "</div>";
+    if (rule.table) html += grammarTableHtml(rule.table);
+    if (rule.examples) html += grammarExamplesHtml(rule.examples);
+    if (rule.table2Label) html += '<p class="grammar-rule-desc" style="margin-top:16px;"><strong>' + rule.table2Label + "</strong></p>";
+    if (rule.table2) html += grammarTableHtml(rule.table2);
+    if (rule.examples2) html += grammarExamplesHtml(rule.examples2);
+    if (rule.tip) html += '<div class="grammar-tip-box">💡 <strong>Grammar Tip:</strong> ' + rule.tip + "</div>";
+    html += "</div>";
+    return html;
+  }
+
+  function grammarTableHtml(rows) {
+    var html = '<div class="material-table-wrap"><table class="material-table"><thead><tr><th>Singular</th><th>Plural</th></tr></thead><tbody>';
+    rows.forEach(function (r) { html += "<tr><td>" + r[0] + "</td><td>" + r[1] + "</td></tr>"; });
+    html += "</tbody></table></div>";
+    return html;
+  }
+
+  function grammarExamplesHtml(examples) {
+    var html = '<ul class="grammar-examples">';
+    examples.forEach(function (ex) { html += "<li>" + ex + "</li>"; });
+    html += "</ul>";
+    return html;
+  }
+
+  function renderGrammarModule(mod) {
+    var html = '<div class="grammar-module">' +
+      '<div class="grammar-module-head">' +
+      '<p class="eyebrow">Parts of Speech · Nouns</p>' +
+      "<h3>" + mod.title + "</h3>" +
+      "</div>";
+
+    if (mod.objectives) {
+      html += '<div class="grammar-objectives"><p>🎯 Learning Objective</p><ul>';
+      mod.objectives.forEach(function (o) { html += "<li>" + o + "</li>"; });
+      html += "</ul></div>";
+    }
+
+    html += '<p class="grammar-section-title">🧩 Grammar Rules</p>';
+    mod.rules.forEach(function (rule) { html += grammarRuleCardHtml(rule); });
+
+    if (mod.commonMistakes) {
+      html += '<p class="grammar-section-title">⚠ Common Mistakes</p><div class="grammar-mistakes-grid">';
+      mod.commonMistakes.forEach(function (pair) {
+        html += '<div class="grammar-mistake"><span class="wrong">❌ ' + pair[0] + '</span><span class="right">✅ ' + pair[1] + "</span></div>";
+      });
+      html += "</div>";
+      if (mod.commonMistakesNote) html += '<p class="grammar-mistakes-note">' + mod.commonMistakesNote + "</p>";
+    }
+
+    if (mod.quickReference) {
+      html += '<p class="grammar-section-title">📄 Quick Reference Table</p>' +
+        '<div class="material-table-wrap"><table class="material-table"><thead><tr><th>Ending</th><th>Rule</th><th>Example</th></tr></thead><tbody>';
+      mod.quickReference.forEach(function (row) {
+        html += "<tr><td>" + row[0] + "</td><td>" + row[1] + "</td><td>" + row[2] + "</td></tr>";
+      });
+      html += "</tbody></table></div>";
+    }
+
+    if (mod.memoryTips) {
+      html += '<p class="grammar-section-title">💡 Memory Tips</p><ul class="grammar-memory-list">';
+      mod.memoryTips.forEach(function (t) { html += "<li>" + t + "</li>"; });
+      html += "</ul>";
+    }
+
+    html += "</div>";
+    return html;
+  }
+
+  /* ---- Practice quizzes (self-checking worksheets attached to a grammar topic) ----
+     All quizzes for a topic live inside ONE box (.quiz-box). A tab strip lets the
+     student jump to any quiz; a sliding track (like a carousel) is used to move
+     between them, and swiping left/right on touch devices does the same thing. */
+  function grammarPracticeQuizBodyHtml(quiz) {
+    var html = '<div class="practice-quiz-card" data-quiz-id="' + quiz.id + '">' +
+      '<p class="quiz-heading">📝 ' + quiz.title + "</p>" +
+      '<p class="practice-quiz-instructions">' + quiz.instructions + "</p>";
+
+    if (quiz.example) {
+      html += '<p class="practice-quiz-example"><em>Example: ' +
+        (quiz.example.article ? quiz.example.article + " " : "") + quiz.example.text +
+        " &rArr; " + quiz.example.prefix + quiz.example.result + quiz.example.suffix + "</em></p>";
+    }
+
+    html += '<div class="practice-quiz-items">';
+    quiz.items.forEach(function (item, ii) {
+      html += '<div class="practice-quiz-row">' +
+        '<span class="practice-quiz-num">' + (ii + 1) + ".</span>";
+      if (item.article) {
+        html += '<span class="practice-blank-wrap">' +
+          '<input type="text" class="fill-input practice-blank practice-blank-article" ' +
+          'data-quiz="' + quiz.id + '" data-item="' + ii + '" data-kind="article" autocomplete="off" placeholder="a/an">' +
+          '<span class="practice-feedback" data-quiz="' + quiz.id + '" data-item="' + ii + '" data-kind="article"></span>' +
+          "</span>";
+      }
+      html += ' <span class="practice-quiz-text">' + item.text + '</span> <span class="practice-quiz-arrow">&rArr;</span> ';
+      if (item.prefix) html += '<span class="practice-quiz-text">' + item.prefix + "</span>";
+      html += '<span class="practice-blank-wrap">' +
+        '<input type="text" class="fill-input practice-blank" ' +
+        'data-quiz="' + quiz.id + '" data-item="' + ii + '" data-kind="plural" autocomplete="off" placeholder="plural">' +
+        '<span class="practice-feedback" data-quiz="' + quiz.id + '" data-item="' + ii + '" data-kind="plural"></span>' +
+        "</span>";
+      if (item.suffix) html += '<span class="practice-quiz-text">' + item.suffix + "</span>";
+      html += "</div>";
+    });
+    html += "</div>";
+
+    html += '<div class="practice-quiz-actions">' +
+      '<button class="btn btn-primary practice-check-btn" type="button" data-quiz="' + quiz.id + '">✓ Check Answers</button>' +
+      '<button class="btn btn-ghost-light practice-reset-btn" type="button" data-quiz="' + quiz.id + '">↺ Reset</button>' +
+      "</div>" +
+      '<p class="practice-quiz-result" id="practice-result-' + quiz.id + '" hidden></p>' +
+      "</div>";
+    return html;
+  }
+
+  function quizTabLabel(quiz, i) {
+    return '<span class="quiz-tab-num">' + (i + 1) + "</span>" +
+      '<span class="quiz-tab-label">' + (quiz.short || quiz.title) + "</span>";
+  }
+
+  function grammarPracticeBoxHtml(slug, quizzes) {
+    var tabsHtml = quizzes.map(function (q, i) {
+      return '<button type="button" class="quiz-tab' + (i === 0 ? " active" : "") + '" ' +
+        'data-index="' + i + '" role="tab" aria-selected="' + (i === 0 ? "true" : "false") + '">' +
+        quizTabLabel(q, i) + "</button>";
+    }).join("");
+
+    var slidesHtml = quizzes.map(function (q) {
+      return '<div class="quiz-slide">' + grammarPracticeQuizBodyHtml(q) + "</div>";
+    }).join("");
+
+    return '<div class="quiz-box" id="quizbox-' + slug + '" data-slug="' + slug + '">' +
+      '<div class="quiz-box-tabs" role="tablist" aria-label="Choose a quiz">' + tabsHtml + "</div>" +
+      '<div class="quiz-box-howto">' +
+        '<span class="quiz-box-howto-icon">💡</span>' +
+        '<span><strong>How to do this exercise:</strong> fill in every blank, then press <strong>Check Answers</strong> ' +
+        '(or hit <strong>Enter</strong> after the last one). Correct answers turn green ✓ — incorrect ones turn red ✗ ' +
+        "and show you the right answer. Tap a tab above, swipe, or use the arrows below to move to the next quiz.</span>" +
+      "</div>" +
+      '<div class="quiz-box-viewport"><div class="quiz-box-track">' + slidesHtml + "</div></div>" +
+      '<div class="quiz-box-nav">' +
+        '<button type="button" class="quiz-nav-btn quiz-nav-prev" disabled>‹ Previous</button>' +
+        '<span class="quiz-box-progress">Quiz 1 of ' + quizzes.length + "</span>" +
+        '<button type="button" class="quiz-nav-btn quiz-nav-next"' + (quizzes.length < 2 ? " disabled" : "") + ">Next ›</button>" +
+      "</div>" +
+    "</div>";
+  }
+
+  /* Wires up the tab strip + sliding track + swipe gestures for one quiz box. */
+  function initQuizBox(slug) {
+    var box = document.getElementById("quizbox-" + slug);
+    if (!box) return;
+    var track = box.querySelector(".quiz-box-track");
+    var viewport = box.querySelector(".quiz-box-viewport");
+    var tabs = Array.prototype.slice.call(box.querySelectorAll(".quiz-tab"));
+    var slides = Array.prototype.slice.call(box.querySelectorAll(".quiz-slide"));
+    var prevBtn = box.querySelector(".quiz-nav-prev");
+    var nextBtn = box.querySelector(".quiz-nav-next");
+    var progressEl = box.querySelector(".quiz-box-progress");
+    var current = 0;
+
+    function setHeight() {
+      viewport.style.height = slides[current].offsetHeight + "px";
+    }
+    box.refreshQuizHeight = setHeight;
+
+    function goTo(i) {
+      if (i < 0 || i >= slides.length || i === current) {
+        if (i >= 0 && i < slides.length) current = i;
+        return;
+      }
+      current = i;
+      track.style.transform = "translateX(-" + (i * 100) + "%)";
+      tabs.forEach(function (t, ti) {
+        t.classList.toggle("active", ti === i);
+        t.setAttribute("aria-selected", ti === i ? "true" : "false");
+      });
+      prevBtn.disabled = i === 0;
+      nextBtn.disabled = i === slides.length - 1;
+      progressEl.textContent = "Quiz " + (i + 1) + " of " + slides.length;
+      requestAnimationFrame(setHeight);
+    }
+
+    tabs.forEach(function (tab, i) { tab.addEventListener("click", function () { goTo(i); }); });
+    prevBtn.addEventListener("click", function () { goTo(current - 1); });
+    nextBtn.addEventListener("click", function () { goTo(current + 1); });
+
+    var startX = null, startY = null;
+    viewport.addEventListener("touchstart", function (e) {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+    }, { passive: true });
+    viewport.addEventListener("touchend", function (e) {
+      if (startX === null) return;
+      var dx = e.changedTouches[0].clientX - startX;
+      var dy = e.changedTouches[0].clientY - startY;
+      if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) {
+        goTo(current + (dx < 0 ? 1 : -1));
+      }
+      startX = null; startY = null;
+    });
+
+    window.addEventListener("resize", function () {
+      if (!box.isConnected) return;
+      setHeight();
+    });
+
+    setHeight();
+  }
+
+  function initGrammarPracticeQuizzes(container, quizzes) {
+    (quizzes || []).forEach(function (quiz) {
+      var card = container.querySelector('.practice-quiz-card[data-quiz-id="' + quiz.id + '"]');
+      if (!card) return;
+      var checkBtn = card.querySelector(".practice-check-btn");
+      var resetBtn = card.querySelector(".practice-reset-btn");
+      var resultEl = card.querySelector(".practice-quiz-result");
+      var quizBox = card.closest(".quiz-box");
+
+      function refreshHeight() {
+        if (quizBox && quizBox.refreshQuizHeight) requestAnimationFrame(quizBox.refreshQuizHeight);
+      }
+
+      function setFieldFeedback(kind, ii, ok, correctText) {
+        var span = card.querySelector('.practice-feedback[data-item="' + ii + '"][data-kind="' + kind + '"]');
+        if (!span) return;
+        span.classList.remove("ok", "bad");
+        if (ok) {
+          span.classList.add("ok");
+          span.textContent = "✓";
+        } else {
+          span.classList.add("bad");
+          span.textContent = "✗ correct: " + correctText;
+        }
+      }
+
+      var blankInputs = Array.prototype.slice.call(card.querySelectorAll(".practice-blank"));
+      blankInputs.forEach(function (input, i) {
+        input.addEventListener("keydown", function (e) {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            if (i < blankInputs.length - 1) blankInputs[i + 1].focus();
+            else checkBtn.click();
+          }
+        });
+      });
+
+      checkBtn.addEventListener("click", function () {
+        var total = 0;
+        var correct = 0;
+        quiz.items.forEach(function (item, ii) {
+          var pluralInput = card.querySelector('.practice-blank[data-item="' + ii + '"][data-kind="plural"]');
+          total++;
+          var pluralVal = pluralInput.value.trim().toLowerCase();
+          var pluralOk = item.answers.some(function (a) { return a.toLowerCase() === pluralVal; });
+          pluralInput.classList.remove("correct", "incorrect");
+          pluralInput.classList.add(pluralOk ? "correct" : "incorrect");
+          pluralInput.disabled = true;
+          setFieldFeedback("plural", ii, pluralOk, item.answers[0]);
+          if (pluralOk) correct++;
+
+          if (item.article) {
+            var articleInput = card.querySelector('.practice-blank[data-item="' + ii + '"][data-kind="article"]');
+            total++;
+            var articleVal = articleInput.value.trim().toLowerCase();
+            var articleOk = item.article.indexOf(articleVal) !== -1;
+            articleInput.classList.remove("correct", "incorrect");
+            articleInput.classList.add(articleOk ? "correct" : "incorrect");
+            articleInput.disabled = true;
+            setFieldFeedback("article", ii, articleOk, item.article[0]);
+            if (articleOk) correct++;
+          }
+        });
+        checkBtn.disabled = true;
+        resultEl.hidden = false;
+        resultEl.classList.remove("perfect", "needs-work");
+        if (correct === total) {
+          resultEl.textContent = "🎉 Perfect! " + correct + " out of " + total + " correct.";
+          resultEl.classList.add("perfect");
+        } else {
+          resultEl.textContent = "You got " + correct + " out of " + total + " correct. Review the red answers above, then try Reset to practice again.";
+          resultEl.classList.add("needs-work");
+        }
+        refreshHeight();
+      });
+
+      resetBtn.addEventListener("click", function () {
+        blankInputs.forEach(function (input) {
+          input.value = "";
+          input.disabled = false;
+          input.classList.remove("correct", "incorrect");
+        });
+        Array.prototype.slice.call(card.querySelectorAll(".practice-feedback")).forEach(function (span) {
+          span.textContent = "";
+          span.classList.remove("ok", "bad");
+        });
+        checkBtn.disabled = false;
+        resultEl.hidden = true;
+        if (blankInputs[0]) blankInputs[0].focus();
+        refreshHeight();
+      });
+    });
+  }
+
+  function openGrammarTopic(slug) {
+    var topic = GRAMMAR_CONTENT[slug];
+    if (!topic) return;
+    document.getElementById("grammar-browse").hidden = true;
+    var sectionHead = document.getElementById("grammar-section-head");
+    if (sectionHead) sectionHead.hidden = true;
+    var panel = document.getElementById("grammar-panel");
+    panel.hidden = false;
+    var inner = document.getElementById("grammar-panel-inner");
+    var html = "";
+    if (topic.definition) {
+      html += '<div class="grammar-definition-hero">' +
+        '<p class="eyebrow">📚 Definition</p>' +
+        "<h2>" + (topic.definitionTitle || topic.label) + "</h2>" +
+        "<p>" + topic.definition + "</p>" +
+        (topic.definitionExamples ? '<div class="grammar-definition-examples">' +
+          topic.definitionExamples.map(function (ex) { return '<span class="grammar-def-chip">' + ex + "</span>"; }).join("") +
+          "</div>" : "") +
+        "</div>";
+    }
+    if (topic.practice && topic.practice.length) {
+      html += '<div class="grammar-practice-cta">' +
+        '<span class="grammar-practice-cta-text">🎯 <strong>New!</strong> Practice what you learn here with ' +
+          topic.practice.length + ' interactive quizzes.</span>' +
+        '<button type="button" class="btn btn-primary btn-sm grammar-practice-cta-btn" id="' + slug + '-cta-btn">Go to Quizzes ↓</button>' +
+        "</div>";
+    }
+    html += topic.modules.map(renderGrammarModule).join("");
+    if (topic.practice && topic.practice.length) {
+      html += '<div class="grammar-practice-section" id="' + slug + '-practice">' +
+        '<p class="grammar-section-title">🎮 Interactive Exercises</p>' +
+        grammarPracticeBoxHtml(slug, topic.practice) +
+        "</div>";
+    }
+    inner.innerHTML = html;
+    if (topic.practice) {
+      initGrammarPracticeQuizzes(inner, topic.practice);
+      initQuizBox(slug);
+      var ctaBtn = document.getElementById(slug + "-cta-btn");
+      if (ctaBtn) {
+        ctaBtn.addEventListener("click", function () {
+          var target = document.getElementById(slug + "-practice");
+          if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      }
+    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function closeGrammarPanel() {
+    document.getElementById("grammar-panel").hidden = true;
+    document.getElementById("grammar-browse").hidden = false;
+    var sectionHead = document.getElementById("grammar-section-head");
+    if (sectionHead) sectionHead.hidden = false;
+  }
+  document.getElementById("grammar-back").addEventListener("click", closeGrammarPanel);
+
+  document.querySelectorAll(".grammar-topic").forEach(function (span) {
+    var slug = span.dataset.topic;
+    if (slug && GRAMMAR_CONTENT[slug]) {
+      span.classList.add("has-content");
+      span.tabIndex = 0;
+      span.setAttribute("role", "button");
+      if (GRAMMAR_CONTENT[slug].practice && GRAMMAR_CONTENT[slug].practice.length) {
+        span.classList.add("has-quiz");
+        span.title = "Includes interactive practice quizzes";
+      }
+      span.addEventListener("click", function () { openGrammarTopic(slug); });
+      span.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openGrammarTopic(slug); } });
+    } else {
+      span.addEventListener("click", function () { showGenericToast("🔒 This topic is coming soon."); });
+    }
+  });
+
+  /* ---- Generic small toast (reuses the XP toast element) ---- */
+  var genericToastTimer = null;
+  function showGenericToast(message) {
+    var toast = document.getElementById("xp-toast");
+    toast.textContent = message;
+    toast.hidden = false;
+    requestAnimationFrame(function () { toast.classList.add("show"); });
+    if (genericToastTimer) clearTimeout(genericToastTimer);
+    genericToastTimer = setTimeout(function () {
+      toast.classList.remove("show");
+      setTimeout(function () { toast.hidden = true; }, 250);
+    }, 1700);
+  }
 
   /* ============ INIT ============ */
   updateBoardingPass();
