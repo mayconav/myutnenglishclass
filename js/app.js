@@ -1834,6 +1834,98 @@
     }
   ];
 
+  /* ============ ADJECTIVES ============ */
+  GRAMMAR_CONTENT.adjectives = {
+    label: "Adjectives",
+    definitionTitle: "What Is an Adjective?",
+    definition: "An adjective is a word that describes, identifies, or quantifies a noun or a pronoun. It tells us more about size, color, shape, quantity, origin, or which one.",
+    definitionExamples: ["a <strong>tall</strong> building", "<strong>her</strong> car", "<strong>this</strong> book", "<strong>Mexican</strong> food"],
+    modules: [
+      {
+        title: "The 10 Types of Adjectives",
+        objectives: [
+          "Recognize the ten main categories of adjectives used in everyday English.",
+          "Identify which type of adjective is used in a sentence.",
+          "Use each type correctly before a noun."
+        ],
+        rules: [
+          { number: 1, title: "Descriptive Adjectives", desc: "Describe the quality, size, shape, or color of a noun — the most common type.", examples: ["The <strong>beautiful</strong> garden is full of flowers.", "My backpack is <strong>blue</strong>."] },
+          { number: 2, title: "Possessive Adjectives", desc: "Show who or what something belongs to: my, your, his, her, its, our, their.", examples: ["<strong>Her</strong> teacher is kind.", "<strong>Their</strong> house is big."] },
+          { number: 3, title: "Demonstrative Adjectives", desc: "Point out a specific noun: this, that, these, those.", examples: ["<strong>Those</strong> cars are expensive.", "<strong>This</strong> exercise is easy."] },
+          { number: 4, title: "Quantitative Adjectives", desc: "Tell us how much or how many, without giving an exact number: many, few, some, several, little.", examples: ["We have <strong>little</strong> time.", "She has <strong>several</strong> sisters."] },
+          { number: 5, title: "Interrogative Adjectives", desc: "Ask a question about a noun: which, what, whose.", examples: ["<strong>Which</strong> color do you prefer?", "<strong>Whose</strong> book is this?"] },
+          { number: 6, title: "Distributive Adjectives", desc: "Refer to members of a group one at a time: each, every, either, neither.", examples: ["<strong>Every</strong> student passed the exam.", "<strong>Each</strong> participant received a certificate."] },
+          { number: 7, title: "Proper Adjectives", desc: "Come from a proper noun (a nationality, place, or name) and are always capitalized.", examples: ["They visited a <strong>Canadian</strong> museum.", "She loves <strong>Mexican</strong> food."] },
+          { number: 8, title: "Compound Adjectives", desc: "Two or more words that work together as a single adjective, usually joined with a hyphen.", examples: ["He is a <strong>well-known</strong> actor.", "She is a <strong>hard-working</strong> student."] },
+          { number: 9, title: "Comparative Adjectives", desc: "Compare two people or things, usually formed with -er or more + adjective.", examples: ["This exercise is <strong>easier</strong> than yesterday's.", "She is <strong>taller</strong> than her brother."] },
+          { number: 10, title: "Superlative Adjectives", desc: "Compare three or more people or things, showing the highest degree, usually formed with -est or most + adjective.", examples: ["She is the <strong>tallest</strong> student.", "This is the <strong>most interesting</strong> book I've read."] }
+        ]
+      }
+    ]
+  };
+
+  /* Practice quizzes sent by Professor Aguilar (Adjectives_Quizzes.docx). Multiple-choice,
+     rendered inside the same tabbed quiz box used for Nouns. */
+  GRAMMAR_CONTENT.adjectives.practice = [
+    {
+      id: "adjectives-quiz-1",
+      short: "Types of Adjectives",
+      type: "mc",
+      title: "Quiz 1 — Types of Adjectives",
+      instructions: "Choose the correct answer for each question.",
+      questions: [
+        { text: "Which sentence contains a descriptive adjective?", options: ["Those books are interesting.", "The beautiful garden is full of flowers.", "My backpack is blue.", "Every student passed the exam."], correct: 1 },
+        { text: "Which adjective is possessive?", options: ["This", "Several", "Her", "Tall"], correct: 2 },
+        { text: "Which sentence contains a demonstrative adjective?", options: ["Those cars are expensive.", "John is intelligent.", "She has three sisters.", "The weather is cold."], correct: 0 },
+        { text: "Which adjective is quantitative?", options: ["Happy", "Many", "Italian", "This"], correct: 1 },
+        { text: "Which sentence contains an interrogative adjective?", options: ["Which color do you prefer?", "My brother is funny.", "Those houses are new.", "Every child smiled."], correct: 0 },
+        { text: "Which adjective is distributive?", options: ["Blue", "Every", "Four", "American"], correct: 1 },
+        { text: "Which is a proper adjective?", options: ["Wooden", "Mexican", "Happy", "Several"], correct: 1 },
+        { text: "Which sentence contains a compound adjective?", options: ["She bought a red dress.", "He is a well-known actor.", "My car is old.", "They have many friends."], correct: 1 },
+        { text: "Which adjective is comparative?", options: ["Fastest", "Faster", "Fast", "Most fast"], correct: 1 },
+        { text: "Which adjective is superlative?", options: ["Better", "Good", "Best", "More good"], correct: 2 }
+      ]
+    },
+    {
+      id: "adjectives-quiz-2",
+      short: "Identifying Adjectives",
+      type: "mc",
+      title: "Quiz 2 — Identifying Adjectives",
+      instructions: "Choose the correct answer for each question.",
+      questions: [
+        { text: "Which sentence contains a possessive adjective?", options: ["Their teacher is kind.", "The dog is friendly.", "This is easy.", "Every book is interesting."], correct: 0 },
+        { text: "Which adjective is descriptive?", options: ["Friendly", "Five", "Each", "That"], correct: 0 },
+        { text: "Which sentence contains a quantitative adjective?", options: ["We have little time.", "This car is fast.", "My house is big.", "The French restaurant is excellent."], correct: 0 },
+        { text: "Which adjective is demonstrative?", options: ["Their", "Those", "Tall", "Every"], correct: 1 },
+        { text: "Which sentence contains a proper adjective?", options: ["They visited a Canadian museum.", "I have two dogs.", "This pencil is mine.", "Every student arrived."], correct: 0 },
+        { text: "Which adjective is interrogative?", options: ["Which", "Happy", "Three", "Large"], correct: 0 },
+        { text: "Which adjective is compound?", options: ["Hard-working", "Blue", "Many", "Your"], correct: 0 },
+        { text: "Which adjective is distributive?", options: ["Every", "Small", "Five", "Italian"], correct: 0 },
+        { text: "Which sentence contains a comparative adjective?", options: ["This exercise is easier than yesterday's.", "This is the easiest exercise.", "This exercise is easy.", "This exercise is very easy."], correct: 0 },
+        { text: "Which sentence contains a superlative adjective?", options: ["She is taller than her brother.", "She is the tallest student.", "She is tall.", "She is very tall."], correct: 1 }
+      ]
+    },
+    {
+      id: "adjectives-quiz-3",
+      short: "Comprehensive Review",
+      type: "mc",
+      title: "Quiz 3 — Comprehensive Review",
+      instructions: "Choose the correct answer for each question.",
+      questions: [
+        { text: "Which adjective tells who owns something?", options: ["Demonstrative", "Possessive", "Proper", "Compound"], correct: 1 },
+        { text: "Which adjective asks about a noun?", options: ["Descriptive", "Comparative", "Interrogative", "Proper"], correct: 2 },
+        { text: "Which adjective refers to nationality?", options: ["Beautiful", "Canadian", "Several", "This"], correct: 1 },
+        { text: "Which adjective expresses quantity?", options: ["Many", "Tall", "These", "My"], correct: 0 },
+        { text: "Which sentence contains a demonstrative adjective?", options: ["Those students are excellent.", "John is kind.", "I have many books.", "The movie is interesting."], correct: 0 },
+        { text: "Which adjective is compound?", options: ["Well-prepared", "Friendly", "Those", "Four"], correct: 0 },
+        { text: "Which adjective is comparative?", options: ["Biggest", "Big", "Bigger", "Most big"], correct: 2 },
+        { text: "Which adjective is superlative?", options: ["More interesting", "Most interesting", "Interesting", "Interest"], correct: 1 },
+        { text: "Which sentence contains a distributive adjective?", options: ["Each participant received a certificate.", "The teacher is happy.", "We visited Paris.", "She bought a blue dress."], correct: 0 },
+        { text: "Which sentence contains a descriptive adjective?", options: ["The clever student solved the problem.", "These books are heavy.", "Every teacher attended.", "Which answer is correct?"], correct: 0 }
+      ]
+    }
+  ];
+
   function grammarRuleCardHtml(rule) {
     var html = '<div class="grammar-rule-card">' +
       '<div class="grammar-rule-head">' +
@@ -1866,10 +1958,10 @@
     return html;
   }
 
-  function renderGrammarModule(mod) {
+  function renderGrammarModule(mod, eyebrow) {
     var html = '<div class="grammar-module">' +
       '<div class="grammar-module-head">' +
-      '<p class="eyebrow">Parts of Speech · Nouns</p>' +
+      '<p class="eyebrow">' + (eyebrow || "Grammar") + "</p>" +
       "<h3>" + mod.title + "</h3>" +
       "</div>";
 
@@ -1915,6 +2007,11 @@
      student jump to any quiz; a sliding track (like a carousel) is used to move
      between them, and swiping left/right on touch devices does the same thing. */
   function grammarPracticeQuizBodyHtml(quiz) {
+    if (quiz.type === "mc") return grammarPracticeMcQuizBodyHtml(quiz);
+    return grammarPracticeFillQuizBodyHtml(quiz);
+  }
+
+  function grammarPracticeFillQuizBodyHtml(quiz) {
     var html = '<div class="practice-quiz-card" data-quiz-id="' + quiz.id + '">' +
       '<p class="quiz-heading">📝 ' + quiz.title + "</p>" +
       '<p class="practice-quiz-instructions">' + quiz.instructions + "</p>";
@@ -1957,6 +2054,37 @@
     return html;
   }
 
+  /* Multiple-choice practice quiz (e.g. Adjectives quizzes): pick one option per
+     question, then Check Answers reveals correct/incorrect for every question at once. */
+  function grammarPracticeMcQuizBodyHtml(quiz) {
+    var html = '<div class="practice-quiz-card" data-quiz-id="' + quiz.id + '" data-quiz-type="mc">' +
+      '<p class="quiz-heading">📝 ' + quiz.title + "</p>" +
+      '<p class="practice-quiz-instructions">' + quiz.instructions + "</p>" +
+      '<div class="practice-mcq-list">';
+
+    quiz.questions.forEach(function (q, qi) {
+      html += '<div class="practice-mcq-item" data-quiz="' + quiz.id + '" data-item="' + qi + '">' +
+        '<p class="practice-mcq-q"><span class="practice-quiz-num">' + (qi + 1) + ".</span> " + q.text + "</p>" +
+        '<div class="quiz-options practice-mcq-options">' +
+        q.options.map(function (opt, oi) {
+          return '<button type="button" class="quiz-option" data-quiz="' + quiz.id + '" data-item="' + qi + '" data-option="' + oi + '">' +
+            String.fromCharCode(97 + oi) + ") " + opt + "</button>";
+        }).join("") +
+        "</div>" +
+        '<p class="practice-feedback practice-mcq-feedback" data-quiz="' + quiz.id + '" data-item="' + qi + '"></p>' +
+        "</div>";
+    });
+
+    html += "</div>";
+    html += '<div class="practice-quiz-actions">' +
+      '<button class="btn btn-primary practice-check-btn" type="button" data-quiz="' + quiz.id + '">✓ Check Answers</button>' +
+      '<button class="btn btn-ghost-light practice-reset-btn" type="button" data-quiz="' + quiz.id + '">↺ Reset</button>' +
+      "</div>" +
+      '<p class="practice-quiz-result" id="practice-result-' + quiz.id + '" hidden></p>' +
+      "</div>";
+    return html;
+  }
+
   function quizTabLabel(quiz, i) {
     return '<span class="quiz-tab-num">' + (i + 1) + "</span>" +
       '<span class="quiz-tab-label">' + (quiz.short || quiz.title) + "</span>";
@@ -1973,12 +2101,18 @@
       return '<div class="quiz-slide">' + grammarPracticeQuizBodyHtml(q) + "</div>";
     }).join("");
 
+    var hasFill = quizzes.some(function (q) { return q.type !== "mc"; });
+    var hasMc = quizzes.some(function (q) { return q.type === "mc"; });
+    var howtoAction = hasFill && hasMc
+      ? "fill in every blank or choose an option for each question"
+      : hasMc ? "choose one option for every question" : "fill in every blank";
+
     return '<div class="quiz-box" id="quizbox-' + slug + '" data-slug="' + slug + '">' +
       '<div class="quiz-box-tabs" role="tablist" aria-label="Choose a quiz">' + tabsHtml + "</div>" +
       '<div class="quiz-box-howto">' +
         '<span class="quiz-box-howto-icon">💡</span>' +
-        '<span><strong>How to do this exercise:</strong> fill in every blank, then press <strong>Check Answers</strong> ' +
-        '(or hit <strong>Enter</strong> after the last one). Correct answers turn green ✓ — incorrect ones turn red ✗ ' +
+        '<span><strong>How to do this exercise:</strong> ' + howtoAction + ', then press <strong>Check Answers</strong> ' +
+        '(or hit <strong>Enter</strong> after the last blank). Correct answers turn green ✓ — incorrect ones turn red ✗ ' +
         "and show you the right answer. Tap a tab above, swipe, or use the arrows below to move to the next quiz.</span>" +
       "</div>" +
       '<div class="quiz-box-viewport"><div class="quiz-box-track">' + slidesHtml + "</div></div>" +
@@ -2056,93 +2190,202 @@
     (quizzes || []).forEach(function (quiz) {
       var card = container.querySelector('.practice-quiz-card[data-quiz-id="' + quiz.id + '"]');
       if (!card) return;
-      var checkBtn = card.querySelector(".practice-check-btn");
-      var resetBtn = card.querySelector(".practice-reset-btn");
-      var resultEl = card.querySelector(".practice-quiz-result");
-      var quizBox = card.closest(".quiz-box");
+      if (quiz.type === "mc") initMcPracticeQuiz(card, quiz);
+      else initFillPracticeQuiz(card, quiz);
+    });
+  }
 
-      function refreshHeight() {
-        if (quizBox && quizBox.refreshQuizHeight) requestAnimationFrame(quizBox.refreshQuizHeight);
+  function initFillPracticeQuiz(card, quiz) {
+    var checkBtn = card.querySelector(".practice-check-btn");
+    var resetBtn = card.querySelector(".practice-reset-btn");
+    var resultEl = card.querySelector(".practice-quiz-result");
+    var quizBox = card.closest(".quiz-box");
+
+    function refreshHeight() {
+      if (quizBox && quizBox.refreshQuizHeight) requestAnimationFrame(quizBox.refreshQuizHeight);
+    }
+
+    function setFieldFeedback(kind, ii, ok, correctText) {
+      var span = card.querySelector('.practice-feedback[data-item="' + ii + '"][data-kind="' + kind + '"]');
+      if (!span) return;
+      span.classList.remove("ok", "bad");
+      if (ok) {
+        span.classList.add("ok");
+        span.textContent = "✓";
+      } else {
+        span.classList.add("bad");
+        span.textContent = "✗ correct: " + correctText;
       }
+    }
 
-      function setFieldFeedback(kind, ii, ok, correctText) {
-        var span = card.querySelector('.practice-feedback[data-item="' + ii + '"][data-kind="' + kind + '"]');
-        if (!span) return;
-        span.classList.remove("ok", "bad");
-        if (ok) {
-          span.classList.add("ok");
-          span.textContent = "✓";
-        } else {
-          span.classList.add("bad");
-          span.textContent = "✗ correct: " + correctText;
+    var blankInputs = Array.prototype.slice.call(card.querySelectorAll(".practice-blank"));
+    blankInputs.forEach(function (input, i) {
+      input.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          if (i < blankInputs.length - 1) blankInputs[i + 1].focus();
+          else checkBtn.click();
         }
-      }
-
-      var blankInputs = Array.prototype.slice.call(card.querySelectorAll(".practice-blank"));
-      blankInputs.forEach(function (input, i) {
-        input.addEventListener("keydown", function (e) {
-          if (e.key === "Enter") {
-            e.preventDefault();
-            if (i < blankInputs.length - 1) blankInputs[i + 1].focus();
-            else checkBtn.click();
-          }
-        });
       });
+    });
 
-      checkBtn.addEventListener("click", function () {
-        var total = 0;
-        var correct = 0;
-        quiz.items.forEach(function (item, ii) {
-          var pluralInput = card.querySelector('.practice-blank[data-item="' + ii + '"][data-kind="plural"]');
+    checkBtn.addEventListener("click", function () {
+      var total = 0;
+      var correct = 0;
+      quiz.items.forEach(function (item, ii) {
+        var pluralInput = card.querySelector('.practice-blank[data-item="' + ii + '"][data-kind="plural"]');
+        total++;
+        var pluralVal = pluralInput.value.trim().toLowerCase();
+        var pluralOk = item.answers.some(function (a) { return a.toLowerCase() === pluralVal; });
+        pluralInput.classList.remove("correct", "incorrect");
+        pluralInput.classList.add(pluralOk ? "correct" : "incorrect");
+        pluralInput.disabled = true;
+        setFieldFeedback("plural", ii, pluralOk, item.answers[0]);
+        if (pluralOk) correct++;
+
+        if (item.article) {
+          var articleInput = card.querySelector('.practice-blank[data-item="' + ii + '"][data-kind="article"]');
           total++;
-          var pluralVal = pluralInput.value.trim().toLowerCase();
-          var pluralOk = item.answers.some(function (a) { return a.toLowerCase() === pluralVal; });
-          pluralInput.classList.remove("correct", "incorrect");
-          pluralInput.classList.add(pluralOk ? "correct" : "incorrect");
-          pluralInput.disabled = true;
-          setFieldFeedback("plural", ii, pluralOk, item.answers[0]);
-          if (pluralOk) correct++;
-
-          if (item.article) {
-            var articleInput = card.querySelector('.practice-blank[data-item="' + ii + '"][data-kind="article"]');
-            total++;
-            var articleVal = articleInput.value.trim().toLowerCase();
-            var articleOk = item.article.indexOf(articleVal) !== -1;
-            articleInput.classList.remove("correct", "incorrect");
-            articleInput.classList.add(articleOk ? "correct" : "incorrect");
-            articleInput.disabled = true;
-            setFieldFeedback("article", ii, articleOk, item.article[0]);
-            if (articleOk) correct++;
-          }
-        });
-        checkBtn.disabled = true;
-        resultEl.hidden = false;
-        resultEl.classList.remove("perfect", "needs-work");
-        if (correct === total) {
-          resultEl.textContent = "🎉 Perfect! " + correct + " out of " + total + " correct.";
-          resultEl.classList.add("perfect");
-        } else {
-          resultEl.textContent = "You got " + correct + " out of " + total + " correct. Review the red answers above, then try Reset to practice again.";
-          resultEl.classList.add("needs-work");
+          var articleVal = articleInput.value.trim().toLowerCase();
+          var articleOk = item.article.indexOf(articleVal) !== -1;
+          articleInput.classList.remove("correct", "incorrect");
+          articleInput.classList.add(articleOk ? "correct" : "incorrect");
+          articleInput.disabled = true;
+          setFieldFeedback("article", ii, articleOk, item.article[0]);
+          if (articleOk) correct++;
         }
-        refreshHeight();
+      });
+      checkBtn.disabled = true;
+      resultEl.hidden = false;
+      resultEl.classList.remove("perfect", "needs-work");
+      if (correct === total) {
+        resultEl.textContent = "🎉 Perfect! " + correct + " out of " + total + " correct.";
+        resultEl.classList.add("perfect");
+      } else {
+        resultEl.textContent = "You got " + correct + " out of " + total + " correct. Review the red answers above, then try Reset to practice again.";
+        resultEl.classList.add("needs-work");
+      }
+      refreshHeight();
+    });
+
+    resetBtn.addEventListener("click", function () {
+      blankInputs.forEach(function (input) {
+        input.value = "";
+        input.disabled = false;
+        input.classList.remove("correct", "incorrect");
+      });
+      Array.prototype.slice.call(card.querySelectorAll(".practice-feedback")).forEach(function (span) {
+        span.textContent = "";
+        span.classList.remove("ok", "bad");
+      });
+      checkBtn.disabled = false;
+      resultEl.hidden = true;
+      if (blankInputs[0]) blankInputs[0].focus();
+      refreshHeight();
+    });
+  }
+
+  /* Multiple-choice practice quiz: single-select per question, whole quiz graded at once. */
+  function initMcPracticeQuiz(card, quiz) {
+    var checkBtn = card.querySelector(".practice-check-btn");
+    var resetBtn = card.querySelector(".practice-reset-btn");
+    var resultEl = card.querySelector(".practice-quiz-result");
+    var quizBox = card.closest(".quiz-box");
+    var items = Array.prototype.slice.call(card.querySelectorAll(".practice-mcq-item"));
+
+    function refreshHeight() {
+      if (quizBox && quizBox.refreshQuizHeight) requestAnimationFrame(quizBox.refreshQuizHeight);
+    }
+
+    items.forEach(function (item) {
+      var buttons = Array.prototype.slice.call(item.querySelectorAll(".quiz-option"));
+      buttons.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          if (btn.disabled) return;
+          buttons.forEach(function (b) { b.classList.remove("selected"); });
+          btn.classList.add("selected");
+          var feedback = item.querySelector(".practice-mcq-feedback");
+          feedback.textContent = "";
+          feedback.className = "practice-feedback practice-mcq-feedback";
+        });
+      });
+    });
+
+    checkBtn.addEventListener("click", function () {
+      var total = quiz.questions.length;
+      var missing = [];
+      quiz.questions.forEach(function (q, qi) {
+        var item = card.querySelector('.practice-mcq-item[data-item="' + qi + '"]');
+        if (!item.querySelector(".quiz-option.selected")) missing.push(qi);
       });
 
-      resetBtn.addEventListener("click", function () {
-        blankInputs.forEach(function (input) {
-          input.value = "";
-          input.disabled = false;
-          input.classList.remove("correct", "incorrect");
+      if (missing.length) {
+        missing.forEach(function (qi) {
+          var item = card.querySelector('.practice-mcq-item[data-item="' + qi + '"]');
+          var feedback = item.querySelector(".practice-mcq-feedback");
+          feedback.textContent = "⚠ Choose an answer for this question.";
+          feedback.className = "practice-feedback practice-mcq-feedback bad";
         });
-        Array.prototype.slice.call(card.querySelectorAll(".practice-feedback")).forEach(function (span) {
-          span.textContent = "";
-          span.classList.remove("ok", "bad");
-        });
-        checkBtn.disabled = false;
-        resultEl.hidden = true;
-        if (blankInputs[0]) blankInputs[0].focus();
+        resultEl.hidden = false;
+        resultEl.classList.remove("perfect");
+        resultEl.classList.add("needs-work");
+        resultEl.textContent = "Please answer all " + total + " questions before checking.";
         refreshHeight();
+        return;
+      }
+
+      var correct = 0;
+      quiz.questions.forEach(function (q, qi) {
+        var item = card.querySelector('.practice-mcq-item[data-item="' + qi + '"]');
+        var buttons = Array.prototype.slice.call(item.querySelectorAll(".quiz-option"));
+        var selected = item.querySelector(".quiz-option.selected");
+        var selOi = parseInt(selected.dataset.option, 10);
+        var ok = selOi === q.correct;
+        buttons.forEach(function (b) {
+          var bOi = parseInt(b.dataset.option, 10);
+          if (bOi === q.correct) b.classList.add("correct");
+          else if (bOi === selOi) b.classList.add("incorrect");
+          b.disabled = true;
+        });
+        var feedback = item.querySelector(".practice-mcq-feedback");
+        feedback.classList.remove("bad", "ok");
+        if (ok) {
+          correct++;
+          feedback.textContent = "✓ Correct";
+          feedback.classList.add("ok");
+        } else {
+          feedback.textContent = "✗ Correct answer: " + String.fromCharCode(97 + q.correct) + ") " + q.options[q.correct];
+          feedback.classList.add("bad");
+        }
       });
+
+      checkBtn.disabled = true;
+      resultEl.hidden = false;
+      resultEl.classList.remove("perfect", "needs-work");
+      if (correct === total) {
+        resultEl.textContent = "🎉 Perfect! " + correct + " out of " + total + " correct.";
+        resultEl.classList.add("perfect");
+      } else {
+        resultEl.textContent = "You got " + correct + " out of " + total + " correct. Review the red answers above, then try Reset to practice again.";
+        resultEl.classList.add("needs-work");
+      }
+      refreshHeight();
+    });
+
+    resetBtn.addEventListener("click", function () {
+      items.forEach(function (item) {
+        var buttons = Array.prototype.slice.call(item.querySelectorAll(".quiz-option"));
+        buttons.forEach(function (b) {
+          b.disabled = false;
+          b.classList.remove("selected", "correct", "incorrect");
+        });
+        var feedback = item.querySelector(".practice-mcq-feedback");
+        feedback.textContent = "";
+        feedback.className = "practice-feedback practice-mcq-feedback";
+      });
+      checkBtn.disabled = false;
+      resultEl.hidden = true;
+      refreshHeight();
     });
   }
 
@@ -2173,7 +2416,9 @@
         '<button type="button" class="btn btn-primary btn-sm grammar-practice-cta-btn" id="' + slug + '-cta-btn">Go to Quizzes ↓</button>' +
         "</div>";
     }
-    html += topic.modules.map(renderGrammarModule).join("");
+    html += topic.modules.map(function (mod) {
+      return renderGrammarModule(mod, "Parts of Speech · " + (topic.label || ""));
+    }).join("");
     if (topic.practice && topic.practice.length) {
       html += '<div class="grammar-practice-section" id="' + slug + '-practice">' +
         '<p class="grammar-section-title">🎮 Interactive Exercises</p>' +
