@@ -44,8 +44,11 @@ Esto requiere un proyecto gratuito de Firebase (Google). Son ~15 minutos, una so
      registro de estudiantes (ej. `"utn-...edu.mx"`), o déjalo como `""` para no restringir.
 
 ## 6. Probar localmente
-Firebase Authentication no funciona bien abriendo el `index.html` directamente
-(`file://...`) en algunos navegadores. Sirve la carpeta con un servidor simple:
+Abrir `index.html` directamente desde el disco (`file://...`) **ya no funciona**:
+Firebase Authentication tiene problemas con `file://` en algunos navegadores, y además
+cada sección de la app ahora se carga desde su propio archivo en `partials/` usando
+`fetch()`, lo cual los navegadores bloquean por CORS si no hay un servidor real detrás.
+Sirve la carpeta con un servidor simple:
 
 ```bash
 # Con Python (ya viene instalado en la mayoría de sistemas)

@@ -195,590 +195,21 @@
 </header>
 
 <main id="main">
+  <!-- ============ SECTION CONTENT LOADED DYNAMICALLY ============
+       Each container below is filled at startup with the markup from
+       its partials/*.html file (see loadPartials() in js/app.js).
+       Splitting the markup into files makes each section easier to
+       find and edit, while the app keeps working as a single page
+       (no real navigation/reload — js/app.js still shows/hides views
+       by toggling the "hidden" attribute, exactly as before). -->
 
-  <!-- ============ HERO / BOARDING PASS ============ -->
-  <section class="view" id="view-inicio" data-view="inicio">
-    <div class="hero">
-      <div class="hero-copy">
-        <p class="eyebrow">Social Service Program · Education, Arts, Culture and Sports</p>
-        <h1>Your Boarding Pass to English</h1>
-        <p class="lead">Travel through levels A1 to C2 as if they were boarding gates. Listen, practice, and solve challenges to earn your next progress stamp.</p>
-        <div class="hero-actions">
-          <button class="btn btn-primary" data-goto="leccion">Start Lesson</button>
-          <button class="btn btn-ghost" data-goto="niveles">View Levels</button>
-        </div>
-      </div>
+  <div id="partial-inicio" data-partial="partials/inicio.html"></div>
 
-      <div class="boarding-pass" id="boarding-pass">
-        <div class="bp-main">
-          <p class="bp-label">Boarding Pass</p>
-          <p class="bp-title">Flight to Fluency</p>
-          <div class="bp-grid">
-            <div>
-              <span class="bp-field">Passenger</span>
-              <span class="bp-value" id="bp-name">UTN Student</span>
-            </div>
-            <div>
-              <span class="bp-field">Current Level</span>
-              <span class="bp-value" id="bp-level">A1 · Beginner</span>
-            </div>
-            <div>
-              <span class="bp-field">Destination</span>
-              <span class="bp-value" id="bp-skill">Essential Vocabulary</span>
-            </div>
-            <div>
-              <span class="bp-field">Gate</span>
-              <span class="bp-value" id="bp-gate">Lesson 1</span>
-            </div>
-          </div>
-          <div class="bp-progress-track" aria-hidden="true">
-            <div class="bp-progress-fill" id="bp-progress-fill"></div>
-          </div>
-        </div>
-        <div class="bp-stub">
-          <span class="bp-icon" id="bp-avatar" aria-hidden="true">🎓</span>
-          <div class="bp-barcode" aria-hidden="true"></div>
-          <span class="bp-code" id="bp-code">UTN-A1-01</span>
-        </div>
-      </div>
-    </div>
+  <div id="partial-aprender" data-partial="partials/aprender.html"></div>
 
-    <div class="features">
-      <article class="feature-card">
-        <span class="feature-icon" aria-hidden="true">▶</span>
-        <h3>Built-in Player</h3>
-        <p>Audio and video per lesson, with speed control and subtitles, to practice listening and pronunciation.</p>
-      </article>
-      <article class="feature-card">
-        <span class="feature-icon" aria-hidden="true">✓</span>
-        <h3>Varied Exercises</h3>
-        <p>Multiple choice, fill-in-the-blank, and matching, with instant feedback.</p>
-      </article>
-      <article class="feature-card">
-        <span class="feature-icon" aria-hidden="true">◆</span>
-        <h3>Stamps and Certificate</h3>
-        <p>Each approved deliverable earns a stamp, and completing the program unlocks your downloadable certificate.</p>
-      </article>
-    </div>
+  <div id="partial-progreso" data-partial="partials/progreso.html"></div>
 
-    <!-- ============ MEET YOUR TEACHER ============ -->
-    <div class="teacher-intro" id="teacher-intro">
-      <img class="teacher-intro-avatar" src="img/teacher-miguel-angel.jpg" alt="Miguel Ángel Aguilar, English teacher">
-      <div class="teacher-intro-content">
-        <p class="eyebrow">Meet Your Teacher</p>
-        <h2 class="teacher-intro-greeting">Hello, everyone!!!!!</h2>
-        <p class="teacher-intro-name">Miguel Ángel Aguilar</p>
-        <div class="teacher-intro-text">
-          <p>I'm Miguel Angel! My first ever teaching English experience lasted 25 years in the Universidad Tecnológica de Nezahualcóyotl as a teacher ESL.</p>
-          <p>I wish to only teach you <strong>REAL LIFE</strong> things that are useful, and that we use <strong>TODAY</strong> — no outdated old school grammar textbooks. You need to know how to survive in this fast-talking, hustle of an English world!</p>
-          <p>For over 20 years, I've had the good fortune of learning from my clients and students, who come from all different levels, all age groups and all professions. I believe each of us is capable of learning anything, as long as we are motivated.</p>
-          <p>In my opinion, there are no bad students; unfortunately, there are students who have been exposed to poor teaching. So if you're having difficulty or anyone is making you feel inferior or incapable, take control of your learning and find another student or teacher who can explain things to you from a different perspective. Online learning is great for this purpose, because you have so many options. Whatever happens, keep believing in yourself and you will make progress faster than you ever thought possible.</p>
-          <p>English is certainly challenging, but you can master it. Take every chance to improve your language skills… the opportunities are all around. Most importantly, enjoy yourself as much as possible, because our brains learn best when we are relaxed.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ GROUP: LEARN (Levels + Lesson + Skills) ============ -->
-  <div class="group-tabbar" id="tabbar-aprender" data-group="aprender" hidden>
-    <button type="button" class="group-tab" data-nav="niveles">🗺 Levels</button>
-    <button type="button" class="group-tab" data-nav="leccion">🎧 Lesson</button>
-    <button type="button" class="group-tab" data-nav="habilidades">🎯 Skills</button>
-  </div>
-
-  <!-- ============ LEVELS ============ -->
-  <section class="view" id="view-niveles" data-view="niveles" hidden>
-    <div class="section-head">
-      <p class="eyebrow">Flight Map</p>
-      <h2>Gates de embarque</h2>
-      <p class="lead">Each level unlocks after completing the previous one. This is the complete path of the program, from A1 to C2.</p>
-    </div>
-
-    <div class="gates-grid" id="gates-grid"><!-- generated by JS --></div>
-  </section>
-
-  <!-- ============ LESSON ============ -->
-  <section class="view" id="view-leccion" data-view="leccion" hidden>
-    <div class="section-head">
-      <p class="eyebrow" id="leccion-eyebrow">Level A1 · Lesson 1</p>
-      <h2 id="leccion-title">Essential Vocabulary</h2>
-      <p class="lead" id="leccion-desc">Listen to the audio, follow the transcript, and complete the quiz to stamp your progress.</p>
-    </div>
-
-    <div class="lesson-tabs" id="lesson-tabs"><!-- generated by JS --></div>
-
-    <div class="lesson-layout">
-      <div class="player-card">
-        <div class="player-visual" aria-hidden="true">
-          <span id="player-icon">🎧</span>
-        </div>
-        <div class="player-controls">
-          <button class="player-play" id="player-play" aria-label="Play">
-            <span id="player-play-icon">▶</span>
-          </button>
-          <div class="player-bar">
-            <div class="player-track">
-              <div class="player-fill" id="player-fill"></div>
-            </div>
-            <div class="player-time">
-              <span id="player-current">0:00</span>
-              <span id="player-total">1:40</span>
-            </div>
-          </div>
-          <div class="player-speed">
-            <label for="player-speed-select">Speed</label>
-            <select id="player-speed-select">
-              <option value="0.75">0.75x</option>
-              <option value="1" selected>1x</option>
-              <option value="1.25">1.25x</option>
-            </select>
-          </div>
-        </div>
-        <p class="player-caption" id="player-caption">Press play to see the live transcript.</p>
-      </div>
-
-      <div class="quiz-card">
-        <p class="quiz-heading">Check What You Learned</p>
-        <div id="quiz-body"><!-- generated by JS --></div>
-        <div class="quiz-result" id="quiz-result" hidden>
-          <p id="quiz-score-text"></p>
-          <button class="btn btn-primary" id="quiz-next-btn">Stamp Progress and Continue</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ SKILLS ============ -->
-  <section class="view" id="view-habilidades" data-view="habilidades" hidden>
-    <div class="section-head">
-      <p class="eyebrow">Practice Zone · Level <span id="skills-level-label">A1</span></p>
-      <h2>Skills in Action</h2>
-      <p class="lead">Four ways to practice your English. Earn XP, keep your streak, and stamp each skill.</p>
-    </div>
-
-    <div class="skills-statusbar">
-      <div class="skills-stat">
-        <span class="skills-stat-icon" aria-hidden="true">🔥</span>
-        <div>
-          <span class="skills-stat-num" id="skills-streak">0</span>
-          <span class="skills-stat-label">day streak</span>
-        </div>
-      </div>
-      <div class="skills-stat">
-        <span class="skills-stat-icon" aria-hidden="true">⚡</span>
-        <div>
-          <span class="skills-stat-num" id="skills-xp">0</span>
-          <span class="skills-stat-label">Total XP</span>
-        </div>
-      </div>
-      <div class="skills-level-switch" id="skills-level-switch"><!-- generated by JS --></div>
-    </div>
-
-    <div class="skill-grid" id="skill-grid"><!-- generated by JS --></div>
-
-    <!-- ============ EXERCISE PANEL (filled dynamically) ============ -->
-    <div class="skill-panel" id="skill-panel" hidden>
-      <button type="button" class="skill-back" id="skill-back">← Back to Skills</button>
-      <div class="skill-panel-inner" id="skill-panel-inner"><!-- generated by JS --></div>
-    </div>
-  </section>
-
-  <!-- ============ PROGRESS ============ -->
-  <section class="view" id="view-progreso" data-view="progreso" hidden>
-    <div class="section-head">
-      <p class="eyebrow">Learning Passport</p>
-      <h2>Your Progress</h2>
-      <p class="lead">Check the stamps you've earned and the program's pending deliverables.</p>
-    </div>
-
-    <div class="progress-summary">
-      <div class="summary-card">
-        <span class="summary-num" id="summary-level">A1</span>
-        <span class="summary-label">Current Level</span>
-      </div>
-      <div class="summary-card">
-        <span class="summary-num" id="summary-stamps">0</span>
-        <span class="summary-label">Stamps Earned</span>
-      </div>
-      <div class="summary-card">
-        <span class="summary-num" id="summary-percent">0%</span>
-        <span class="summary-label">Program Completed</span>
-      </div>
-    </div>
-
-    <div class="passport" id="passport-stamps"><!-- generated by JS --></div>
-
-    <div class="certificate-card" id="certificate-card">
-      <div class="certificate-info">
-        <p class="quiz-heading">Program Certificate</p>
-        <p class="certificate-desc" id="certificate-desc">Complete all six levels (A1 to C2) to unlock your downloadable certificate.</p>
-      </div>
-      <button class="btn btn-primary" id="certificate-btn" disabled>Download Certificate</button>
-    </div>
-
-    <div class="deliverables">
-      <p class="quiz-heading">Social Service Deliverables</p>
-      <ul class="deliverables-list" id="deliverables-list"><!-- generated by JS --></ul>
-    </div>
-  </section>
-
-  <!-- ============ GROUP: RESOURCES (Support Material + Grammar) ============ -->
-  <div class="group-tabbar" id="tabbar-recursos" data-group="recursos" hidden>
-    <button type="button" class="group-tab" data-nav="material">📗 Support Material</button>
-    <button type="button" class="group-tab" data-nav="gramatica">📐 Grammar</button>
-  </div>
-
-  <!-- ============ SUPPORT MATERIAL ============ -->
-  <section class="view" id="view-material" data-view="material" hidden>
-    <div class="section-head">
-      <p class="eyebrow">Grammar Resources</p>
-      <h2>Support Material</h2>
-      <p class="lead">Irregular English verbs organized by pattern. Check the base form, simple past, past participle, and translation.</p>
-    </div>
-
-    <div class="material-groups" id="material-groups">
-      <article class="material-block">
-        <div class="material-block-head">
-          <span class="material-tag">Pattern 1</span>
-          <div>
-            <h3>All the same</h3>
-            <p class="material-block-desc">All three verb forms are identical: base, simple past, and past participle are written the same way.</p>
-          </div>
-        </div>
-        <div class="material-table-wrap">
-          <table class="material-table">
-            <thead>
-              <tr><th>Base Form</th><th>Past Simple</th><th>Past Participle</th><th>Translation</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>bet</td><td>bet</td><td>bet</td><td>to bet</td></tr>
-              <tr><td>bid</td><td>bid</td><td>bid</td><td>to bid</td></tr>
-              <tr><td>broadcast</td><td>broadcast</td><td>broadcast</td><td>to broadcast</td></tr>
-              <tr><td>burst</td><td>burst</td><td>burst</td><td>to burst</td></tr>
-              <tr><td>cost</td><td>cost</td><td>cost</td><td>to cost</td></tr>
-              <tr><td>cut</td><td>cut</td><td>cut</td><td>to cut</td></tr>
-              <tr><td>hit</td><td>hit</td><td>hit</td><td>to hit</td></tr>
-              <tr><td>hurt</td><td>hurt</td><td>hurt</td><td>to hurt</td></tr>
-              <tr><td>let</td><td>let</td><td>let</td><td>to let</td></tr>
-              <tr><td>put</td><td>put</td><td>put</td><td>to put</td></tr>
-              <tr><td>quit</td><td>quit</td><td>quit</td><td>to quit</td></tr>
-              <tr><td>set</td><td>set</td><td>set</td><td>to set</td></tr>
-              <tr><td>shut</td><td>shut</td><td>shut</td><td>to shut</td></tr>
-              <tr><td>split</td><td>split</td><td>split</td><td>to split</td></tr>
-              <tr><td>spread</td><td>spread</td><td>spread</td><td>to spread</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="material-source">Source: <a href="https://www.learnenglish.de/grammar/irregularverbs.html" target="_blank" rel="noopener">learnenglish.de — Irregular Verbs</a></p>
-      </article>
-    </div>
-  </section>
-
-  <!-- ============ GRAMMAR ============ -->
-  <section class="view" id="view-gramatica" data-view="gramatica" hidden>
-    <div class="section-head" id="grammar-section-head">
-      <p class="eyebrow">Reference Guide · Under Construction</p>
-      <h2>Grammar</h2>
-      <p class="lead">Grammar is the foundation of effective communication. This section is designed as a complete reference guide that explains English grammar in simple language, with clear examples, practical rules, and interactive activities.</p>
-    </div>
-
-    <!-- Browse mode: template card + syllabus menu -->
-    <div class="grammar-browse" id="grammar-browse">
-
-    <!-- Standard template per lesson -->
-    <article class="grammar-template-card">
-      <div class="grammar-template-head">
-        <span class="grammar-template-icon" aria-hidden="true">📐</span>
-        <div>
-          <h3>Standard Structure for Each Lesson</h3>
-          <p>To keep the whole site at the same quality, every topic will follow this exact template.</p>
-        </div>
-      </div>
-      <div class="grammar-template-grid">
-        <span class="grammar-template-item">🎯 Learning Objective</span>
-        <span class="grammar-template-item">📚 Definition</span>
-        <span class="grammar-template-item">🧩 Grammar Rules</span>
-        <span class="grammar-template-item">📖 Types / Classifications</span>
-        <span class="grammar-template-item">📝 Structure / Formula</span>
-        <span class="grammar-template-item">💬 Examples</span>
-        <span class="grammar-template-item">⚠ Common Mistakes</span>
-        <span class="grammar-template-item">💡 Grammar Tip</span>
-        <span class="grammar-template-item">🔍 Compare</span>
-        <span class="grammar-template-item">📖 Vocabulary in Context</span>
-        <span class="grammar-template-item">🎧 Listening Practice</span>
-        <span class="grammar-template-item">🗣 Speaking Practice</span>
-        <span class="grammar-template-item">✍ Writing Practice</span>
-        <span class="grammar-template-item">🎮 Interactive Exercises</span>
-        <span class="grammar-template-item">🎯 Challenge</span>
-        <span class="grammar-template-item">📄 Grammar Summary</span>
-        <span class="grammar-template-item">🎥 Video Lesson</span>
-        <span class="grammar-template-item">✅ Self-Assessment</span>
-      </div>
-    </article>
-
-    <!-- Syllabus menu (accordion) -->
-    <div class="grammar-menu" id="grammar-menu">
-
-      <details class="grammar-cat" data-color="blue" open>
-        <summary>
-          <span class="grammar-cat-num">I</span>
-          <span class="grammar-cat-title">Parts of Speech</span>
-          <span class="grammar-cat-count">9 temas</span>
-        </summary>
-        <p class="grammar-cat-desc">The basic categories of words in English.</p>
-        <div class="grammar-topics">
-          <span class="grammar-topic" data-topic="nouns">Nouns</span>
-          <span class="grammar-topic">Articles</span>
-          <span class="grammar-topic">Pronouns</span>
-          <span class="grammar-topic" data-topic="adjectives">Adjectives</span>
-          <span class="grammar-topic">Adverbs</span>
-          <span class="grammar-topic">Verbs</span>
-          <span class="grammar-topic">Prepositions</span>
-          <span class="grammar-topic">Conjunctions</span>
-          <span class="grammar-topic">Interjections</span>
-        </div>
-      </details>
-
-      <details class="grammar-cat" data-color="green">
-        <summary>
-          <span class="grammar-cat-num">II</span>
-          <span class="grammar-cat-title">Verb System</span>
-          <span class="grammar-cat-count">4 bloques</span>
-        </summary>
-        <p class="grammar-cat-desc">Understanding the English verb system is essential: verbs express actions, events, states, time, and attitude.</p>
-
-        <p class="grammar-subgroup">1. Main Verbs</p>
-        <div class="grammar-topics">
-          <span class="grammar-topic">Action Verbs</span>
-          <span class="grammar-topic">Linking Verbs</span>
-          <span class="grammar-topic">Stative Verbs</span>
-          <span class="grammar-topic">Dynamic Verbs</span>
-          <span class="grammar-topic">Regular Verbs</span>
-          <span class="grammar-topic">Irregular Verbs</span>
-          <span class="grammar-topic">Transitive Verbs</span>
-          <span class="grammar-topic">Intransitive Verbs</span>
-        </div>
-
-        <p class="grammar-subgroup">2. Auxiliary Verbs</p>
-        <div class="grammar-topics">
-          <span class="grammar-topic">Be</span>
-          <span class="grammar-topic">Have</span>
-          <span class="grammar-topic">Do</span>
-        </div>
-
-        <p class="grammar-subgroup">3. Modal Auxiliary Verbs</p>
-        <div class="grammar-topics">
-          <span class="grammar-topic">Can</span>
-          <span class="grammar-topic">Could</span>
-          <span class="grammar-topic">May</span>
-          <span class="grammar-topic">Might</span>
-          <span class="grammar-topic">Must</span>
-          <span class="grammar-topic">Shall</span>
-          <span class="grammar-topic">Should</span>
-          <span class="grammar-topic">Will</span>
-          <span class="grammar-topic">Would</span>
-          <span class="grammar-topic">Ought to</span>
-          <span class="grammar-topic">Need</span>
-          <span class="grammar-topic">Dare</span>
-          <span class="grammar-topic">Used to</span>
-          <span class="grammar-topic">Have to</span>
-          <span class="grammar-topic">Be able to</span>
-          <span class="grammar-topic">Be supposed to</span>
-          <span class="grammar-topic">Had better</span>
-        </div>
-
-        <p class="grammar-subgroup grammar-subgroup-tenses">4. Verb Tenses</p>
-        <p class="grammar-cat-desc">Each tense includes: purpose of use, timeline, signal words, formula, affirmative/negative/interrogative structure, Wh- questions, contractions, common mistakes, examples, and practice.</p>
-        <div class="grammar-topics">
-          <span class="grammar-topic">Present Simple</span>
-          <span class="grammar-topic">Present Continuous</span>
-          <span class="grammar-topic">Present Perfect</span>
-          <span class="grammar-topic">Present Perfect Continuous</span>
-          <span class="grammar-topic">Past Simple</span>
-          <span class="grammar-topic">Past Continuous</span>
-          <span class="grammar-topic">Past Perfect</span>
-          <span class="grammar-topic">Past Perfect Continuous</span>
-          <span class="grammar-topic">Future with Will</span>
-          <span class="grammar-topic">Be Going To</span>
-          <span class="grammar-topic">Future Continuous</span>
-          <span class="grammar-topic">Future Perfect</span>
-          <span class="grammar-topic">Future Perfect Continuous</span>
-        </div>
-      </details>
-
-      <details class="grammar-cat" data-color="purple">
-        <summary>
-          <span class="grammar-cat-num">III</span>
-          <span class="grammar-cat-title">Non-Finite Verbs</span>
-          <span class="grammar-cat-count">3 temas</span>
-        </summary>
-        <p class="grammar-cat-desc">Non-finite verbs do not indicate grammatical tense.</p>
-        <div class="grammar-topics">
-          <span class="grammar-topic">Infinitives</span>
-          <span class="grammar-topic">Gerunds</span>
-          <span class="grammar-topic">Participles</span>
-        </div>
-      </details>
-
-      <details class="grammar-cat" data-color="orange">
-        <summary>
-          <span class="grammar-cat-num">IV</span>
-          <span class="grammar-cat-title">Passive Voice</span>
-          <span class="grammar-cat-count">6 apartados</span>
-        </summary>
-        <div class="grammar-topics">
-          <span class="grammar-topic">Definition</span>
-          <span class="grammar-topic">When to use</span>
-          <span class="grammar-topic">Active vs Passive</span>
-          <span class="grammar-topic">All tense structures</span>
-          <span class="grammar-topic">Examples</span>
-          <span class="grammar-topic">Common mistakes</span>
-        </div>
-      </details>
-
-      <details class="grammar-cat" data-color="yellow">
-        <summary>
-          <span class="grammar-cat-num">V</span>
-          <span class="grammar-cat-title">Reported Speech</span>
-          <span class="grammar-cat-count">5 apartados</span>
-        </summary>
-        <div class="grammar-topics">
-          <span class="grammar-topic">Direct Speech</span>
-          <span class="grammar-topic">Indirect Speech</span>
-          <span class="grammar-topic">Reporting Verbs</span>
-          <span class="grammar-topic">Backshifting</span>
-          <span class="grammar-topic">Examples</span>
-        </div>
-      </details>
-
-      <details class="grammar-cat" data-color="red">
-        <summary>
-          <span class="grammar-cat-num">VI</span>
-          <span class="grammar-cat-title">Conditionals</span>
-          <span class="grammar-cat-count">5 temas</span>
-        </summary>
-        <div class="grammar-topics">
-          <span class="grammar-topic">Zero Conditional</span>
-          <span class="grammar-topic">First Conditional</span>
-          <span class="grammar-topic">Second Conditional</span>
-          <span class="grammar-topic">Third Conditional</span>
-          <span class="grammar-topic">Mixed Conditionals</span>
-        </div>
-      </details>
-
-      <details class="grammar-cat" data-color="purple">
-        <summary>
-          <span class="grammar-cat-num">VII</span>
-          <span class="grammar-cat-title">Gerunds &amp; Infinitives</span>
-          <span class="grammar-cat-count">4 apartados</span>
-        </summary>
-        <div class="grammar-topics">
-          <span class="grammar-topic">Verb + Gerund</span>
-          <span class="grammar-topic">Verb + Infinitive</span>
-          <span class="grammar-topic">Verb + Gerund or Infinitive</span>
-          <span class="grammar-topic">Meaning Changes</span>
-        </div>
-      </details>
-
-      <details class="grammar-cat" data-color="brown">
-        <summary>
-          <span class="grammar-cat-num">VIII</span>
-          <span class="grammar-cat-title">Phrasal Verbs</span>
-          <span class="grammar-cat-count">5 apartados</span>
-        </summary>
-        <div class="grammar-topics">
-          <span class="grammar-topic">Definition</span>
-          <span class="grammar-topic">Separable</span>
-          <span class="grammar-topic">Inseparable</span>
-          <span class="grammar-topic">Transitive</span>
-          <span class="grammar-topic">Intransitive</span>
-          <span class="grammar-topic">Most Common Phrasal Verbs</span>
-        </div>
-      </details>
-
-      <details class="grammar-cat" data-color="gray">
-        <summary>
-          <span class="grammar-cat-num">IX</span>
-          <span class="grammar-cat-title">Sentence Structure</span>
-          <span class="grammar-cat-count">2 bloques</span>
-        </summary>
-        <p class="grammar-subgroup">Sentence Elements</p>
-        <div class="grammar-topics">
-          <span class="grammar-topic">Subject</span>
-          <span class="grammar-topic">Verb</span>
-          <span class="grammar-topic">Object</span>
-          <span class="grammar-topic">Complement</span>
-          <span class="grammar-topic">Modifier</span>
-        </div>
-        <p class="grammar-subgroup">Types of Sentences</p>
-        <div class="grammar-topics">
-          <span class="grammar-topic">Simple</span>
-          <span class="grammar-topic">Compound</span>
-          <span class="grammar-topic">Complex</span>
-          <span class="grammar-topic">Compound-Complex</span>
-        </div>
-      </details>
-
-      <details class="grammar-cat" data-color="blue">
-        <summary>
-          <span class="grammar-cat-num">X</span>
-          <span class="grammar-cat-title">Question Formation</span>
-          <span class="grammar-cat-count">4 temas</span>
-        </summary>
-        <div class="grammar-topics">
-          <span class="grammar-topic">Yes/No Questions</span>
-          <span class="grammar-topic">Wh- Questions</span>
-          <span class="grammar-topic">Tag Questions</span>
-          <span class="grammar-topic">Indirect Questions</span>
-        </div>
-      </details>
-
-      <details class="grammar-cat" data-color="green">
-        <summary>
-          <span class="grammar-cat-num">XI</span>
-          <span class="grammar-cat-title">Word Order</span>
-          <span class="grammar-cat-count">6 temas</span>
-        </summary>
-        <div class="grammar-topics">
-          <span class="grammar-topic">Standard Order</span>
-          <span class="grammar-topic">Frequency Adverbs</span>
-          <span class="grammar-topic">Time Expressions</span>
-          <span class="grammar-topic">Place Expressions</span>
-          <span class="grammar-topic">Questions</span>
-          <span class="grammar-topic">Negatives</span>
-        </div>
-      </details>
-
-      <details class="grammar-cat" data-color="purple">
-        <summary>
-          <span class="grammar-cat-num">XII</span>
-          <span class="grammar-cat-title">Common Grammar Mistakes</span>
-          <span class="grammar-cat-count">8 temas</span>
-        </summary>
-        <div class="grammar-topics">
-          <span class="grammar-topic">False Friends</span>
-          <span class="grammar-topic">Spanish Interference</span>
-          <span class="grammar-topic">Subject-Verb Agreement</span>
-          <span class="grammar-topic">Articles</span>
-          <span class="grammar-topic">Prepositions</span>
-          <span class="grammar-topic">Word Order</span>
-          <span class="grammar-topic">Verb Forms</span>
-          <span class="grammar-topic">Double Negatives</span>
-        </div>
-      </details>
-
-    </div>
-
-    <p class="grammar-note">📌 This menu is the skeleton of the syllabus requested by professor Miguel Ángel Aguilar. Each topic will be activated as its full lesson is developed using the template above.</p>
-
-    </div><!-- /grammar-browse -->
-
-    <!-- Lesson mode: rendered content for an unlocked topic -->
-    <div class="grammar-panel" id="grammar-panel" hidden>
-      <button type="button" class="grammar-back" id="grammar-back">← Back to Grammar Menu</button>
-      <div class="grammar-panel-inner" id="grammar-panel-inner"><!-- generated by JS --></div>
-    </div>
-  </section>
+  <div id="partial-recursos" data-partial="partials/recursos.html"></div>
 
 </main>
 
@@ -824,10 +255,44 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script src="js/firebase-config.js"></script>
 <script src="js/auth.js"></script>
+
+<!-- ============ PARTIALS LOADER ============
+     Each app section (Home, Learn, Progress, Resources) now lives in
+     its own file under partials/. This loader fetches all of them and
+     injects their markup into the matching containers in <main> before
+     app.js runs, so the page still behaves exactly like a single-page
+     app (no reload, same navigation, same JS behavior) — only the
+     source markup is split across files for easier editing. -->
+<script>
+  (function () {
+    var containers = document.querySelectorAll("main [data-partial]");
+    var loads = Array.prototype.map.call(containers, function (el) {
+      var url = el.getAttribute("data-partial");
+      return fetch(url)
+        .then(function (res) {
+          if (!res.ok) throw new Error("Failed to load " + url + " (" + res.status + ")");
+          return res.text();
+        })
+        .then(function (html) { el.innerHTML = html; })
+        .catch(function (err) {
+          console.error(err);
+          el.innerHTML = '<p class="section-head" style="padding:2rem 0">'
+            + '⚠️ Could not load this section (' + url + '). '
+            + 'If you opened this file directly from disk, run it through a local server instead.</p>';
+        });
+    });
+
+    Promise.all(loads).then(function () {
+      var script = document.createElement("script");
+      script.src = "js/app.js";
+      document.body.appendChild(script);
+    });
+  })();
+</script>
 <!-- app.js controls all sections (Levels, Lesson, Skills, Progress,
      Support Material, Grammar) and is now always loaded, for guests and
      students alike. Solving/submitting activities still requires an account;
-     that is controlled from auth.js (the "ACTIVITY GATE" block). -->
-<script src="js/app.js"></script>
+     that is controlled from auth.js (the "ACTIVITY GATE" block). It is
+     injected above only after every partial has finished loading. -->
 </body>
 </html>
