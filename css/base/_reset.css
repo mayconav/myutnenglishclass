@@ -1,0 +1,6 @@
+/* Regla de seguridad global (hidden siempre gana) (css/styles.css original: L1-L5) */
+/* Regla de seguridad: el atributo hidden SIEMPRE debe ganar, sin importar
+   qué display defina cualquier clase (display:flex, inline-flex, etc.).
+   Esto evita que un elemento "oculto" siga mostrándose por accidente. */
+[hidden]{ display: none !important; }
+

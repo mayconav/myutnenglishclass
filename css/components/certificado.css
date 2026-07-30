@@ -1,0 +1,11 @@
+/* Certificado de finalizacion (css/styles.css original: L755-L764) */
+/* ============ CERTIFICADO ============ */
+.certificate-card{
+  background: var(--surface); border:1px solid var(--border); border-radius: var(--radius-md);
+  padding: 20px 22px; box-shadow: var(--shadow-card); margin-bottom: 20px;
+  display:flex; align-items:center; justify-content:space-between; gap: 16px; flex-wrap:wrap;
+  border-left: 4px solid var(--green);
+}
+.certificate-desc{ font-size: 13.5px; color: var(--text-secondary); margin:0; max-width: 46ch; }
+#certificate-btn:disabled{ opacity:.45; cursor:not-allowed; box-shadow:none; }
+

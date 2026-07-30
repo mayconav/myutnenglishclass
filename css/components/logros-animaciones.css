@@ -1,0 +1,18 @@
+/* Animaciones de logro (css/styles.css original: L765-L781) */
+/* ============ ANIMACIONES DE LOGRO ============ */
+.stamp.earned{ animation: stampPop .45s cubic-bezier(.34,1.56,.64,1); }
+@keyframes stampPop{
+  0%{ transform: scale(.4) rotate(-14deg); opacity:0; }
+  70%{ transform: scale(1.08) rotate(4deg); opacity:1; }
+  100%{ transform: scale(1) rotate(0deg); }
+}
+.quiz-option.correct, .quiz-option.incorrect{ animation: feedbackPulse .28s ease; }
+@keyframes feedbackPulse{
+  0%{ transform: scale(1); } 50%{ transform: scale(1.02); } 100%{ transform: scale(1); }
+}
+
+@media (max-width: 620px){
+  .certificate-card{ flex-direction:column; align-items:flex-start; }
+  .match-columns{ flex-direction:column; }
+}
+

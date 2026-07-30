@@ -1,0 +1,40 @@
+/* Pase de abordar (credencial del estudiante) (css/styles.css original: L158-L196) */
+/* ---- Boarding pass (documento oficial / credencial) ---- */
+.boarding-pass{
+  position:relative; z-index:1;
+  display:flex; background: var(--paper); border-radius: var(--radius-lg);
+  box-shadow: 0 14px 34px rgba(0,0,0,0.3); overflow:hidden;
+  border: 1px solid var(--paper-line);
+}
+.bp-main{ flex:1; padding: 24px 24px 20px; position: relative; }
+.bp-main::before{
+  content:""; position:absolute; top:0; left:0; right:0; height:6px;
+  background: linear-gradient(90deg, var(--blue) 0 33%, var(--red) 33% 66%, var(--green) 66% 100%);
+}
+.bp-label{ font-family: var(--font-display); font-size:11px; text-transform:uppercase; letter-spacing:.08em; color: var(--red); margin: 8px 0 4px; }
+.bp-title{ font-family: var(--font-display); font-size: 20px; font-weight:700; margin:0 0 16px; color: var(--blue); }
+.bp-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 14px 18px; margin-bottom: 18px; }
+.bp-field{ display:block; font-size: 10px; text-transform:uppercase; letter-spacing:.05em; color: var(--green-dark); font-family: var(--font-display); }
+.bp-value{ display:block; font-size: 14px; color: var(--ink); margin-top:2px; font-weight:600; }
+.bp-progress-track{ height:6px; border-radius: 4px; background: rgba(18,18,18,0.1); overflow:hidden; }
+.bp-progress-fill{ height:100%; width: 8%; background: linear-gradient(90deg, var(--blue), var(--green)); transition: width .4s ease; }
+
+.bp-stub{
+  width: 108px; flex-shrink:0; background: var(--paper);
+  border-left: 2px dashed var(--paper-line);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;
+  padding: 16px 8px; position: relative;
+}
+.bp-stub::before, .bp-stub::after{
+  content:""; position:absolute; left:-8px; width:16px; height:16px; border-radius:50%;
+  background: var(--bg);
+}
+.bp-stub::before{ top:-8px; }
+.bp-stub::after{ bottom:-8px; }
+.bp-icon{ font-size: 20px; }
+.bp-barcode{
+  width: 60px; height: 26px;
+  background: repeating-linear-gradient(90deg, var(--ink) 0 2px, transparent 2px 4px, var(--blue) 4px 5px, transparent 5px 8px);
+}
+.bp-code{ font-family: var(--font-mono); font-size: 10px; color: var(--text-secondary); }
+

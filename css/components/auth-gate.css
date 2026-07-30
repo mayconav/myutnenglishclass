@@ -1,0 +1,53 @@
+/* Puerta de autenticacion (login / registro) y nombre de estudiante (css/styles.css original: L782-L833) */
+/* ============ AUTH GATE (login / registro) ============ */
+.auth-gate{
+  position: fixed; inset: 0; z-index: 500; background: var(--blue);
+  background: radial-gradient(1200px 800px at 20% 0%, var(--blue-light) 0%, var(--blue) 45%, var(--blue-dark) 100%);
+  display:flex; align-items:center; justify-content:center; padding: 24px;
+  overflow-y: auto;
+}
+.auth-gate[hidden]{ display:none; }
+.auth-card{ position: relative; }
+.auth-close{
+  position:absolute; top:14px; right:14px; background:none; border:none; font-size:16px;
+  color: var(--text-muted); cursor:pointer; line-height:1; padding:6px;
+}
+.auth-close:hover{ color: var(--text-primary); }
+.auth-config-warning{
+  background: #FFF4E5; color:#8A5300; border:1px solid #F2C078; font-family: var(--font-display);
+  font-size: 12.5px; padding: 10px 12px; border-radius: var(--radius-sm); margin-bottom: 16px; line-height:1.5;
+}
+.auth-config-warning code{ background: rgba(0,0,0,0.06); padding: 1px 4px; border-radius: 4px; }
+.btn-header-auth{ padding: 9px 16px; font-size: 13.5px; }
+.header-authed-actions{ display:inline-flex; align-items:center; gap: 10px; }
+.auth-card{
+  background: var(--surface); border-radius: var(--radius-lg); padding: 32px;
+  max-width: 420px; width:100%; box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+  animation: modalPop .22s ease; margin: auto;
+}
+.auth-brand{ display:flex; align-items:center; gap:10px; margin-bottom: 22px; }
+.auth-brand .logo-mark{ width: 36px; height: 36px; flex-shrink:0; }
+.auth-brand .logo-tag{ color:#8A6508; text-shadow:none; }
+.auth-tabs{ display:flex; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+.auth-tab{
+  flex:1; background:none; border:none; padding: 10px 6px; font-size: 14px; font-weight: 600;
+  color: var(--text-muted); border-bottom: 2px solid transparent; margin-bottom:-1px;
+}
+.auth-tab.active{ color: var(--blue); border-bottom-color: var(--blue); }
+.auth-form{ display:flex; flex-direction: column; }
+.auth-form .modal-input{ margin-bottom: 12px; }
+.auth-submit{ width:100%; margin-top: 6px; }
+.auth-link{ font-size: 13px; color: var(--blue); text-decoration: none; margin: -4px 0 14px; align-self:flex-end; }
+.auth-link:hover{ text-decoration: underline; }
+.auth-hint{ font-size: 12px; color: var(--text-muted); margin: 14px 0 0; line-height: 1.5; }
+.auth-error{
+  background: var(--red-light); color: #fff; font-family: var(--font-display); font-size: 13px;
+  padding: 10px 12px; border-radius: var(--radius-sm); margin-bottom: 16px;
+}
+
+/* ============ HEADER: nombre de estudiante + logout ============ */
+.student-name-chip{
+  font-family: var(--font-display); font-size: 13px; font-weight: 600; color: #fff;
+  opacity: .9; max-width: 140px; overflow:hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+

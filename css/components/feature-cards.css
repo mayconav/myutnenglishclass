@@ -1,0 +1,17 @@
+/* Tarjetas de caracteristicas en el hero (css/styles.css original: L197-L212) */
+/* ---- Feature cards ---- */
+.features{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px; }
+.feature-card{
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md);
+  padding: 20px; box-shadow: var(--shadow-card); border-top: 3px solid var(--red);
+}
+.feature-card:nth-child(2){ border-top-color: var(--green); }
+.feature-card:nth-child(3){ border-top-color: var(--blue); }
+.feature-icon{
+  display:inline-flex; align-items:center; justify-content:center;
+  width: 34px; height:34px; border-radius: 9px; background: var(--blue); color:#fff;
+  font-size: 15px; margin-bottom: 12px;
+}
+.feature-card h3{ font-size: 15px; margin-bottom: 6px; color: var(--blue); }
+.feature-card p{ font-size: 13.5px; color: var(--text-secondary); margin:0; }
+

@@ -1,0 +1,137 @@
+/* Segunda pasada de vida por seccion (header, hero, niveles, leccion, progreso, footer, modales) (css/styles.css original: L1326-L1461) */
+/* ==========================================================================
+   SEGUNDA PASADA — más vida por sección (header, hero, niveles, lección,
+   progreso, footer, modales). Todo respeta prefers-reduced-motion.
+   ========================================================================== */
+
+/* ---- HEADER: logo "breathing" on hover + hamburger that
+   convierte en X usando el aria-expanded que ya pone el JS (sin tocar JS) ---- */
+.logo-mark{ transition: transform .35s cubic-bezier(.34,1.56,.64,1); }
+.logo:hover .logo-mark{ transform: scale(1.08) rotate(-6deg); }
+.logo-text .logo-name{ transition: letter-spacing .25s ease; }
+.logo:hover .logo-text .logo-name{ letter-spacing: .01em; }
+
+.nav-toggle span{ transition: transform .28s cubic-bezier(.34,1.56,.64,1), opacity .2s ease; }
+#nav-toggle[aria-expanded="true"] span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+#nav-toggle[aria-expanded="true"] span:nth-child(2){ opacity: 0; transform: scaleX(0); }
+#nav-toggle[aria-expanded="true"] span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+
+/* ---- HERO: a small plane travels along a dotted background path, like the
+   "vuelo a la fluidez" del pase de abordar ---- */
+.hero{ isolation: isolate; }
+.hero-copy{ position: relative; }
+@media (prefers-reduced-motion: no-preference){
+  .hero::before{
+    content:"✈"; position:absolute; top:14%; left:-6%; font-size:18px;
+    color: rgba(255,255,255,0.5); z-index:0; pointer-events:none;
+    animation: heroFly 9s linear infinite;
+  }
+  @keyframes heroFly{
+    0%{ transform: translate(0,0) rotate(28deg); opacity:0; }
+    8%{ opacity:.8; }
+    92%{ opacity:.8; }
+    100%{ transform: translate(128vw, -18px) rotate(28deg); opacity:0; }
+  }
+}
+/* Boarding pass: slight 3D tilt on hover, as if picking it up off the table */
+.boarding-pass{ transform-style: preserve-3d; perspective: 800px; transition: transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s ease; }
+.boarding-pass:hover{ transform: translateY(-4px) rotateX(2deg) rotateY(-2deg); box-shadow: 0 22px 46px rgba(0,0,0,0.32); }
+.bp-icon{ transition: transform .3s cubic-bezier(.34,1.56,.64,1); }
+.boarding-pass:hover .bp-icon{ transform: scale(1.1) rotate(6deg); }
+
+/* ---- NIVELES: la puerta activa "late" con un borde animado; las bloqueadas
+   agitan su candado al pasar el cursor, invitando a completar el nivel previo ---- */
+.gate-status.active{ position: relative; }
+@media (prefers-reduced-motion: no-preference){
+  @keyframes gateActivePulse{
+    0%,100%{ box-shadow: 0 0 0 0 rgba(226,20,27,0.35); }
+    50%{ box-shadow: 0 0 0 5px rgba(226,20,27,0); }
+  }
+  .gate-status.active{ animation: gateActivePulse 2s ease-in-out infinite; }
+  .gate-card.locked:hover .gate-status.locked{ animation: lockWiggle .4s ease; }
+  @keyframes lockWiggle{
+    0%,100%{ transform: rotate(0); } 25%{ transform: rotate(-8deg); } 75%{ transform: rotate(8deg); }
+  }
+}
+.gate-code{ transition: transform .25s cubic-bezier(.34,1.56,.64,1), color .2s ease; }
+.gate-card:not(.locked):hover .gate-code{ transform: translateX(2px); color: var(--red); }
+
+/* ---- LESSON: visual equalizer while audio plays + tabs and
+   opciones de quiz con más respuesta al tacto ---- */
+.player-visual{ position: relative; overflow:hidden; }
+#player-icon{ transition: transform .3s ease; z-index:1; }
+.player-visual.playing #player-icon{ transform: scale(1.08); }
+@media (prefers-reduced-motion: no-preference){
+  .player-visual::after{
+    content:""; position:absolute; left:0; right:0; bottom:0; height:0; opacity:0;
+    background:
+      linear-gradient(90deg,
+        transparent 6%, rgba(255,255,255,0.85) 6% 11%, transparent 11% 20%,
+        rgba(255,255,255,0.85) 20% 25%, transparent 25% 34%,
+        rgba(255,255,255,0.85) 34% 39%, transparent 39% 48%,
+        rgba(255,255,255,0.85) 48% 53%, transparent 53% 62%,
+        rgba(255,255,255,0.85) 62% 67%, transparent 67% 76%,
+        rgba(255,255,255,0.85) 76% 81%, transparent 81% 100%);
+    background-size: 100% 4px; background-repeat: repeat-y; background-position: bottom;
+    transition: opacity .2s ease;
+  }
+  .player-visual.playing::after{
+    height: 60%; opacity: .55;
+    animation: eqBars 1.1s ease-in-out infinite;
+  }
+  @keyframes eqBars{
+    0%, 100%{ background-size: 100% 30%; }
+    50%{ background-size: 100% 85%; }
+  }
+}
+.lesson-tab{ transition: transform .18s ease, background .2s ease, color .2s ease; }
+.lesson-tab:hover:not(.active){ transform: translateY(-2px); }
+.quiz-option{ transition: transform .15s ease, border-color .15s ease, background .15s ease; }
+.quiz-option:hover{ transform: translateX(3px); }
+.fill-input{ transition: box-shadow .2s ease, border-color .2s ease; }
+.fill-input:focus{ outline:none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(12,78,184,0.16); }
+
+/* ---- PROGRESO: sellos con brillo al pasar el cursor, certificado con
+   resplandor cuando ya está disponible ---- */
+.stamp{ transition: transform .3s cubic-bezier(.34,1.56,.64,1); }
+.stamp.earned:hover{ transform: scale(1.08) rotate(-3deg); }
+.summary-card{ transition: transform .25s cubic-bezier(.22,1,.36,1), box-shadow .25s ease; }
+.summary-card:hover{ transform: translateY(-4px); }
+@media (prefers-reduced-motion: no-preference){
+  @keyframes certGlow{
+    0%,100%{ box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-highlight), 0 0 0 0 rgba(12,156,97,0.35); }
+    50%{ box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-highlight), 0 0 22px 2px rgba(12,156,97,0.35); }
+  }
+  #certificate-btn:not(:disabled){ animation: none; }
+  .certificate-card:has(#certificate-btn:not(:disabled)){ animation: certGlow 2.6s ease-in-out infinite; }
+}
+
+/* ---- FOOTER: same glow-along-the-edge feel as the header ---- */
+.site-footer{ position: relative; overflow:hidden; }
+@media (prefers-reduced-motion: no-preference){
+  .site-footer::before{
+    content:""; position:absolute; inset:0; pointer-events:none; opacity:.4;
+    background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.14) 45%, transparent 55%);
+    background-size: 220% 100%; animation: sheenSweep 8s ease-in-out infinite;
+  }
+}
+
+/* ---- MODALES / ADMIN: buscador con foco vivo, fila con acento al enfocar ---- */
+.admin-search{ transition: box-shadow .2s ease, border-color .2s ease; }
+.admin-search:focus{ outline:none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(12,78,184,0.16); }
+.admin-danger-zone{ transition: border-color .2s ease; }
+.admin-danger-zone:hover{ border-color: rgba(226,20,27,0.4); }
+.avatar-option{ transition: transform .18s cubic-bezier(.34,1.56,.64,1), border-color .18s ease; }
+.avatar-option:hover{ transform: scale(1.08); }
+.auth-tab{ transition: color .2s ease, border-color .2s ease; }
+
+/* ---- SUPPORT MATERIAL: color accent (goes after the glass layer
+   para que sobreviva al border shorthand) + entrada suave de cada bloque ---- */
+.material-block{ border-left: 4px solid var(--blue); }
+.material-table th:first-child, .material-table th:last-child{ border-radius: 0; }
+@media (prefers-reduced-motion: no-preference){
+  .material-groups .material-block{ animation: riseIn .5s cubic-bezier(.22,1,.36,1) both; }
+}
+.material-tag{ transition: transform .2s cubic-bezier(.34,1.56,.64,1); }
+.material-block:hover .material-tag{ transform: scale(1.05); }
+

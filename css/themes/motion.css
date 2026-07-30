@@ -1,0 +1,162 @@
+/* Micro-interacciones y animaciones de entrada (Movimiento) (css/styles.css original: L1099-L1259) */
+/* ==========================================================================
+   MOVIMIENTO — micro-interacciones y animaciones de entrada
+   ========================================================================== */
+
+@media (prefers-reduced-motion: no-preference){
+
+  /* ---- Entrada escalonada de tarjetas al cargar cada vista ---- */
+  @keyframes riseIn{
+    from{ opacity:0; transform: translateY(18px) scale(0.98); }
+    to{ opacity:1; transform:none; }
+  }
+  .boarding-pass{ animation: riseIn .6s cubic-bezier(.22,1,.36,1) both; }
+  .hero-copy > *{ animation: riseIn .6s cubic-bezier(.22,1,.36,1) both; }
+  .hero-copy > *:nth-child(2){ animation-delay: .06s; }
+  .hero-copy > *:nth-child(3){ animation-delay: .12s; }
+  .hero-copy > *:nth-child(4){ animation-delay: .18s; }
+
+  .features .feature-card,
+  .gates-grid .gate-card,
+  .admin-table tbody tr,
+  .admin-stats .admin-stat-card,
+  .lesson-layout .player-card,
+  .lesson-layout .quiz-card,
+  .progress-summary .summary-card,
+  .passport .stamp,
+  .certificate-card,
+  .deliverables{ animation: riseIn .5s cubic-bezier(.22,1,.36,1) both; }
+  .features .feature-card:nth-child(1), .gates-grid .gate-card:nth-child(1){ animation-delay: .05s; }
+  .features .feature-card:nth-child(2), .gates-grid .gate-card:nth-child(2){ animation-delay: .12s; }
+  .features .feature-card:nth-child(3), .gates-grid .gate-card:nth-child(3){ animation-delay: .19s; }
+  .gates-grid .gate-card:nth-child(4){ animation-delay: .26s; }
+  .gates-grid .gate-card:nth-child(5){ animation-delay: .33s; }
+  .gates-grid .gate-card:nth-child(6){ animation-delay: .40s; }
+
+  .admin-stats .admin-stat-card:nth-child(1){ animation-delay: .04s; }
+  .admin-stats .admin-stat-card:nth-child(2){ animation-delay: .10s; }
+  .admin-stats .admin-stat-card:nth-child(3){ animation-delay: .16s; }
+  .admin-stats .admin-stat-card:nth-child(4){ animation-delay: .22s; }
+
+  /* Lesson: player enters first, quiz right after */
+  .lesson-layout .quiz-card{ animation-delay: .08s; }
+
+  /* Progreso: resumen, sellos y certificado entran en cascada */
+  .progress-summary .summary-card:nth-child(1){ animation-delay: .04s; }
+  .progress-summary .summary-card:nth-child(2){ animation-delay: .10s; }
+  .progress-summary .summary-card:nth-child(3){ animation-delay: .16s; }
+  .passport .stamp:nth-child(1){ animation-delay: .05s; }
+  .passport .stamp:nth-child(2){ animation-delay: .10s; }
+  .passport .stamp:nth-child(3){ animation-delay: .15s; }
+  .passport .stamp:nth-child(4){ animation-delay: .20s; }
+  .passport .stamp:nth-child(5){ animation-delay: .25s; }
+  .passport .stamp:nth-child(6){ animation-delay: .30s; }
+  .certificate-card{ animation-delay: .34s; }
+  .deliverables{ animation-delay: .40s; }
+
+  /* Header for each section: same smooth rise, regardless of view */
+  .section-head > *{ animation: riseIn .5s cubic-bezier(.22,1,.36,1) both; }
+  .section-head > *:nth-child(2){ animation-delay: .06s; }
+  .section-head > *:nth-child(3){ animation-delay: .12s; }
+
+  /* ---- Ambient background: second layer at a different pace, sense of depth ---- */
+  .site-header::after{
+    content:""; position:absolute; inset:0; pointer-events:none; opacity:.5;
+    background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.10) 45%, transparent 55%);
+    background-size: 220% 100%;
+    animation: sheenSweep 7s ease-in-out infinite;
+  }
+  .site-header{ position: sticky; }
+  @keyframes sheenSweep{
+    0%{ background-position: 120% 0; }
+    50%{ background-position: -20% 0; }
+    100%{ background-position: -20% 0; }
+  }
+}
+
+.site-header{ position: sticky; }
+
+/* ---- Tarjetas: se elevan y brillan un poco al pasar el cursor ---- */
+.feature-card, .gate-card, .quiz-card, .summary-card, .certificate-card,
+.boarding-pass, .admin-table tbody tr{
+  transition: transform .28s cubic-bezier(.22,1,.36,1), box-shadow .28s ease, border-color .28s ease;
+}
+.feature-card:hover, .gate-card:hover{
+  transform: translateY(-6px);
+  box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-highlight), 0 0 0 1px rgba(12,78,184,0.18);
+  border-color: rgba(12,78,184,0.35);
+}
+:root[data-theme="dark"] .feature-card:hover, :root[data-theme="dark"] .gate-card:hover{
+  border-color: rgba(127,168,234,0.4);
+}
+.boarding-pass:hover{ transform: translateY(-3px); }
+.admin-table tbody tr{ transition: background .2s ease, transform .2s ease; }
+.admin-table tbody tr:hover{ background: rgba(12,78,184,0.06); }
+:root[data-theme="dark"] .admin-table tbody tr:hover{ background: rgba(127,168,234,0.08); }
+
+/* ---- Icons: subtle breathing, constant but discreet ---- */
+@media (prefers-reduced-motion: no-preference){
+  @keyframes breathe{ 0%,100%{ transform: scale(1); } 50%{ transform: scale(1.07); } }
+  .feature-icon{ animation: breathe 4.5s ease-in-out infinite; }
+  .feature-card:nth-child(2) .feature-icon{ animation-delay: .5s; }
+  .feature-card:nth-child(3) .feature-icon{ animation-delay: 1s; }
+}
+
+/* ---- Botones: barrido de brillo al pasar el cursor ---- */
+.btn{ position: relative; overflow: hidden; transition: transform .18s ease, box-shadow .25s ease; }
+.btn::after{
+  content:""; position:absolute; inset:0; border-radius: inherit; pointer-events:none;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.35) 48%, transparent 66%);
+  background-size: 220% 100%; background-position: 140% 0;
+  transition: background-position .55s ease;
+}
+.btn:hover::after{ background-position: -40% 0; }
+.btn-primary:hover{ transform: translateY(-1px); box-shadow: 0 14px 30px -8px rgba(226,20,27,0.4); }
+
+/* ---- Barra de progreso del pase de abordar: brillo recorriendo el relleno ---- */
+.bp-progress-fill{ position: relative; overflow: hidden; }
+@media (prefers-reduced-motion: no-preference){
+  .bp-progress-fill::after{
+    content:""; position:absolute; inset:0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent);
+    width: 40%; animation: progressShine 2.6s ease-in-out infinite;
+  }
+  @keyframes progressShine{
+    0%{ transform: translateX(-120%); }
+    100%{ transform: translateX(340%); }
+  }
+}
+
+/* ---- Menu: animated underline below the active/hover link ---- */
+.main-nav a{ position: relative; }
+.main-nav a::after{
+  content:""; position:absolute; left:0; right:100%; bottom:-4px; height:2px;
+  background:#fff; border-radius:2px; transition: right .25s cubic-bezier(.22,1,.36,1);
+}
+.main-nav a:hover::after, .main-nav a.active::after{ right:0; }
+
+/* ---- Theme button: rotation on toggle ---- */
+#theme-toggle-icon{ display:inline-block; transition: transform .2s ease; }
+#theme-toggle-icon.spin{ animation: themeSpin .5s cubic-bezier(.34,1.56,.64,1); }
+@keyframes themeSpin{
+  from{ transform: rotate(0deg) scale(.5); opacity:.4; }
+  to{ transform: rotate(360deg) scale(1); opacity:1; }
+}
+
+/* ---- Modal: entrance with a bit more spring ---- */
+@keyframes modalPop{
+  from{ opacity:0; transform: translateY(14px) scale(.96); }
+  to{ opacity:1; transform:none; }
+}
+.modal-card, .auth-card{ animation: modalPop .32s cubic-bezier(.34,1.56,.64,1) both; }
+
+/* ---- Password field with show/hide button ---- */
+.password-field{ position: relative; margin-bottom: 12px; }
+.password-field .modal-input{ margin-bottom: 0; padding-right: 42px; }
+.password-toggle{
+  position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+  background: none; border: none; font-size: 16px; line-height:1; padding: 6px;
+  cursor: pointer; opacity: .65; border-radius: 8px; transition: opacity .15s ease, background .15s ease;
+}
+.password-toggle:hover{ opacity: 1; background: rgba(12,78,184,0.08); }
+

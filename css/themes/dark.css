@@ -1,0 +1,21 @@
+/* Tokens y ajustes base del modo oscuro (css/styles.css original: L617-L636) */
+/* ============ MODO OSCURO ============
+   Los colores de marca (azul/rojo/verde) se mantienen; solo cambian
+   fondos, superficies y texto para contraste correcto. */
+:root[data-theme="dark"]{
+  --bg: #10141A;
+  --surface: #1B212A;
+  --paper: #20262F;
+  --paper-line: #3A4048;
+  --blue-tint: #17233A;
+  --ink: #EEF0F2;
+  --text-primary: #EEF0F2;
+  --text-secondary: #AFB6BD;
+  --text-muted: #767D86;
+  --border: #2B323C;
+  --shadow-card: 0 1px 2px rgba(0,0,0,0.4), 0 8px 22px rgba(0,0,0,0.35);
+}
+:root[data-theme="dark"] .quiz-option{ background: #171C23; }
+:root[data-theme="dark"] .fill-input{ background:#171C23; color:var(--text-primary); }
+:root[data-theme="dark"] .match-item{ background:#171C23; color:var(--text-primary); }
+

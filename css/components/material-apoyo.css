@@ -1,0 +1,39 @@
+/* Material de apoyo / recursos (css/styles.css original: L540-L577) */
+/* ============ MATERIAL DE APOYO ============ */
+.material-groups{ display:flex; flex-direction:column; gap: 22px; }
+.material-block{
+  background: var(--surface); border:1px solid var(--border); border-radius: var(--radius-md);
+  padding: 22px 24px; box-shadow: var(--shadow-card); border-left: 4px solid var(--blue);
+}
+.material-block-head{ display:flex; align-items:flex-start; gap: 14px; margin-bottom: 18px; }
+.material-block-head h3{ font-size: 17px; color: var(--blue); margin: 0 0 4px; }
+.material-block-desc{ font-size: 13.5px; color: var(--text-secondary); margin:0; max-width: 62ch; }
+.material-tag{
+  flex-shrink:0; font-family: var(--font-display); font-size: 11px; font-weight:700;
+  text-transform: uppercase; letter-spacing:.05em; color:#fff; background: var(--blue);
+  padding: 5px 11px; border-radius: 999px; margin-top: 2px;
+}
+.material-table-wrap{
+  border-radius: var(--radius-md); overflow-x:auto; border: 1px solid var(--border);
+}
+.material-table{ width:100%; border-collapse: collapse; font-size: 14px; min-width: 520px; }
+.material-table th{
+  text-align:left; padding: 11px 16px; background: var(--blue); color:#fff;
+  font-family: var(--font-display); font-size: 12px; text-transform:uppercase; letter-spacing:.04em;
+}
+.material-table th:first-child{ border-top-left-radius: var(--radius-md); }
+.material-table th:last-child{ border-top-right-radius: var(--radius-md); }
+.material-table td{
+  padding: 10px 16px; border-bottom: 1px solid var(--border); color: var(--text-primary);
+  transition: background .15s ease;
+}
+.material-table td:first-child, .material-table td:nth-child(2), .material-table td:nth-child(3){
+  font-family: var(--font-mono); font-weight:500;
+}
+.material-table td:last-child{ font-family: var(--font-body); color: var(--text-secondary); font-style: italic; }
+.material-table tr:last-child td{ border-bottom:none; }
+.material-table tr:hover td{ background: var(--blue-tint); }
+.material-source{ font-size: 12px; color: var(--text-muted); margin: 14px 0 0; }
+.material-source a{ color: var(--blue); text-decoration: none; }
+.material-source a:hover{ text-decoration: underline; }
+
