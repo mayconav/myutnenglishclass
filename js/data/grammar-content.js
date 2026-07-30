@@ -149,16 +149,16 @@
       instructions: "Write the plural of each singular word or phrase.",
       example: { text: "a nice sofa", prefix: "", suffix: "", result: "nice sofas" },
       items: [
-        { text: "a university", prefix: "", suffix: "", answers: ["universities"] },
-        { text: "a sandwich", prefix: "", suffix: "", answers: ["sandwiches"] },
-        { text: "a street", prefix: "", suffix: "", answers: ["streets"] },
-        { text: "a rich man", prefix: "rich ", suffix: "", answers: ["men"] },
-        { text: "one foot", prefix: "two ", suffix: "", answers: ["feet"] },
-        { text: "a dirty bag", prefix: "dirty ", suffix: "", answers: ["bags"] },
-        { text: "an expensive watch", prefix: "expensive ", suffix: "", answers: ["watches"] },
-        { text: "a new phone", prefix: "new ", suffix: "", answers: ["phones"] },
-        { text: "a nice photograph", prefix: "nice ", suffix: "", answers: ["photographs"] },
-        { text: "one glass of wine", prefix: "two ", suffix: " of wine", answers: ["glasses"] }
+        { text: "a university", prefix: "", suffix: "", answers: ["universities"], rule: "consonant + y → change y to -ies" },
+        { text: "a sandwich", prefix: "", suffix: "", answers: ["sandwiches"], rule: "ends in -ch → add -es" },
+        { text: "a street", prefix: "", suffix: "", answers: ["streets"], rule: "regular noun → just add -s" },
+        { text: "a rich man", prefix: "rich ", suffix: "", answers: ["men"], rule: "irregular plural — memorize it" },
+        { text: "one foot", prefix: "two ", suffix: "", answers: ["feet"], rule: "irregular plural — memorize it" },
+        { text: "a dirty bag", prefix: "dirty ", suffix: "", answers: ["bags"], rule: "regular noun → just add -s" },
+        { text: "an expensive watch", prefix: "expensive ", suffix: "", answers: ["watches"], rule: "ends in -ch → add -es" },
+        { text: "a new phone", prefix: "new ", suffix: "", answers: ["phones"], rule: "regular noun → just add -s" },
+        { text: "a nice photograph", prefix: "nice ", suffix: "", answers: ["photographs"], rule: "regular noun → just add -s" },
+        { text: "one glass of wine", prefix: "two ", suffix: " of wine", answers: ["glasses"], rule: "ends in -s → add -es" }
       ]
     },
     {
@@ -168,16 +168,16 @@
       instructions: "Write a/an before the singular word, then write the plural form.",
       example: { text: "olive", article: "an", prefix: "", suffix: "", result: "olives" },
       items: [
-        { text: "bus", article: ["a"], prefix: "", suffix: "", answers: ["buses"] },
-        { text: "nice family", article: ["a"], prefix: "nice ", suffix: "", answers: ["families"] },
-        { text: "Italian child", article: ["an"], prefix: "Italian ", suffix: "", answers: ["children"] },
-        { text: "strong tooth", article: ["a"], prefix: "strong ", suffix: "", answers: ["teeth"] },
-        { text: "nice dress", article: ["a"], prefix: "nice ", suffix: "", answers: ["dresses"] },
-        { text: "angry wife", article: ["an"], prefix: "angry ", suffix: "", answers: ["wives"] },
-        { text: "uniform", article: ["a"], prefix: "", suffix: "", answers: ["uniforms"] },
-        { text: "amazing website", article: ["an"], prefix: "amazing ", suffix: "", answers: ["websites"] },
-        { text: "elephant", article: ["an"], prefix: "", suffix: "", answers: ["elephants"] },
-        { text: "empty library", article: ["an"], prefix: "empty ", suffix: "", answers: ["libraries"] }
+        { text: "bus", article: ["a"], prefix: "", suffix: "", answers: ["buses"], rule: "ends in -s → add -es" },
+        { text: "nice family", article: ["a"], prefix: "nice ", suffix: "", answers: ["families"], rule: "consonant + y → change y to -ies" },
+        { text: "Italian child", article: ["an"], prefix: "Italian ", suffix: "", answers: ["children"], rule: "irregular plural — memorize it" },
+        { text: "strong tooth", article: ["a"], prefix: "strong ", suffix: "", answers: ["teeth"], rule: "irregular plural — memorize it" },
+        { text: "nice dress", article: ["a"], prefix: "nice ", suffix: "", answers: ["dresses"], rule: "ends in -ss → add -es" },
+        { text: "angry wife", article: ["an"], prefix: "angry ", suffix: "", answers: ["wives"], rule: "ends in -fe → change to -ves" },
+        { text: "uniform", article: ["a"], prefix: "", suffix: "", answers: ["uniforms"], rule: "regular noun → just add -s" },
+        { text: "amazing website", article: ["an"], prefix: "amazing ", suffix: "", answers: ["websites"], rule: "regular noun → just add -s" },
+        { text: "elephant", article: ["an"], prefix: "", suffix: "", answers: ["elephants"], rule: "regular noun → just add -s" },
+        { text: "empty library", article: ["an"], prefix: "empty ", suffix: "", answers: ["libraries"], rule: "consonant + y → change y to -ies" }
       ]
     }
   ];

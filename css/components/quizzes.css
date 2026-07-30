@@ -21,6 +21,7 @@
 .practice-feedback{ font-size: 12.5px; font-weight:700; white-space: nowrap; }
 .practice-feedback.ok{ color: var(--green-dark); }
 .practice-feedback.bad{ color: var(--red); white-space: normal; }
+.practice-feedback .feedback-rule{ font-weight:500; font-style: italic; color: var(--text-secondary); }
 
 /* ---- Multiple-choice practice quizzes (e.g. Adjectives) ---- */
 .practice-mcq-list{ display:flex; flex-direction:column; gap: 22px; }
@@ -32,6 +33,7 @@
 .practice-quiz-actions{ display:flex; gap: 10px; margin-top: 18px; }
 .practice-quiz-result{ margin: 12px 0 0; font-size: 14px; font-weight:600; padding: 10px 14px; border-radius: var(--radius-sm); }
 .practice-quiz-result.perfect{ color: var(--green-dark); background: rgba(12,156,97,0.1); }
+.practice-quiz-result.great{ color: var(--blue-dark); background: rgba(12,78,184,0.08); }
 .practice-quiz-result.needs-work{ color: var(--red-dark, var(--red)); background: rgba(226,20,27,0.07); }
 
 /* ---- Quiz box: one box per topic holding ALL quizzes as swipeable / tabbed slides ---- */

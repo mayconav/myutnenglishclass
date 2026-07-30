@@ -269,6 +269,26 @@
     });
   }
 
+  /* Small edit-distance helper: used to tell the student "so close!" when their
+     answer is off by a letter or two, instead of just marking it wrong. */
+  function levenshtein(a, b) {
+    if (a === b) return 0;
+    if (!a.length) return b.length;
+    if (!b.length) return a.length;
+    var prev = [];
+    for (var j = 0; j <= b.length; j++) prev[j] = j;
+    for (var i = 1; i <= a.length; i++) {
+      var cur = [i];
+      for (j = 1; j <= b.length; j++) {
+        cur[j] = a[i - 1] === b[j - 1]
+          ? prev[j - 1]
+          : 1 + Math.min(prev[j - 1], prev[j], cur[j - 1]);
+      }
+      prev = cur;
+    }
+    return prev[b.length];
+  }
+
   function initFillPracticeQuiz(card, quiz) {
     var checkBtn = card.querySelector(".practice-check-btn");
     var resetBtn = card.querySelector(".practice-reset-btn");
@@ -279,16 +299,32 @@
       if (quizBox && quizBox.refreshQuizHeight) requestAnimationFrame(quizBox.refreshQuizHeight);
     }
 
-    function setFieldFeedback(kind, ii, ok, correctText) {
+    function setFieldFeedback(kind, ii, ok, correctText, userVal, rule) {
       var span = card.querySelector('.practice-feedback[data-item="' + ii + '"][data-kind="' + kind + '"]');
       if (!span) return;
       span.classList.remove("ok", "bad");
+      span.innerHTML = "";
       if (ok) {
         span.classList.add("ok");
         span.textContent = "✓";
+        return;
+      }
+      span.classList.add("bad");
+
+      var lead;
+      if (!userVal) {
+        lead = "✗ Left blank — correct: " + correctText;
+      } else if (levenshtein(userVal, correctText.toLowerCase()) <= 1) {
+        lead = "✗ So close! Correct: " + correctText;
       } else {
-        span.classList.add("bad");
-        span.textContent = "✗ correct: " + correctText;
+        lead = "✗ Correct: " + correctText;
+      }
+      span.appendChild(document.createTextNode(lead));
+      if (rule && kind === "plural") {
+        var ruleEl = document.createElement("span");
+        ruleEl.className = "feedback-rule";
+        ruleEl.textContent = " — " + rule;
+        span.appendChild(ruleEl);
       }
     }
 
@@ -306,6 +342,7 @@
     checkBtn.addEventListener("click", function () {
       var total = 0;
       var correct = 0;
+      var missedRules = [];
       quiz.items.forEach(function (item, ii) {
         var pluralInput = card.querySelector('.practice-blank[data-item="' + ii + '"][data-kind="plural"]');
         total++;
@@ -314,8 +351,9 @@
         pluralInput.classList.remove("correct", "incorrect");
         pluralInput.classList.add(pluralOk ? "correct" : "incorrect");
         pluralInput.disabled = true;
-        setFieldFeedback("plural", ii, pluralOk, item.answers[0]);
+        setFieldFeedback("plural", ii, pluralOk, item.answers[0], pluralVal, item.rule);
         if (pluralOk) correct++;
+        else if (item.rule && missedRules.indexOf(item.rule) === -1) missedRules.push(item.rule);
 
         if (item.article) {
           var articleInput = card.querySelector('.practice-blank[data-item="' + ii + '"][data-kind="article"]');
@@ -325,20 +363,29 @@
           articleInput.classList.remove("correct", "incorrect");
           articleInput.classList.add(articleOk ? "correct" : "incorrect");
           articleInput.disabled = true;
-          setFieldFeedback("article", ii, articleOk, item.article[0]);
+          setFieldFeedback("article", ii, articleOk, item.article[0], articleVal, null);
           if (articleOk) correct++;
         }
       });
       checkBtn.disabled = true;
       resultEl.hidden = false;
-      resultEl.classList.remove("perfect", "needs-work");
-      if (correct === total) {
-        resultEl.textContent = "🎉 Perfect! " + correct + " out of " + total + " correct.";
+      resultEl.classList.remove("perfect", "great", "needs-work");
+      var pct = total ? correct / total : 1;
+      var msg = "";
+      if (pct === 1) {
+        msg = "🎉 Perfect! " + correct + " out of " + total + " correct.";
         resultEl.classList.add("perfect");
+      } else if (pct >= 0.7) {
+        msg = "💪 Great job — " + correct + " out of " + total + " correct. Check the notes next to the red answers to close the gap.";
+        resultEl.classList.add("great");
       } else {
-        resultEl.textContent = "You got " + correct + " out of " + total + " correct. Review the red answers above, then try Reset to practice again.";
+        msg = "You got " + correct + " out of " + total + " correct. Review the red answers above, then try Reset to practice again.";
         resultEl.classList.add("needs-work");
       }
+      if (missedRules.length) {
+        msg += " Focus on: " + missedRules.join("; ") + ".";
+      }
+      resultEl.textContent = msg;
       refreshHeight();
     });
 
