@@ -8,7 +8,45 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css">
+<!-- Base: reinicios, tokens de marca y accesibilidad -->
+<link rel="stylesheet" href="css/base/_reset.css">
+<link rel="stylesheet" href="css/base/_tokens.css">
+<!-- Layout: estructura general de la pagina -->
+<link rel="stylesheet" href="css/layout/header.css">
+<link rel="stylesheet" href="css/layout/main.css">
+<link rel="stylesheet" href="css/layout/footer.css">
+<!-- Componentes: una vista/elemento por archivo -->
+<link rel="stylesheet" href="css/components/hero.css">
+<link rel="stylesheet" href="css/components/boarding-pass.css">
+<link rel="stylesheet" href="css/components/feature-cards.css">
+<link rel="stylesheet" href="css/components/teacher.css">
+<link rel="stylesheet" href="css/components/definition-hero.css">
+<link rel="stylesheet" href="css/components/grammar-lesson.css">
+<link rel="stylesheet" href="css/components/quizzes.css">
+<link rel="stylesheet" href="css/components/gates.css">
+<link rel="stylesheet" href="css/components/lesson.css">
+<link rel="stylesheet" href="css/components/progreso.css">
+<link rel="stylesheet" href="css/components/material-apoyo.css">
+<link rel="stylesheet" href="css/components/header-actions.css">
+<link rel="stylesheet" href="css/components/modales.css">
+<link rel="stylesheet" href="css/components/group-tabs.css">
+<link rel="stylesheet" href="css/components/lesson-tabs.css">
+<link rel="stylesheet" href="css/components/ejercicios.css">
+<link rel="stylesheet" href="css/components/certificado.css">
+<link rel="stylesheet" href="css/components/logros-animaciones.css">
+<link rel="stylesheet" href="css/components/auth-gate.css">
+<link rel="stylesheet" href="css/components/admin-panel.css">
+<link rel="stylesheet" href="css/components/skills.css">
+<link rel="stylesheet" href="css/components/grammar.css">
+<!-- Base (dependen de las variables de arriba) -->
+<link rel="stylesheet" href="css/base/focus.css">
+<link rel="stylesheet" href="css/base/responsive.css">
+<!-- Temas y capas visuales: se cargan al final para poder sobreescribir -->
+<link rel="stylesheet" href="css/themes/dark.css">
+<link rel="stylesheet" href="css/themes/glass-theme.css">
+<link rel="stylesheet" href="css/themes/motion.css">
+<link rel="stylesheet" href="css/themes/accent-details.css">
+<link rel="stylesheet" href="css/themes/second-pass.css">
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="icon" type="image/png" sizes="192x192" href="img/logo-192.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
@@ -282,17 +320,48 @@
         });
     });
 
-    Promise.all(loads).then(function () {
+    // Modulos de la app, en el orden en que deben ejecutarse. Antes vivian
+    // todos como un solo archivo (js/app.js); ahora estan separados por
+    // responsabilidad para que sea mas facil encontrar y editar cada parte.
+    // Se cargan como <script> clasicos (no type="module") para que sigan
+    // compartiendo el mismo scope global de siempre, uno tras otro.
+    var APP_SCRIPTS = [
+      "js/data/levels-lessons.js",
+      "js/data/grammar-content.js",
+      "js/data/skills-content.js",
+      "js/app/state.js",
+      "js/app/navigation.js",
+      "js/app/profile.js",
+      "js/app/boarding-pass.js",
+      "js/app/gates.js",
+      "js/app/lesson-player.js",
+      "js/app/progress.js",
+      "js/app/certificate.js",
+      "js/app/skills-hub.js",
+      "js/app/skills-exercises.js",
+      "js/app/state-reload.js",
+      "js/app/grammar-render.js",
+      "js/app/init.js"
+    ];
+
+    function loadScriptsInOrder(paths, i) {
+      if (i >= paths.length) return;
       var script = document.createElement("script");
-      script.src = "js/app.js";
+      script.src = paths[i];
+      script.onload = function () { loadScriptsInOrder(paths, i + 1); };
       document.body.appendChild(script);
+    }
+
+    Promise.all(loads).then(function () {
+      loadScriptsInOrder(APP_SCRIPTS, 0);
     });
   })();
 </script>
-<!-- app.js controls all sections (Levels, Lesson, Skills, Progress,
-     Support Material, Grammar) and is now always loaded, for guests and
-     students alike. Solving/submitting activities still requires an account;
-     that is controlled from auth.js (the "ACTIVITY GATE" block). It is
-     injected above only after every partial has finished loading. -->
+<!-- Los modulos de js/data/ y js/app/ controlan todas las secciones (Niveles,
+     Leccion, Habilidades, Progreso, Material de Apoyo, Gramatica) y ahora
+     siempre se cargan, tanto para invitados como para estudiantes. Resolver o
+     enviar actividades sigue requiriendo una cuenta; eso lo controla auth.js
+     (bloque "ACTIVITY GATE"). Se inyectan arriba solo despues de que cada
+     partial haya terminado de cargar. -->
 </body>
 </html>
