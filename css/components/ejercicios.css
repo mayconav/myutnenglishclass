@@ -1,0 +1,28 @@
+/* Ejercicios de completar y relacionar (css/styles.css original: L728-L754) */
+/* ============ EJERCICIOS: completar y relacionar ============ */
+.fill-row{ display:flex; gap:8px; margin-bottom:6px; }
+.fill-input{
+  flex:1; padding:9px 12px; border-radius: var(--radius-sm); border:1px solid var(--border);
+  font-family: var(--font-body); font-size: 14px; background: var(--bg); color: var(--text-primary);
+}
+.fill-input.correct{ border-color: var(--green); background: rgba(12,156,97,0.08); }
+.fill-input.incorrect{ border-color: var(--red); background: rgba(226,20,27,0.08); }
+.fill-feedback{ font-size: 12.5px; margin:0; min-height: 16px; }
+.fill-feedback.ok{ color: var(--green-dark); }
+.fill-feedback.bad{ color: var(--red-dark); }
+
+.match-columns{ display:flex; gap: 14px; }
+.match-col{ flex:1; display:flex; flex-direction:column; gap:8px; }
+.match-item{
+  text-align:left; background: var(--bg); border:1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 9px 12px; font-family: var(--font-body); font-size: 13.5px; color: var(--text-primary);
+}
+.match-item.selected{ border-color: var(--blue); background: var(--blue-tint); }
+.match-item.matched{ border-color: var(--green); background: rgba(12,156,97,0.1); color: var(--green-dark); }
+.match-item.shake{ animation: shake .4s ease; border-color: var(--red); }
+@keyframes shake{
+  0%,100%{ transform: translateX(0); }
+  25%{ transform: translateX(-4px); }
+  75%{ transform: translateX(4px); }
+}
+

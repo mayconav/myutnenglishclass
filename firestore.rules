@@ -1,0 +1,67 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /students/{studentId} {
+
+      // Un estudiante puede crear ÚNICAMENTE su propio documento al registrarse.
+      allow create: if request.auth != null
+                    && request.auth.uid == studentId
+                    && request.resource.data.disabled == false;
+
+      // Un estudiante puede leer su propio documento.
+      // El profesor (por correo) puede leer cualquiera.
+      allow read: if request.auth != null
+                  && (request.auth.uid == studentId
+                      || request.auth.token.email == "PROFESOR_EMAIL_AQUI");
+
+      // Un estudiante puede actualizar su propio documento (ej. progreso, nombre de perfil)
+      // pero NO puede tocar el campo "disabled" (eso es solo del profesor).
+      // El profesor puede actualizar cualquier documento, incluyendo "disabled".
+      allow update: if request.auth != null
+                    && (
+                         (request.auth.uid == studentId
+                          && request.resource.data.disabled == resource.data.disabled)
+                         || request.auth.token.email == "PROFESOR_EMAIL_AQUI"
+                       );
+
+      // Las cuentas de estudiantes nunca se eliminan, ni el profesor ni ningún
+      // otro usuario puede borrar un registro. Para restringir el acceso de un
+      // estudiante se usa el campo "disabled" (ver regla de "update" arriba).
+      allow delete: if false;
+    }
+
+    // ============ BINGO EN VIVO (controlado por el profesor) ============
+    // Documento unico "current": solo puede existir UNA sala de Bingo activa
+    // a la vez (para el grupo que el profesor tenga enfrente en ese momento).
+    match /bingoSessions/{sessionId} {
+
+      // Cualquier persona autenticada (alumno o profesor) puede leer el
+      // estado de la sala para saber si esta abierta y para que grupo es.
+      allow read: if request.auth != null;
+
+      // Solo el profesor controla la sala: abrirla, cambiar de grupo,
+      // pausar/reanudar, cantar el siguiente verbo, reiniciar o cerrarla.
+      allow write: if request.auth != null
+                   && request.auth.token.email == "PROFESOR_EMAIL_AQUI";
+
+      // Jugadores conectados a la sala (un documento por alumno).
+      match /players/{studentId} {
+
+        // Todos los conectados pueden ver el roster (avatares, quien gano).
+        allow read: if request.auth != null;
+
+        // Un alumno solo puede crear/actualizar su PROPIO documento de
+        // jugador (su avatar, su carton y sus casillas marcadas).
+        allow create, update: if request.auth != null
+                               && request.auth.uid == studentId;
+
+        // Un alumno puede salir de la sala por su cuenta; el profesor puede
+        // remover a cualquiera o limpiar el roster al cerrar la sala.
+        allow delete: if request.auth != null
+                      && (request.auth.uid == studentId
+                          || request.auth.token.email == "PROFESOR_EMAIL_AQUI");
+      }
+    }
+  }
+}

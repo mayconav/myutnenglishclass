@@ -1,0 +1,166 @@
+/* Juego de Bingo de verbos (regulares e irregulares) */
+/* ============ PANTALLA DE INICIO ============ */
+.bingo-start-card{
+  max-width: 560px; margin: 0 auto; text-align: center;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
+  padding: 36px 30px; box-shadow: var(--shadow-card);
+}
+.bingo-start-icon{ display:block; font-size: 42px; margin-bottom: 10px; }
+.bingo-start-card h3{ font-family: var(--font-display); font-size: 21px; margin: 0 0 10px; color: var(--blue); }
+.bingo-start-card p{ color: var(--text-secondary); font-size: 14.5px; line-height: 1.6; margin: 0 auto 8px; max-width: 46ch; }
+
+.bingo-settings{
+  display:flex; flex-wrap: wrap; align-items:center; justify-content:center; gap: 22px;
+  margin: 22px 0 20px;
+}
+.bingo-settings-field{ display:flex; flex-direction:column; gap: 5px; text-align:left; }
+.bingo-settings-label{ font-family: var(--font-display); font-size: 12px; font-weight:600; color: var(--text-secondary); }
+.bingo-select{
+  padding: 8px 12px; border-radius: var(--radius-sm); border: 1px solid var(--border);
+  background: var(--bg); color: var(--text-primary); font-family: var(--font-body); font-size: 14px;
+}
+.bingo-voice-toggle{ display:flex; align-items:center; gap: 8px; font-size: 14px; color: var(--text-secondary); cursor:pointer; }
+.bingo-voice-toggle input{ width:16px; height:16px; accent-color: var(--blue); }
+
+.bingo-stats-mini{ margin-top: 16px; font-size: 12.5px; color: var(--text-muted); }
+
+/* ============ PANTALLA DE JUEGO ============ */
+.bingo-game{ max-width: 620px; margin: 0 auto; display:flex; flex-direction:column; gap: 16px; }
+
+.bingo-caller-panel{
+  display:flex; align-items:center; justify-content:space-between; gap: 14px; flex-wrap: wrap;
+  background: var(--blue-tint); border-radius: var(--radius-md); padding: 16px 20px;
+  box-shadow: var(--shadow-card);
+}
+.bingo-caller-info{ display:flex; flex-direction:column; }
+.bingo-caller-label{
+  font-family: var(--font-display); font-size: 11px; font-weight:700; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--blue);
+}
+.bingo-caller-word{
+  font-family: var(--font-display); font-weight: 800; font-size: 30px; color: var(--blue-dark);
+  margin: 2px 0 0;
+}
+.bingo-caller-controls{ display:flex; align-items:center; gap: 8px; }
+
+.bingo-hint{
+  min-height: 18px; text-align:center; font-size: 13px; font-weight:600; color: var(--red);
+  margin: 0;
+}
+
+.bingo-called-history{
+  display:flex; flex-wrap: wrap; gap: 6px; justify-content:center; min-height: 30px;
+}
+.bingo-chip{
+  background: var(--paper); border: 1px solid var(--border); border-radius: 999px;
+  padding: 4px 11px; font-size: 12px; font-family: var(--font-mono); color: var(--text-secondary);
+}
+.bingo-chip.current{ background: var(--blue); color:#fff; border-color: var(--blue-dark); font-weight:700; }
+
+.bingo-board{
+  display:grid; grid-template-columns: repeat(5, 1fr); gap: 8px;
+  max-width: 480px; width:100%; margin: 0 auto;
+}
+.bingo-cell{
+  aspect-ratio: 1; display:flex; align-items:center; justify-content:center; text-align:center;
+  border-radius: var(--radius-sm); border: 2px solid var(--border); background: var(--surface);
+  font-family: var(--font-display); font-weight: 700; font-size: clamp(10px, 2.6vw, 14px);
+  color: var(--text-primary); padding: 4px; line-height: 1.15; word-break: break-word;
+  cursor: pointer; transition: transform .12s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+.bingo-cell:hover{ border-color: var(--blue-light); transform: translateY(-2px); }
+.bingo-cell.free{
+  background: var(--blue-tint); color: var(--blue); border-color: var(--blue-light);
+  font-size: 20px; cursor: default; transform:none;
+}
+.bingo-cell.marked{ background: var(--green); color:#fff; border-color: var(--green-dark); cursor: default; }
+.bingo-cell.marked:hover{ transform:none; }
+.bingo-cell.line-win{ box-shadow: 0 0 0 3px var(--yellow), 0 0 18px rgba(199,154,0,0.55); }
+
+.bingo-game-foot{
+  display:flex; align-items:center; justify-content:space-between; flex-wrap: wrap; gap: 10px;
+}
+.bingo-progress-label{ font-family: var(--font-display); font-weight:600; font-size: 13px; color: var(--text-secondary); }
+
+/* ============ ANIMACIONES ============ */
+@keyframes bingoCallPop{
+  0%{ transform: scale(.85); opacity: .3; }
+  60%{ transform: scale(1.05); opacity: 1; }
+  100%{ transform: scale(1); }
+}
+.bingo-call-pop{ animation: bingoCallPop .4s cubic-bezier(.34,1.56,.64,1); }
+
+@keyframes bingoDab{
+  0%{ transform: scale(.5) rotate(-10deg); opacity:.4; }
+  70%{ transform: scale(1.12) rotate(3deg); }
+  100%{ transform: scale(1) rotate(0deg); }
+}
+.bingo-dab{ animation: bingoDab .38s cubic-bezier(.34,1.56,.64,1); }
+
+@keyframes bingoShake{
+  0%, 100%{ transform: translateX(0); }
+  20%{ transform: translateX(-5px); }
+  40%{ transform: translateX(5px); }
+  60%{ transform: translateX(-4px); }
+  80%{ transform: translateX(4px); }
+}
+.bingo-shake{ animation: bingoShake .4s ease; border-color: var(--red) !important; }
+
+@media (max-width: 560px){
+  .bingo-board{ gap: 6px; }
+  .bingo-caller-word{ font-size: 24px; }
+  .bingo-start-card{ padding: 28px 20px; }
+}
+
+/* ============ SALA EN VIVO: barra superior ============ */
+.bingo-room-topbar{
+  display:flex; align-items:center; justify-content:space-between; gap: 12px; flex-wrap: wrap;
+}
+.bingo-room-status{
+  font-family: var(--font-display); font-weight:700; font-size: 13.5px; color: var(--blue-dark);
+  background: var(--blue-tint); padding: 6px 12px; border-radius: 999px;
+}
+.bingo-winner-banner{
+  text-align:center; font-family: var(--font-display); font-weight:700; font-size: 14.5px;
+  background: rgba(199,154,0,0.14); color: var(--yellow-dark); border: 1px solid rgba(199,154,0,0.35);
+  border-radius: var(--radius-md); padding: 10px 14px; margin: 0;
+}
+
+/* ============ CREAR AVATAR ============ */
+.bingo-avatar-card{ max-width: 460px; }
+.bingo-avatar-preview-row{ display:flex; align-items:center; gap: 12px; justify-content:center; margin: 14px 0; }
+.bingo-nickname-input{ max-width: 220px; text-align:center; }
+.bingo-avatar-badge{
+  display:inline-flex; align-items:center; justify-content:center; width: 32px; height: 32px;
+  border-radius: 50%; font-size: 17px; color:#fff; flex-shrink:0;
+}
+.bingo-avatar-badge-lg{ width: 56px; height: 56px; font-size: 30px; }
+.bingo-avatar-options, .bingo-color-options{
+  display:flex; flex-wrap:wrap; gap: 8px; justify-content:center; margin: 8px 0 18px;
+}
+.bingo-avatar-option{
+  width: 42px; height: 42px; border-radius: 50%; border: 2px solid var(--border);
+  background: var(--surface); font-size: 20px; display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition: transform .15s ease, border-color .2s ease;
+}
+.bingo-avatar-option:hover{ transform: translateY(-2px); }
+.bingo-avatar-option.selected{ border-color: var(--blue); box-shadow: 0 0 0 3px rgba(12,78,184,0.18); }
+.bingo-color-option{
+  width: 30px; height: 30px; border-radius: 50%; border: 2px solid transparent; cursor:pointer;
+  transition: transform .15s ease, box-shadow .2s ease;
+}
+.bingo-color-option:hover{ transform: translateY(-2px); }
+.bingo-color-option.selected{ box-shadow: 0 0 0 3px #fff, 0 0 0 5px var(--ink); }
+
+/* ============ ROSTER (jugadores conectados) ============ */
+.bingo-roster{ display:flex; flex-wrap:wrap; gap: 8px; justify-content:center; }
+.bingo-roster-chip{
+  display:inline-flex; align-items:center; gap: 6px; background: var(--surface);
+  border: 1px solid var(--border); border-radius: 999px; padding: 5px 10px 5px 5px;
+  font-size: 12.5px; font-family: var(--font-display); font-weight:600; color: var(--text-primary);
+}
+.bingo-roster-chip.won{ border-color: var(--yellow); background: rgba(199,154,0,0.1); }
+.bingo-roster-name{ max-width: 110px; overflow:hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bingo-roster-empty{ font-size: 13px; color: var(--text-muted); }
+.bingo-crown{ font-size: 13px; }
+.bingo-chip-count{ font-size: 11px; color: var(--text-secondary); font-family: var(--font-mono); }

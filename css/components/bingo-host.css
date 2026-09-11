@@ -1,0 +1,38 @@
+/* Panel del profesor para controlar el Bingo en vivo (admin-shell, pestana "Bingo") */
+
+.bingo-host-card{
+  max-width: 640px; background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 26px 24px; box-shadow: var(--shadow-card); margin: 0 0 20px;
+}
+
+.bingo-host-open-row{
+  display:flex; align-items:flex-end; gap: 10px; margin: 6px 0 18px; flex-wrap: wrap;
+}
+.bingo-host-open-row .modal-label{ display:block; margin-bottom: 6px; }
+.bingo-host-open-row .bingo-select{ min-width: 220px; }
+
+.bingo-host-live-head{
+  display:flex; align-items:center; justify-content:space-between; gap: 12px; flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.bingo-host-group-label{ font-family: var(--font-display); font-size: 14px; color: var(--text-secondary); margin-right: 10px; }
+.bingo-host-status-badge{
+  font-family: var(--font-display); font-weight:700; font-size: 12px; text-transform: uppercase;
+  letter-spacing: .03em; padding: 4px 10px; border-radius: 999px; background: var(--paper);
+  border: 1px solid var(--border); color: var(--text-secondary);
+}
+.bingo-host-status-badge.status-playing{ background: rgba(12,156,97,0.14); color: var(--green-dark); border-color: rgba(12,156,97,0.3); }
+.bingo-host-status-badge.status-paused{ background: rgba(217,114,12,0.14); color: var(--orange-dark); border-color: rgba(217,114,12,0.3); }
+.bingo-host-status-badge.status-lobby{ background: rgba(12,78,184,0.12); color: var(--blue-dark); border-color: rgba(12,78,184,0.28); }
+
+.bingo-host-roster{ display:flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+.bingo-roster-row{
+  display:flex; align-items:center; gap: 10px; background: var(--paper); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 8px 12px;
+}
+.bingo-roster-row.won{ border-color: var(--yellow); background: rgba(199,154,0,0.08); }
+.bingo-roster-row .bingo-roster-name{ flex: 1; max-width: none; font-family: var(--font-body); font-weight: normal; }
+
+@media (max-width: 560px){
+  .bingo-host-card{ padding: 20px 16px; }
+}

@@ -1,0 +1,16 @@
+/* Caja destacada de definicion al inicio de un tema (css/styles.css original: L260-L274) */
+/* ---- Definition hero (highlighted "What is a ___?" box at the top of a topic) ---- */
+.grammar-definition-hero{
+  background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark, #123a75) 100%);
+  border-radius: var(--radius-lg); padding: 28px 30px; margin-bottom: 24px;
+  color: #fff; box-shadow: var(--shadow-blue, 0 10px 26px rgba(12,78,184,0.28));
+}
+.grammar-definition-hero .eyebrow{ color: rgba(255,255,255,0.8); margin: 0 0 6px; }
+.grammar-definition-hero h2{ font-size: 24px; margin: 0 0 12px; color:#fff; }
+.grammar-definition-hero p{ font-size: 15px; line-height:1.55; color: rgba(255,255,255,0.92); margin: 0; max-width: 68ch; }
+.grammar-definition-examples{ display:flex; flex-wrap:wrap; gap:8px; margin-top: 16px; }
+.grammar-def-chip{
+  background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 999px; padding: 5px 14px; font-size: 13px; font-weight:600; color:#fff;
+}
+

@@ -1,0 +1,35 @@
+/* Breakpoints responsivos generales (css/styles.css original: L583-L616) */
+/* ============ RESPONSIVE ============ */
+@media (max-width: 860px){
+  .hero{ grid-template-columns: 1fr; gap: 32px; }
+  .features{ grid-template-columns: 1fr 1fr; }
+  .gates-grid{ grid-template-columns: 1fr 1fr; }
+  .lesson-layout{ grid-template-columns: 1fr; }
+  .progress-summary{ grid-template-columns: 1fr; }
+  .passport{ grid-template-columns: repeat(3,1fr); }
+  .admin-stats{ grid-template-columns: 1fr 1fr; }
+  .admin-toolbar .admin-search{ max-width: none; }
+}
+
+@media (max-width: 620px){
+  .main-nav{
+    position:absolute; top:100%; left:0; right:0; background: var(--blue-dark);
+    flex-direction:column; gap:0; max-height:0; overflow:hidden; transition: max-height .25s ease;
+  }
+  .main-nav.open{ max-height: 260px; }
+  .main-nav a{ padding: 14px 24px; border-bottom: 1px solid rgba(255,255,255,0.1); width:100%; }
+  .nav-toggle{ display:flex; }
+  main{ padding: 32px 18px 64px; }
+  .hero{ padding: 22px 18px 36px; }
+  .hero h1{ font-size: 28px; }
+  .features{ grid-template-columns: 1fr; }
+  .gates-grid{ grid-template-columns: 1fr 1fr; }
+  .boarding-pass{ flex-direction:column; }
+  .bp-stub{ flex-direction:row; border-left:none; border-top: 2px dashed var(--paper-line); width:100%; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
+  .view{ animation: none; }
+}
+

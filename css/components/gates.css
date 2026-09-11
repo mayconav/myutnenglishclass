@@ -1,0 +1,26 @@
+/* Puertas de embarque / niveles (A1-C2) (css/styles.css original: L427-L451) */
+/* ============ GATES / NIVELES ============ */
+.gates-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.gate-card{
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md);
+  padding: 20px; text-align:left; box-shadow: var(--shadow-card);
+  display:flex; flex-direction:column; gap: 10px; transition: border-color .15s ease, transform .12s ease;
+  border-left: 4px solid var(--blue-tint);
+}
+.gate-card:not(.locked):hover{ border-left-color: var(--red); transform: translateY(-2px); }
+.gate-top{ display:flex; align-items:center; justify-content:space-between; }
+.gate-code{ font-family: var(--font-display); font-size: 22px; font-weight:700; color: var(--blue); }
+.gate-status{ font-size: 11px; font-family: var(--font-display); font-weight:600; padding: 3px 9px; border-radius: 999px; }
+.gate-status.done{ background: rgba(12,156,97,0.14); color: var(--green-dark); }
+.gate-status.active{ background: rgba(226,20,27,0.10); color: var(--red); }
+.gate-status.locked{ background: rgba(141,146,150,0.14); color: var(--text-muted); }
+.gate-name{ font-family: var(--font-display); font-size: 14px; font-weight:600; margin:0; color: var(--ink); }
+.gate-desc{ font-size: 13px; color: var(--text-secondary); margin:0; }
+.gate-card.locked{ opacity: .6; }
+.gate-card.locked .gate-card-btn{ pointer-events:none; }
+.gate-card-btn{
+  align-self:flex-start; background: transparent; border: none; color: var(--blue);
+  font-size: 13px; font-weight:600; padding: 0; margin-top:auto;
+}
+.gate-card-btn:hover{ text-decoration: underline; }
+

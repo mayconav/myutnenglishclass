@@ -1,0 +1,90 @@
+<!-- ============ GAMES: VERB BINGO (sala en vivo controlada por el profesor) ============ -->
+<section class="view" id="view-juegos" data-view="juegos" hidden>
+  <div class="section-head">
+    <p class="eyebrow">Practice Games</p>
+    <h2>Verb Bingo</h2>
+    <p class="lead">Tu profesor controla la partida en vivo. Cuando abra la sala de tu grupo, crea tu avatar, escucha el verbo en su forma base (ej. "go") y marca su forma pasada en tu carton (ej. "went"). ¡El primero en completar una linea gana!</p>
+  </div>
+
+  <!-- PANTALLA: INVITADO (no ha iniciado sesion) -->
+  <div class="bingo-start-card" id="bingo-guest-screen">
+    <span class="bingo-start-icon" aria-hidden="true">🎯</span>
+    <h3>Inicia sesion para jugar</h3>
+    <p>El Bingo en vivo es exclusivo para alumnos registrados, ya que tu profesor controla la partida junto con tu grupo.</p>
+    <button type="button" class="btn btn-primary" id="bingo-guest-login-btn">Iniciar sesion</button>
+  </div>
+
+  <!-- PANTALLA: SALA CERRADA (logueado, pero sin partida activa para su grupo) -->
+  <div class="bingo-start-card" id="bingo-closed-screen" hidden>
+    <span class="bingo-start-icon" aria-hidden="true">⏳</span>
+    <h3>Esperando a tu profesor</h3>
+    <p id="bingo-closed-text">Tu profesor todavia no ha abierto una partida de Bingo.</p>
+  </div>
+
+  <!-- PANTALLA: CREAR AVATAR (la sala de su grupo esta abierta, aun no se ha unido) -->
+  <div class="bingo-start-card bingo-avatar-card" id="bingo-avatar-screen" hidden>
+    <span class="bingo-start-icon" aria-hidden="true">🎨</span>
+    <h3>¡Tu grupo esta jugando! Crea tu avatar</h3>
+    <p>Elige un emoji, un color y un apodo para que tus compañeros te reconozcan en la sala.</p>
+
+    <div class="bingo-avatar-preview-row">
+      <span class="bingo-avatar-badge bingo-avatar-badge-lg" id="bingo-avatar-preview">🦊</span>
+      <input type="text" id="bingo-avatar-nickname" class="modal-input bingo-nickname-input" placeholder="Tu apodo" maxlength="18">
+    </div>
+
+    <p class="bingo-settings-label">Elige un emoji</p>
+    <div class="bingo-avatar-options" id="bingo-avatar-emojis"></div>
+
+    <p class="bingo-settings-label">Elige un color</p>
+    <div class="bingo-color-options" id="bingo-avatar-colors"></div>
+
+    <button type="button" class="btn btn-primary" id="bingo-join-btn">Entrar a la sala</button>
+  </div>
+
+  <!-- PANTALLA: SALA EN VIVO (avatar creado; carton + cantador del profesor) -->
+  <div class="bingo-game" id="bingo-room-screen" hidden>
+    <div class="bingo-room-topbar">
+      <span class="bingo-room-status" id="bingo-room-status">—</span>
+      <label class="bingo-voice-toggle">
+        <input type="checkbox" id="bingo-voice-toggle" checked>
+        <span>Leer en voz alta</span>
+      </label>
+      <button type="button" class="btn btn-ghost-light btn-sm" id="bingo-leave-btn">Salir de la sala</button>
+    </div>
+
+    <p class="bingo-winner-banner" id="bingo-winner-banner" hidden></p>
+
+    <div class="bingo-caller-panel">
+      <div class="bingo-caller-info">
+        <span class="bingo-caller-label">Ahora canta</span>
+        <p class="bingo-caller-word" id="bingo-caller-word">—</p>
+      </div>
+    </div>
+
+    <p class="bingo-hint" id="bingo-hint" aria-live="polite"></p>
+
+    <div class="bingo-called-history" id="bingo-called-history" aria-live="off"></div>
+
+    <div class="bingo-board" id="bingo-board" role="grid" aria-label="Carton de Bingo"></div>
+
+    <div class="bingo-game-foot">
+      <span class="bingo-progress-label" id="bingo-progress-label">0 / 24 marcadas</span>
+    </div>
+
+    <p class="bingo-settings-label">Jugadores en la sala</p>
+    <div class="bingo-roster" id="bingo-roster"></div>
+  </div>
+
+  <!-- WIN MODAL -->
+  <div class="modal-overlay" id="bingo-win-modal" hidden>
+    <div class="modal-card congrats-card" role="dialog" aria-modal="true" aria-labelledby="bingo-win-title">
+      <div class="confetti" aria-hidden="true"></div>
+      <p class="congrats-emoji" aria-hidden="true">🎉</p>
+      <p class="modal-title" id="bingo-win-title">¡BINGO!</p>
+      <p class="congrats-text" id="bingo-win-text">Completaste una linea.</p>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-primary" id="bingo-win-close">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</section>
