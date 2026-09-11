@@ -13,27 +13,24 @@ service cloud.firestore {
       // El profesor (por correo) puede leer cualquiera.
       allow read: if request.auth != null
                   && (request.auth.uid == studentId
-                      || request.auth.token.email == "PROFESOR_EMAIL_AQUI");
+                      || request.auth.token.email == "maap044@gmail.com");
 
-      // Un estudiante puede actualizar su propio documento (ej. progreso, nombre de perfil)
+      // Un estudiante puede actualizar su propio documento (progreso, nombre, etc.)
       // pero NO puede tocar el campo "disabled" (eso es solo del profesor).
       // El profesor puede actualizar cualquier documento, incluyendo "disabled".
       allow update: if request.auth != null
                     && (
                          (request.auth.uid == studentId
                           && request.resource.data.disabled == resource.data.disabled)
-                         || request.auth.token.email == "PROFESOR_EMAIL_AQUI"
+                         || request.auth.token.email == "maap044@gmail.com"
                        );
 
-      // Las cuentas de estudiantes nunca se eliminan, ni el profesor ni ningún
-      // otro usuario puede borrar un registro. Para restringir el acceso de un
-      // estudiante se usa el campo "disabled" (ver regla de "update" arriba).
-      allow delete: if false;
+      // Solo el profesor puede eliminar registros de estudiantes.
+      allow delete: if request.auth != null
+                    && request.auth.token.email == "maap044@gmail.com";
     }
 
     // ============ BINGO EN VIVO (controlado por el profesor) ============
-    // Documento unico "current": solo puede existir UNA sala de Bingo activa
-    // a la vez (para el grupo que el profesor tenga enfrente en ese momento).
     match /bingoSessions/{sessionId} {
 
       // Cualquier persona autenticada (alumno o profesor) puede leer el
@@ -43,7 +40,7 @@ service cloud.firestore {
       // Solo el profesor controla la sala: abrirla, cambiar de grupo,
       // pausar/reanudar, cantar el siguiente verbo, reiniciar o cerrarla.
       allow write: if request.auth != null
-                   && request.auth.token.email == "PROFESOR_EMAIL_AQUI";
+                   && request.auth.token.email == "maap044@gmail.com";
 
       // Jugadores conectados a la sala (un documento por alumno).
       match /players/{studentId} {
@@ -60,7 +57,7 @@ service cloud.firestore {
         // remover a cualquiera o limpiar el roster al cerrar la sala.
         allow delete: if request.auth != null
                       && (request.auth.uid == studentId
-                          || request.auth.token.email == "PROFESOR_EMAIL_AQUI");
+                          || request.auth.token.email == "maap044@gmail.com");
       }
     }
   }
