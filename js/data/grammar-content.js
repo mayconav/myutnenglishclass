@@ -326,3 +326,119 @@
       ]
     }
   ];
+
+  /* ============ CONJUNCTIONS ============ */
+  GRAMMAR_CONTENT.conjunctions = {
+    label: "Conjunctions",
+    definitionTitle: "What Is a Conjunction?",
+    definition: "A conjunction is a word that connects words, phrases, or clauses within a sentence. Conjunctions show how ideas relate to each other &mdash; addition, contrast, cause, condition, choice, or time.",
+    definitionExamples: ["I like tea <strong>and</strong> coffee.", "She was tired, <strong>but</strong> she kept working.", "We stayed home <strong>because</strong> it was raining.", "<strong>Both</strong> Ana <strong>and</strong> Carlos passed."],
+    modules: [
+      {
+        title: "Types of Conjunctions",
+        objectives: [
+          "Recognize the main categories of conjunctions used in English.",
+          "Identify which type of conjunction connects a sentence.",
+          "Use each type correctly to link ideas in speaking and writing."
+        ],
+        rules: [
+          {
+            number: 1,
+            title: "Coordinating Conjunctions",
+            desc: "Join two words, phrases, or independent clauses of equal grammatical rank. Remember them with the acronym <strong>FANBOYS</strong>: for, and, nor, but, or, yet, so.",
+            table: [["and","addition"],["but","contrast"],["or","choice"],["so","result"],["yet","unexpected contrast"],["for","reason"],["nor","negative addition"]],
+            examples: ["She studies English <strong>and</strong> French.", "I wanted to go, <strong>but</strong> I had too much homework.", "He was tired, <strong>yet</strong> he finished his project."]
+          },
+          {
+            number: 2,
+            title: "Subordinating Conjunctions",
+            desc: "Introduce a dependent (subordinate) clause and connect it to an independent clause, often showing cause, condition, time, or contrast.",
+            table: [["because","reason"],["although","contrast"],["if / unless","condition"],["when / once","time"],["whereas","contrast between two facts"],["so that","purpose"]],
+            examples: ["I didn't go to class <strong>because</strong> I was sick.", "<strong>Although</strong> it was raining, we went to university.", "You won't pass the course <strong>unless</strong> you complete the required activities."]
+          },
+          {
+            number: 3,
+            title: "Correlative Conjunctions",
+            desc: "Work in pairs to connect balanced words, phrases, or clauses.",
+            table: [["both / and","adds two equal items"],["either / or","shows a choice"],["neither / nor","negates both options"],["whether / or","shows alternatives"]],
+            examples: ["<strong>Both</strong> John <strong>and</strong> Mary attended the meeting.", "You can <strong>either</strong> study for the exam <strong>or</strong> ask the teacher for help.", "<strong>Neither</strong> the teacher <strong>nor</strong> the students were prepared."]
+          },
+          {
+            number: 4,
+            title: "Conjunctive Adverbs",
+            desc: "Technically adverbs rather than true conjunctions, but they connect ideas between sentences the same way, often showing contrast, result, or addition. They are usually followed by a comma.",
+            table: [["however","contrast"],["nevertheless","contrast / concession"],["therefore","result"],["moreover","addition"]],
+            examples: ["He didn't study; <strong>nevertheless</strong>, he passed the exam.", "It was raining; <strong>however</strong>, we went to university."],
+            tip: "Unlike coordinating conjunctions, conjunctive adverbs usually join two separate sentences with a semicolon, not a comma alone."
+          }
+        ]
+      }
+    ]
+  };
+
+  /* Practice quizzes sent by Professor Aguilar. Multiple-choice, rendered
+     inside the same tabbed quiz box used for Nouns, Adjectives and Pronouns. */
+  GRAMMAR_CONTENT.conjunctions.practice = [
+    {
+      id: "conjunctions-quiz-1",
+      short: "Basic Conjunctions",
+      type: "mc",
+      title: "Quiz 1 — Basic Conjunctions",
+      instructions: "Choose the correct conjunction to complete each sentence.",
+      questions: [
+        { text: "I wanted to go to the party, _____ I had too much homework.", options: ["and", "but", "or", "so"], correct: 1 },
+        { text: "Sarah studies English _____ French.", options: ["but", "because", "and", "although"], correct: 2 },
+        { text: "You can study at home _____ go to the library.", options: ["or", "so", "because", "yet"], correct: 0 },
+        { text: "He was tired, _____ he finished his project.", options: ["for", "yet", "so", "and"], correct: 1 },
+        { text: "I didn't go to class _____ I was sick.", options: ["because", "but", "or", "and"], correct: 0 },
+        { text: "She studied hard, _____ she passed the exam.", options: ["but", "so", "or", "although"], correct: 1 },
+        { text: "_____ it was raining, we went to university.", options: ["Because", "Although", "And", "Or"], correct: 1 },
+        { text: "You must hurry _____ you will miss the bus.", options: ["and", "but", "or", "because"], correct: 2 },
+        { text: "I like coffee, _____ my brother prefers tea.", options: ["while", "because", "so", "and"], correct: 0 },
+        { text: "We stayed home _____ the weather was terrible.", options: ["because", "but", "or", "yet"], correct: 0 }
+      ]
+    },
+    {
+      id: "conjunctions-quiz-2",
+      short: "Different Types of Conjunctions",
+      type: "mc",
+      title: "Quiz 2 — Different Types of Conjunctions",
+      instructions: "Choose the best conjunction.",
+      questions: [
+        { text: "I will call you _____ I arrive home.", options: ["when", "but", "and", "or"], correct: 0 },
+        { text: "_____ John _____ Mary attended the meeting.", options: ["Either / nor", "Both / and", "Neither / or", "Whether / nor"], correct: 1 },
+        { text: "You can _____ study for the exam _____ ask the teacher for help.", options: ["both / and", "either / or", "neither / nor", "whether / or"], correct: 1 },
+        { text: "_____ the student was nervous, she gave an excellent presentation.", options: ["Because", "Although", "And", "So"], correct: 1 },
+        { text: "Neither the teacher _____ the students were prepared for the activity.", options: ["and", "or", "nor", "but"], correct: 2 },
+        { text: "I couldn't attend the class _____ I had a doctor's appointment.", options: ["because", "although", "but", "yet"], correct: 0 },
+        { text: "He didn't study; _____, he passed the exam.", options: ["because", "nevertheless", "and", "so"], correct: 1 },
+        { text: "She is _____ intelligent _____ hardworking.", options: ["either / or", "neither / nor", "both / and", "whether / or"], correct: 2 },
+        { text: "We can start the project _____ everyone agrees.", options: ["if", "but", "yet", "nor"], correct: 0 },
+        { text: "_____ you study regularly, you will improve your English.", options: ["Unless", "If", "Although", "Whereas"], correct: 1 }
+      ]
+    },
+    {
+      id: "conjunctions-quiz-3",
+      short: "University Context",
+      type: "mc",
+      title: "Quiz 3 — University Context",
+      instructions: "Choose the conjunction that best completes each sentence.",
+      questions: [
+        { text: "The students wanted to finish the project, _____ they needed more time.", options: ["so", "but", "because", "and"], correct: 1 },
+        { text: "_____ the professor explained the instructions twice, some students still had questions.", options: ["Although", "And", "So", "Or"], correct: 0 },
+        { text: "You should submit your assignment before Friday _____ you may lose points.", options: ["because", "or", "and", "but"], correct: 1 },
+        { text: "The students worked in teams _____ they could complete the research faster.", options: ["so that", "although", "whereas", "unless"], correct: 0 },
+        { text: "_____ the students _____ the professor knew about the schedule change.", options: ["Both / and", "Either / or", "Neither / nor", "Whether / and"], correct: 2 },
+        { text: "You can choose _____ the individual project _____ the team project.", options: ["both / and", "either / or", "neither / nor", "whether / and"], correct: 1 },
+        { text: "Maria studied for several hours, _____ she felt nervous before the exam.", options: ["because", "although", "yet", "so"], correct: 2 },
+        { text: "The teacher gave the students extra time _____ they could complete the activity.", options: ["so that", "but", "nor", "whereas"], correct: 0 },
+        { text: "_____ you don't understand the instructions, ask your professor for help.", options: ["Unless", "If", "Although", "Whereas"], correct: 1 },
+        { text: "Some students prefer working individually, _____ others prefer teamwork.", options: ["because", "whereas", "so", "and"], correct: 1 },
+        { text: "The students couldn't take the exam _____ they had not registered.", options: ["because", "but", "yet", "and"], correct: 0 },
+        { text: "_____ you finish the report, you can send it to your professor.", options: ["Once", "But", "Nor", "Yet"], correct: 0 },
+        { text: "The assignment was difficult, _____ the students completed it successfully.", options: ["for", "yet", "because", "so that"], correct: 1 },
+        { text: "You won't pass the course _____ you complete the required activities.", options: ["if", "unless", "although", "whereas"], correct: 1 },
+        { text: "_____ Ana _____ Carlos participated in the debate.", options: ["Neither / nor", "Both / and", "Either / nor", "Whether / and"], correct: 1 }
+      ]
+    }
+  ];
