@@ -25,6 +25,7 @@ js/
   data/
     levels-lessons.js           → contenido de niveles A1-C2 y lecciones
     grammar-content.js          → contenido de las lecciones de gramática
+    grammar-verbs-content.js    → tema "Verbs" (guía A2–B1: módulos + 3 quizzes)
   app/
     state.js, navigation.js,
     profile.js, boarding-pass.js,

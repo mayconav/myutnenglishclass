@@ -8,19 +8,28 @@
       "</div>" +
       '<p class="grammar-rule-desc">' + rule.desc + "</p>";
     if (rule.structure) html += '<div class="grammar-rule-structure">' + rule.structure + "</div>";
-    if (rule.table) html += grammarTableHtml(rule.table);
+    if (rule.table) html += grammarTableHtml(rule.table, rule.tableHead);
     if (rule.examples) html += grammarExamplesHtml(rule.examples);
     if (rule.table2Label) html += '<p class="grammar-rule-desc" style="margin-top:16px;"><strong>' + rule.table2Label + "</strong></p>";
-    if (rule.table2) html += grammarTableHtml(rule.table2);
+    if (rule.table2) html += grammarTableHtml(rule.table2, rule.table2Head);
     if (rule.examples2) html += grammarExamplesHtml(rule.examples2);
     if (rule.tip) html += '<div class="grammar-tip-box">💡 <strong>Grammar Tip:</strong> ' + rule.tip + "</div>";
     html += "</div>";
     return html;
   }
 
-  function grammarTableHtml(rows) {
-    var html = '<div class="material-table-wrap"><table class="material-table"><thead><tr><th>Singular</th><th>Plural</th></tr></thead><tbody>';
-    rows.forEach(function (r) { html += "<tr><td>" + r[0] + "</td><td>" + r[1] + "</td></tr>"; });
+  /* Tabla generica: `head` es opcional (por defecto Singular / Plural, como en Nouns)
+     y cada fila puede tener cualquier numero de columnas. */
+  function grammarTableHtml(rows, head) {
+    head = head || ["Singular", "Plural"];
+    var html = '<div class="material-table-wrap"><table class="material-table"><thead><tr>';
+    head.forEach(function (h) { html += "<th>" + h + "</th>"; });
+    html += "</tr></thead><tbody>";
+    rows.forEach(function (r) {
+      html += "<tr>";
+      r.forEach(function (cell) { html += "<td>" + cell + "</td>"; });
+      html += "</tr>";
+    });
     html += "</tbody></table></div>";
     return html;
   }
@@ -45,8 +54,10 @@
       html += "</ul></div>";
     }
 
-    html += '<p class="grammar-section-title">🧩 Grammar Rules</p>';
-    mod.rules.forEach(function (rule) { html += grammarRuleCardHtml(rule); });
+    if (mod.rules && mod.rules.length) {
+      html += '<p class="grammar-section-title">🧩 Grammar Rules</p>';
+      mod.rules.forEach(function (rule) { html += grammarRuleCardHtml(rule); });
+    }
 
     if (mod.commonMistakes) {
       html += '<p class="grammar-section-title">⚠ Common Mistakes</p><div class="grammar-mistakes-grid">';
@@ -59,15 +70,11 @@
 
     if (mod.quickReference) {
       html += '<p class="grammar-section-title">📄 Quick Reference Table</p>' +
-        '<div class="material-table-wrap"><table class="material-table"><thead><tr><th>Ending</th><th>Rule</th><th>Example</th></tr></thead><tbody>';
-      mod.quickReference.forEach(function (row) {
-        html += "<tr><td>" + row[0] + "</td><td>" + row[1] + "</td><td>" + row[2] + "</td></tr>";
-      });
-      html += "</tbody></table></div>";
+        grammarTableHtml(mod.quickReference, mod.quickReferenceHead || ["Ending", "Rule", "Example"]);
     }
 
     if (mod.memoryTips) {
-      html += '<p class="grammar-section-title">💡 Memory Tips</p><ul class="grammar-memory-list">';
+      html += '<p class="grammar-section-title">' + (mod.memoryTipsTitle || "💡 Memory Tips") + '</p><ul class="grammar-memory-list">';
       mod.memoryTips.forEach(function (t) { html += "<li>" + t + "</li>"; });
       html += "</ul>";
     }
@@ -537,8 +544,10 @@
         '<button type="button" class="btn btn-primary btn-sm grammar-practice-cta-btn" id="' + slug + '-cta-btn">Go to Quizzes ↓</button>' +
         "</div>";
     }
-    html += topic.modules.map(function (mod) {
-      return renderGrammarModule(mod, "Parts of Speech · " + (topic.label || ""));
+    html += topic.modules.map(function (mod, mi) {
+      var eyebrow = "Parts of Speech · " + (topic.label || "");
+      if (topic.modules.length > 1) eyebrow += " · Part " + (mi + 1) + " of " + topic.modules.length;
+      return renderGrammarModule(mod, eyebrow);
     }).join("");
     if (topic.practice && topic.practice.length) {
       html += '<div class="grammar-practice-section" id="' + slug + '-practice">' +
