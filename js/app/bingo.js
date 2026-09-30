@@ -54,6 +54,18 @@
   var bingoVoiceOn = true;
   var bingoAvatarPick = { emoji: BINGO_AVATAR_EMOJIS[0], color: BINGO_AVATAR_COLORS[0] };
 
+  /* ---- Estado de animaciones (solo visual, no se guarda) ---- */
+  var bingoBoardAnimKey = null;     // "sessionKey:round" del ultimo carton que entro animado
+  var bingoWaveKey = null;          // evita repetir la ola dorada en cada snapshot
+  var bingoLastHistoryTop = null;   // ultima ficha del historial (para animar solo la nueva)
+  var bingoKnownPlayers = null;     // uids ya vistos en el roster (para animar solo a los nuevos)
+  var bingoPrevCounts = {};         // uid -> casillas marcadas (para animar el contador)
+  var BINGO_CONFETTI_COLORS = ["#ffd166","#E2141B","#0C9C61","#3B74D6","#ffffff","#f2c230"];
+
+  function bingoMotionOk() {
+    return !(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  }
+
   function bingoSessionRef() { return db.collection("bingoSessions").doc("current"); }
   function bingoPlayersRef() { return bingoSessionRef().collection("players"); }
   function bingoMyPlayerRef() { return bingoPlayersRef().doc(bingoStudent.uid); }
@@ -96,7 +108,29 @@
   function renderBoard() {
     var grid = bingoEl("bingo-board");
     if (!grid || !bingoMyPlayer) return;
+    var animKey = bingoSession ? (bingoSession.sessionKey + ":" + bingoSession.round) : null;
+    var sig = animKey + "|" + bingoMyPlayer.board.join(",");
+    var existing = grid.querySelectorAll(".bingo-cell"); // sin contar capas de particulas
+    if (grid.dataset.sig === sig && existing.length === bingoMyPlayer.board.length) {
+      // Mismo carton: solo sincronizamos estado SIN reconstruir, para no cortar las animaciones en curso
+      Array.prototype.forEach.call(existing, function (cell, idx) {
+        if (bingoMyPlayer.marked[idx] && idx !== BINGO_FREE_INDEX) cell.classList.add("marked");
+      });
+      var syncLine = bingoMyPlayer.winLine || null;
+      if (syncLine) syncLine.forEach(function (idx, order) {
+        var c = existing[idx];
+        if (c && !c.classList.contains("line-win")) { c.style.setProperty("--w", order); c.classList.add("line-win"); }
+      });
+      updateProgressLabel();
+      return;
+    }
+    grid.dataset.sig = sig;
     grid.innerHTML = "";
+    var animateIn = bingoMotionOk() && animKey && animKey !== bingoBoardAnimKey;
+    if (animateIn) bingoBoardAnimKey = animKey;
+    var winLine = bingoMyPlayer.winLine || null;
+    var waveNow = !!(winLine && bingoMotionOk() && animKey !== bingoWaveKey);
+    if (waveNow) bingoWaveKey = animKey;
     bingoMyPlayer.board.forEach(function (key, idx) {
       var cell = document.createElement("button");
       cell.type = "button";
@@ -123,6 +157,20 @@
         cell.appendChild(wordEl);
       }
       if (bingoMyPlayer.marked[idx] && idx !== BINGO_FREE_INDEX) cell.classList.add("marked");
+      if (animateIn) {
+        cell.style.setProperty("--i", idx);
+        cell.classList.add("enter");
+        cell.addEventListener("animationend", function onEnd() {
+          cell.classList.remove("enter");
+          cell.removeEventListener("animationend", onEnd);
+        });
+      }
+      var lineOrder = winLine ? winLine.indexOf(idx) : -1;
+      if (lineOrder !== -1) {
+        cell.classList.add("line-win");
+        cell.style.setProperty("--w", lineOrder);
+        if (waveNow) cell.classList.add("wave");
+      }
       grid.appendChild(cell);
     });
     updateProgressLabel();
@@ -133,6 +181,7 @@
     if (!el || !bingoMyPlayer) return;
     var count = bingoMyPlayer.marked.filter(function (m) { return m; }).length - 1; // sin contar FREE
     el.textContent = count + " / 24 marcadas";
+    if (el.parentElement) el.parentElement.style.setProperty("--p", Math.max(count, 0) / 24);
   }
 
   function findCompletedLine(marked) {
@@ -157,6 +206,11 @@
       cell.classList.remove("bingo-shake");
       void cell.offsetWidth;
       cell.classList.add("bingo-shake");
+      cell.addEventListener("animationend", function onShakeEnd(ev) {
+        if (ev.animationName !== "bingoShake") return;
+        cell.classList.remove("bingo-shake");
+        cell.removeEventListener("animationend", onShakeEnd);
+      });
       setHint("Esa forma aun no ha sido cantada — ¡sigue escuchando!");
       return;
     }
@@ -165,6 +219,7 @@
     cell.classList.remove("bingo-dab");
     void cell.offsetWidth;
     cell.classList.add("bingo-dab");
+    bingoSparkBurst(cell);
     updateProgressLabel();
     setHint("");
 
@@ -181,12 +236,74 @@
   }
 
   function onLocalWin(line) {
-    line.forEach(function (idx) {
+    var animKey = bingoSession ? (bingoSession.sessionKey + ":" + bingoSession.round) : null;
+    if (animKey) bingoWaveKey = animKey; // la ola se dispara aqui, no en el re-render del snapshot
+    line.forEach(function (idx, order) {
       var cell = bingoEl("bingo-board") && bingoEl("bingo-board").querySelector('[data-index="' + idx + '"]');
-      if (cell) cell.classList.add("line-win");
+      if (!cell) return;
+      cell.style.setProperty("--w", order);
+      cell.classList.add("line-win");
+      cell.classList.remove("wave");
+      void cell.offsetWidth;
+      if (bingoMotionOk()) cell.classList.add("wave");
     });
     awardBingoXP();
-    setTimeout(function () { showWinModal(bingoStudent.nombre, true); }, 450);
+    setTimeout(function () { showWinModal(bingoStudent.nombre, true); }, bingoMotionOk() ? 900 : 450);
+  }
+
+  /* ============ EFECTOS VISUALES ============ */
+  /* Chispas que salen de la casilla recien marcada. */
+  function bingoSparkBurst(cell) {
+    if (!bingoMotionOk()) return;
+    var board = bingoEl("bingo-board");
+    if (!board || !cell) return;
+    var b = board.getBoundingClientRect();
+    var c = cell.getBoundingClientRect();
+    var layer = document.createElement("div");
+    layer.className = "bingo-burst";
+    layer.style.left = (c.left - b.left + c.width / 2) + "px";
+    layer.style.top = (c.top - b.top + c.height / 2) + "px";
+    var colors = ["#ffd166", "#ffffff", "#46e0a4", "#7FA8EA"];
+    var n = 10;
+    for (var i = 0; i < n; i++) {
+      var a = (Math.PI * 2 * i) / n + Math.random() * 0.5;
+      var dist = c.width * (0.75 + Math.random() * 0.65);
+      var dot = document.createElement("i");
+      dot.style.setProperty("--dx", Math.cos(a) * dist + "px");
+      dot.style.setProperty("--dy", Math.sin(a) * dist + "px");
+      dot.style.setProperty("--c", colors[i % colors.length]);
+      dot.style.setProperty("--t", (0.55 + Math.random() * 0.4) + "s");
+      dot.style.width = dot.style.height = (6 + Math.random() * 6) + "px";
+      layer.appendChild(dot);
+    }
+    board.appendChild(layer);
+    setTimeout(function () { if (layer.parentNode) layer.parentNode.removeChild(layer); }, 1200);
+  }
+
+  /* Confeti en capas dentro del modal + onda dorada a pantalla completa. */
+  function bingoCelebrate() {
+    if (!bingoMotionOk()) return;
+    var wave = document.createElement("div");
+    wave.className = "bingo-win-wave";
+    document.body.appendChild(wave);
+    setTimeout(function () { if (wave.parentNode) wave.parentNode.removeChild(wave); }, 1500);
+
+    var host = document.querySelector("#bingo-win-modal .confetti");
+    if (!host) return;
+    host.innerHTML = "";
+    for (var i = 0; i < 46; i++) {
+      var piece = document.createElement("span");
+      piece.className = "bingo-confetti-piece";
+      var side = (Math.random() - 0.5) * 2;
+      piece.style.setProperty("--dx", (side * (120 + Math.random() * 190)) + "px");
+      piece.style.setProperty("--dy", (-140 + Math.random() * 420) + "px");
+      piece.style.setProperty("--r", ((Math.random() - 0.5) * 900) + "deg");
+      piece.style.setProperty("--t", (1.4 + Math.random() * 1.2) + "s");
+      piece.style.setProperty("--d", (Math.random() * 0.25) + "s");
+      piece.style.setProperty("--c", BINGO_CONFETTI_COLORS[i % BINGO_CONFETTI_COLORS.length]);
+      if (i % 3 === 0) piece.style.borderRadius = "50%";
+      host.appendChild(piece);
+    }
   }
 
   function awardBingoXP() {
@@ -218,17 +335,21 @@
       ? "¡Completaste una linea y ganaste +" + BINGO_XP_PER_WIN + " XP!"
       : (nombreGanador || "Alguien") + " completo una linea primero. ¡Sera en la siguiente ronda!";
     bingoEl("bingo-win-modal").hidden = false;
+    var confettiHost = document.querySelector("#bingo-win-modal .confetti");
+    if (confettiHost) confettiHost.innerHTML = "";
+    if (soyYo) bingoCelebrate();
   }
   function hideWinModal() { bingoEl("bingo-win-modal").hidden = true; }
 
   /* ============ ROSTER (avatares de todos los jugadores) ============ */
   function avatarChipHtml(p, opts) {
     opts = opts || {};
+    var isNew = !!opts.isNew;
     var crown = p.wonAt ? '<span class="bingo-crown" title="Gano esta ronda">🏆</span>' : "";
     var count = (p.marked || []).filter(function (m) { return m; }).length - 1;
     var sub = opts.showCount ? '<span class="bingo-chip-count">' + Math.max(count, 0) + '/24</span>' : "";
     return (
-      '<span class="bingo-roster-chip' + (p.wonAt ? " won" : "") + '">' +
+      '<span class="bingo-roster-chip' + (p.wonAt ? " won" : "") + (isNew ? " joined" : "") + '">' +
       '<span class="bingo-avatar-badge" style="background:' + (p.avatarColor || "#0C4EB8") + '">' + (p.avatarEmoji || "🙂") + '</span>' +
       '<span class="bingo-roster-name">' + escapeHtmlBingo(p.nombre || "Alumno") + '</span>' +
       crown + sub +
@@ -247,9 +368,17 @@
     if (!wrap) return;
     var list = Object.keys(bingoPlayers).map(function (uid) { return bingoPlayers[uid]; });
     list.sort(function (a, b) { return (a.nombre || "").localeCompare(b.nombre || ""); });
+    var firstPaint = bingoKnownPlayers === null;
+    var seen = bingoKnownPlayers || {};
     wrap.innerHTML = list.length
-      ? list.map(function (p) { return avatarChipHtml(p, { showCount: true }); }).join("")
+      ? list.map(function (p) {
+          var isNew = !firstPaint && !seen[p.uid] && bingoMotionOk();
+          return avatarChipHtml(p, { showCount: true, isNew: isNew });
+        }).join("")
       : '<span class="bingo-roster-empty">Todavia no hay nadie en la sala.</span>';
+    var known = {};
+    list.forEach(function (p) { known[p.uid] = true; });
+    bingoKnownPlayers = known;
   }
 
   /* ============ PANTALLAS ============ */
@@ -285,15 +414,20 @@
       paused: "⏸️ Pausado por el profesor",
       ended: "🏁 Ronda terminada"
     };
-    if (statusEl) statusEl.textContent = statusLabels[bingoSession.status] || "";
+    if (statusEl) {
+      statusEl.textContent = statusLabels[bingoSession.status] || "";
+      statusEl.dataset.status = bingoSession.status || "";
+    }
     if (wordEl) wordEl.textContent = bingoSession.currentCall ? bingoCallLabel(bingoSession.currentCall) : "—";
 
     var called = (bingoSession.calledOrder || []).slice(-8).reverse();
     if (historyEl) {
       historyEl.innerHTML = called.map(function (key, i) {
-        return '<span class="bingo-chip' + (i === 0 ? " current" : "") + '">' + escapeHtmlBingo(bingoCallLabel(key)) + "</span>";
+        var fresh = i === 0 && key !== bingoLastHistoryTop && bingoLastHistoryTop !== null && bingoMotionOk();
+        return '<span class="bingo-chip' + (i === 0 ? " current" : "") + (fresh ? " fresh" : "") + '">' + escapeHtmlBingo(bingoCallLabel(key)) + "</span>";
       }).join("");
     }
+    bingoLastHistoryTop = called.length ? called[0] : "";
 
     var winner = bingoRoundWinner();
     var bannerEl = bingoEl("bingo-winner-banner");
@@ -318,6 +452,13 @@
       wordEl.classList.remove("bingo-call-pop");
       void wordEl.offsetWidth;
       wordEl.classList.add("bingo-call-pop");
+      var panel = wordEl.closest(".bingo-caller-panel");
+      if (panel && bingoMotionOk()) {
+        panel.classList.remove("bingo-call-flash");
+        void panel.offsetWidth;
+        panel.classList.add("bingo-call-flash");
+        setTimeout(function () { panel.classList.remove("bingo-call-flash"); }, 1000);
+      }
     }
   }
 
@@ -353,8 +494,16 @@
     });
     var preview = bingoEl("bingo-avatar-preview");
     if (preview) {
+      var avatarSig = bingoAvatarPick.emoji + bingoAvatarPick.color;
+      var changed = preview.dataset.sig !== undefined && preview.dataset.sig !== avatarSig;
+      preview.dataset.sig = avatarSig;
       preview.style.background = bingoAvatarPick.color;
       preview.textContent = bingoAvatarPick.emoji;
+      if (changed && bingoMotionOk()) {
+        preview.classList.remove("bump");
+        void preview.offsetWidth;
+        preview.classList.add("bump");
+      }
     }
   }
 
@@ -477,6 +626,10 @@
     bingoMyPlayer = null;
     bingoLastSpokenCall = null;
     bingoAnnouncedWinnerKey = null;
+    bingoBoardAnimKey = null;
+    bingoWaveKey = null;
+    bingoLastHistoryTop = null;
+    bingoKnownPlayers = null;
   }
 
   function setupBingoListeners() {
@@ -488,7 +641,7 @@
 
     bingoUnsubPlayers = bingoPlayersRef().onSnapshot(function (snap) {
       var next = {};
-      snap.forEach(function (d) { next[d.id] = d.data(); });
+      snap.forEach(function (d) { var v = d.data(); v.uid = d.id; next[d.id] = v; });
       bingoPlayers = next;
       renderScreen();
     }, function () {});

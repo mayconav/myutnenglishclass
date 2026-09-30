@@ -16,6 +16,13 @@
   var btUnsubPlayers = null;
   var btCallDeck = [];
   var btCallIndex = -1;
+  // Estado visual (solo animaciones)
+  var btLastCallShown = null;
+  var btLastHistoryTop = null;
+  var btKnownPlayers = null;
+  function btMotionOk() {
+    return !(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  }
 
   function btSessionRef() { return db.collection("bingoSessions").doc("current"); }
   function btPlayersRef() { return btSessionRef().collection("players"); }
@@ -184,6 +191,7 @@
     var hasOpenRoom = btSession && btSession.status !== "ended";
 
     if (!hasOpenRoom) {
+      btLastCallShown = null; btLastHistoryTop = null; btKnownPlayers = null;
       openCard.hidden = false;
       liveCard.hidden = true;
       var openBtn = bt$("bingo-host-open-btn");
@@ -208,11 +216,30 @@
     var speedSel = bt$("bingo-host-speed-select");
     if (speedSel && speedSel.value !== btSession.speed) speedSel.value = btSession.speed || "normal";
 
-    bt$("bingo-host-current-call").textContent = btSession.currentCall ? bingoCallLabel(btSession.currentCall) : "—";
+    liveCard.dataset.status = btSession.status || "";
+    var callEl = bt$("bingo-host-current-call");
+    callEl.textContent = btSession.currentCall ? bingoCallLabel(btSession.currentCall) : "—";
+    if (btSession.currentCall !== btLastCallShown) {
+      if (btLastCallShown !== null && btSession.currentCall && btMotionOk()) {
+        callEl.classList.remove("bingo-call-pop");
+        void callEl.offsetWidth;
+        callEl.classList.add("bingo-call-pop");
+        var panel = callEl.closest(".bingo-caller-panel");
+        if (panel) {
+          panel.classList.remove("bingo-call-flash");
+          void panel.offsetWidth;
+          panel.classList.add("bingo-call-flash");
+          setTimeout(function () { panel.classList.remove("bingo-call-flash"); }, 1000);
+        }
+      }
+      btLastCallShown = btSession.currentCall;
+    }
     var history = (btSession.calledOrder || []).slice(-10).reverse();
     bt$("bingo-host-history").innerHTML = history.map(function (key, i) {
-      return '<span class="bingo-chip' + (i === 0 ? " current" : "") + '">' + escapeHtmlBt(bingoCallLabel(key)) + "</span>";
+      var fresh = i === 0 && btLastHistoryTop !== null && key !== btLastHistoryTop && btMotionOk();
+      return '<span class="bingo-chip' + (i === 0 ? " current" : "") + (fresh ? " fresh" : "") + '">' + escapeHtmlBt(bingoCallLabel(key)) + "</span>";
     }).join("");
+    btLastHistoryTop = history.length ? history[0] : "";
 
     var winner = btRoundWinner();
     var bannerEl = bt$("bingo-host-winner-banner");
@@ -227,11 +254,14 @@
     var list = Object.keys(btPlayers).map(function (uid) { return btPlayers[uid]; });
     list.sort(function (a, b) { return (a.nombre || "").localeCompare(b.nombre || ""); });
     var rosterEl = bt$("bingo-host-roster");
+    var btSeen = btKnownPlayers || {};
+    var btFirst = btKnownPlayers === null;
     rosterEl.innerHTML = list.length
       ? list.map(function (p) {
           var count = (p.marked || []).filter(function (m) { return m; }).length - 1;
+          var isNew = !btFirst && !btSeen[p.uid] && btMotionOk();
           return (
-            '<div class="bingo-roster-row' + (p.wonAt ? " won" : "") + '">' +
+            '<div class="bingo-roster-row' + (p.wonAt ? " won" : "") + (isNew ? " joined" : "") + '">' +
             '<span class="bingo-avatar-badge" style="background:' + (p.avatarColor || "#0C4EB8") + '">' + (p.avatarEmoji || "🙂") + '</span>' +
             '<span class="bingo-roster-name">' + escapeHtmlBt(p.nombre || "Alumno") + '</span>' +
             '<span class="bingo-chip-count">' + Math.max(count, 0) + '/24</span>' +
@@ -240,6 +270,9 @@
           );
         }).join("")
       : '<p class="bingo-roster-empty">Ningun alumno se ha unido todavia.</p>';
+    var btKnown = {};
+    list.forEach(function (p) { btKnown[p.uid] = true; });
+    btKnownPlayers = btKnown;
   }
 
   /* ============ SUSCRIPCIONES ============ */
@@ -257,7 +290,7 @@
     });
     btUnsubPlayers = btPlayersRef().onSnapshot(function (snap) {
       var next = {};
-      snap.forEach(function (d) { next[d.id] = d.data(); });
+      snap.forEach(function (d) { var v = d.data(); v.uid = d.id; next[d.id] = v; });
       btPlayers = next;
       renderHostPanel();
     });
