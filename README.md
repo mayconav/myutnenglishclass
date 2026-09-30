@@ -26,6 +26,7 @@ js/
     levels-lessons.js           → contenido de niveles A1-C2 y lecciones
     grammar-content.js          → contenido de las lecciones de gramática
     grammar-verbs-content.js    → tema "Verbs" (guía A2–B1: módulos + 3 quizzes)
+    grammar-adverbs-content.js  → tema "Adverbs" (guía: 3 módulos + 2 quizzes)
   app/
     state.js, navigation.js,
     profile.js, boarding-pass.js,
