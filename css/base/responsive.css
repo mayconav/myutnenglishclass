@@ -33,3 +33,40 @@
   .view{ animation: none; }
 }
 
+
+
+/* ============ MOVIL: header compacto + anti-desbordamiento ============ */
+.header-inner{ gap: 10px; }
+.logo{ min-width: 0; }
+.logo-text{ min-width: 0; }
+.header-actions{ flex-shrink: 0; }
+
+@media (max-width: 860px){
+  .header-inner{ padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); }
+}
+
+@media (max-width: 620px){
+  .header-inner{ padding: 8px 12px; gap: 8px; }
+  .logo{ gap: 8px; flex: 1 1 auto; }
+  .logo-mark{ width: 32px; height: 32px; }
+  .logo-text .logo-name{ font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .logo-text .logo-tag{ font-size: 9.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .header-actions{ gap: 6px; }
+  .header-authed-actions{ gap: 6px; }
+  .icon-btn, .profile-chip{ width: 34px; height: 34px; font-size: 14px; }
+  .nav-toggle{ width: 34px; height: 34px; }
+  .student-name-chip{ display: none; }          /* el nombre ya se ve en el perfil */
+  .btn-header-auth{ padding: 7px 12px; font-size: 13px; }
+  main{ padding-left: max(14px, env(safe-area-inset-left)); padding-right: max(14px, env(safe-area-inset-right)); }
+}
+
+@media (max-width: 360px){
+  .logo-text .logo-tag{ display: none; }
+  .logo-text .logo-name{ font-size: 13px; }
+  .header-inner{ padding: 8px 10px; }
+}
+
+/* Celdas y textos largos nunca empujan el ancho de la pagina */
+main, .view, .material-block, .grammar-module{ min-width: 0; }
+h1, h2, h3, p, li, td, th{ overflow-wrap: anywhere; }
+input, select, textarea{ font-size: 16px; }     /* evita el zoom automatico de iOS */
