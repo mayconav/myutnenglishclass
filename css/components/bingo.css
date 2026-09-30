@@ -69,6 +69,9 @@
   cursor: pointer; transition: transform .12s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
 }
 .bingo-cell:hover{ border-color: var(--blue-light); transform: translateY(-2px); }
+.bingo-cell{ flex-direction: column; gap: 2px; overflow: hidden; }
+.bingo-cell-emoji{ font-size: clamp(18px, 5.4vw, 30px); line-height: 1; }
+.bingo-cell-word{ font-size: clamp(9px, 2.3vw, 13px); line-height: 1.1; }
 .bingo-cell.free{
   background: var(--blue-tint); color: var(--blue); border-color: var(--blue-light);
   font-size: 20px; cursor: default; transform:none;

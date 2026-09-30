@@ -107,7 +107,20 @@
         cell.textContent = "★";
         cell.disabled = true;
       } else {
-        cell.textContent = bingoCellText(key);
+        var word = bingoCellText(key);
+        var icon = bingoCellEmoji(key);
+        cell.setAttribute("aria-label", word);
+        if (icon) {
+          var iconEl = document.createElement("span");
+          iconEl.className = "bingo-cell-emoji";
+          iconEl.setAttribute("aria-hidden", "true");
+          iconEl.textContent = icon;
+          cell.appendChild(iconEl);
+        }
+        var wordEl = document.createElement("span");
+        wordEl.className = "bingo-cell-word";
+        wordEl.textContent = word;
+        cell.appendChild(wordEl);
       }
       if (bingoMyPlayer.marked[idx] && idx !== BINGO_FREE_INDEX) cell.classList.add("marked");
       grid.appendChild(cell);
