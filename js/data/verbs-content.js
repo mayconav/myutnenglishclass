@@ -263,17 +263,35 @@
   }
 
   /* Todas las "fichas" posibles del juego. */
-  function bingoEntryPool() {
+  /* Modos de partida que elige el profesor al abrir la sala:
+     "mixed" (regulares + irregulares), "regular" o "irregular".
+     Cualquier otro valor (o ninguno, como en salas viejas) se trata como "mixed". */
+  var BINGO_MODES = {
+    mixed: "Regulares + irregulares",
+    regular: "Solo regulares",
+    irregular: "Solo irregulares"
+  };
+  function bingoNormalizeMode(mode) {
+    return (mode === "regular" || mode === "irregular") ? mode : "mixed";
+  }
+  function bingoModeLabel(mode) { return BINGO_MODES[bingoNormalizeMode(mode)]; }
+
+  function bingoEntryPool(mode) {
+    mode = bingoNormalizeMode(mode);
     var out = [];
-    VERBS_REGULAR.forEach(function (v) {
-      out.push({ key: bingoMakeKey(v.base, "past"), base: v.base, form: "past", text: v.past });
-    });
-    VERBS_IRREGULAR.forEach(function (v) {
-      out.push({ key: bingoMakeKey(v.base, "past"), base: v.base, form: "past", text: v.past });
-      if (v.pp && v.pp !== v.past) {
-        out.push({ key: bingoMakeKey(v.base, "pp"), base: v.base, form: "pp", text: v.pp });
-      }
-    });
+    if (mode !== "irregular") {
+      VERBS_REGULAR.forEach(function (v) {
+        out.push({ key: bingoMakeKey(v.base, "past"), base: v.base, form: "past", text: v.past });
+      });
+    }
+    if (mode !== "regular") {
+      VERBS_IRREGULAR.forEach(function (v) {
+        out.push({ key: bingoMakeKey(v.base, "past"), base: v.base, form: "past", text: v.past });
+        if (v.pp && v.pp !== v.past) {
+          out.push({ key: bingoMakeKey(v.base, "pp"), base: v.base, form: "pp", text: v.pp });
+        }
+      });
+    }
     return out;
   }
 

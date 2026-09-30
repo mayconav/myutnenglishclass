@@ -37,8 +37,8 @@
   })();
 
   /* Fichas del juego: pasado simple y participio pasado (ver js/data/verbs-content.js). */
-  function bingoPool() {
-    return (typeof bingoEntryPool === "function") ? bingoEntryPool() : [];
+  function bingoPool(modo) {
+    return (typeof bingoEntryPool === "function") ? bingoEntryPool(modo) : [];
   }
 
   function bingoEl(id) { return document.getElementById(id); }
@@ -86,7 +86,8 @@
 
   /* ============ CARTON ============ */
   function buildBoard() {
-    var pool = shuffleArray(bingoPool().slice());
+    var modo = bingoNormalizeMode(bingoSession && bingoSession.modo); // tipo de partida elegido por el profesor (mixed/regular/irregular)
+    var pool = shuffleArray(bingoPool(modo).slice());
     // Sin palabras repetidas en un mismo carton (p. ej. dos casillas "saw")
     var seen = {};
     var picks = [];
@@ -96,11 +97,12 @@
       seen[t] = true;
       picks.push(pool[n]);
     }
-    // La casilla central (antes la estrella) ahora es una ficha mas, y es
-    // siempre un verbo irregular: si entre las elegidas no hay ninguna en esa
-    // posicion, se intercambia con la primera irregular que haya en el carton.
+    // La casilla central (antes la estrella) ahora es una ficha mas. En partidas
+    // mixtas es siempre un verbo irregular (se intercambia con la primera
+    // irregular del carton). En "solo regulares" / "solo irregulares" no hace
+    // falta: todo el carton ya es del mismo tipo.
     var irregularBases = {};
-    if (typeof VERBS_IRREGULAR !== "undefined") {
+    if (modo === "mixed" && typeof VERBS_IRREGULAR !== "undefined") {
       VERBS_IRREGULAR.forEach(function (v) { irregularBases[v.base] = true; });
     }
     var cIdx = -1;
@@ -443,7 +445,8 @@
       ended: "🏁 Ronda terminada"
     };
     if (statusEl) {
-      statusEl.textContent = statusLabels[bingoSession.status] || "";
+      var modeTxt = (typeof bingoModeLabel === "function") ? " · " + bingoModeLabel(bingoSession.modo) : "";
+      statusEl.textContent = (statusLabels[bingoSession.status] || "") + modeTxt;
       statusEl.dataset.status = bingoSession.status || "";
     }
     if (wordEl) wordEl.textContent = bingoSession.currentCall ? bingoCallLabel(bingoSession.currentCall) : "—";

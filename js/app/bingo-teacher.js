@@ -65,10 +65,13 @@
   }
 
   /* ============ ABRIR / CERRAR SALA ============ */
-  function openRoomForGroup(grupo) {
+  function openRoomForGroup(grupo, modo) {
     if (!grupo) return;
+    modo = (typeof bingoNormalizeMode === "function") ? bingoNormalizeMode(modo) : "mixed";
+    btCallDeck = []; btCallIndex = -1; // la baraja del cantador depende del tipo de partida
     btSessionRef().set({
       grupo: grupo,
+      modo: modo,
       status: "lobby",
       speed: "normal",
       sessionKey: String(Date.now()) + "-" + Math.random().toString(36).slice(2, 8),
@@ -111,7 +114,8 @@
 
   /* ============ CANTADOR (corre en el navegador del profesor) ============ */
   function bingoPoolForHost() {
-    return (typeof bingoEntryPool === "function") ? bingoEntryPool() : [];
+    var modo = (btSession && btSession.modo) || "mixed";
+    return (typeof bingoEntryPool === "function") ? bingoEntryPool(modo) : [];
   }
 
   function ensureCallDeck() {
@@ -202,7 +206,8 @@
     openCard.hidden = true;
     liveCard.hidden = false;
 
-    bt$("bingo-host-group-label").textContent = btSession.grupo;
+    bt$("bingo-host-group-label").textContent = btSession.grupo +
+      ((typeof bingoModeLabel === "function") ? " · " + bingoModeLabel(btSession.modo) : "");
     var statusLabels = { lobby: "En espera", playing: "Cantando", paused: "Pausado" };
     bt$("bingo-host-status-badge").textContent = statusLabels[btSession.status] || btSession.status;
     bt$("bingo-host-status-badge").className = "bingo-host-status-badge status-" + btSession.status;
@@ -343,7 +348,8 @@
     var sel = bt$("bingo-host-group-select");
     var grupo = sel && sel.value;
     if (!grupo) { setBtHint("Primero crea/asigna un grupo desde la pestana de Estudiantes."); return; }
-    openRoomForGroup(grupo);
+    var modeSel = bt$("bingo-host-mode-select");
+    openRoomForGroup(grupo, modeSel ? modeSel.value : "mixed");
   });
 
   var refreshGroupsBtn = bt$("bingo-host-refresh-groups-btn");
