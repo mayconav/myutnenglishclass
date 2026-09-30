@@ -35,16 +35,9 @@
     return lines;
   })();
 
+  /* Fichas del juego: pasado simple y participio pasado (ver js/data/verbs-content.js). */
   function bingoPool() {
-    var reg = (typeof VERBS_REGULAR !== "undefined") ? VERBS_REGULAR : [];
-    var irr = (typeof VERBS_IRREGULAR !== "undefined") ? VERBS_IRREGULAR : [];
-    return reg.concat(irr);
-  }
-
-  function bingoVerbByBase(base) {
-    var pool = bingoPool();
-    for (var i = 0; i < pool.length; i++) if (pool[i].base === base) return pool[i];
-    return null;
+    return (typeof bingoEntryPool === "function") ? bingoEntryPool() : [];
   }
 
   function bingoEl(id) { return document.getElementById(id); }
@@ -81,13 +74,21 @@
   /* ============ CARTON ============ */
   function buildBoard() {
     var pool = shuffleArray(bingoPool().slice());
-    var picks = pool.slice(0, BINGO_GRID_SIZE * BINGO_GRID_SIZE - 1);
-    var board = []; // guardamos solo el "base" de cada verbo + FREE como null
+    // Sin palabras repetidas en un mismo carton (p. ej. dos casillas "saw")
+    var seen = {};
+    var picks = [];
+    for (var n = 0; n < pool.length && picks.length < BINGO_GRID_SIZE * BINGO_GRID_SIZE - 1; n++) {
+      var t = pool[n].text.toLowerCase();
+      if (seen[t]) continue;
+      seen[t] = true;
+      picks.push(pool[n]);
+    }
+    var board = []; // guardamos la clave "base|forma" de cada casilla + FREE como null
     var marked = [];
     var p = 0;
     for (var i = 0; i < BINGO_GRID_SIZE * BINGO_GRID_SIZE; i++) {
       if (i === BINGO_FREE_INDEX) { board.push(null); marked.push(true); }
-      else { board.push(picks[p++].base); marked.push(false); }
+      else { board.push(picks[p++].key); marked.push(false); }
     }
     return { board: board, marked: marked };
   }
@@ -96,7 +97,7 @@
     var grid = bingoEl("bingo-board");
     if (!grid || !bingoMyPlayer) return;
     grid.innerHTML = "";
-    bingoMyPlayer.board.forEach(function (base, idx) {
+    bingoMyPlayer.board.forEach(function (key, idx) {
       var cell = document.createElement("button");
       cell.type = "button";
       cell.className = "bingo-cell";
@@ -106,8 +107,7 @@
         cell.textContent = "★";
         cell.disabled = true;
       } else {
-        var verb = bingoVerbByBase(base);
-        cell.textContent = verb ? verb.past : base;
+        cell.textContent = bingoCellText(key);
       }
       if (bingoMyPlayer.marked[idx] && idx !== BINGO_FREE_INDEX) cell.classList.add("marked");
       grid.appendChild(cell);
@@ -138,13 +138,13 @@
     if (!cell || cell.classList.contains("free")) return;
     var idx = Number(cell.dataset.index);
     if (bingoMyPlayer.marked[idx]) return;
-    var base = bingoMyPlayer.board[idx];
-    var called = (bingoSession && bingoSession.calledOrder) || [];
-    if (called.indexOf(base) === -1) {
+    var key = bingoNormalizeKey(bingoMyPlayer.board[idx]);
+    var called = ((bingoSession && bingoSession.calledOrder) || []).map(bingoNormalizeKey);
+    if (called.indexOf(key) === -1) {
       cell.classList.remove("bingo-shake");
       void cell.offsetWidth;
       cell.classList.add("bingo-shake");
-      setHint("Ese verbo aun no ha sido cantado — ¡sigue escuchando!");
+      setHint("Esa forma aun no ha sido cantada — ¡sigue escuchando!");
       return;
     }
     bingoMyPlayer.marked[idx] = true;
@@ -273,12 +273,12 @@
       ended: "🏁 Ronda terminada"
     };
     if (statusEl) statusEl.textContent = statusLabels[bingoSession.status] || "";
-    if (wordEl) wordEl.textContent = bingoSession.currentCall || "—";
+    if (wordEl) wordEl.textContent = bingoSession.currentCall ? bingoCallLabel(bingoSession.currentCall) : "—";
 
     var called = (bingoSession.calledOrder || []).slice(-8).reverse();
     if (historyEl) {
-      historyEl.innerHTML = called.map(function (base, i) {
-        return '<span class="bingo-chip' + (i === 0 ? " current" : "") + '">' + escapeHtmlBingo(base) + "</span>";
+      historyEl.innerHTML = called.map(function (key, i) {
+        return '<span class="bingo-chip' + (i === 0 ? " current" : "") + '">' + escapeHtmlBingo(bingoCallLabel(key)) + "</span>";
       }).join("");
     }
 
@@ -299,7 +299,7 @@
     if (!bingoSession || !bingoSession.currentCall) return;
     if (bingoSession.currentCall === bingoLastSpokenCall) return;
     bingoLastSpokenCall = bingoSession.currentCall;
-    speak(bingoSession.currentCall);
+    speak(bingoCallSpeech(bingoSession.currentCall));
     var wordEl = bingoEl("bingo-caller-word");
     if (wordEl) {
       wordEl.classList.remove("bingo-call-pop");

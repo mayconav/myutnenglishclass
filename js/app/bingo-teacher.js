@@ -104,9 +104,7 @@
 
   /* ============ CANTADOR (corre en el navegador del profesor) ============ */
   function bingoPoolForHost() {
-    var reg = (typeof VERBS_REGULAR !== "undefined") ? VERBS_REGULAR : [];
-    var irr = (typeof VERBS_IRREGULAR !== "undefined") ? VERBS_IRREGULAR : [];
-    return reg.concat(irr);
+    return (typeof bingoEntryPool === "function") ? bingoEntryPool() : [];
   }
 
   function ensureCallDeck() {
@@ -119,10 +117,10 @@
     if (!btSession || btSession.status === "ended") return;
     ensureCallDeck();
     btCallIndex++;
-    var verb = btCallDeck[btCallIndex];
-    var calledOrder = (btSession.calledOrder || []).concat([verb.base]);
+    var entry = btCallDeck[btCallIndex];
+    var calledOrder = (btSession.calledOrder || []).concat([entry.key]);
     btSessionRef().update({
-      currentCall: verb.base,
+      currentCall: entry.key,
       calledOrder: calledOrder,
       status: "playing",
       updatedAt: firebase.firestore.FieldValue.serverTimestamp()
@@ -210,10 +208,10 @@
     var speedSel = bt$("bingo-host-speed-select");
     if (speedSel && speedSel.value !== btSession.speed) speedSel.value = btSession.speed || "normal";
 
-    bt$("bingo-host-current-call").textContent = btSession.currentCall || "—";
+    bt$("bingo-host-current-call").textContent = btSession.currentCall ? bingoCallLabel(btSession.currentCall) : "—";
     var history = (btSession.calledOrder || []).slice(-10).reverse();
-    bt$("bingo-host-history").innerHTML = history.map(function (base, i) {
-      return '<span class="bingo-chip' + (i === 0 ? " current" : "") + '">' + escapeHtmlBt(base) + "</span>";
+    bt$("bingo-host-history").innerHTML = history.map(function (key, i) {
+      return '<span class="bingo-chip' + (i === 0 ? " current" : "") + '">' + escapeHtmlBt(bingoCallLabel(key)) + "</span>";
     }).join("");
 
     var winner = btRoundWinner();
