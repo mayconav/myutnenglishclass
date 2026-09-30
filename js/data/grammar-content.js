@@ -442,3 +442,128 @@
       ]
     }
   ];
+
+  /* ============ ARTICLES ============ */
+  GRAMMAR_CONTENT.articles = {
+    label: "Articles",
+    definitionTitle: "What Is an Article?",
+    definition: "An article is a word used before a noun to show whether the noun refers to something specific or general. Functionally, articles are classified as limiting adjectives or determiners because they modify nouns.",
+    definitionExamples: ["<strong>the</strong> book", "<strong>a</strong> cat", "<strong>an</strong> apple", "[Ø] music"],
+    modules: [
+      {
+        title: "Types of Articles",
+        objectives: [
+          "Identify the definite article, the indefinite articles, and the zero article.",
+          "Choose between a and an according to the sound (not the spelling) of the next word.",
+          "Decide when a noun needs no article at all.",
+          "Avoid common article mistakes made by Spanish-speaking learners."
+        ],
+        rules: [
+          {
+            number: 1,
+            title: "Definite Article (the)",
+            desc: "Points out a specific person, place, thing, or idea that is already known to the listener or reader. Use it with singular and plural countable nouns and with uncountable nouns when referring to a specific item.",
+            structure: "the + specific noun",
+            examples: [
+              "Please hand me <strong>the</strong> book on the table. (a specific book)",
+              "<strong>The</strong> sun rises in the east. (unique, specific entity)"
+            ]
+          },
+          {
+            number: 2,
+            title: "Indefinite Articles (a / an)",
+            desc: "Refer to general or non-specific members of a group or category. Use <strong>a</strong> before a consonant <em>sound</em> and <strong>an</strong> before a vowel <em>sound</em>.",
+            structure: "a + consonant sound  |  an + vowel sound",
+            tableHead: ["Article", "Used before", "Examples"],
+            table: [
+              ["a", "consonant sound", "a cat, a European trip (/juː/), a university"],
+              ["an", "vowel sound", "an apple, an hour (silent h), an honest person"]
+            ],
+            examples: [
+              "She ate <strong>an</strong> orange.",
+              "I bought <strong>a</strong> car."
+            ],
+            tip: "What matters is the <strong>sound</strong>, not the letter: <em>an hour</em> (silent \"h\") but <em>a university</em> (starts with /juː/)."
+          },
+          {
+            number: 3,
+            title: "Zero Article (No Article)",
+            desc: "Some nouns do not need an article at all. Use no article with plural countable nouns or uncountable nouns in a general sense, proper nouns (names of people, most countries, cities), and languages or academic subjects.",
+            structure: "[Ø] + general plural / uncountable / proper noun",
+            examples: [
+              "<strong>[Ø]</strong> Cats make great pets. (general statement about all cats)",
+              "I love listening to <strong>[Ø]</strong> music. (uncountable noun in general)",
+              "She lives in <strong>[Ø]</strong> Spain. (proper noun)"
+            ]
+          }
+        ],
+        commonMistakes: [
+          ["I read an book that you recommended to me.", "I read the book that you recommended to me."],
+          ["An dog barked all night long.", "A dog barked all night long."],
+          ["She wants to learn the Spanish.", "She wants to learn Spanish."],
+          ["He works as a engineer.", "He works as an engineer."],
+          ["We had a dinner at eight o'clock.", "We had dinner at eight o'clock."]
+        ],
+        commonMistakesNote: "Standard meal names (breakfast, lunch, dinner) do not take an article unless an adjective comes before them: <em>a delicious dinner</em>.",
+        quickReference: [
+          ["Definite", "the", "Specific nouns (singular, plural, uncountable)", "I saw the doctor yesterday."],
+          ["Indefinite", "a", "General singular countable nouns (consonant sound)", "I bought a car."],
+          ["Indefinite", "an", "General singular countable nouns (vowel sound)", "She ate an orange."],
+          ["Zero Article", "None", "General plurals, uncountable nouns, proper nouns", "Water is essential for life."]
+        ],
+        quickReferenceHead: ["Article Type", "Words", "Application", "Example Sentence"],
+        memoryTips: [
+          "<strong>the</strong> = a specific thing that both people already know.",
+          "<strong>a / an</strong> = one non-specific thing; check the <em>sound</em> of the next word.",
+          "<strong>[Ø]</strong> = general plurals, uncountable nouns, names, languages, and meals.",
+          "Sports do not take an article: <em>play basketball</em>."
+        ]
+      }
+    ]
+  };
+
+  /* Practice quizzes for Articles (multiple-choice, same tabbed quiz box as the other topics). */
+  GRAMMAR_CONTENT.articles.practice = [
+    {
+      id: "articles-quiz-1",
+      short: "Basic Identification",
+      type: "mc",
+      title: "Quiz 1 — Basic Identification (A, An, or The)",
+      instructions: "Choose the correct article for each sentence. Only one answer is correct.",
+      questions: [
+        { text: "I saw _____ owl sitting on the fence.", options: ["a", "an", "the", "Ø (no article)"], correct: 1 },
+        { text: "She bought _____ new car yesterday.", options: ["a", "an", "the", "Ø (no article)"], correct: 0 },
+        { text: "Could you close _____ door, please? It's getting cold.", options: ["a", "an", "the", "Ø (no article)"], correct: 2 },
+        { text: "He wants to study at _____ university in Europe.", options: ["a", "an", "the", "Ø (no article)"], correct: 0 },
+        { text: "_____ Earth revolves around the sun.", options: ["A", "An", "The", "Ø (no article)"], correct: 2 }
+      ]
+    },
+    {
+      id: "articles-quiz-2",
+      short: "Sound Rules & Zero Article",
+      type: "mc",
+      title: "Quiz 2 — Tricky Sound Rules & Zero Article",
+      instructions: "Choose a, an, the, or Ø (no article) to complete each sentence.",
+      questions: [
+        { text: "It took us nearly _____ hour to drive through traffic.", options: ["a", "an", "the", "Ø (no article)"], correct: 1 },
+        { text: "_____ honesty is an important moral virtue.", options: ["A", "An", "The", "Ø (no article)"], correct: 3 },
+        { text: "She is _____ European citizen living in France.", options: ["a", "an", "the", "Ø (no article)"], correct: 0 },
+        { text: "My brother plays _____ basketball after school.", options: ["a", "an", "the", "Ø (no article)"], correct: 3 },
+        { text: "He went to _____ hospital where his grandmother was admitted.", options: ["a", "an", "the", "Ø (no article)"], correct: 2 }
+      ]
+    },
+    {
+      id: "articles-quiz-3",
+      short: "Error Spotting",
+      type: "mc",
+      title: "Quiz 3 — Error Spotting",
+      instructions: "Each sentence below contains an article mistake. Choose the correct version of the sentence.",
+      questions: [
+        { text: "\"I read an book that you recommended to me.\"", options: ["I read a book that you recommended to me.", "I read the book that you recommended to me.", "I read book that you recommended to me.", "I read an the book that you recommended to me."], correct: 1 },
+        { text: "\"An dog barked all night long.\"", options: ["A dog barked all night long.", "The an dog barked all night long.", "An dogs barked all night long.", "Dog barked all night long."], correct: 0 },
+        { text: "\"She wants to learn the Spanish.\"", options: ["She wants to learn a Spanish.", "She wants to learn an Spanish.", "She wants to learn Spanish.", "She wants to learn the Spanishes."], correct: 2 },
+        { text: "\"He works as a engineer.\"", options: ["He works as an engineer.", "He works as the engineer.", "He works as engineer a.", "He works as a engineers."], correct: 0 },
+        { text: "\"We had a dinner at eight o'clock.\"", options: ["We had the a dinner at eight o'clock.", "We had an dinner at eight o'clock.", "We had dinner at eight o'clock.", "We had dinners at eight o'clock."], correct: 2 }
+      ]
+    }
+  ];
