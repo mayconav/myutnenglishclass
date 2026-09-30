@@ -10,7 +10,8 @@
 
   var BINGO_XP_PER_WIN = 25;
   var BINGO_GRID_SIZE = 5;
-  var BINGO_FREE_INDEX = 12; // centro de un grid 5x5 (0-indexado)
+  var BINGO_CENTER_INDEX = 12; // centro de un grid 5x5 (0-indexado): lleva un verbo irregular, ya no hay casilla libre
+  var BINGO_TOTAL_CELLS = BINGO_GRID_SIZE * BINGO_GRID_SIZE; // 25
   var BINGO_AVATAR_EMOJIS = ["🦊","🐼","🐸","🐵","🦁","🐯","🐨","🐰","🐧","🦄","🐙","🦖","🐢","🦉","🐝","🐬"];
   var BINGO_AVATAR_COLORS = ["#0C4EB8","#E2141B","#0C9C61","#7B3FA0","#D9720C","#C79A00","#8B5A2B","#3B74D6"];
 
@@ -89,20 +90,47 @@
     // Sin palabras repetidas en un mismo carton (p. ej. dos casillas "saw")
     var seen = {};
     var picks = [];
-    for (var n = 0; n < pool.length && picks.length < BINGO_GRID_SIZE * BINGO_GRID_SIZE - 1; n++) {
+    for (var n = 0; n < pool.length && picks.length < BINGO_TOTAL_CELLS; n++) {
       var t = pool[n].text.toLowerCase();
       if (seen[t]) continue;
       seen[t] = true;
       picks.push(pool[n]);
     }
-    var board = []; // guardamos la clave "base|forma" de cada casilla + FREE como null
+    // La casilla central (antes la estrella) ahora es una ficha mas, y es
+    // siempre un verbo irregular: si entre las elegidas no hay ninguna en esa
+    // posicion, se intercambia con la primera irregular que haya en el carton.
+    var irregularBases = {};
+    if (typeof VERBS_IRREGULAR !== "undefined") {
+      VERBS_IRREGULAR.forEach(function (v) { irregularBases[v.base] = true; });
+    }
+    var cIdx = -1;
+    for (var k = 0; k < picks.length; k++) {
+      if (irregularBases[picks[k].base]) { cIdx = k; break; }
+    }
+    if (cIdx > -1 && Object.keys(irregularBases).length) {
+      var tmp = picks[BINGO_CENTER_INDEX];
+      picks[BINGO_CENTER_INDEX] = picks[cIdx];
+      picks[cIdx] = tmp;
+    }
+    var board = []; // clave "base|forma" de cada casilla
     var marked = [];
-    var p = 0;
-    for (var i = 0; i < BINGO_GRID_SIZE * BINGO_GRID_SIZE; i++) {
-      if (i === BINGO_FREE_INDEX) { board.push(null); marked.push(true); }
-      else { board.push(picks[p++].key); marked.push(false); }
+    for (var i = 0; i < BINGO_TOTAL_CELLS; i++) {
+      board.push(picks[i].key);
+      marked.push(false);
     }
     return { board: board, marked: marked };
+  }
+
+  /* Casillas marcadas por un jugador. Ignora casillas null (cartones viejos
+     que todavia traian la estrella libre en el centro). */
+  function bingoMarkedCount(p) {
+    var board = (p && p.board) || [];
+    return (p && p.marked ? p.marked : []).filter(function (m, i) { return m && board[i] !== null; }).length;
+  }
+  function bingoCellTotal(p) {
+    var board = (p && p.board) || [];
+    var n = board.filter(function (k) { return k !== null; }).length;
+    return n || BINGO_TOTAL_CELLS;
   }
 
   function renderBoard() {
@@ -114,7 +142,7 @@
     if (grid.dataset.sig === sig && existing.length === bingoMyPlayer.board.length) {
       // Mismo carton: solo sincronizamos estado SIN reconstruir, para no cortar las animaciones en curso
       Array.prototype.forEach.call(existing, function (cell, idx) {
-        if (bingoMyPlayer.marked[idx] && idx !== BINGO_FREE_INDEX) cell.classList.add("marked");
+        if (bingoMyPlayer.marked[idx] && bingoMyPlayer.board[idx] !== null) cell.classList.add("marked");
       });
       var syncLine = bingoMyPlayer.winLine || null;
       if (syncLine) syncLine.forEach(function (idx, order) {
@@ -136,7 +164,7 @@
       cell.type = "button";
       cell.className = "bingo-cell";
       cell.dataset.index = idx;
-      if (idx === BINGO_FREE_INDEX) {
+      if (key === null) { // carton viejo con estrella: se sigue mostrando asi hasta la proxima ronda
         cell.classList.add("free");
         cell.textContent = "★";
         cell.disabled = true;
@@ -156,7 +184,7 @@
         wordEl.textContent = word;
         cell.appendChild(wordEl);
       }
-      if (bingoMyPlayer.marked[idx] && idx !== BINGO_FREE_INDEX) cell.classList.add("marked");
+      if (bingoMyPlayer.marked[idx] && key !== null) cell.classList.add("marked");
       if (animateIn) {
         cell.style.setProperty("--i", idx);
         cell.classList.add("enter");
@@ -179,9 +207,10 @@
   function updateProgressLabel() {
     var el = bingoEl("bingo-progress-label");
     if (!el || !bingoMyPlayer) return;
-    var count = bingoMyPlayer.marked.filter(function (m) { return m; }).length - 1; // sin contar FREE
-    el.textContent = count + " / 24 marcadas";
-    if (el.parentElement) el.parentElement.style.setProperty("--p", Math.max(count, 0) / 24);
+    var count = bingoMarkedCount(bingoMyPlayer);
+    var total = bingoCellTotal(bingoMyPlayer);
+    el.textContent = count + " / " + total + " marcadas";
+    if (el.parentElement) el.parentElement.style.setProperty("--p", count / total);
   }
 
   function findCompletedLine(marked) {
@@ -346,8 +375,7 @@
     opts = opts || {};
     var isNew = !!opts.isNew;
     var crown = p.wonAt ? '<span class="bingo-crown" title="Gano esta ronda">🏆</span>' : "";
-    var count = (p.marked || []).filter(function (m) { return m; }).length - 1;
-    var sub = opts.showCount ? '<span class="bingo-chip-count">' + Math.max(count, 0) + '/24</span>' : "";
+    var sub = opts.showCount ? '<span class="bingo-chip-count">' + bingoMarkedCount(p) + '/' + bingoCellTotal(p) + '</span>' : "";
     return (
       '<span class="bingo-roster-chip' + (p.wonAt ? " won" : "") + (isNew ? " joined" : "") + '">' +
       '<span class="bingo-avatar-badge" style="background:' + (p.avatarColor || "#0C4EB8") + '">' + (p.avatarEmoji || "🙂") + '</span>' +

@@ -258,13 +258,15 @@
     var btFirst = btKnownPlayers === null;
     rosterEl.innerHTML = list.length
       ? list.map(function (p) {
-          var count = (p.marked || []).filter(function (m) { return m; }).length - 1;
+          var tBoard = p.board || [];
+          var count = (p.marked || []).filter(function (m, i) { return m && tBoard[i] !== null; }).length;
+          var total = tBoard.filter(function (k) { return k !== null; }).length || 25;
           var isNew = !btFirst && !btSeen[p.uid] && btMotionOk();
           return (
             '<div class="bingo-roster-row' + (p.wonAt ? " won" : "") + (isNew ? " joined" : "") + '">' +
             '<span class="bingo-avatar-badge" style="background:' + (p.avatarColor || "#0C4EB8") + '">' + (p.avatarEmoji || "🙂") + '</span>' +
             '<span class="bingo-roster-name">' + escapeHtmlBt(p.nombre || "Alumno") + '</span>' +
-            '<span class="bingo-chip-count">' + Math.max(count, 0) + '/24</span>' +
+            '<span class="bingo-chip-count">' + count + '/' + total + '</span>' +
             (p.wonAt ? '<span class="bingo-crown">🏆</span>' : "") +
             '</div>'
           );
