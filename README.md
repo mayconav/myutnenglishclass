@@ -28,6 +28,7 @@ js/
     grammar-verbs-content.js    → tema "Verbs" (guía A2–B1: módulos + 3 quizzes)
     grammar-adverbs-content.js  → tema "Adverbs" (guía: 3 módulos + 2 quizzes)
     grammar-prepositions-content.js → tema "Prepositions" (guía: 3 módulos + 2 quizzes)
+    grammar-interjections-content.js → tema "Interjections" (guía: 4 módulos + 1 quiz)
   app/
     state.js, navigation.js,
     profile.js, boarding-pass.js,
