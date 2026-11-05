@@ -540,7 +540,7 @@
     if (topic.practice && topic.practice.length) {
       html += '<div class="grammar-practice-cta">' +
         '<span class="grammar-practice-cta-text">🎯 <strong>New!</strong> Practice what you learn here with ' +
-          topic.practice.length + ' interactive quizzes.</span>' +
+          topic.practice.length + (topic.practice.length === 1 ? ' interactive quiz.' : ' interactive quizzes.') + '</span>' +
         '<button type="button" class="btn btn-primary btn-sm grammar-practice-cta-btn" id="' + slug + '-cta-btn">Go to Quizzes ↓</button>' +
         "</div>";
     }

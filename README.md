@@ -26,7 +26,9 @@ js/
     levels-lessons.js           → contenido de niveles A1-C2 y lecciones
     grammar-content.js          → contenido de las lecciones de gramática
     grammar-verbs-content.js    → tema "Verbs" (guía A2–B1: módulos + 3 quizzes)
-    grammar-simple-tenses-content.js → tema "Simple Tenses" (Present/Past/Future: 3 unidades + 3 quizzes)
+    grammar-present-simple-content.js → tema "Present Simple" (1 unidad + 1 quiz)
+    grammar-past-simple-content.js    → tema "Past Simple" (1 unidad + 1 quiz)
+    grammar-future-will-content.js    → tema "Future with Will" (1 unidad + 1 quiz)
     grammar-adverbs-content.js  → tema "Adverbs" (guía: 3 módulos + 2 quizzes)
     grammar-prepositions-content.js → tema "Prepositions" (guía: 3 módulos + 2 quizzes)
     grammar-interjections-content.js → tema "Interjections" (guía: 4 módulos + 1 quiz)
