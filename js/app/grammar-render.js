@@ -545,7 +545,7 @@
         "</div>";
     }
     html += topic.modules.map(function (mod, mi) {
-      var eyebrow = "Parts of Speech · " + (topic.label || "");
+      var eyebrow = (topic.eyebrowPrefix || "Parts of Speech") + " · " + (topic.label || "");
       if (topic.modules.length > 1) eyebrow += " · Part " + (mi + 1) + " of " + topic.modules.length;
       return renderGrammarModule(mod, eyebrow);
     }).join("");
