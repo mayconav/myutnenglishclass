@@ -499,7 +499,7 @@
     var colorWrap = bingoEl("bingo-avatar-colors");
     if (emojiWrap && !emojiWrap.dataset.built) {
       emojiWrap.innerHTML = BINGO_AVATAR_EMOJIS.map(function (em) {
-        return '<button type="button" class="bingo-avatar-option" data-emoji="' + em + '" aria-label="' + em.replace(/-/g, " ") + '">' + UTNIcons.svg(em) + "</button>";
+        return '<button type="button" class="bingo-avatar-option" data-emoji="' + em + '" aria-label="' + em.replace(/-/g, " ") + '">' + UTNIcons.avatar(em) + "</button>";
       }).join("");
       emojiWrap.dataset.built = "1";
     }

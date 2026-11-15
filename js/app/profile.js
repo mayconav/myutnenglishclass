@@ -2,7 +2,7 @@
 /* Perfil del estudiante (avatar) (app.js original: L388-L435) */
   /* ============ PROFILE ============ */
   /* Avatars are stored as icon names; older profiles saved an emoji, so normalize. */
-  function normAvatar(v) { return UTNIcons.has(v) ? v : (UTNIcons.legacy[v] || "graduation-cap"); }
+  function normAvatar(v) { return UTNIcons.has(v) ? v : (UTNIcons.legacy[v] || "owl"); }
   var avatarGrid = document.getElementById("avatar-grid");
   var selectedAvatar = normAvatar(state.profile.avatar);
 

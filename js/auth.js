@@ -11,7 +11,7 @@
       currentLevelIndex: 0,
       completedLessons: [],
       stamps: [],
-      profile: { name: name || "UTN Student", avatar: "graduation-cap" },
+      profile: { name: name || "UTN Student", avatar: "owl" },
       congratsShown: false
     };
   }
