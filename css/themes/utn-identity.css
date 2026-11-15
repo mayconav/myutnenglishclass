@@ -386,3 +386,21 @@ main:has(#view-inicio:not([hidden])){ padding-top: 0; }   /* la portada arranca 
 .bp-icon .avatar-art{ width:34px; height:34px; }
 .avatar-option{ transition: transform .15s ease, border-color .15s ease; }
 .avatar-option:hover{ transform: translateY(-2px); }
+
+/* ============ BINGO CARD: verb illustrations on pastel discs ============ */
+.bingo-cell-emoji{
+  display:inline-flex; align-items:center; justify-content:center; flex-shrink:0;
+  width: clamp(28px, 8.2vw, 42px); height: clamp(28px, 8.2vw, 42px); border-radius: 50%;
+  font-size: clamp(15px, 4.4vw, 23px); line-height:1;
+  box-shadow: inset 0 0 0 1px rgba(15,35,80,.06);
+  transition: transform .15s ease;
+}
+.bingo-cell:hover .bingo-cell-emoji{ transform: scale(1.08); }
+.bingo-cell-emoji.tint-0{ background:#E3ECFB; }
+.bingo-cell-emoji.tint-1{ background:#FDE6E7; }
+.bingo-cell-emoji.tint-2{ background:#DDF3E8; }
+.bingo-cell-emoji.tint-3{ background:#FFF1CC; }
+.bingo-cell-emoji.tint-4{ background:#EEE5FA; }
+.bingo-cell-emoji.tint-5{ background:#DDF1F4; }
+.bingo-cell.marked .bingo-cell-emoji{ background: rgba(255,255,255,.92); box-shadow:none; }
+:root[data-theme="dark"] .bingo-cell:not(.marked) .bingo-cell-emoji{ box-shadow: inset 0 0 0 1px rgba(255,255,255,.08); }

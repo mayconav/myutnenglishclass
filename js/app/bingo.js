@@ -178,6 +178,10 @@
           var iconEl = document.createElement("span");
           iconEl.className = "bingo-cell-emoji";
           iconEl.setAttribute("aria-hidden", "true");
+          // Soft pastel disc behind each illustration; the tint is stable per verb.
+          var tintSeed = 0;
+          for (var ti = 0; ti < word.length; ti++) tintSeed = (tintSeed * 31 + word.charCodeAt(ti)) % 6;
+          iconEl.classList.add("tint-" + tintSeed);
           iconEl.textContent = icon;
           cell.appendChild(iconEl);
         }
