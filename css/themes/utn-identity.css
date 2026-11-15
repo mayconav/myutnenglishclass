@@ -342,3 +342,36 @@ main:has(#view-inicio:not([hidden])){ padding-top: 0; }   /* la portada arranca 
   .logo-mark{ width: 36px; height: 36px; }
   .footer-bottom{ flex-direction: column; align-items: flex-start; }
 }
+
+/* ============ ICON SYSTEM (replaces emoji) ============ */
+.icon{ width:1.1em; height:1.1em; flex-shrink:0; display:inline-block; vertical-align:-0.17em; }
+.group-tab .icon, .grammar-template-item .icon, .speak-btn .icon, .skill-back .icon, .grammar-back .icon{ width:16px; height:16px; margin-right:6px; vertical-align:-3px; }
+.icon-btn .icon, .password-toggle .icon, .auth-close .icon{ width:18px; height:18px; vertical-align:middle; }
+.theme-toggle-icon .icon, #profile-chip-avatar .icon{ width:18px; height:18px; vertical-align:middle; }
+.feature-icon .icon{ width:26px; height:26px; }
+.bp-icon .icon{ width:22px; height:22px; }
+.skills-stat-icon .icon{ width:22px; height:22px; }
+.skill-card-icon .icon{ width:26px; height:26px; }
+.bingo-start-icon .icon{ width:44px; height:44px; color: var(--blue); }
+.congrats-emoji .icon{ width:56px; height:56px; color: var(--gold, #C99A2E); }
+.grammar-template-icon .icon{ width:28px; height:28px; }
+.grammar-section-title .icon, .quiz-heading .icon, .eyebrow .icon, .grammar-objectives p .icon{ width:16px; height:16px; margin-right:6px; vertical-align:-2px; }
+.grammar-tip-box .icon, .grammar-practice-cta-text .icon, .grammar-note .icon{ width:16px; height:16px; margin-right:4px; vertical-align:-3px; }
+.grammar-mistake .icon{ width:15px; height:15px; margin-right:4px; vertical-align:-2px; }
+.grammar-mistake .wrong .icon{ color: var(--red); } .grammar-mistake .right .icon{ color: var(--green); }
+.quiz-box-howto-icon .icon{ width:16px; height:16px; }
+.avatar-option .icon, .bingo-avatar-option .icon{ width:22px; height:22px; }
+.bingo-avatar-badge .icon{ width:.58em; height:.58em; color:#fff; vertical-align:middle; }
+.player-visual #player-icon .icon{ width:48px; height:48px; }
+.player-play .icon{ width:22px; height:22px; }
+.bingo-crown .icon{ width:16px; height:16px; color: var(--gold, #C99A2E); }
+.bingo-banner .icon{ width:18px; height:18px; vertical-align:-3px; margin-right:4px; }
+/* CSS-generated glyphs */
+.grammar-examples li::before, .grammar-topic::before, .grammar-topic.has-content::before{
+  content:""; display:inline-block; background: currentColor; -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat; -webkit-mask-position:center; mask-position:center; -webkit-mask-size:contain; mask-size:contain; }
+.grammar-examples li::before{ width:12px; height:12px; top:.35em; -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' focusable='false'%3E%3Cpath d='M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z'/%3E%3C/svg%3E"); mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' focusable='false'%3E%3Cpath d='M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z'/%3E%3C/svg%3E"); opacity:.6; }
+.grammar-topic::before{ width:11px; height:11px; margin-right:6px; vertical-align:-1px; -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' focusable='false'%3E%3Crect x='3' y='11' width='18' height='11' rx='2'/%3E%3Cpath d='M7 11V7a5 5 0 0 1 10 0v4'/%3E%3C/svg%3E"); mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' focusable='false'%3E%3Crect x='3' y='11' width='18' height='11' rx='2'/%3E%3Cpath d='M7 11V7a5 5 0 0 1 10 0v4'/%3E%3C/svg%3E"); opacity:.5; }
+.grammar-topic.has-content::before{ -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' focusable='false'%3E%3Cpath d='M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z'/%3E%3Cpath d='M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z'/%3E%3C/svg%3E"); mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true' focusable='false'%3E%3Cpath d='M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z'/%3E%3Cpath d='M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z'/%3E%3C/svg%3E"); opacity:.9; }
+.grammar-topic.has-quiz::after{ content:""; background: var(--red); }
+.grammar-topic.has-quiz::after{ background-image: none; }
+.grammar-topic.has-quiz::before{ }

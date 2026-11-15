@@ -5,7 +5,7 @@
    subir ni descargar.
    - Tocar cualquiera de las tres formas (Base / Past Simple / Past Participle)
      pronuncia solo esa palabra.
-   - El boton 🔊 de cada fila pronuncia las tres formas en orden. */
+   - El boton de audio de cada fila pronuncia las tres formas en orden. */
 (function () {
   var groups = document.getElementById("material-groups");
   if (!groups || !("speechSynthesis" in window)) return;
@@ -53,7 +53,7 @@
     btn.className = "material-speak-btn";
     btn.setAttribute("aria-label", "Escuchar " + words[0].trim() + ", " + words[1].trim() + ", " + words[2].trim());
     btn.title = "Escuchar las 3 formas";
-    btn.textContent = "🔊";
+    btn.innerHTML = UTNIcons.svg("volume");
     btn.addEventListener("click", function (e) { e.stopPropagation(); say(words); });
     cells[0].appendChild(btn);
   });

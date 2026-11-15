@@ -96,7 +96,7 @@
           ["They studies together.","They study together."],
           ["Maria watch TV at night.","Maria watches TV at night."]
         ],
-        memoryTipsTitle: "📌 Important Notes — Simple Present",
+        memoryTipsTitle: "Important Notes — Simple Present",
         memoryTips: [
           "Use the <strong>base form</strong> of the verb with I, you, we, they. <em>I study. They work.</em>",
           "With he, she, it add <strong>-s / -es</strong>. <em>She studies. He watches.</em>",

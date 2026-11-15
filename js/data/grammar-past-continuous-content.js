@@ -75,7 +75,7 @@
           ["They were run.", "They were running."],
           ["I was sleep when you called.", "I was sleeping when you called."]
         ],
-        memoryTipsTitle: "📌 Important Notes — Past Continuous",
+        memoryTipsTitle: "Important Notes — Past Continuous",
         memoryTips: [
           "Past continuous = <strong>was / were + verb-ing</strong>. <em>They were working.</em>",
           "Use <strong>was</strong> with I / he / she / it and <strong>were</strong> with you / we / they.",

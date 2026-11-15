@@ -6,7 +6,7 @@
   function reloadAppState() {
     state = loadProgress();
     activeLevelIndex = state.currentLevelIndex;
-    selectedAvatar = state.profile.avatar;
+    selectedAvatar = normAvatar(state.profile.avatar);
     updateBoardingPass();
     updateProfileUI();
     var currentView = document.querySelector(".view:not([hidden])");

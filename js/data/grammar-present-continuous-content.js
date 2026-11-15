@@ -91,7 +91,7 @@
           ["He doesn't working.", "He isn't working."],
           ["I am understanding the lesson.", "I understand the lesson."]
         ],
-        memoryTipsTitle: "📌 Important Notes — Present Continuous",
+        memoryTipsTitle: "Important Notes — Present Continuous",
         memoryTips: [
           "Continuous = <strong>BE + verb-ing</strong>. Do not omit BE. <em>She is studying.</em>",
           "Use <strong>am</strong> with I, <strong>is</strong> with he / she / it, and <strong>are</strong> with you / we / they.",

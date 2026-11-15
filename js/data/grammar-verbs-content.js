@@ -649,9 +649,9 @@
             desc: "When <strong>do, does, or did</strong> is the auxiliary in a question or negative sentence, the main verb returns to its <strong>base form</strong>. This is one of the most important rules for A2 learners.",
             tableHead: ["Sentence", "Correct", "Incorrect"],
             table: [
-              ["Present", "Does she <strong>work</strong> here?", "❌ Does she works here?"],
-              ["Past", "Did he <strong>go</strong> home?", "❌ Did he went home?"],
-              ["Negative", "She didn't <strong>study</strong>.", "❌ She didn't studied."]
+              ["Present", "Does she <strong>work</strong> here?", "✗ Does she works here?"],
+              ["Past", "Did he <strong>go</strong> home?", "✗ Did he went home?"],
+              ["Negative", "She didn't <strong>study</strong>.", "✗ She didn't studied."]
             ]
           },
           {
@@ -702,7 +702,7 @@
           ["Infinitive", "She wants to work."],
           ["Gerund", "She enjoys working."]
         ],
-        memoryTipsTitle: "⭐ Master Rules for English Verbs",
+        memoryTipsTitle: "Master Rules for English Verbs",
         memoryTips: [
           "<strong>Rule 1:</strong> He / She / It + verb-s in the simple present. <em>She works.</em>",
           "<strong>Rule 2:</strong> After do / does / did, use the base verb. <em>Did you go?</em>",

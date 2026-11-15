@@ -64,7 +64,7 @@
 <!-- ============ AUTH GATE (login / register) — shown only when needed ============ -->
 <div class="auth-gate" id="auth-gate" hidden>
   <div class="auth-card">
-    <button type="button" class="auth-close" id="auth-close" aria-label="Close">✕</button>
+    <button type="button" class="auth-close" id="auth-close" aria-label="Close"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
     <div class="auth-brand">
       <img class="logo-mark" src="img/logo.png" alt="MyUTNEnglishClass logo">
       <span class="logo-text">
@@ -80,7 +80,7 @@
 
     <p class="auth-error" id="auth-error" hidden></p>
     <p class="auth-config-warning" id="auth-config-warning" hidden>
-      ⚠️ Firebase setup is incomplete. Check <strong>SETUP.md</strong> (step 5) and
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m21.7 18-8-14a2 2 0 0 0-3.4 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-3z"/><path d="M12 9v4M12 17h.01"/></svg> Firebase setup is incomplete. Check <strong>SETUP.md</strong> (step 5) and
       paste your real values into <code>js/firebase-config.js</code>.
     </p>
 
@@ -90,7 +90,7 @@
       <label class="modal-label" for="login-password">Password</label>
       <div class="password-field">
         <input type="password" id="login-password" class="modal-input" placeholder="••••••••" required autocomplete="current-password">
-        <button type="button" class="password-toggle" data-target="login-password" aria-label="Show password">👁</button>
+        <button type="button" class="password-toggle" data-target="login-password" aria-label="Show password"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button>
       </div>
       <a href="#" class="auth-link" id="forgot-password">Forgot your password?</a>
       <button type="submit" class="btn btn-primary auth-submit" id="login-submit">Log In</button>
@@ -107,12 +107,12 @@
       <label class="modal-label" for="reg-password">Password</label>
       <div class="password-field">
         <input type="password" id="reg-password" class="modal-input" placeholder="Minimum 6 characters" required autocomplete="new-password">
-        <button type="button" class="password-toggle" data-target="reg-password" aria-label="Show password">👁</button>
+        <button type="button" class="password-toggle" data-target="reg-password" aria-label="Show password"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button>
       </div>
       <label class="modal-label" for="reg-password2">Confirm Password</label>
       <div class="password-field">
         <input type="password" id="reg-password2" class="modal-input" placeholder="Repeat your password" required autocomplete="new-password">
-        <button type="button" class="password-toggle" data-target="reg-password2" aria-label="Show password">👁</button>
+        <button type="button" class="password-toggle" data-target="reg-password2" aria-label="Show password"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button>
       </div>
       <button type="submit" class="btn btn-primary auth-submit" id="register-submit">Create Account</button>
       <p class="auth-hint">This registration is exclusive to students. The teacher has a separate account created by the system administrator.</p>
@@ -134,16 +134,16 @@
       <div class="admin-header-actions">
         <span class="student-name-chip" id="admin-name"></span>
         <button class="icon-btn theme-toggle-btn" id="admin-theme-toggle" aria-label="Toggle theme" title="Toggle theme">
-          <span class="theme-toggle-icon" id="admin-theme-toggle-icon">🌙</span>
+          <span class="theme-toggle-icon" id="admin-theme-toggle-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></svg></span>
         </button>
-        <button class="icon-btn" id="admin-logout-btn" aria-label="Log out" title="Log out">⏻</button>
+        <button class="icon-btn" id="admin-logout-btn" aria-label="Log out" title="Log out"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></svg></button>
       </div>
     </div>
   </header>
   <main class="admin-main">
     <div class="group-tabbar" id="admin-tabbar">
-      <button type="button" class="group-tab active" id="admin-tab-students">👩‍🎓 Students</button>
-      <button type="button" class="group-tab" id="admin-tab-bingo">🎯 Bingo</button>
+      <button type="button" class="group-tab active" id="admin-tab-students"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/><path d="M16 3.1a4 4 0 0 1 0 7.8"/></svg> Students</button>
+      <button type="button" class="group-tab" id="admin-tab-bingo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> Bingo</button>
     </div>
 
     <!-- ============ TAB: STUDENTS ============ -->
@@ -192,7 +192,7 @@
         <div class="bingo-host-open-row">
           <label class="modal-label" for="bingo-host-group-select">Group</label>
           <select id="bingo-host-group-select" class="modal-input bingo-select"></select>
-          <button type="button" class="icon-btn" id="bingo-host-refresh-groups-btn" title="Refresh group list" aria-label="Refresh group list">🔄</button>
+          <button type="button" class="icon-btn" id="bingo-host-refresh-groups-btn" title="Refresh group list" aria-label="Refresh group list"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M8 16H3v5"/></svg></button>
         </div>
         <div class="bingo-host-open-row">
           <label class="modal-label" for="bingo-host-mode-select">Verbs</label>
@@ -223,7 +223,7 @@
             <p class="bingo-caller-word" id="bingo-host-current-call">—</p>
           </div>
           <div class="bingo-caller-controls">
-            <button type="button" class="icon-btn" id="bingo-host-playpause-btn" aria-label="Play/Pause" title="Play/Pause">▶</button>
+            <button type="button" class="icon-btn" id="bingo-host-playpause-btn" aria-label="Play/Pause" title="Play/Pause"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 4l14 8-14 8z"/></svg></button>
             <button type="button" class="btn btn-ghost-light btn-sm" id="bingo-host-callnow-btn">Call Next</button>
           </div>
         </div>
@@ -308,15 +308,15 @@
 
     <div class="header-actions">
       <button class="icon-btn theme-toggle-btn" id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
-        <span class="theme-toggle-icon" id="theme-toggle-icon">🌙</span>
+        <span class="theme-toggle-icon" id="theme-toggle-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></svg></span>
       </button>
       <button class="btn btn-primary btn-header-auth" id="auth-open-btn">Log In</button>
       <span class="header-authed-actions" id="header-authed-actions" hidden>
         <span class="student-name-chip" id="nav-student-name"></span>
         <button class="profile-chip" id="profile-open" aria-label="Edit profile" title="Edit profile">
-          <span id="profile-chip-avatar">🎓</span>
+          <span id="profile-chip-avatar"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>
         </button>
-        <button class="icon-btn" id="logout-btn" aria-label="Log out" title="Log out">⏻</button>
+        <button class="icon-btn" id="logout-btn" aria-label="Log out" title="Log out"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></svg></button>
       </span>
       <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Open menu">
         <span></span><span></span><span></span>
@@ -392,7 +392,7 @@
 <div class="modal-overlay" id="congrats-modal" hidden>
   <div class="modal-card congrats-card" role="dialog" aria-modal="true" aria-labelledby="congrats-title">
     <div class="confetti" aria-hidden="true"></div>
-    <p class="congrats-emoji" aria-hidden="true">🎉</p>
+    <p class="congrats-emoji" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="6"/><path d="M15.5 13.5 17 22l-5-3-5 3 1.5-8.5"/></svg></p>
     <p class="modal-title" id="congrats-title">Program Completed!</p>
     <p class="congrats-text">You finished all six levels, from A1 to C2. Your certificate is now available in the Progress section.</p>
     <div class="modal-actions">
@@ -405,6 +405,7 @@
 
 <div class="xp-toast" id="xp-toast" hidden></div>
 
+<script src="js/icons.js"></script>
 <script src="js/theme.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
@@ -433,7 +434,7 @@
         .catch(function (err) {
           console.error(err);
           el.innerHTML = '<p class="section-head" style="padding:2rem 0">'
-            + '⚠️ Could not load this section (' + url + '). '
+            + UTNIcons.svg('alert') + ' Could not load this section (' + url + '). '
             + 'If you opened this file directly from disk, run it through a local server instead.</p>';
         });
     });

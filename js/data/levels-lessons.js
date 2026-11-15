@@ -213,7 +213,7 @@
     ]
   };
 
-  var AVATARS = ["🎓", "🦉", "🦅", "🐺", "🦊", "🐢", "🌵", "⭐"];
+  var AVATARS = ["graduation-cap", "book-open", "award", "star", "target", "globe", "lightbulb", "flag"];
 
   var DELIVERABLES = LEVELS.map(function (lvl) {
     return { code: lvl.code, text: "Deliverable " + lvl.code + ": " + lvl.skill };

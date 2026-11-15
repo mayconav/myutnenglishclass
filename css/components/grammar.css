@@ -67,7 +67,7 @@
   border: 1px solid var(--paper-line); border-radius: 8px; padding: 6px 11px;
   position: relative;
 }
-.grammar-topic::before{ content:"🔒"; margin-right:5px; font-size:10px; opacity:.55; }
+.grammar-topic::before{ content:""; margin-right:5px; font-size:10px; opacity:.55; }
 
 .grammar-note{
   margin-top: 20px; font-size: 13px; color: var(--text-muted); font-style: italic;

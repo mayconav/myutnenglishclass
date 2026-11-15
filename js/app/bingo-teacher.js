@@ -1,6 +1,6 @@
 "use strict";
 /* Panel del profesor para controlar el Bingo en vivo. Vive dentro del
-   admin-shell, en la pestana "🎯 Bingo". El profesor elige UN grupo,
+   admin-shell, en la pestana "Bingo". El profesor elige UN grupo,
    abre la sala, y desde ahi controla el cantador (reproducir/pausar,
    velocidad, cantar siguiente) mientras ve en tiempo real quien se ha
    unido (avatares) y quien va ganando la ronda. Solo puede haber una
@@ -59,7 +59,7 @@
       var current = sel.value;
       sel.innerHTML = groups.length
         ? groups.map(function (g) { return '<option value="' + g + '">' + g + "</option>"; }).join("")
-        : '<option value="">No hay grupos creados todavia</option>';
+        : '<option value="">No groups created yet</option>';
       if (groups.indexOf(current) !== -1) sel.value = current;
     }).catch(function () {});
   }
@@ -87,7 +87,7 @@
       snap.forEach(function (doc) { batch.delete(doc.ref); });
       return batch.commit();
     }).catch(function () {
-      setBtHint("No se pudo abrir la sala. Revisa tu conexion.");
+      setBtHint("Could not open the room. Check your connection.");
     });
   }
 
@@ -199,7 +199,7 @@
       openCard.hidden = false;
       liveCard.hidden = true;
       var openBtn = bt$("bingo-host-open-btn");
-      if (openBtn) openBtn.textContent = "Abrir sala de Bingo";
+      if (openBtn) openBtn.textContent = "Open Bingo Room";
       return;
     }
 
@@ -208,14 +208,14 @@
 
     bt$("bingo-host-group-label").textContent = btSession.grupo +
       ((typeof bingoModeLabel === "function") ? " · " + bingoModeLabel(btSession.modo) : "");
-    var statusLabels = { lobby: "En espera", playing: "Cantando", paused: "Pausado" };
+    var statusLabels = { lobby: "Waiting", playing: "Calling", paused: "Paused" };
     bt$("bingo-host-status-badge").textContent = statusLabels[btSession.status] || btSession.status;
     bt$("bingo-host-status-badge").className = "bingo-host-status-badge status-" + btSession.status;
 
     var playPauseBtn = bt$("bingo-host-playpause-btn");
     if (playPauseBtn) {
       var playing = btSession.status === "playing";
-      playPauseBtn.textContent = playing ? "⏸ Pausar" : "▶ Reproducir";
+      playPauseBtn.innerHTML = UTNIcons.svg(playing ? "pause" : "play") + (playing ? " Pause" : " Resume");
     }
 
     var speedSel = bt$("bingo-host-speed-select");
@@ -250,7 +250,7 @@
     var bannerEl = bt$("bingo-host-winner-banner");
     if (winner) {
       bannerEl.hidden = false;
-      bannerEl.innerHTML = "🏆 <strong>" + escapeHtmlBt(winner.nombre || "Alguien") + "</strong> completo una linea";
+      bannerEl.innerHTML = UTNIcons.svg("trophy") + " <strong>" + escapeHtmlBt(winner.nombre || "Someone") + "</strong> completed a line";
     } else {
       bannerEl.hidden = true;
       bannerEl.innerHTML = "";
@@ -269,14 +269,14 @@
           var isNew = !btFirst && !btSeen[p.uid] && btMotionOk();
           return (
             '<div class="bingo-roster-row' + (p.wonAt ? " won" : "") + (isNew ? " joined" : "") + '">' +
-            '<span class="bingo-avatar-badge" style="background:' + (p.avatarColor || "#0C4EB8") + '">' + (p.avatarEmoji || "🙂") + '</span>' +
-            '<span class="bingo-roster-name">' + escapeHtmlBt(p.nombre || "Alumno") + '</span>' +
+            '<span class="bingo-avatar-badge" style="background:' + (p.avatarColor || "#0C4EB8") + '">' + UTNIcons.avatar(p.avatarEmoji) + '</span>' +
+            '<span class="bingo-roster-name">' + escapeHtmlBt(p.nombre || "Student") + '</span>' +
             '<span class="bingo-chip-count">' + count + '/' + total + '</span>' +
-            (p.wonAt ? '<span class="bingo-crown">🏆</span>' : "") +
+            (p.wonAt ? '<span class="bingo-crown">' + UTNIcons.svg("trophy") + '</span>' : "") +
             '</div>'
           );
         }).join("")
-      : '<p class="bingo-roster-empty">Ningun alumno se ha unido todavia.</p>';
+      : '<p class="bingo-roster-empty">No students have joined yet.</p>';
     var btKnown = {};
     list.forEach(function (p) { btKnown[p.uid] = true; });
     btKnownPlayers = btKnown;
@@ -319,8 +319,8 @@
       tabbar.className = "group-tabbar";
       tabbar.id = "admin-tabbar";
       tabbar.innerHTML =
-        '<button type="button" class="group-tab active" id="admin-tab-students">👩‍🎓 Students</button>' +
-        '<button type="button" class="group-tab" id="admin-tab-bingo">🎯 Bingo</button>';
+        '<button type="button" class="group-tab active" id="admin-tab-students">' + UTNIcons.svg("users") + ' Students</button>' +
+        '<button type="button" class="group-tab" id="admin-tab-bingo">' + UTNIcons.svg("target") + ' Bingo</button>';
       main.insertBefore(tabbar, main.firstChild);
     }
     tabbar.hidden = false;
@@ -347,7 +347,7 @@
   if (openBtnEl) openBtnEl.addEventListener("click", function () {
     var sel = bt$("bingo-host-group-select");
     var grupo = sel && sel.value;
-    if (!grupo) { setBtHint("Primero crea/asigna un grupo desde la pestana de Estudiantes."); return; }
+    if (!grupo) { setBtHint("First create or assign a group from the Students tab."); return; }
     var modeSel = bt$("bingo-host-mode-select");
     openRoomForGroup(grupo, modeSel ? modeSel.value : "mixed");
   });
@@ -371,10 +371,10 @@
 
   var newRoundBtnEl = bt$("bingo-host-newround-btn");
   if (newRoundBtnEl) newRoundBtnEl.addEventListener("click", function () {
-    if (confirm("¿Iniciar una ronda nueva? Se borraran los cartones marcados, pero los alumnos conservan su avatar.")) newRound();
+    if (confirm("Start a new round? Marked cards will be cleared, but students keep their avatars.")) newRound();
   });
 
   var closeRoomBtnEl = bt$("bingo-host-close-btn");
   if (closeRoomBtnEl) closeRoomBtnEl.addEventListener("click", function () {
-    if (confirm("¿Cerrar la sala de Bingo? Los alumnos volveran a la pantalla de espera.")) closeRoom();
+    if (confirm("Close the Bingo room? Students will return to the waiting screen.")) closeRoom();
   });

@@ -78,7 +78,7 @@
           ["I will studying tomorrow.", "I will be studying tomorrow."],
           ["I won't sleeping.", "I won't be sleeping."]
         ],
-        memoryTipsTitle: "📌 Important Notes — Future Continuous",
+        memoryTipsTitle: "Important Notes — Future Continuous",
         memoryTips: [
           "Future continuous = <strong>will be + verb-ing</strong> for all subjects. <em>She will be working late.</em>",
           "The negative is <strong>won't be</strong> + verb-ing. <em>We won't be working on Sunday.</em>",

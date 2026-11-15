@@ -66,3 +66,7 @@ La capa de identidad UTN vive en `css/themes/utn-identity.css` y se carga **al f
 - **Tipografías autoalojadas** en `fonts/` (Fraunces para titulares, Public Sans para interfaz, IBM Plex Mono para códigos); se declaran en `css/base/fonts.css`. Ya no se usa Google Fonts.
 - **Colores del escudo con significado:** la franja tricolor del header, los bloques del MCER (A = verde, B = azul, C = rojo) y los sellos.
 - Para volver al diseño anterior basta quitar la línea de `utn-identity.css` en `index.html`.
+
+## Iconos
+
+Ya no se usan emojis en la interfaz. Los iconos son SVG en línea definidos en `js/icons.js` (se carga antes que el resto de los scripts): `UTNIcons.svg("target")`. Los avatares se guardan como nombre de icono (`graduation-cap`, `book-open`…); los perfiles antiguos con emoji se convierten automáticamente con `UTNIcons.avatar()`.
