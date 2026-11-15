@@ -39,7 +39,7 @@
 
 .grammar-examples{ list-style:none; margin: 14px 0 0; padding:0; display:flex; flex-direction:column; gap:6px; }
 .grammar-examples li{ font-size: 13.5px; color: var(--text-secondary); padding-left: 18px; position:relative; }
-.grammar-examples li::before{ content:"💬"; position:absolute; left:0; font-size: 11px; }
+.grammar-examples li::before{ content:""; position:absolute; left:0; font-size: 11px; }
 .grammar-examples strong{ color: var(--ink); }
 
 .grammar-tip-box{

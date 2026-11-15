@@ -157,7 +157,7 @@
           ["Movement", "to, into, onto, from, through, across, along, around, toward"],
           ["Other relationships", "with, by, about, for, of, without, against, among"]
         ],
-        memoryTipsTitle: "⭐ Quick Review",
+        memoryTipsTitle: "Quick Review",
         memoryTips: [
           "Prepositions connect ideas by showing relationships such as <strong>place</strong>, <strong>time</strong>, <strong>movement</strong>, <strong>direction</strong>, and <strong>cause</strong>.",
           "Pay special attention to <strong>at / on / in</strong>, movement pairs such as <strong>in / into</strong> and <strong>on / onto</strong>, and common verb/adjective + preposition combinations."

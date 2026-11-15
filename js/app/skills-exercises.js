@@ -166,8 +166,8 @@
         '<p class="speaking-phrase-text">' + phrase.en + "</p>" +
         '<p class="speaking-phrase-hint">' + phrase.es + "</p>" +
         '<div class="speaking-controls">' +
-          '<button type="button" class="speak-btn listen">🔊 Listen</button>' +
-          '<button type="button" class="speak-btn record">🎤 Practice</button>' +
+          '<button type="button" class="speak-btn listen">' + UTNIcons.svg("volume") + ' Listen</button>' +
+          '<button type="button" class="speak-btn record">' + UTNIcons.svg("mic") + ' Practice</button>' +
         "</div>" +
         '<p class="speaking-feedback"></p>';
       body.appendChild(card);
@@ -196,7 +196,7 @@
         recognition.interimResults = false;
         recognition.maxAlternatives = 1;
         recordBtn.classList.add("recording");
-        recordBtn.textContent = "🎙️ Listening…";
+        recordBtn.innerHTML = UTNIcons.svg("mic") + " Listening…";
         recognition.start();
 
         recognition.onresult = function (e) {
@@ -220,7 +220,7 @@
         };
         recognition.onend = function () {
           recordBtn.classList.remove("recording");
-          recordBtn.textContent = "🎤 Practice";
+          recordBtn.innerHTML = UTNIcons.svg("mic") + " Practice";
         };
       });
     });

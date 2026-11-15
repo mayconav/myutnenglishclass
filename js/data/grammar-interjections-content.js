@@ -190,7 +190,7 @@
           ["Hesitation", "Hmm…, Er…, Uh…"],
           ["Recognition", "Aha!, Ah!, Oops!, Uh-oh!"]
         ],
-        memoryTipsTitle: "⭐ Quick Review",
+        memoryTipsTitle: "Quick Review",
         memoryTips: [
           "An interjection shows a <strong>feeling or reaction</strong> and is usually <strong>grammatically independent</strong> from the rest of the sentence.",
           "Interjections are most common in <strong>spoken English</strong>; in formal academic writing they are generally uncommon.",

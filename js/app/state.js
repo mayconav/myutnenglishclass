@@ -12,7 +12,7 @@
       currentLevelIndex: 0,
       completedLessons: [],
       stamps: [],
-      profile: { name: "UTN Student", avatar: "🎓" },
+      profile: { name: "UTN Student", avatar: "graduation-cap" },
       congratsShown: false,
       skillsXP: 0,
       skillsStreak: 0,

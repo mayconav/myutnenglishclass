@@ -1,62 +1,62 @@
-<!-- ============ GAMES: VERB BINGO (sala en vivo controlada por el profesor) ============ -->
+<!-- ============ GAMES: VERB BINGO (live room controlled by the teacher) ============ -->
 <section class="view" id="view-juegos" data-view="juegos" hidden>
   <div class="section-head">
     <p class="eyebrow">Practice Games</p>
     <h2>Verb Bingo</h2>
-    <p class="lead">Tu profesor controla la partida en vivo. Cuando abra la sala de tu grupo, crea tu avatar, escucha el verbo en su forma base (ej. "go") y marca su forma pasada en tu carton (ej. "went"). ¡El primero en completar una linea gana!</p>
+    <p class="lead">Your teacher runs the game live. When your group's room opens, create your avatar, listen to the verb in its base form (e.g. "go") and mark its past form on your card (e.g. "went"). The first to complete a line wins!</p>
   </div>
 
-  <!-- PANTALLA: INVITADO (no ha iniciado sesion) -->
+  <!-- SCREEN: GUEST (not logged in) -->
   <div class="bingo-start-card" id="bingo-guest-screen">
-    <span class="bingo-start-icon" aria-hidden="true">🎯</span>
-    <h3>Inicia sesion para jugar</h3>
-    <p>El Bingo en vivo es exclusivo para alumnos registrados, ya que tu profesor controla la partida junto con tu grupo.</p>
-    <button type="button" class="btn btn-primary" id="bingo-guest-login-btn">Iniciar sesion</button>
+    <span class="bingo-start-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span>
+    <h3>Log in to play</h3>
+    <p>Live Bingo is for registered students only, because your teacher runs the game together with your group.</p>
+    <button type="button" class="btn btn-primary" id="bingo-guest-login-btn">Log In</button>
   </div>
 
-  <!-- PANTALLA: SALA CERRADA (logueado, pero sin partida activa para su grupo) -->
+  <!-- SCREEN: ROOM CLOSED (logged in, no active game for their group) -->
   <div class="bingo-start-card" id="bingo-closed-screen" hidden>
-    <span class="bingo-start-icon" aria-hidden="true">⏳</span>
-    <h3>Esperando a tu profesor</h3>
-    <p id="bingo-closed-text">Tu profesor todavia no ha abierto una partida de Bingo.</p>
+    <span class="bingo-start-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
+    <h3>Waiting for your teacher</h3>
+    <p id="bingo-closed-text">Your teacher hasn't opened a Bingo game yet.</p>
   </div>
 
-  <!-- PANTALLA: CREAR AVATAR (la sala de su grupo esta abierta, aun no se ha unido) -->
+  <!-- SCREEN: CREATE AVATAR (group room is open, not joined yet) -->
   <div class="bingo-start-card bingo-avatar-card" id="bingo-avatar-screen" hidden>
-    <span class="bingo-start-icon" aria-hidden="true">🎨</span>
-    <h3>¡Tu grupo esta jugando! Crea tu avatar</h3>
-    <p>Elige un emoji, un color y un apodo para que tus compañeros te reconozcan en la sala.</p>
+    <span class="bingo-start-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="13.5" cy="6.5" r=".6"/><circle cx="17.5" cy="10.5" r=".6"/><circle cx="8.5" cy="7.5" r=".6"/><circle cx="6.5" cy="12.5" r=".6"/><path d="M12 2a10 10 0 0 0 0 20 2 2 0 0 0 2-2c0-.5-.2-1-.5-1.4-.3-.4-.5-.9-.5-1.4a2 2 0 0 1 2-2h2.4a5 5 0 0 0 5-5C22 6 17.5 2 12 2z"/></svg></span>
+    <h3>Your group is playing! Create your avatar</h3>
+    <p>Choose an icon, a color and a nickname so your classmates can recognize you in the room.</p>
 
     <div class="bingo-avatar-preview-row">
-      <span class="bingo-avatar-badge bingo-avatar-badge-lg" id="bingo-avatar-preview">🦊</span>
-      <input type="text" id="bingo-avatar-nickname" class="modal-input bingo-nickname-input" placeholder="Tu apodo" maxlength="18">
+      <span class="bingo-avatar-badge bingo-avatar-badge-lg" id="bingo-avatar-preview"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>
+      <input type="text" id="bingo-avatar-nickname" class="modal-input bingo-nickname-input" placeholder="Your nickname" maxlength="18">
     </div>
 
-    <p class="bingo-settings-label">Elige un emoji</p>
+    <p class="bingo-settings-label">Choose an icon</p>
     <div class="bingo-avatar-options" id="bingo-avatar-emojis"></div>
 
-    <p class="bingo-settings-label">Elige un color</p>
+    <p class="bingo-settings-label">Choose a color</p>
     <div class="bingo-color-options" id="bingo-avatar-colors"></div>
 
-    <button type="button" class="btn btn-primary" id="bingo-join-btn">Entrar a la sala</button>
+    <button type="button" class="btn btn-primary" id="bingo-join-btn">Join room</button>
   </div>
 
-  <!-- PANTALLA: SALA EN VIVO (avatar creado; carton + cantador del profesor) -->
+  <!-- SCREEN: LIVE ROOM (avatar created; card + teacher caller) -->
   <div class="bingo-game" id="bingo-room-screen" hidden>
     <div class="bingo-room-topbar">
       <span class="bingo-room-status" id="bingo-room-status">—</span>
       <label class="bingo-voice-toggle">
         <input type="checkbox" id="bingo-voice-toggle" checked>
-        <span>Leer en voz alta</span>
+        <span>Read aloud</span>
       </label>
-      <button type="button" class="btn btn-ghost-light btn-sm" id="bingo-leave-btn">Salir de la sala</button>
+      <button type="button" class="btn btn-ghost-light btn-sm" id="bingo-leave-btn">Leave room</button>
     </div>
 
     <p class="bingo-winner-banner" id="bingo-winner-banner" hidden></p>
 
     <div class="bingo-caller-panel">
       <div class="bingo-caller-info">
-        <span class="bingo-caller-label">Ahora canta</span>
+        <span class="bingo-caller-label">Now calling</span>
         <p class="bingo-caller-word" id="bingo-caller-word">—</p>
       </div>
     </div>
@@ -65,13 +65,13 @@
 
     <div class="bingo-called-history" id="bingo-called-history" aria-live="off"></div>
 
-    <div class="bingo-board" id="bingo-board" role="grid" aria-label="Carton de Bingo"></div>
+    <div class="bingo-board" id="bingo-board" role="grid" aria-label="Bingo card"></div>
 
     <div class="bingo-game-foot">
-      <span class="bingo-progress-label" id="bingo-progress-label">0 / 25 marcadas</span>
+      <span class="bingo-progress-label" id="bingo-progress-label">0 / 25 marked</span>
     </div>
 
-    <p class="bingo-settings-label">Jugadores en la sala</p>
+    <p class="bingo-settings-label">Players in the room</p>
     <div class="bingo-roster" id="bingo-roster"></div>
   </div>
 
@@ -79,11 +79,11 @@
   <div class="modal-overlay" id="bingo-win-modal" hidden>
     <div class="modal-card congrats-card" role="dialog" aria-modal="true" aria-labelledby="bingo-win-title">
       <div class="confetti" aria-hidden="true"></div>
-      <p class="congrats-emoji" aria-hidden="true">🎉</p>
-      <p class="modal-title" id="bingo-win-title">¡BINGO!</p>
-      <p class="congrats-text" id="bingo-win-text">Completaste una linea.</p>
+      <p class="congrats-emoji" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16M10 14.7V17c0 .6-.5 1-1.2 1.2C7.8 18.5 7 20 7 22M14 14.7V17c0 .6.5 1 1.2 1.2 1 .3 1.8 1.8 1.8 3.8"/><path d="M18 2H6v7a6 6 0 0 0 12 0z"/></svg></p>
+      <p class="modal-title" id="bingo-win-title">BINGO!</p>
+      <p class="congrats-text" id="bingo-win-text">You completed a line.</p>
       <div class="modal-actions">
-        <button type="button" class="btn btn-primary" id="bingo-win-close">Cerrar</button>
+        <button type="button" class="btn btn-primary" id="bingo-win-close">Close</button>
       </div>
     </div>
   </div>

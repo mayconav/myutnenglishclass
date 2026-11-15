@@ -73,7 +73,7 @@
           ["Will he goes with us?","Will he go with us?"],
           ["I will to call you.","I will call you."]
         ],
-        memoryTipsTitle: "📌 Important Notes — Simple Future",
+        memoryTipsTitle: "Important Notes — Simple Future",
         memoryTips: [
           "Use <strong>will + the base form</strong> of the verb for all subjects. <em>She will help us.</em>",
           "The negative form is <strong>will not</strong> or <strong>won't</strong>. <em>They won't be late.</em>",

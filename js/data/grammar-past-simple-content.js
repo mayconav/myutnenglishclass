@@ -85,7 +85,7 @@
           ["I studyed yesterday.","I studied yesterday."],
           ["He does not study last night.","He did not study last night."]
         ],
-        memoryTipsTitle: "📌 Important Notes — Simple Past",
+        memoryTipsTitle: "Important Notes — Simple Past",
         memoryTips: [
           "In affirmative sentences write the <strong>past form</strong> of the verb for <strong>all persons</strong>. <em>She studied. They studied.</em>",
           "The negative is <strong>did not (didn't)</strong> + base verb, for all persons. <em>He didn't study last night.</em>",

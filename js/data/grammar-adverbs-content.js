@@ -198,7 +198,7 @@
           ["Focusing / limiting", "What is emphasized or limited?", "only, just, even, also, especially, mainly"],
           ["Sentence", "What is the comment on the situation?", "fortunately, unfortunately, clearly, honestly, apparently"]
         ],
-        memoryTipsTitle: "⭐ Quick Review",
+        memoryTipsTitle: "Quick Review",
         memoryTips: [
           "Adverbs add information to sentences. Ask: <strong>How?</strong> (manner), <strong>When?</strong> (time), <strong>Where?</strong> (place), <strong>How often?</strong> (frequency), or <strong>How much / to what extent?</strong> (degree).",
           "Learning both <strong>meaning</strong> and <strong>position</strong> is essential for accurate English communication."
