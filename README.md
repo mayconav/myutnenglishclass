@@ -58,3 +58,11 @@ dividió el HTML, el CSS y el JS en archivos más pequeños para que sea más
 fácil encontrar y editar cada sección. Por lo mismo, el sitio **debe abrirse
 desde un servidor local** (ver `SETUP.md`, paso 6) y no funciona abriendo
 `index.html` directamente desde el disco (`file://`).
+
+## Identidad visual (rediseño institucional)
+
+La capa de identidad UTN vive en `css/themes/utn-identity.css` y se carga **al final** de todas las hojas, así que refina el resto sin editar cada componente. Los tokens principales (azul marino, dorado, radios, tipografías) están al inicio de ese archivo.
+
+- **Tipografías autoalojadas** en `fonts/` (Fraunces para titulares, Public Sans para interfaz, IBM Plex Mono para códigos); se declaran en `css/base/fonts.css`. Ya no se usa Google Fonts.
+- **Colores del escudo con significado:** la franja tricolor del header, los bloques del MCER (A = verde, B = azul, C = rojo) y los sellos.
+- Para volver al diseño anterior basta quitar la línea de `utn-identity.css` en `index.html`.
