@@ -7,6 +7,7 @@
     state = loadProgress();
     activeLevelIndex = state.currentLevelIndex;
     selectedAvatar = normAvatar(state.profile.avatar);
+    syncBadgesSilently();
     updateBoardingPass();
     updateProfileUI();
     var currentView = document.querySelector(".view:not([hidden])");

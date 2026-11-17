@@ -1,0 +1,29 @@
+/* Color de acento por seccion. navigation.js pone body[data-section] en cada cambio de vista.
+   --accent        texto y rellenos con texto blanco encima (contraste AA)
+   --accent-bright decoraciones: barras, indicadores, bordes
+   La identidad UTN (azul/rojo/verde) sigue en encabezado, pie y botones principales. */
+body{ --accent: var(--blue); --accent-bright: var(--blue-light); }
+body[data-section="aprender"]{ --accent: var(--green-dark);  --accent-bright: var(--green); }
+body[data-section="juegos"]{   --accent: var(--purple-dark); --accent-bright: var(--purple); }
+body[data-section="progreso"]{ --accent: var(--yellow-dark); --accent-bright: var(--yellow); }
+body[data-section="recursos"]{ --accent: var(--orange-dark); --accent-bright: var(--orange); }
+
+:root[data-theme="dark"] body{ --accent: #7FA8EA; }
+:root[data-theme="dark"] body[data-section="aprender"]{ --accent: var(--green-light); }
+:root[data-theme="dark"] body[data-section="juegos"]{   --accent: #C39BE0; --accent-bright: #A777CC; }
+:root[data-theme="dark"] body[data-section="progreso"]{ --accent: #F2C230; }
+:root[data-theme="dark"] body[data-section="recursos"]{ --accent: #F2A65A; }
+
+/* Encabezado de seccion: etiqueta y barra con el color de la seccion */
+body[data-section] .section-head .eyebrow,
+:root[data-theme="dark"] body[data-section] .section-head .eyebrow{ color: var(--accent); }
+body[data-section] .section-head h2::after{ width: 88px; height: 5px; border-radius: 3px; background: var(--accent-bright); }
+
+/* Pestanas de grupo (Learn / Resources) */
+body[data-section] .group-tabbar .group-tab.active,
+:root[data-theme="dark"] body[data-section] .group-tabbar .group-tab.active{ color: var(--accent); border-bottom-color: var(--accent-bright); }
+body[data-section] .group-tabbar .group-tab:hover:not(.active){ color: var(--accent); }
+
+/* Tarjetas interactivas: el borde toma el color de la seccion al pasar el cursor */
+body[data-section] .gate-card:hover, body[data-section] .skill-card:hover,
+body[data-section] .feature-card:hover{ border-color: var(--accent-bright); }

@@ -233,7 +233,10 @@
 
     document.getElementById("quiz-next-btn").onclick = function () {
       var lid = lessonId(levelCode, lessonIdx);
-      if (state.completedLessons.indexOf(lid) === -1) state.completedLessons.push(lid);
+      var isNewLesson = state.completedLessons.indexOf(lid) === -1;
+      var hadStamp = state.stamps.indexOf(levelCode) !== -1;
+      var prevXp = state.skillsXP;
+      if (isNewLesson) state.completedLessons.push(lid);
 
       var levelLessons = LESSONS[levelCode];
       var allLevelLessonsDone = levelLessons.every(function (_, i) {
@@ -249,6 +252,9 @@
       saveProgress(state);
       updateBoardingPass();
       if (typeof recordDailyActivity === "function") recordDailyActivity("lesson:" + lid);
+      if (typeof rewardLessonDone === "function") {
+        rewardLessonDone(isNewLesson, !hadStamp && state.stamps.indexOf(levelCode) !== -1, levelCode, prevXp);
+      }
 
       if (state.stamps.length === LEVELS.length && !state.congratsShown) {
         state.congratsShown = true;

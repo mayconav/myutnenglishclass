@@ -32,11 +32,20 @@
     if (reached) {
       d.bonus = true;
       state.skillsXP += DAILY_BONUS_XP;
+      state.goalDays = (state.goalDays || 0) + 1;
     }
     saveProgress(state);
     if (typeof updateSkillsStatusbar === "function") updateSkillsStatusbar();
-    if (reached && typeof showGenericToast === "function") {
-      showGenericToast("Daily goal complete! +" + DAILY_BONUS_XP + " XP");
+    if (reached) {
+      if (typeof queueReward === "function") {
+        queueReward({
+          kind: "goal", icon: "target", confetti: true,
+          title: "Daily goal complete! +" + DAILY_BONUS_XP + " XP",
+          text: "Come back tomorrow to keep your streak."
+        });
+      } else if (typeof showGenericToast === "function") {
+        showGenericToast("Daily goal complete! +" + DAILY_BONUS_XP + " XP");
+      }
     }
     renderHomeDash();
   }
@@ -114,4 +123,5 @@
       goalHint.textContent = "Lessons, skill practice and grammar quizzes all count. Finish " + DAILY_GOAL + " for +" + DAILY_BONUS_XP + " XP.";
     }
     root.classList.toggle("goal-done", !!d.bonus);
+    if (typeof renderRewardsUI === "function") renderRewardsUI();
   }

@@ -1,6 +1,8 @@
 "use strict";
 /* Inicializacion de la aplicacion (app.js original: L2482-L2489) */
   /* ============ INIT ============ */
+  hydrateIcons(document);
+  syncBadgesSilently();
   updateBoardingPass();
   updateProfileUI();
   (function initialView() {

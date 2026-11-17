@@ -43,6 +43,8 @@
 <link rel="stylesheet" href="css/components/bingo-host.css">
 <link rel="stylesheet" href="css/components/home-dash.css">
 <link rel="stylesheet" href="css/components/grammar-menu.css">
+<link rel="stylesheet" href="css/components/rewards.css">
+<link rel="stylesheet" href="css/components/bottom-nav.css">
 <!-- Base (dependen de las variables de arriba) -->
 <link rel="stylesheet" href="css/base/focus.css">
 <link rel="stylesheet" href="css/base/responsive.css">
@@ -55,6 +57,8 @@
 <link rel="stylesheet" href="css/themes/second-pass.css">
 <!-- Identidad institucional UTN: se carga al final y refina todo lo anterior -->
 <link rel="stylesheet" href="css/themes/utn-identity.css">
+<!-- Color de acento por seccion: va despues de la identidad UTN para poder sobreescribirla -->
+<link rel="stylesheet" href="css/themes/section-accents.css">
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="icon" type="image/png" sizes="192x192" href="img/logo-192.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
@@ -325,6 +329,16 @@
       </button>
     </div>
   </div>
+
+  <!-- Franja de XP: visible en todas las secciones (en Home se oculta porque el panel Today ya la muestra) -->
+  <button type="button" class="xp-strip" id="xp-strip" data-goto="progreso" aria-label="Your rank and XP. Open your progress">
+    <span class="xp-strip-inner">
+      <span class="xps-streak" title="Day streak"><span data-icon="flame" aria-hidden="true"></span><b id="xps-streak">0</b></span>
+      <span class="xps-rank"><span class="rk-name">Passenger</span><span class="rk-lv">Lv 1</span></span>
+      <span class="xps-bar" aria-hidden="true"><i class="rk-fill"></i></span>
+      <span class="xps-xp"><b class="rk-xp">0</b> XP</span>
+    </span>
+  </button>
 </header>
 
 <main id="main">
@@ -347,6 +361,15 @@
   <div id="partial-recursos" data-partial="partials/recursos.html"></div>
 
 </main>
+
+<!-- Barra inferior (solo celular): sustituye al menu hamburguesa -->
+<nav class="bottom-nav" id="bottom-nav" aria-label="Main">
+  <a href="#inicio" data-nav="inicio"><span data-icon="home" aria-hidden="true"></span><span class="bn-label">Home</span></a>
+  <a href="#niveles" data-nav="aprender"><span data-icon="graduation-cap" aria-hidden="true"></span><span class="bn-label">Learn</span></a>
+  <a href="#juegos" data-nav="juegos"><span data-icon="gamepad" aria-hidden="true"></span><span class="bn-label">Games</span></a>
+  <a href="#progreso" data-nav="progreso"><span data-icon="trophy" aria-hidden="true"></span><span class="bn-label">Progress</span></a>
+  <a href="#material" data-nav="recursos"><span data-icon="book-open" aria-hidden="true"></span><span class="bn-label">Resources</span></a>
+</nav>
 
 <footer class="site-footer">
   <div class="footer-inner">
@@ -475,6 +498,7 @@
       "js/app/skills-hub.js",
       "js/app/skills-exercises.js",
       "js/app/home-dashboard.js",
+      "js/app/rewards.js",
       "js/app/bingo.js",
       "js/app/bingo-teacher.js",
       "js/app/state-reload.js",

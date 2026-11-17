@@ -50,6 +50,7 @@
   }
 
   function awardXP(amount, skillKey, levelCode) {
+    var prevXp = state.skillsXP;
     state.skillsXP += amount;
     if (state.skillProgress[skillKey].indexOf(levelCode) === -1) {
       state.skillProgress[skillKey].push(levelCode);
@@ -58,6 +59,7 @@
     showXpToast(amount);
     updateSkillsStatusbar();
     if (typeof recordDailyActivity === "function") recordDailyActivity("skill:" + skillKey + ":" + levelCode);
+    if (typeof checkRewards === "function") checkRewards(prevXp);
   }
 
   function updateSkillsStatusbar() {
