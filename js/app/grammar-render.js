@@ -393,6 +393,7 @@
         msg += " Focus on: " + missedRules.join("; ") + ".";
       }
       resultEl.textContent = msg;
+      if (typeof recordDailyActivity === "function") recordDailyActivity("quiz:" + quiz.id);
       refreshHeight();
     });
 
@@ -497,6 +498,7 @@
         resultEl.textContent = "You got " + correct + " out of " + total + " correct. Review the red answers above, then try Reset to practice again.";
         resultEl.classList.add("needs-work");
       }
+      if (typeof recordDailyActivity === "function") recordDailyActivity("quiz:" + quiz.id);
       refreshHeight();
     });
 

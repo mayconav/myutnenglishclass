@@ -248,6 +248,7 @@
       }
       saveProgress(state);
       updateBoardingPass();
+      if (typeof recordDailyActivity === "function") recordDailyActivity("lesson:" + lid);
 
       if (state.stamps.length === LEVELS.length && !state.congratsShown) {
         state.congratsShown = true;

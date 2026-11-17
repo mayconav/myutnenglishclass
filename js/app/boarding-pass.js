@@ -14,5 +14,6 @@
     var pct = Math.round((state.stamps.length / LEVELS.length) * 100);
     document.getElementById("bp-progress-fill").style.width = Math.max(6, pct) + "%";
     updateProfileUI();
+    if (typeof renderHomeDash === "function") renderHomeDash();
   }
 

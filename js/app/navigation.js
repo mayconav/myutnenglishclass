@@ -44,6 +44,7 @@
       }
     });
 
+    if (target === "inicio" && typeof renderHomeDash === "function") renderHomeDash();
     if (target === "leccion") renderLesson(activeLevelIndex, activeLessonIndex);
     if (target === "niveles") renderGates();
     if (target === "progreso") renderProgress();
