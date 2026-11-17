@@ -125,3 +125,19 @@
     root.classList.toggle("goal-done", !!d.bonus);
     if (typeof renderRewardsUI === "function") renderRewardsUI();
   }
+
+  /* body.is-student: con sesion de alumno la portada muestra su proxima leccion y la franja Today;
+     sin sesion se ve la bienvenida de siempre. Sigue al atributo hidden del bloque de acciones
+     del encabezado, que auth.js muestra al iniciar sesion y oculta al cerrarla. */
+  function syncStudentClass() {
+    var el = document.getElementById("header-authed-actions");
+    document.body.classList.toggle("is-student", !!el && !el.hidden);
+  }
+  (function watchStudentSession() {
+    var el = document.getElementById("header-authed-actions");
+    if (!el) return;
+    syncStudentClass();
+    if (window.MutationObserver) {
+      new MutationObserver(syncStudentClass).observe(el, { attributes: true, attributeFilter: ["hidden"] });
+    }
+  })();
