@@ -20,7 +20,7 @@
   /* ---- Daily streak ---- */
   function touchStreak() {
     var today = new Date();
-    var todayStr = today.toISOString().slice(0, 10);
+    var todayStr = localDayKey(today);
     if (state.lastActiveDay === todayStr) return;
     if (state.lastActiveDay) {
       var last = new Date(state.lastActiveDay + "T00:00:00");
@@ -57,6 +57,7 @@
     saveProgress(state);
     showXpToast(amount);
     updateSkillsStatusbar();
+    if (typeof recordDailyActivity === "function") recordDailyActivity("skill:" + skillKey + ":" + levelCode);
   }
 
   function updateSkillsStatusbar() {

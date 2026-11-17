@@ -39,6 +39,8 @@ js/
     grammar-prepositions-content.js → tema "Prepositions" (guía: 3 módulos + 2 quizzes)
     grammar-interjections-content.js → tema "Interjections" (guía: 4 módulos + 1 quiz)
   app/
+    home-dashboard.js           → panel "Today" de la portada: Continuar, racha, XP y meta diaria
+    grammar-menu.js             → buscador de temas y filtro "Show upcoming topics" en Grammar
     state.js, navigation.js,
     profile.js, boarding-pass.js,
     gates.js, lesson-player.js,

@@ -287,6 +287,23 @@
       </div>
     </article>
 
+    <!-- Search and filter -->
+    <div class="grammar-tools" id="grammar-tools">
+      <label class="grammar-search" for="grammar-search-input">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="search" id="grammar-search-input" placeholder="Search a topic: past perfect, adverbs, articles…" autocomplete="off" aria-label="Search grammar topics">
+        <button type="button" class="grammar-search-clear" id="grammar-search-clear" aria-label="Clear search" hidden>×</button>
+      </label>
+      <div class="grammar-filter-row">
+        <p class="grammar-ready-count" id="grammar-ready-count" aria-live="polite"></p>
+        <label class="grammar-switch">
+          <input type="checkbox" id="grammar-show-soon">
+          <span>Show upcoming topics</span>
+        </label>
+      </div>
+      <p class="grammar-empty" id="grammar-empty" role="status" hidden></p>
+    </div>
+
     <!-- Syllabus menu (accordion) -->
     <div class="grammar-menu" id="grammar-menu">
 

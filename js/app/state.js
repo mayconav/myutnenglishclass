@@ -7,6 +7,13 @@
      re-reads progress, this time with the real student's key. */
   function storageKey() { return "myutn_progress_v2_" + (window.__UTN_UID__ || "local"); }
 
+  /* Dia local (YYYY-MM-DD). toISOString() usa UTC y en Mexico cambia de dia a las 6 p. m. */
+  function localDayKey(date) {
+    var d = date || new Date();
+    var m = d.getMonth() + 1, day = d.getDate();
+    return d.getFullYear() + "-" + (m < 10 ? "0" : "") + m + "-" + (day < 10 ? "0" : "") + day;
+  }
+
   function defaultState() {
     return {
       currentLevelIndex: 0,
@@ -17,6 +24,7 @@
       skillsXP: 0,
       skillsStreak: 0,
       lastActiveDay: null,
+      daily: null,
       skillProgress: { reading: [], writing: [], speaking: [], letter: [] },
       bingoStats: { wins: 0, played: 0 }
     };
@@ -37,6 +45,7 @@
           skillsXP: typeof parsed.skillsXP === "number" ? parsed.skillsXP : 0,
           skillsStreak: typeof parsed.skillsStreak === "number" ? parsed.skillsStreak : 0,
           lastActiveDay: parsed.lastActiveDay || null,
+          daily: parsed.daily && typeof parsed.daily === "object" && Array.isArray(parsed.daily.done) ? parsed.daily : null,
           skillProgress: parsed.skillProgress && typeof parsed.skillProgress === "object" ? {
             reading: Array.isArray(parsed.skillProgress.reading) ? parsed.skillProgress.reading : [],
             writing: Array.isArray(parsed.skillProgress.writing) ? parsed.skillProgress.writing : [],
