@@ -342,11 +342,13 @@
   }
 
   function awardBingoXP() {
+    var prevXp = state.skillsXP || 0;
     state.skillsXP = (state.skillsXP || 0) + BINGO_XP_PER_WIN;
     if (!state.bingoStats) state.bingoStats = { wins: 0, played: 0 };
     state.bingoStats.wins += 1;
     saveProgress(state);
     if (typeof showXpToast === "function") showXpToast(BINGO_XP_PER_WIN);
+    if (typeof checkRewards === "function") checkRewards(prevXp);
   }
 
   function setHint(msg) {

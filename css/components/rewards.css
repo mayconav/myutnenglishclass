@@ -1,0 +1,132 @@
+/* Recompensas: franja de XP, tarjeta de rango, insignias y celebraciones */
+
+/* ---- Franja de XP dentro del encabezado ---- */
+.xp-strip{
+  display: block; width: 100%; padding: 0; margin: 0; border: 0; text-align: left;
+  background: rgba(8,20,48,.34); color: #fff; font-family: var(--font-display);
+  border-top: 1px solid rgba(255,255,255,.12); cursor: pointer;
+}
+.xp-strip-inner{
+  max-width: 1100px; margin: 0 auto; padding: 6px 24px 11px;   /* 11px abajo: la franja tricolor del tema UTN ocupa los ultimos 4px */
+  display: flex; align-items: center; gap: 14px; font-size: 12.5px; font-weight: 600;
+}
+.xp-strip:hover{ background: rgba(8,20,48,.5); }
+.xps-streak{ display: inline-flex; align-items: center; gap: 4px; }
+.xps-streak .icon{ width: 15px; height: 15px; color: #FFB561; }
+.xps-rank{ display: inline-flex; align-items: baseline; gap: 6px; white-space: nowrap; }
+.xps-rank .rk-lv{ font-family: var(--font-mono); font-size: 11px; font-weight: 500; opacity: .75; }
+.xps-bar{ flex: 1 1 120px; max-width: 240px; height: 6px; border-radius: 999px; background: rgba(255,255,255,.22); overflow: hidden; }
+.xps-bar .rk-fill{ display: block; height: 100%; width: 0; border-radius: 999px; background: var(--u-gold, #FFE566); transition: width .7s cubic-bezier(.22,1,.36,1); }
+.xps-xp{ margin-left: auto; white-space: nowrap; }
+.xps-xp b{ color: var(--u-gold, #FFE566); }
+body[data-section="inicio"] .xp-strip{ display: none; }
+/* Con la franja visible, el encabezado pierde el relleno extra que reservaba para la tricolor */
+body:not([data-section="inicio"]) .site-header .header-inner{ padding-bottom: 10px; }
+@media (max-width: 620px){
+  .xp-strip-inner{ padding: 4px 14px 9px; gap: 10px; font-size: 12px; }
+  .xps-bar{ max-width: none; }
+}
+
+/* ---- Tarjeta de rango (portada y progreso) ---- */
+.hd-rank{ padding: 12px 16px; background: var(--paper); border: 1px solid var(--border); border-radius: var(--radius-md); }
+.hd-rank-head{ display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.hd-rank-title{ margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 15px; }
+.hd-rank-title .rk-lv, .pg-rank-line .rk-lv{ font-family: var(--font-mono); font-weight: 500; font-size: 12px; color: var(--text-muted); margin-left: 4px; }
+.hd-rank-hint{ margin: 0; font-size: 12.5px; color: var(--text-secondary); }
+.hd-rank-bar{ height: 8px; margin: 8px 0 0; border-radius: 999px; background: var(--paper-line); overflow: hidden; }
+.hd-rank-bar .rk-fill{ display: block; height: 100%; width: 0; border-radius: 999px; background: var(--accent-bright, var(--blue-light)); transition: width .7s cubic-bezier(.22,1,.36,1); }
+
+/* ---- Insignias en Progress ---- */
+.badge-section{ margin: 28px 0 8px; }
+.badge-head{ display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 14px; }
+.pg-rank{ min-width: 240px; max-width: 420px; }
+.pg-rank-line{ margin: 0; font-family: var(--font-display); font-size: 15px; }
+.pg-rank .hd-rank-hint{ margin-top: 6px; }
+.badge-count{ font-family: var(--font-mono); font-size: 13px; color: var(--text-secondary); padding-top: 4px; white-space: nowrap; }
+.badge-grid{ display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
+.badge{
+  display: flex; align-items: center; gap: 12px; padding: 12px 14px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md);
+}
+.badge-icon{
+  flex: 0 0 auto; width: 42px; height: 42px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--paper); color: var(--text-muted);
+}
+.badge-icon .icon{ width: 20px; height: 20px; }
+.badge-text{ display: flex; flex-direction: column; min-width: 0; line-height: 1.3; }
+.badge-text strong{ font-family: var(--font-display); font-size: 14px; }
+.badge-text span{ font-size: 12.5px; color: var(--text-secondary); }
+.badge.earned{ border-color: color-mix(in srgb, var(--yellow) 55%, var(--border)); }
+.badge.earned .badge-icon{ background: color-mix(in srgb, var(--yellow) 22%, var(--surface)); color: var(--yellow-dark); }
+:root[data-theme="dark"] .badge.earned .badge-icon{ color: #F2C230; }
+.badge.locked{ opacity: .72; }
+@media (max-width: 620px){
+  .badge-head{ flex-direction: column; gap: 6px; }
+  .pg-rank{ min-width: 0; width: 100%; max-width: none; }
+}
+
+/* ---- Ventana de recompensa (una a la vez) ---- */
+.reward-pop{
+  --rw: var(--blue); --rw-ink: var(--blue);
+  position: fixed; z-index: 450; left: 50%;
+  top: calc(env(safe-area-inset-top, 0px) + 92px);
+  width: min(92vw, 390px);
+  display: flex; align-items: center; gap: 12px; padding: 12px 16px 12px 14px;
+  background: var(--surface); color: var(--text-primary);
+  border: 1px solid var(--border); border-left: 5px solid var(--rw); border-radius: var(--radius-md);
+  box-shadow: 0 14px 36px rgba(10,20,40,.28);
+  opacity: 0; transform: translate(-50%, -12px); transition: opacity .22s ease, transform .22s ease;
+  cursor: pointer;
+}
+.reward-pop[hidden]{ display: none; }
+.reward-pop.show{ opacity: 1; transform: translate(-50%, 0); }
+.reward-pop.kind-badge{ --rw: var(--purple); --rw-ink: var(--purple); }
+.reward-pop.kind-rank, .reward-pop.kind-perfect{ --rw: var(--yellow); --rw-ink: var(--yellow-dark); }
+.reward-pop.kind-stamp, .reward-pop.kind-goal{ --rw: var(--green); --rw-ink: var(--green-dark); }
+:root[data-theme="dark"] .reward-pop.kind-badge{ --rw-ink: #C39BE0; }
+:root[data-theme="dark"] .reward-pop.kind-rank, :root[data-theme="dark"] .reward-pop.kind-perfect{ --rw-ink: #F2C230; }
+:root[data-theme="dark"] .reward-pop.kind-stamp, :root[data-theme="dark"] .reward-pop.kind-goal{ --rw-ink: var(--green-light); }
+:root[data-theme="dark"] .reward-pop.kind-xp{ --rw-ink: #7FA8EA; }
+.rw-icon{
+  flex: 0 0 auto; width: 40px; height: 40px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: color-mix(in srgb, var(--rw) 16%, transparent); color: var(--rw-ink);
+}
+.rw-icon .icon{ width: 22px; height: 22px; }
+.rw-body{ display: flex; flex-direction: column; min-width: 0; line-height: 1.3; }
+.rw-title{ font-family: var(--font-display); font-size: 15px; }
+.rw-text{ font-size: 13px; color: var(--text-secondary); }
+
+/* ---- Confeti ---- */
+.rw-confetti{ position: fixed; inset: 0; z-index: 440; pointer-events: none; overflow: hidden; }
+.rw-piece{
+  position: absolute; left: 50%; top: calc(env(safe-area-inset-top, 0px) + 110px);
+  width: 9px; height: 13px; background: var(--c); border-radius: 2px; opacity: 0;
+  animation: rwFall var(--t) cubic-bezier(.2,.7,.4,1) var(--d) forwards;
+}
+@keyframes rwFall{
+  0%{ opacity: 1; transform: translate(0,0) rotate(0); }
+  18%{ opacity: 1; transform: translate(calc(var(--x) * .45), -46px) rotate(calc(var(--r) * .3)); }
+  100%{ opacity: 0; transform: translate(var(--x), 72vh) rotate(var(--r)); }
+}
+
+/* ---- Movimiento que responde a una accion ---- */
+.rw-bump{ display: inline-block; animation: rwBump .5s ease; }
+@keyframes rwBump{ 0%{ transform: scale(1); } 40%{ transform: scale(1.28); } 100%{ transform: scale(1); } }
+@keyframes rwCorrect{
+  0%{ box-shadow: 0 0 0 0 rgba(12,156,97,.55); transform: scale(.98); }
+  60%{ box-shadow: 0 0 0 10px rgba(12,156,97,0); transform: scale(1.015); }
+  100%{ box-shadow: 0 0 0 0 rgba(12,156,97,0); transform: none; }
+}
+@media (prefers-reduced-motion: no-preference){
+  .quiz-option.correct, .fill-input.correct{ animation: rwCorrect .5s ease; }
+}
+@media (prefers-reduced-motion: reduce){
+  .reward-pop{ transition: opacity .2s ease; transform: translate(-50%, 0); }
+  .rw-bump{ animation: none; }
+  .hd-rank-bar .rk-fill, .xps-bar .rk-fill{ transition: none; }
+}
+@media (max-width: 620px){
+  .reward-pop{ top: calc(env(safe-area-inset-top, 0px) + 86px); }
+}

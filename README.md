@@ -20,7 +20,10 @@ css/
   layout/                       → header, main, footer
   components/                  → un archivo por vista/elemento (hero, gates, lesson,
                                   progreso, skills, grammar, admin-panel, modales, etc.)
-  themes/                       → modo oscuro y las capas visuales (glass, motion, acentos)
+  themes/                       → modo oscuro y las capas visuales (glass, motion, acentos);
+                                  section-accents.css = color de acento por sección (body[data-section])
+  components/rewards.css        → franja de XP, tarjeta de rango, insignias, ventana de recompensa y confeti
+  components/bottom-nav.css     → barra inferior de navegación (solo celular, hasta 620px)
 js/
   data/
     levels-lessons.js           → contenido de niveles A1-C2 y lecciones
@@ -41,6 +44,8 @@ js/
   app/
     home-dashboard.js           → panel "Today" de la portada: Continuar, racha, XP y meta diaria
     grammar-menu.js             → buscador de temas y filtro "Show upcoming topics" en Grammar
+    rewards.js                  → XP global (lecciones, sellos, quizzes de gramática), rangos, insignias,
+                                  celebraciones y franja de XP del encabezado
     state.js, navigation.js,
     profile.js, boarding-pass.js,
     gates.js, lesson-player.js,
@@ -57,6 +62,21 @@ Los módulos de `css/` y de `js/data/` y `js/app/` se cargan en orden desde
 `index.html` (como hojas de estilo y `<script>` clásicos, no como módulos ES),
 así que siguen compartiendo exactamente el mismo comportamiento de antes: sólo
 cambió dónde vive cada pieza, para que sea más fácil encontrarla y editarla.
+
+## Recompensas y navegación móvil
+
+- **XP**: lección nueva +20, sello de nivel +50, meta diaria +10, habilidades y bingo como antes.
+  Cada quiz de gramática paga hasta +15 según la nota, pero solo la mejora sobre tu mejor
+  intento (`state.quizBest`), así que repetirlo no regala XP.
+- **Rangos**: cada 100 XP (Passenger, Traveler, Explorer, Navigator, Pilot, Captain, Ambassador).
+- **Insignias**: se definen en el arreglo `BADGES` de `js/app/rewards.js`; para agregar una basta
+  con añadir un objeto `{ id, icon, title, desc, test }`. Se guardan en `state.badges`.
+  Al abrir la app, las que el estudiante ya cumplía se marcan sin celebrar (`syncBadgesSilently`).
+- **Campos nuevos en el progreso** (se sincronizan con Firestore como el resto): `quizBest`,
+  `badges` y `goalDays`. Los alumnos existentes siguen funcionando: si faltan, se crean vacíos.
+- **Color por sección**: `navigation.js` pone `body[data-section]` y `section-accents.css`
+  cambia `--accent`. Las celebraciones respetan `prefers-reduced-motion`.
+- **Celular (≤620px)**: la barra inferior reemplaza al menú hamburguesa.
 
 La navegación sigue siendo instantánea (SPA, sin recargar la página): sólo se
 dividió el HTML, el CSS y el JS en archivos más pequeños para que sea más

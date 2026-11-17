@@ -1,0 +1,39 @@
+/* Barra inferior de navegacion (solo celular, hasta 620px) */
+.bottom-nav{ display: none; }
+main[hidden] ~ .bottom-nav{ display: none !important; }
+
+@media (max-width: 620px){
+  .bottom-nav{
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px;
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 95;
+    padding: 6px max(6px, env(safe-area-inset-right)) calc(6px + env(safe-area-inset-bottom, 0px)) max(6px, env(safe-area-inset-left));
+    background: var(--surface); border-top: 1px solid var(--border);
+    box-shadow: 0 -8px 22px rgba(10,20,40,.10);
+  }
+  .bottom-nav a{
+    position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+    min-height: 52px; padding: 6px 2px 4px; border-radius: 12px; text-decoration: none;
+    font-family: var(--font-display); font-size: 11px; font-weight: 600; color: var(--text-secondary);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .bottom-nav a .icon{ width: 23px; height: 23px; }
+  .bottom-nav a.active{ color: var(--accent, var(--blue)); }
+  .bottom-nav a.active::before{
+    content: ""; position: absolute; top: -7px; left: 26%; right: 26%; height: 3px;
+    border-radius: 0 0 3px 3px; background: var(--accent-bright, var(--blue));
+  }
+  .bottom-nav a:active{ background: var(--paper); }
+
+  /* El menu hamburguesa ya no hace falta: los 5 destinos estan siempre a la vista */
+  .main-nav, .nav-toggle{ display: none !important; }
+
+  /* Deja espacio para que la barra no tape el final de la pagina ni los avisos */
+  body{ padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px)); }
+  .xp-toast{ bottom: calc(82px + env(safe-area-inset-bottom, 0px)); }
+}
+@media (prefers-reduced-motion: no-preference){
+  @media (max-width: 620px){
+    .bottom-nav a.active .icon{ animation: bnPop .32s cubic-bezier(.3,1.6,.5,1); }
+    @keyframes bnPop{ 0%{ transform: scale(.7); } 100%{ transform: scale(1); } }
+  }
+}

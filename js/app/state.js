@@ -25,6 +25,9 @@
       skillsStreak: 0,
       lastActiveDay: null,
       daily: null,
+      goalDays: 0,
+      quizBest: {},
+      badges: [],
       skillProgress: { reading: [], writing: [], speaking: [], letter: [] },
       bingoStats: { wins: 0, played: 0 }
     };
@@ -46,6 +49,9 @@
           skillsStreak: typeof parsed.skillsStreak === "number" ? parsed.skillsStreak : 0,
           lastActiveDay: parsed.lastActiveDay || null,
           daily: parsed.daily && typeof parsed.daily === "object" && Array.isArray(parsed.daily.done) ? parsed.daily : null,
+          goalDays: typeof parsed.goalDays === "number" ? parsed.goalDays : 0,
+          quizBest: parsed.quizBest && typeof parsed.quizBest === "object" && !Array.isArray(parsed.quizBest) ? parsed.quizBest : {},
+          badges: Array.isArray(parsed.badges) ? parsed.badges : [],
           skillProgress: parsed.skillProgress && typeof parsed.skillProgress === "object" ? {
             reading: Array.isArray(parsed.skillProgress.reading) ? parsed.skillProgress.reading : [],
             writing: Array.isArray(parsed.skillProgress.writing) ? parsed.skillProgress.writing : [],
