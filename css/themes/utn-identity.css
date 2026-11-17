@@ -404,3 +404,6 @@ main:has(#view-inicio:not([hidden])){ padding-top: 0; }   /* la portada arranca 
 .bingo-cell-emoji.tint-5{ background:#DDF1F4; }
 .bingo-cell.marked .bingo-cell-emoji{ background: rgba(255,255,255,.92); box-shadow:none; }
 :root[data-theme="dark"] .bingo-cell:not(.marked) .bingo-cell-emoji{ box-shadow: inset 0 0 0 1px rgba(255,255,255,.08); }
+
+/* Student home: feature cards go below the Today strip, not over it */
+body.is-student .features{ margin-top: 0; }
