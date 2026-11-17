@@ -42,7 +42,8 @@ js/
     grammar-prepositions-content.js → tema "Prepositions" (guía: 3 módulos + 2 quizzes)
     grammar-interjections-content.js → tema "Interjections" (guía: 4 módulos + 1 quiz)
   app/
-    home-dashboard.js           → panel "Today" de la portada: Continuar, racha, XP y meta diaria
+    home-dashboard.js           → portada del estudiante: próxima lección en el hero + franja Today (racha, XP, rango, meta diaria);
+                                  body.is-student alterna entre esa portada y la bienvenida de invitado
     grammar-menu.js             → buscador de temas y filtro "Show upcoming topics" en Grammar
     rewards.js                  → XP global (lecciones, sellos, quizzes de gramática), rangos, insignias,
                                   celebraciones y franja de XP del encabezado
