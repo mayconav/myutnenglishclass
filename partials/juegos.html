@@ -1,62 +1,69 @@
-<!-- ============ GAMES: VERB BINGO (sala en vivo controlada por el profesor) ============ -->
-<section class="view" id="view-juegos" data-view="juegos" hidden>
+<!-- ============ GROUP: GAMES (Bingo + Crossword + Word Search) ============ -->
+<div class="group-tabbar" id="tabbar-juegos" data-group="juegos" hidden>
+  <button type="button" class="group-tab" data-nav="bingo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> Bingo</button>
+  <button type="button" class="group-tab" data-nav="crucigrama"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg> Crossword</button>
+  <button type="button" class="group-tab" data-nav="sopa"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg> Word Search</button>
+</div>
+
+<!-- ============ GAMES: VERB BINGO (live room controlled by the teacher) ============ -->
+<section class="view" id="view-bingo" data-view="bingo" hidden>
   <div class="section-head">
     <p class="eyebrow">Practice Games</p>
     <h2>Verb Bingo</h2>
-    <p class="lead">Tu profesor controla la partida en vivo. Cuando abra la sala de tu grupo, crea tu avatar, escucha el verbo en su forma base (ej. "go") y marca su forma pasada en tu carton (ej. "went"). ¡El primero en completar una linea gana!</p>
+    <p class="lead">Your teacher runs the game live. When your group's room opens, create your avatar, listen to the verb in its base form (e.g. "go") and mark its past form on your card (e.g. "went"). The first to complete a line wins!</p>
   </div>
 
-  <!-- PANTALLA: INVITADO (no ha iniciado sesion) -->
+  <!-- SCREEN: GUEST (not logged in) -->
   <div class="bingo-start-card" id="bingo-guest-screen">
-    <span class="bingo-start-icon" aria-hidden="true">🎯</span>
-    <h3>Inicia sesion para jugar</h3>
-    <p>El Bingo en vivo es exclusivo para alumnos registrados, ya que tu profesor controla la partida junto con tu grupo.</p>
-    <button type="button" class="btn btn-primary" id="bingo-guest-login-btn">Iniciar sesion</button>
+    <span class="bingo-start-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span>
+    <h3>Log in to play</h3>
+    <p>Live Bingo is for registered students only, because your teacher runs the game together with your group.</p>
+    <button type="button" class="btn btn-primary" id="bingo-guest-login-btn">Log In</button>
   </div>
 
-  <!-- PANTALLA: SALA CERRADA (logueado, pero sin partida activa para su grupo) -->
+  <!-- SCREEN: ROOM CLOSED (logged in, no active game for their group) -->
   <div class="bingo-start-card" id="bingo-closed-screen" hidden>
-    <span class="bingo-start-icon" aria-hidden="true">⏳</span>
-    <h3>Esperando a tu profesor</h3>
-    <p id="bingo-closed-text">Tu profesor todavia no ha abierto una partida de Bingo.</p>
+    <span class="bingo-start-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
+    <h3>Waiting for your teacher</h3>
+    <p id="bingo-closed-text">Your teacher hasn't opened a Bingo game yet.</p>
   </div>
 
-  <!-- PANTALLA: CREAR AVATAR (la sala de su grupo esta abierta, aun no se ha unido) -->
+  <!-- SCREEN: CREATE AVATAR (group room is open, not joined yet) -->
   <div class="bingo-start-card bingo-avatar-card" id="bingo-avatar-screen" hidden>
-    <span class="bingo-start-icon" aria-hidden="true">🎨</span>
-    <h3>¡Tu grupo esta jugando! Crea tu avatar</h3>
-    <p>Elige un emoji, un color y un apodo para que tus compañeros te reconozcan en la sala.</p>
+    <span class="bingo-start-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="13.5" cy="6.5" r=".6"/><circle cx="17.5" cy="10.5" r=".6"/><circle cx="8.5" cy="7.5" r=".6"/><circle cx="6.5" cy="12.5" r=".6"/><path d="M12 2a10 10 0 0 0 0 20 2 2 0 0 0 2-2c0-.5-.2-1-.5-1.4-.3-.4-.5-.9-.5-1.4a2 2 0 0 1 2-2h2.4a5 5 0 0 0 5-5C22 6 17.5 2 12 2z"/></svg></span>
+    <h3>Your group is playing! Create your avatar</h3>
+    <p>Choose an icon, a color and a nickname so your classmates can recognize you in the room.</p>
 
     <div class="bingo-avatar-preview-row">
-      <span class="bingo-avatar-badge bingo-avatar-badge-lg" id="bingo-avatar-preview">🦊</span>
-      <input type="text" id="bingo-avatar-nickname" class="modal-input bingo-nickname-input" placeholder="Tu apodo" maxlength="18">
+      <span class="bingo-avatar-badge bingo-avatar-badge-lg" id="bingo-avatar-preview" data-default="1"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>
+      <input type="text" id="bingo-avatar-nickname" class="modal-input bingo-nickname-input" placeholder="Your nickname" maxlength="18">
     </div>
 
-    <p class="bingo-settings-label">Elige un emoji</p>
+    <p class="bingo-settings-label">Choose an icon</p>
     <div class="bingo-avatar-options" id="bingo-avatar-emojis"></div>
 
-    <p class="bingo-settings-label">Elige un color</p>
+    <p class="bingo-settings-label">Choose a color</p>
     <div class="bingo-color-options" id="bingo-avatar-colors"></div>
 
-    <button type="button" class="btn btn-primary" id="bingo-join-btn">Entrar a la sala</button>
+    <button type="button" class="btn btn-primary" id="bingo-join-btn">Join room</button>
   </div>
 
-  <!-- PANTALLA: SALA EN VIVO (avatar creado; carton + cantador del profesor) -->
+  <!-- SCREEN: LIVE ROOM (avatar created; card + teacher caller) -->
   <div class="bingo-game" id="bingo-room-screen" hidden>
     <div class="bingo-room-topbar">
       <span class="bingo-room-status" id="bingo-room-status">—</span>
       <label class="bingo-voice-toggle">
         <input type="checkbox" id="bingo-voice-toggle" checked>
-        <span>Leer en voz alta</span>
+        <span>Read aloud</span>
       </label>
-      <button type="button" class="btn btn-ghost-light btn-sm" id="bingo-leave-btn">Salir de la sala</button>
+      <button type="button" class="btn btn-ghost-light btn-sm" id="bingo-leave-btn">Leave room</button>
     </div>
 
     <p class="bingo-winner-banner" id="bingo-winner-banner" hidden></p>
 
     <div class="bingo-caller-panel">
       <div class="bingo-caller-info">
-        <span class="bingo-caller-label">Ahora canta</span>
+        <span class="bingo-caller-label">Now calling</span>
         <p class="bingo-caller-word" id="bingo-caller-word">—</p>
       </div>
     </div>
@@ -65,13 +72,13 @@
 
     <div class="bingo-called-history" id="bingo-called-history" aria-live="off"></div>
 
-    <div class="bingo-board" id="bingo-board" role="grid" aria-label="Carton de Bingo"></div>
+    <div class="bingo-board" id="bingo-board" role="grid" aria-label="Bingo card"></div>
 
     <div class="bingo-game-foot">
-      <span class="bingo-progress-label" id="bingo-progress-label">0 / 25 marcadas</span>
+      <span class="bingo-progress-label" id="bingo-progress-label">0 / 25 marked</span>
     </div>
 
-    <p class="bingo-settings-label">Jugadores en la sala</p>
+    <p class="bingo-settings-label">Players in the room</p>
     <div class="bingo-roster" id="bingo-roster"></div>
   </div>
 
@@ -79,12 +86,143 @@
   <div class="modal-overlay" id="bingo-win-modal" hidden>
     <div class="modal-card congrats-card" role="dialog" aria-modal="true" aria-labelledby="bingo-win-title">
       <div class="confetti" aria-hidden="true"></div>
-      <p class="congrats-emoji" aria-hidden="true">🎉</p>
-      <p class="modal-title" id="bingo-win-title">¡BINGO!</p>
-      <p class="congrats-text" id="bingo-win-text">Completaste una linea.</p>
+      <p class="congrats-emoji" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16M10 14.7V17c0 .6-.5 1-1.2 1.2C7.8 18.5 7 20 7 22M14 14.7V17c0 .6.5 1 1.2 1.2 1 .3 1.8 1.8 1.8 3.8"/><path d="M18 2H6v7a6 6 0 0 0 12 0z"/></svg></p>
+      <p class="modal-title" id="bingo-win-title">BINGO!</p>
+      <p class="congrats-text" id="bingo-win-text">You completed a line.</p>
       <div class="modal-actions">
-        <button type="button" class="btn btn-primary" id="bingo-win-close">Cerrar</button>
+        <button type="button" class="btn btn-primary" id="bingo-win-close">Close</button>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ============ GAMES: VERB CROSSWORD ============ -->
+<section class="view" id="view-crucigrama" data-view="crucigrama" hidden>
+  <div class="section-head">
+    <p class="eyebrow">Practice Games</p>
+    <h2>Verb Crossword</h2>
+    <p class="lead">Solve the clues to fill the grid with regular and irregular verbs. Choose your level, the type of verbs and what the clues ask for. Every puzzle is different!</p>
+  </div>
+
+  <!-- GUEST: puzzles are for logged-in students only -->
+  <div class="bingo-start-card" id="cw-guest-screen">
+    <span class="bingo-start-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+    <h3>Log in to play</h3>
+    <p>The Verb Crossword is available for registered students only. Log in to practice and earn XP.</p>
+    <button type="button" class="btn btn-primary" id="cw-guest-login-btn">Log In</button>
+  </div>
+
+  <div id="cw-content" hidden>
+  <div class="puz-controls">
+    <div class="puz-field">
+      <label class="bingo-settings-label" for="cw-level">Level</label>
+      <select id="cw-level" class="bingo-select">
+        <option value="A1">A1 · Beginner</option>
+        <option value="A2">A2 · Elementary</option>
+        <option value="both">A1 + A2 (mixed)</option>
+      </select>
+    </div>
+    <div class="puz-field">
+      <label class="bingo-settings-label" for="cw-kind">Verbs</label>
+      <select id="cw-kind" class="bingo-select">
+        <option value="mixed">Regular + Irregular</option>
+        <option value="regular">Regular only</option>
+        <option value="irregular">Irregular only</option>
+      </select>
+    </div>
+    <div class="puz-field">
+      <label class="bingo-settings-label" for="cw-mode">Clues ask for</label>
+      <select id="cw-mode" class="bingo-select">
+        <option value="past">Past simple (e.g. go → went)</option>
+        <option value="base">Base form (Spanish → English)</option>
+      </select>
+    </div>
+    <button type="button" class="btn btn-primary" id="cw-new">New puzzle</button>
+  </div>
+
+  <p class="puz-status" id="cw-status" aria-live="polite"></p>
+
+  <div class="cw-layout">
+    <div class="cw-board-wrap">
+      <div class="cw-board" id="cw-board" role="group" aria-label="Crossword grid"></div>
+      <div class="puz-actions">
+        <button type="button" class="btn btn-primary btn-sm" id="cw-check">Check</button>
+        <button type="button" class="btn btn-ghost-light btn-sm" id="cw-hint">Hint (1 letter)</button>
+        <button type="button" class="btn btn-ghost-light btn-sm" id="cw-clear">Clear</button>
+        <button type="button" class="btn btn-ghost-light btn-sm" id="cw-reveal">Reveal</button>
+      </div>
+    </div>
+    <div class="cw-clues">
+      <p class="cw-active-clue" id="cw-active-clue" aria-live="polite">Pick a cell to see its clue.</p>
+      <div class="cw-clue-cols">
+        <div><h3>Across</h3><ol id="cw-clues-across"></ol></div>
+        <div><h3>Down</h3><ol id="cw-clues-down"></ol></div>
+      </div>
+    </div>
+  </div>
+  <p class="puz-note">Earn +20 XP for a finished crossword (+10 if you used hints). Revealing the answers gives no XP.</p>
+  </div>
+</section>
+
+<!-- ============ GAMES: VERB WORD SEARCH ============ -->
+<section class="view" id="view-sopa" data-view="sopa" hidden>
+  <div class="section-head">
+    <p class="eyebrow">Practice Games</p>
+    <h2>Verb Word Search</h2>
+    <p class="lead">Find the hidden verbs in the letter grid. Drag your finger or mouse across the letters, or tap the first and the last letter of a word.</p>
+  </div>
+
+  <!-- GUEST: puzzles are for logged-in students only -->
+  <div class="bingo-start-card" id="ws-guest-screen">
+    <span class="bingo-start-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+    <h3>Log in to play</h3>
+    <p>The Verb Word Search is available for registered students only. Log in to practice and earn XP.</p>
+    <button type="button" class="btn btn-primary" id="ws-guest-login-btn">Log In</button>
+  </div>
+
+  <div id="ws-content" hidden>
+  <div class="puz-controls">
+    <div class="puz-field">
+      <label class="bingo-settings-label" for="ws-level">Level</label>
+      <select id="ws-level" class="bingo-select">
+        <option value="A1">A1 · Beginner</option>
+        <option value="A2">A2 · Elementary</option>
+        <option value="both">A1 + A2 (mixed)</option>
+      </select>
+    </div>
+    <div class="puz-field">
+      <label class="bingo-settings-label" for="ws-kind">Verbs</label>
+      <select id="ws-kind" class="bingo-select">
+        <option value="mixed">Regular + Irregular</option>
+        <option value="regular">Regular only</option>
+        <option value="irregular">Irregular only</option>
+      </select>
+    </div>
+    <div class="puz-field">
+      <label class="bingo-settings-label" for="ws-mode">Find the</label>
+      <select id="ws-mode" class="bingo-select">
+        <option value="past">Past simple (e.g. go → went)</option>
+        <option value="base">Base form (Spanish → English)</option>
+      </select>
+    </div>
+    <button type="button" class="btn btn-primary" id="ws-new">New puzzle</button>
+  </div>
+
+  <p class="puz-status" id="ws-status" aria-live="polite"></p>
+
+  <div class="ws-layout">
+    <div class="ws-board-wrap">
+      <div class="ws-board" id="ws-board" role="group" aria-label="Word search grid"></div>
+      <div class="puz-actions">
+        <span class="puz-progress" id="ws-progress">0 / 0 found</span>
+        <button type="button" class="btn btn-ghost-light btn-sm" id="ws-reveal">Reveal</button>
+      </div>
+    </div>
+    <div class="ws-words">
+      <h3>Words to find</h3>
+      <ul id="ws-list"></ul>
+    </div>
+  </div>
+  <p class="puz-note">Earn +15 XP for a finished word search. Revealing the answers gives no XP.</p>
   </div>
 </section>

@@ -7,18 +7,30 @@
      re-reads progress, this time with the real student's key. */
   function storageKey() { return "myutn_progress_v2_" + (window.__UTN_UID__ || "local"); }
 
+  /* Dia local (YYYY-MM-DD). toISOString() usa UTC y en Mexico cambia de dia a las 6 p. m. */
+  function localDayKey(date) {
+    var d = date || new Date();
+    var m = d.getMonth() + 1, day = d.getDate();
+    return d.getFullYear() + "-" + (m < 10 ? "0" : "") + m + "-" + (day < 10 ? "0" : "") + day;
+  }
+
   function defaultState() {
     return {
       currentLevelIndex: 0,
       completedLessons: [],
       stamps: [],
-      profile: { name: "UTN Student", avatar: "🎓" },
+      profile: { name: "UTN Student", avatar: "owl" },
       congratsShown: false,
       skillsXP: 0,
       skillsStreak: 0,
       lastActiveDay: null,
+      daily: null,
+      goalDays: 0,
+      quizBest: {},
+      badges: [],
       skillProgress: { reading: [], writing: [], speaking: [], letter: [] },
-      bingoStats: { wins: 0, played: 0 }
+      bingoStats: { wins: 0, played: 0 },
+      puzzleStats: { crosswords: 0, wordsearches: 0 }
     };
   }
 
@@ -37,6 +49,10 @@
           skillsXP: typeof parsed.skillsXP === "number" ? parsed.skillsXP : 0,
           skillsStreak: typeof parsed.skillsStreak === "number" ? parsed.skillsStreak : 0,
           lastActiveDay: parsed.lastActiveDay || null,
+          daily: parsed.daily && typeof parsed.daily === "object" && Array.isArray(parsed.daily.done) ? parsed.daily : null,
+          goalDays: typeof parsed.goalDays === "number" ? parsed.goalDays : 0,
+          quizBest: parsed.quizBest && typeof parsed.quizBest === "object" && !Array.isArray(parsed.quizBest) ? parsed.quizBest : {},
+          badges: Array.isArray(parsed.badges) ? parsed.badges : [],
           skillProgress: parsed.skillProgress && typeof parsed.skillProgress === "object" ? {
             reading: Array.isArray(parsed.skillProgress.reading) ? parsed.skillProgress.reading : [],
             writing: Array.isArray(parsed.skillProgress.writing) ? parsed.skillProgress.writing : [],
@@ -46,7 +62,11 @@
           bingoStats: parsed.bingoStats && typeof parsed.bingoStats === "object" ? {
             wins: typeof parsed.bingoStats.wins === "number" ? parsed.bingoStats.wins : 0,
             played: typeof parsed.bingoStats.played === "number" ? parsed.bingoStats.played : 0
-          } : base.bingoStats
+          } : base.bingoStats,
+          puzzleStats: parsed.puzzleStats && typeof parsed.puzzleStats === "object" ? {
+            crosswords: typeof parsed.puzzleStats.crosswords === "number" ? parsed.puzzleStats.crosswords : 0,
+            wordsearches: typeof parsed.puzzleStats.wordsearches === "number" ? parsed.puzzleStats.wordsearches : 0
+          } : base.puzzleStats
         };
       }
       /* Migration from previous version (myutn_progress_v1) */

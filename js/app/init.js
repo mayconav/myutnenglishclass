@@ -1,10 +1,12 @@
 "use strict";
 /* Inicializacion de la aplicacion (app.js original: L2482-L2489) */
   /* ============ INIT ============ */
+  hydrateIcons(document);
+  syncBadgesSilently();
   updateBoardingPass();
   updateProfileUI();
   (function initialView() {
     var hash = (location.hash || "").replace("#", "");
-    var valid = hash && document.querySelector('.view[data-view="' + hash + '"]');
+    var valid = hash && (document.querySelector('.view[data-view="' + hash + '"]') || GROUPS[hash]);
     goto(valid ? hash : "inicio");
   })();
