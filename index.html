@@ -62,6 +62,8 @@
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="icon" type="image/png" sizes="192x192" href="img/logo-192.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0C4EB8">
 </head>
 <body>
 
@@ -390,6 +392,7 @@
     <div class="footer-program">
       <p class="footer-heading">Program</p>
       <p>MyUTNEnglishClass is a social service project of the Education, Arts, Culture and Sports program.</p>
+      <p><a href="descargar.html" style="color:inherit;font-weight:600;text-decoration:underline">Descargar app para Android</a></p>
     </div>
   </div>
   <div class="footer-bottom">
@@ -529,5 +532,6 @@
      enviar actividades sigue requiriendo una cuenta; eso lo controla auth.js
      (bloque "ACTIVITY GATE"). Se inyectan arriba solo despues de que cada
      partial haya terminado de cargar. -->
+<script>if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js").catch(function(){});});}</script>
 </body>
 </html>
