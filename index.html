@@ -45,6 +45,7 @@
 <link rel="stylesheet" href="css/components/grammar-menu.css">
 <link rel="stylesheet" href="css/components/rewards.css">
 <link rel="stylesheet" href="css/components/bottom-nav.css">
+<link rel="stylesheet" href="css/components/install-banner.css">
 <!-- Base (dependen de las variables de arriba) -->
 <link rel="stylesheet" href="css/base/focus.css">
 <link rel="stylesheet" href="css/base/responsive.css">
@@ -343,6 +344,13 @@
   </button>
 </header>
 
+<div class="install-banner" id="install-banner" hidden>
+  <img src="img/icon-192.png" alt="" width="40" height="40">
+  <div class="ib-text"><strong>Instala la app de MyUTN English</strong><span>Más rápida y directo desde tu pantalla de inicio</span></div>
+  <a class="ib-btn" href="descargar.html">Descargar</a>
+  <button type="button" class="ib-close" aria-label="Cerrar aviso">&times;</button>
+</div>
+
 <main id="main">
   <!-- ============ SECTION CONTENT LOADED DYNAMICALLY ============
        Each container below is filled at startup with the markup from
@@ -532,6 +540,7 @@
      enviar actividades sigue requiriendo una cuenta; eso lo controla auth.js
      (bloque "ACTIVITY GATE"). Se inyectan arriba solo despues de que cada
      partial haya terminado de cargar. -->
+<script src="js/install-app.js"></script>
 <script>if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js").catch(function(){});});}</script>
 </body>
 </html>

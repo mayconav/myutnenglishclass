@@ -60,7 +60,10 @@
   <a class="back" href="/">← Volver a la plataforma</a>
 </main>
 <script>
-  if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+  var yaEnApp = (window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform()) || /MyUTNApp/i.test(navigator.userAgent);
+  if (yaEnApp) {
+    document.querySelector('main').innerHTML = '<div class="card" style="text-align:center"><strong>Ya tienes la app instalada.</strong><p class="note">Se actualiza sola con el contenido del sitio.</p></div><a class="back" href="/">← Volver a la plataforma</a>';
+  } else if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
     document.getElementById('ios').style.display = 'block';
     document.getElementById('dl').style.display = 'none';
   }
