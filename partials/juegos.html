@@ -101,7 +101,7 @@
   <div class="section-head">
     <p class="eyebrow">Practice Games</p>
     <h2>Verb Crossword</h2>
-    <p class="lead">Solve the clues to fill the grid with regular and irregular verbs. Choose your level, the type of verbs and what the clues ask for. Every puzzle is different!</p>
+    <p class="lead">Every clue comes with a picture. Read it, think of the verb and type it into the grid. Finish the whole crossword to land your XP!</p>
   </div>
 
   <!-- GUEST: puzzles are for logged-in students only -->
@@ -112,55 +112,51 @@
     <button type="button" class="btn btn-primary" id="cw-guest-login-btn">Log In</button>
   </div>
 
-  <div id="cw-content" hidden>
-  <div class="puz-controls">
-    <div class="puz-field">
-      <label class="bingo-settings-label" for="cw-level">Level</label>
-      <select id="cw-level" class="bingo-select">
-        <option value="A1">A1 · Beginner</option>
-        <option value="A2">A2 · Elementary</option>
-        <option value="both">A1 + A2 (mixed)</option>
-      </select>
+  <div id="cw-content" class="puz-app" hidden>
+  <div class="puz-setup puz-card">
+      <div class="puz-field">
+        <span class="puz-label" id="cw-level-lbl">Level</span>
+        <div class="seg" role="radiogroup" aria-labelledby="cw-level-lbl" data-seg="cw-level"><button type="button" role="radio" aria-checked="true" data-value="A1">A1</button><button type="button" role="radio" aria-checked="false" data-value="A2">A2</button><button type="button" role="radio" aria-checked="false" data-value="both">A1 + A2</button></div>
+      </div>
+      <div class="puz-field">
+        <span class="puz-label" id="cw-kind-lbl">Verbs</span>
+        <div class="seg" role="radiogroup" aria-labelledby="cw-kind-lbl" data-seg="cw-kind"><button type="button" role="radio" aria-checked="true" data-value="mixed">Mixed</button><button type="button" role="radio" aria-checked="false" data-value="regular">Regular</button><button type="button" role="radio" aria-checked="false" data-value="irregular">Irregular</button></div>
+      </div>
+      <div class="puz-field">
+        <span class="puz-label" id="cw-mode-lbl">Clues ask for</span>
+        <div class="seg" role="radiogroup" aria-labelledby="cw-mode-lbl" data-seg="cw-mode"><button type="button" role="radio" aria-checked="true" data-value="past">Past simple</button><button type="button" role="radio" aria-checked="false" data-value="base">Spanish → English</button></div>
+      </div>
+      <button type="button" class="btn btn-primary puz-new" id="cw-new"><span data-icon="refresh" aria-hidden="true"></span> New puzzle</button>
+  </div>
+  <div class="puz-deck puz-card" id="cw-deck">
+    <div class="puz-stat"><span class="puz-stat-ico" data-icon="clock" aria-hidden="true"></span><span class="puz-stat-val" id="cw-time">0:00</span><span class="puz-stat-lbl">Time</span></div>
+    <div class="puz-stat"><span class="puz-stat-ico" data-icon="check-circle" aria-hidden="true"></span><span class="puz-stat-val" id="cw-count">0 / 0</span><span class="puz-stat-lbl">Words</span></div>
+    <div class="puz-stat"><span class="puz-stat-ico" data-icon="lightbulb" aria-hidden="true"></span><span class="puz-stat-val" id="cw-hints">0</span><span class="puz-stat-lbl">Hints</span></div>
+    <div class="puz-flight" aria-hidden="true">
+      <div class="puz-flight-track"><div class="puz-flight-fill" id="cw-fill"></div><span class="puz-flight-plane" id="cw-plane" data-icon="plane"></span></div>
+      <div class="puz-flight-ends"><span>Gate</span><span>Landing</span></div>
     </div>
-    <div class="puz-field">
-      <label class="bingo-settings-label" for="cw-kind">Verbs</label>
-      <select id="cw-kind" class="bingo-select">
-        <option value="mixed">Regular + Irregular</option>
-        <option value="regular">Regular only</option>
-        <option value="irregular">Irregular only</option>
-      </select>
-    </div>
-    <div class="puz-field">
-      <label class="bingo-settings-label" for="cw-mode">Clues ask for</label>
-      <select id="cw-mode" class="bingo-select">
-        <option value="past">Past simple (e.g. go → went)</option>
-        <option value="base">Base form (Spanish → English)</option>
-      </select>
-    </div>
-    <button type="button" class="btn btn-primary" id="cw-new">New puzzle</button>
   </div>
 
   <p class="puz-status" id="cw-status" aria-live="polite"></p>
 
   <div class="cw-layout">
-    <div class="cw-board-wrap">
-      <div class="cw-board" id="cw-board" role="group" aria-label="Crossword grid"></div>
+    <div class="cw-board-wrap puz-card">
+      <div class="cw-active" id="cw-active-clue" aria-live="polite"></div>
+      <div class="cw-board-scroll"><div class="cw-board" id="cw-board" role="group" aria-label="Crossword grid"></div></div>
       <div class="puz-actions">
-        <button type="button" class="btn btn-primary btn-sm" id="cw-check">Check</button>
-        <button type="button" class="btn btn-ghost-light btn-sm" id="cw-hint">Hint (1 letter)</button>
-        <button type="button" class="btn btn-ghost-light btn-sm" id="cw-clear">Clear</button>
-        <button type="button" class="btn btn-ghost-light btn-sm" id="cw-reveal">Reveal</button>
+        <button type="button" class="btn btn-primary btn-sm" id="cw-check"><span data-icon="check" aria-hidden="true"></span> Check</button>
+        <button type="button" class="btn btn-ghost-light btn-sm" id="cw-hint"><span data-icon="lightbulb" aria-hidden="true"></span> Hint (1 letter)</button>
+        <button type="button" class="btn btn-ghost-light btn-sm" id="cw-clear"><span data-icon="x-circle" aria-hidden="true"></span> Clear</button>
       </div>
+      <div class="puz-win" id="cw-win" hidden></div>
     </div>
-    <div class="cw-clues">
-      <p class="cw-active-clue" id="cw-active-clue" aria-live="polite">Pick a cell to see its clue.</p>
-      <div class="cw-clue-cols">
-        <div><h3>Across</h3><ol id="cw-clues-across"></ol></div>
-        <div><h3>Down</h3><ol id="cw-clues-down"></ol></div>
-      </div>
+    <div class="cw-clues puz-card">
+      <div class="cw-clue-group"><h3><span data-icon="arrow-left" class="cw-dir-ico cw-dir-across" aria-hidden="true"></span> Across</h3><ol id="cw-clues-across"></ol></div>
+      <div class="cw-clue-group"><h3><span data-icon="arrow-left" class="cw-dir-ico cw-dir-down" aria-hidden="true"></span> Down</h3><ol id="cw-clues-down"></ol></div>
     </div>
   </div>
-  <p class="puz-note">Earn +20 XP for a finished crossword (+10 if you used hints). Revealing the answers gives no XP.</p>
+  <p class="puz-note">Earn +20 XP for a finished crossword (+10 if you used hints).</p>
   </div>
 </section>
 
@@ -169,7 +165,7 @@
   <div class="section-head">
     <p class="eyebrow">Practice Games</p>
     <h2>Verb Word Search</h2>
-    <p class="lead">Find the hidden verbs in the letter grid. Drag your finger or mouse across the letters, or tap the first and the last letter of a word.</p>
+    <p class="lead">Hunt the hidden verbs! Drag across the letters, or tap the first and the last letter of a word. Each card shows a picture to help you.</p>
   </div>
 
   <!-- GUEST: puzzles are for logged-in students only -->
@@ -180,49 +176,47 @@
     <button type="button" class="btn btn-primary" id="ws-guest-login-btn">Log In</button>
   </div>
 
-  <div id="ws-content" hidden>
-  <div class="puz-controls">
-    <div class="puz-field">
-      <label class="bingo-settings-label" for="ws-level">Level</label>
-      <select id="ws-level" class="bingo-select">
-        <option value="A1">A1 · Beginner</option>
-        <option value="A2">A2 · Elementary</option>
-        <option value="both">A1 + A2 (mixed)</option>
-      </select>
+  <div id="ws-content" class="puz-app" hidden>
+  <div class="puz-setup puz-card">
+      <div class="puz-field">
+        <span class="puz-label" id="ws-level-lbl">Level</span>
+        <div class="seg" role="radiogroup" aria-labelledby="ws-level-lbl" data-seg="ws-level"><button type="button" role="radio" aria-checked="true" data-value="A1">A1</button><button type="button" role="radio" aria-checked="false" data-value="A2">A2</button><button type="button" role="radio" aria-checked="false" data-value="both">A1 + A2</button></div>
+      </div>
+      <div class="puz-field">
+        <span class="puz-label" id="ws-kind-lbl">Verbs</span>
+        <div class="seg" role="radiogroup" aria-labelledby="ws-kind-lbl" data-seg="ws-kind"><button type="button" role="radio" aria-checked="true" data-value="mixed">Mixed</button><button type="button" role="radio" aria-checked="false" data-value="regular">Regular</button><button type="button" role="radio" aria-checked="false" data-value="irregular">Irregular</button></div>
+      </div>
+      <div class="puz-field">
+        <span class="puz-label" id="ws-mode-lbl">Find the</span>
+        <div class="seg" role="radiogroup" aria-labelledby="ws-mode-lbl" data-seg="ws-mode"><button type="button" role="radio" aria-checked="true" data-value="past">Past simple</button><button type="button" role="radio" aria-checked="false" data-value="base">Spanish → English</button></div>
+      </div>
+      <button type="button" class="btn btn-primary puz-new" id="ws-new"><span data-icon="refresh" aria-hidden="true"></span> New puzzle</button>
+  </div>
+  <div class="puz-deck puz-card" id="ws-deck">
+    <div class="puz-stat"><span class="puz-stat-ico" data-icon="clock" aria-hidden="true"></span><span class="puz-stat-val" id="ws-time">0:00</span><span class="puz-stat-lbl">Time</span></div>
+    <div class="puz-stat"><span class="puz-stat-ico" data-icon="check-circle" aria-hidden="true"></span><span class="puz-stat-val" id="ws-count">0 / 0</span><span class="puz-stat-lbl">Found</span></div>
+    <div class="puz-stat"><span class="puz-stat-ico" data-icon="lightbulb" aria-hidden="true"></span><span class="puz-stat-val" id="ws-hints">0</span><span class="puz-stat-lbl">Hints</span></div>
+    <div class="puz-flight" aria-hidden="true">
+      <div class="puz-flight-track"><div class="puz-flight-fill" id="ws-fill"></div><span class="puz-flight-plane" id="ws-plane" data-icon="plane"></span></div>
+      <div class="puz-flight-ends"><span>Gate</span><span>Landing</span></div>
     </div>
-    <div class="puz-field">
-      <label class="bingo-settings-label" for="ws-kind">Verbs</label>
-      <select id="ws-kind" class="bingo-select">
-        <option value="mixed">Regular + Irregular</option>
-        <option value="regular">Regular only</option>
-        <option value="irregular">Irregular only</option>
-      </select>
-    </div>
-    <div class="puz-field">
-      <label class="bingo-settings-label" for="ws-mode">Find the</label>
-      <select id="ws-mode" class="bingo-select">
-        <option value="past">Past simple (e.g. go → went)</option>
-        <option value="base">Base form (Spanish → English)</option>
-      </select>
-    </div>
-    <button type="button" class="btn btn-primary" id="ws-new">New puzzle</button>
   </div>
 
   <p class="puz-status" id="ws-status" aria-live="polite"></p>
 
   <div class="ws-layout">
-    <div class="ws-board-wrap">
+    <div class="ws-board-wrap puz-card">
       <div class="ws-board" id="ws-board" role="group" aria-label="Word search grid"></div>
       <div class="puz-actions">
-        <span class="puz-progress" id="ws-progress">0 / 0 found</span>
-        <button type="button" class="btn btn-ghost-light btn-sm" id="ws-reveal">Reveal</button>
+        <button type="button" class="btn btn-ghost-light btn-sm" id="ws-hint"><span data-icon="lightbulb" aria-hidden="true"></span> Hint (first letter)</button>
       </div>
+      <div class="puz-win" id="ws-win" hidden></div>
     </div>
-    <div class="ws-words">
+    <div class="ws-words puz-card">
       <h3>Words to find</h3>
       <ul id="ws-list"></ul>
     </div>
   </div>
-  <p class="puz-note">Earn +15 XP for a finished word search. Revealing the answers gives no XP.</p>
+  <p class="puz-note">Earn +15 XP for a finished word search (+10 if you used hints).</p>
   </div>
 </section>
