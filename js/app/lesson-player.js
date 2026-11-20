@@ -25,7 +25,7 @@
     player.timer = null;
     player.playing = false;
     player.elapsed = 0;
-    document.getElementById("player-play-icon").textContent = "▶";
+    document.getElementById("player-play-icon").innerHTML = UTNIcons.svg("play");
     document.getElementById("player-fill").style.width = "0%";
     document.getElementById("player-current").textContent = "0:00";
     var visual = document.querySelector(".player-visual");
@@ -58,12 +58,12 @@
     if (player.playing) {
       clearInterval(player.timer);
       player.playing = false;
-      document.getElementById("player-play-icon").textContent = "▶";
+      document.getElementById("player-play-icon").innerHTML = UTNIcons.svg("play");
       document.querySelector(".player-visual").classList.remove("playing");
       return;
     }
     player.playing = true;
-    document.getElementById("player-play-icon").textContent = "❙❙";
+    document.getElementById("player-play-icon").innerHTML = UTNIcons.svg("pause");
     document.querySelector(".player-visual").classList.add("playing");
     player.timer = setInterval(function () {
       player.elapsed += 1 * player.speed;
@@ -233,7 +233,10 @@
 
     document.getElementById("quiz-next-btn").onclick = function () {
       var lid = lessonId(levelCode, lessonIdx);
-      if (state.completedLessons.indexOf(lid) === -1) state.completedLessons.push(lid);
+      var isNewLesson = state.completedLessons.indexOf(lid) === -1;
+      var hadStamp = state.stamps.indexOf(levelCode) !== -1;
+      var prevXp = state.skillsXP;
+      if (isNewLesson) state.completedLessons.push(lid);
 
       var levelLessons = LESSONS[levelCode];
       var allLevelLessonsDone = levelLessons.every(function (_, i) {
@@ -248,6 +251,10 @@
       }
       saveProgress(state);
       updateBoardingPass();
+      if (typeof recordDailyActivity === "function") recordDailyActivity("lesson:" + lid);
+      if (typeof rewardLessonDone === "function") {
+        rewardLessonDone(isNewLesson, !hadStamp && state.stamps.indexOf(levelCode) !== -1, levelCode, prevXp);
+      }
 
       if (state.stamps.length === LEVELS.length && !state.congratsShown) {
         state.congratsShown = true;

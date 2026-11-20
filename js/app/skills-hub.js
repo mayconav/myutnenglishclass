@@ -1,10 +1,10 @@
 "use strict";
 /* Habilidades: XP, racha, barra de estado, cuadricula y apertura de una habilidad (antes en js/app.js) */
   var SKILL_META = {
-    reading: { icon: "📖", label: "Reading", desc: "Read a short text and answer comprehension questions.", xp: 15 },
-    writing: { icon: "✍️", label: "Writing", desc: "Build English sentences by dragging words.", xp: 15 },
-    speaking: { icon: "🗣️", label: "Speaking", desc: "Listen and practice your pronunciation out loud.", xp: 15 },
-    letter: { icon: "✉️", label: "Letter", desc: "Complete a letter or email using the word bank.", xp: 20 }
+    reading: { icon: "book-open", label: "Reading", desc: "Read a short text and answer comprehension questions.", xp: 15 },
+    writing: { icon: "pencil", label: "Writing", desc: "Build English sentences by dragging words.", xp: 15 },
+    speaking: { icon: "message-circle", label: "Speaking", desc: "Listen and practice your pronunciation out loud.", xp: 15 },
+    letter: { icon: "mail", label: "Letter", desc: "Complete a letter or email using the word bank.", xp: 20 }
   };
   var SKILL_ORDER = ["reading", "writing", "speaking", "letter"];
 
@@ -20,7 +20,7 @@
   /* ---- Daily streak ---- */
   function touchStreak() {
     var today = new Date();
-    var todayStr = today.toISOString().slice(0, 10);
+    var todayStr = localDayKey(today);
     if (state.lastActiveDay === todayStr) return;
     if (state.lastActiveDay) {
       var last = new Date(state.lastActiveDay + "T00:00:00");
@@ -39,7 +39,7 @@
   var xpToastTimer = null;
   function showXpToast(amount) {
     var toast = document.getElementById("xp-toast");
-    toast.textContent = "+" + amount + " XP ⚡ Well done!";
+    toast.textContent = "+" + amount + " XP · Well done!";
     toast.hidden = false;
     requestAnimationFrame(function () { toast.classList.add("show"); });
     if (xpToastTimer) clearTimeout(xpToastTimer);
@@ -50,6 +50,7 @@
   }
 
   function awardXP(amount, skillKey, levelCode) {
+    var prevXp = state.skillsXP;
     state.skillsXP += amount;
     if (state.skillProgress[skillKey].indexOf(levelCode) === -1) {
       state.skillProgress[skillKey].push(levelCode);
@@ -57,6 +58,8 @@
     saveProgress(state);
     showXpToast(amount);
     updateSkillsStatusbar();
+    if (typeof recordDailyActivity === "function") recordDailyActivity("skill:" + skillKey + ":" + levelCode);
+    if (typeof checkRewards === "function") checkRewards(prevXp);
   }
 
   function updateSkillsStatusbar() {
@@ -123,7 +126,7 @@
       card.setAttribute("role", "button");
       card.innerHTML =
         '<div class="skill-card-top">' +
-          '<span class="skill-card-icon">' + meta.icon + "</span>" +
+          '<span class="skill-card-icon">' + UTNIcons.svg(meta.icon) + "</span>" +
           ringSvg(pct) +
         "</div>" +
         "<h3>" + meta.label + "</h3>" +

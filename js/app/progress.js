@@ -27,6 +27,9 @@
       list.appendChild(li);
     });
 
+    if (typeof renderBadgeShelf === "function") renderBadgeShelf();
+    if (typeof renderRewardsUI === "function") renderRewardsUI();
+
     var complete = state.stamps.length === LEVELS.length;
     var certBtn = document.getElementById("certificate-btn");
     var certDesc = document.getElementById("certificate-desc");

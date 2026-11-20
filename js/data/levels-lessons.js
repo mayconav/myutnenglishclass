@@ -213,7 +213,7 @@
     ]
   };
 
-  var AVATARS = ["🎓", "🦉", "🦅", "🐺", "🦊", "🐢", "🌵", "⭐"];
+  var AVATARS = UTNIcons.avatars;
 
   var DELIVERABLES = LEVELS.map(function (lvl) {
     return { code: lvl.code, text: "Deliverable " + lvl.code + ": " + lvl.skill };

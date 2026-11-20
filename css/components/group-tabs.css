@@ -12,3 +12,8 @@
 .group-tab:hover:not(.active){ color: var(--text-primary); transform: translateY(-1px); }
 .group-tab.active{ background: var(--blue); border-color: var(--blue); color:#fff; }
 
+
+@media (max-width: 620px){
+  .group-tabbar{ border-radius: var(--radius-md); }
+  .group-tab{ padding: 8px 14px; font-size: 13px; }
+}

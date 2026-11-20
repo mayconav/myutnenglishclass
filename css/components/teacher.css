@@ -28,12 +28,12 @@
 }
 
 .grammar-topic.has-content{ cursor:pointer; }
-.grammar-topic.has-content::before{ content:"📖"; opacity:1; }
+.grammar-topic.has-content::before{ content:""; opacity:1; }
 .grammar-topic.has-content:hover{ background: var(--blue-tint); border-color: var(--blue); color: var(--blue); }
 ::root[data-theme="dark"] .grammar-topic.has-content:hover{ background: rgba(59,116,214,0.16); }
 .grammar-topic.has-quiz{ position:relative; padding-right: 30px; }
 .grammar-topic.has-quiz::after{
-  content:"✎"; position:absolute; top:-6px; right:-6px; width:18px; height:18px; border-radius:50%;
+  content:""; position:absolute; top:-6px; right:-6px; width:18px; height:18px; border-radius:50%;
   background: var(--red); color:#fff; font-size: 10px; display:flex; align-items:center; justify-content:center;
   box-shadow: 0 0 0 2px var(--surface, #fff);
 }

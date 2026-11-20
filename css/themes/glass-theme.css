@@ -30,7 +30,7 @@
 /* ---- Ambient background: blurred color blobs behind everything ---- */
 body{ position: relative; }
 body::before{
-  content:""; position: fixed; inset: -12%; z-index: -1; pointer-events:none;
+  content:""; position: fixed; inset: 0; z-index: -1; pointer-events:none;
   background:
     radial-gradient(36% 30% at 10% 6%,  rgba(12,78,184,0.32) , transparent 70%),
     radial-gradient(30% 26% at 92% 12%, rgba(226,20,27,0.20) , transparent 70%),

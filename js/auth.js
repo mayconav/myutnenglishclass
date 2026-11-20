@@ -11,7 +11,7 @@
       currentLevelIndex: 0,
       completedLessons: [],
       stamps: [],
-      profile: { name: name || "UTN Student", avatar: "🎓" },
+      profile: { name: name || "UTN Student", avatar: "owl" },
       congratsShown: false
     };
   }
@@ -125,7 +125,7 @@
     if (!input) return;
     var showing = input.type === "text";
     input.type = showing ? "password" : "text";
-    btn.textContent = showing ? "👁" : "🙈";
+    btn.innerHTML = UTNIcons.svg(showing ? "eye" : "eye-off");
     btn.setAttribute("aria-label", showing ? "Show password" : "Hide password");
   });
 

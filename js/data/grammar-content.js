@@ -3,7 +3,7 @@
   /* ============ GRAMMAR LESSONS ============
      Content arrives progressively from Professor Aguilar. Each entry in
      GRAMMAR_CONTENT unlocks its matching topic in the syllabus menu
-     (data-topic attribute). Topics with no entry stay locked (🔒) and
+     (data-topic attribute). Topics with no entry stay locked and
      show a "coming soon" toast when tapped. */
   var GRAMMAR_CONTENT = {
     nouns: {

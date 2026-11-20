@@ -1,0 +1,19 @@
+{
+  "appId": "mx.edu.utn.myutnenglishclass",
+  "appName": "MyUTN English",
+  "webDir": "www",
+  "server": {
+    "url": "https://myutnenglishclass.vercel.app",
+    "androidScheme": "https",
+    "allowNavigation": [
+      "myutnenglishclass.vercel.app",
+      "*.firebaseapp.com",
+      "*.googleapis.com",
+      "www.gstatic.com"
+    ]
+  },
+  "android": {
+    "allowMixedContent": false,
+    "appendUserAgent": "MyUTNApp"
+  }
+}

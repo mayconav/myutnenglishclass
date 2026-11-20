@@ -66,3 +66,44 @@
   transition: background .15s ease, transform .12s ease;
 }
 .material-speak-btn:hover{ background: var(--blue-tint); transform: scale(1.08); }
+
+
+/* ---- MOVIL: tablas de 4+ columnas como tarjetas (se ve la traduccion sin scroll) ---- */
+@media (max-width: 620px){
+  .material-block{ padding: 16px 14px; }
+  .material-block-head{ flex-wrap: wrap; gap: 10px; }
+  .material-jumpnav{ top: var(--header-h, 52px); padding: 8px 10px; gap: 6px; }
+  .material-jump-btn{ padding: 6px 12px; }
+  .material-table{ min-width: 0; }
+
+  .material-table-wrap{ overflow-x: visible; border: none; border-radius: 0; }
+  .material-table.table-stack,
+  .material-table.table-stack tbody,
+  .material-table.table-stack tr,
+  .material-table.table-stack td{ display: block; width: 100%; }
+  .material-table.table-stack thead{ display: none; }
+  .material-table.table-stack tr{
+    border: 1px solid var(--border); border-radius: var(--radius-sm);
+    margin-bottom: 10px; padding: 8px 12px; background: var(--surface);
+  }
+  .material-table.table-stack td{
+    display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+    padding: 5px 0; border-bottom: 1px dashed var(--border); text-align: right;
+  }
+  .material-table.table-stack td::before{
+    content: attr(data-label); flex-shrink: 0; text-align: left;
+    font-family: var(--font-display); font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .04em; color: var(--text-muted);
+  }
+  .material-table.table-stack td:first-child{
+    font-size: 17px; color: var(--blue); padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+  .material-table.table-stack td:last-child{ border-bottom: none; font-style: italic; }
+  .material-table.table-stack tr:last-child td:last-child{ border-bottom: none; }
+  .material-table.table-stack tr:hover td{ background: transparent; }
+  .material-speak-btn{ margin-left: auto; }
+}
+
+/* Tablas de 2-3 columnas: caben sin forzar ancho minimo */
+.material-table:not(.table-stack){ min-width: 0; }

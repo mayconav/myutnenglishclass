@@ -12,7 +12,7 @@
   var BINGO_GRID_SIZE = 5;
   var BINGO_CENTER_INDEX = 12; // centro de un grid 5x5 (0-indexado): lleva un verbo irregular, ya no hay casilla libre
   var BINGO_TOTAL_CELLS = BINGO_GRID_SIZE * BINGO_GRID_SIZE; // 25
-  var BINGO_AVATAR_EMOJIS = ["🦊","🐼","🐸","🐵","🦁","🐯","🐨","🐰","🐧","🦄","🐙","🦖","🐢","🦉","🐝","🐬"];
+  var BINGO_AVATAR_EMOJIS = UTNIcons.avatars; // icon names (field kept as "emoji" for compatibility with saved sessions)
   var BINGO_AVATAR_COLORS = ["#0C4EB8","#E2141B","#0C9C61","#7B3FA0","#D9720C","#C79A00","#8B5A2B","#3B74D6"];
 
   var BINGO_LINES = (function buildLines() {
@@ -51,7 +51,7 @@
   var bingoUnsubSession = null;
   var bingoUnsubPlayers = null;
   var bingoLastSpokenCall = null;
-  var bingoAnnouncedWinnerKey = null; // evita repetir el modal de "alguien mas gano" en cada snapshot
+  var bingoAnnouncedWinnerKey = null; // evita repetir el modal de "someone else won" en cada snapshot
   var bingoVoiceOn = true;
   var bingoAvatarPick = { emoji: BINGO_AVATAR_EMOJIS[0], color: BINGO_AVATAR_COLORS[0] };
 
@@ -178,6 +178,10 @@
           var iconEl = document.createElement("span");
           iconEl.className = "bingo-cell-emoji";
           iconEl.setAttribute("aria-hidden", "true");
+          // Soft pastel disc behind each illustration; the tint is stable per verb.
+          var tintSeed = 0;
+          for (var ti = 0; ti < word.length; ti++) tintSeed = (tintSeed * 31 + word.charCodeAt(ti)) % 6;
+          iconEl.classList.add("tint-" + tintSeed);
           iconEl.textContent = icon;
           cell.appendChild(iconEl);
         }
@@ -211,7 +215,7 @@
     if (!el || !bingoMyPlayer) return;
     var count = bingoMarkedCount(bingoMyPlayer);
     var total = bingoCellTotal(bingoMyPlayer);
-    el.textContent = count + " / " + total + " marcadas";
+    el.textContent = count + " / " + total + " marked";
     if (el.parentElement) el.parentElement.style.setProperty("--p", count / total);
   }
 
@@ -242,7 +246,7 @@
         cell.classList.remove("bingo-shake");
         cell.removeEventListener("animationend", onShakeEnd);
       });
-      setHint("Esa forma aun no ha sido cantada — ¡sigue escuchando!");
+      setHint("That form hasn't been called yet — keep listening!");
       return;
     }
     bingoMyPlayer.marked[idx] = true;
@@ -338,11 +342,13 @@
   }
 
   function awardBingoXP() {
+    var prevXp = state.skillsXP || 0;
     state.skillsXP = (state.skillsXP || 0) + BINGO_XP_PER_WIN;
     if (!state.bingoStats) state.bingoStats = { wins: 0, played: 0 };
     state.bingoStats.wins += 1;
     saveProgress(state);
     if (typeof showXpToast === "function") showXpToast(BINGO_XP_PER_WIN);
+    if (typeof checkRewards === "function") checkRewards(prevXp);
   }
 
   function setHint(msg) {
@@ -363,8 +369,8 @@
 
   function showWinModal(nombreGanador, soyYo) {
     bingoEl("bingo-win-text").textContent = soyYo
-      ? "¡Completaste una linea y ganaste +" + BINGO_XP_PER_WIN + " XP!"
-      : (nombreGanador || "Alguien") + " completo una linea primero. ¡Sera en la siguiente ronda!";
+      ? "You completed a line and earned +" + BINGO_XP_PER_WIN + " XP!"
+      : (nombreGanador || "Someone") + " completed a line first. Better luck next round!";
     bingoEl("bingo-win-modal").hidden = false;
     var confettiHost = document.querySelector("#bingo-win-modal .confetti");
     if (confettiHost) confettiHost.innerHTML = "";
@@ -376,12 +382,12 @@
   function avatarChipHtml(p, opts) {
     opts = opts || {};
     var isNew = !!opts.isNew;
-    var crown = p.wonAt ? '<span class="bingo-crown" title="Gano esta ronda">🏆</span>' : "";
+    var crown = p.wonAt ? '<span class="bingo-crown" title="Won this round">' + UTNIcons.svg("trophy") + '</span>' : "";
     var sub = opts.showCount ? '<span class="bingo-chip-count">' + bingoMarkedCount(p) + '/' + bingoCellTotal(p) + '</span>' : "";
     return (
       '<span class="bingo-roster-chip' + (p.wonAt ? " won" : "") + (isNew ? " joined" : "") + '">' +
-      '<span class="bingo-avatar-badge" style="background:' + (p.avatarColor || "#0C4EB8") + '">' + (p.avatarEmoji || "🙂") + '</span>' +
-      '<span class="bingo-roster-name">' + escapeHtmlBingo(p.nombre || "Alumno") + '</span>' +
+      '<span class="bingo-avatar-badge" style="background:' + (p.avatarColor || "#0C4EB8") + '">' + UTNIcons.avatar(p.avatarEmoji) + '</span>' +
+      '<span class="bingo-roster-name">' + escapeHtmlBingo(p.nombre || "Student") + '</span>' +
       crown + sub +
       '</span>'
     );
@@ -405,7 +411,7 @@
           var isNew = !firstPaint && !seen[p.uid] && bingoMotionOk();
           return avatarChipHtml(p, { showCount: true, isNew: isNew });
         }).join("")
-      : '<span class="bingo-roster-empty">Todavia no hay nadie en la sala.</span>';
+      : '<span class="bingo-roster-empty">No one is in the room yet.</span>';
     var known = {};
     list.forEach(function (p) { known[p.uid] = true; });
     bingoKnownPlayers = known;
@@ -423,13 +429,13 @@
     var el = bingoEl("bingo-closed-text");
     if (!el) return;
     if (!bingoStudent.grupo) {
-      el.textContent = "Tu profesor todavia no te ha asignado a un grupo. Pidele que te asigne uno para poder jugar Bingo.";
+      el.textContent = "Your teacher hasn't assigned you to a group yet. Ask them to assign you one so you can play Bingo.";
     } else if (!bingoSession || bingoSession.status === "ended") {
-      el.textContent = "Tu profesor todavia no ha abierto una partida de Bingo. Esta pantalla se actualizara sola en cuanto la abra.";
+      el.textContent = "Your teacher hasn't opened a Bingo game yet. This screen will update automatically as soon as they do.";
     } else if (bingoSession.grupo !== bingoStudent.grupo) {
-      el.textContent = "Hay una partida de Bingo activa, pero es para el grupo " + bingoSession.grupo + ". Espera a que tu profesor abra una para " + bingoStudent.grupo + ".";
+      el.textContent = "There is an active Bingo game, but it is for group " + bingoSession.grupo + ". Please wait for your teacher to open one for " + bingoStudent.grupo + ".";
     } else {
-      el.textContent = "Esperando a tu profesor…";
+      el.textContent = "Waiting for your teacher…";
     }
   }
 
@@ -439,10 +445,10 @@
     var historyEl = bingoEl("bingo-called-history");
     if (!bingoSession) return;
     var statusLabels = {
-      lobby: "🕹️ En espera de que el profesor inicie",
-      playing: "🎙️ Cantando verbos…",
-      paused: "⏸️ Pausado por el profesor",
-      ended: "🏁 Ronda terminada"
+      lobby: "Waiting for the teacher to start",
+      playing: "Calling verbs…",
+      paused: "Paused by the teacher",
+      ended: "Round finished"
     };
     if (statusEl) {
       var modeTxt = (typeof bingoModeLabel === "function") ? " · " + bingoModeLabel(bingoSession.modo) : "";
@@ -465,7 +471,7 @@
     if (bannerEl) {
       if (winner) {
         bannerEl.hidden = false;
-        bannerEl.innerHTML = "🏆 <strong>" + escapeHtmlBingo(winner.nombre || "Alguien") + "</strong> gano esta ronda";
+        bannerEl.innerHTML = UTNIcons.svg("trophy") + " <strong>" + escapeHtmlBingo(winner.nombre || "Someone") + "</strong> won this round";
       } else {
         bannerEl.hidden = true;
         bannerEl.innerHTML = "";
@@ -499,7 +505,7 @@
     var colorWrap = bingoEl("bingo-avatar-colors");
     if (emojiWrap && !emojiWrap.dataset.built) {
       emojiWrap.innerHTML = BINGO_AVATAR_EMOJIS.map(function (em) {
-        return '<button type="button" class="bingo-avatar-option" data-emoji="' + em + '">' + em + "</button>";
+        return '<button type="button" class="bingo-avatar-option" data-emoji="' + em + '" aria-label="' + em.replace(/-/g, " ") + '">' + UTNIcons.avatar(em) + "</button>";
       }).join("");
       emojiWrap.dataset.built = "1";
     }
@@ -529,7 +535,7 @@
       var changed = preview.dataset.sig !== undefined && preview.dataset.sig !== avatarSig;
       preview.dataset.sig = avatarSig;
       preview.style.background = bingoAvatarPick.color;
-      preview.textContent = bingoAvatarPick.emoji;
+      preview.innerHTML = UTNIcons.avatar(bingoAvatarPick.emoji);
       if (changed && bingoMotionOk()) {
         preview.classList.remove("bump");
         void preview.offsetWidth;
@@ -540,7 +546,7 @@
 
   function joinRoom() {
     var nickInput = bingoEl("bingo-avatar-nickname");
-    var nombre = (nickInput && nickInput.value.trim()) || bingoStudent.nombre || "Alumno";
+    var nombre = (nickInput && nickInput.value.trim()) || bingoStudent.nombre || "Student";
     var built = buildBoard();
     var data = {
       nombre: nombre,
@@ -556,7 +562,7 @@
       joinedAt: firebase.firestore.FieldValue.serverTimestamp()
     };
     var btn = bingoEl("bingo-join-btn");
-    if (btn) { btn.disabled = true; btn.textContent = "Entrando…"; }
+    if (btn) { btn.disabled = true; btn.textContent = "Joining…"; }
     bingoMyPlayerRef().set(data).then(function () {
       bingoMyPlayer = data;
       if (!state.bingoStats) state.bingoStats = { wins: 0, played: 0 };
@@ -564,9 +570,9 @@
       saveProgress(state);
       renderRoom();
     }).catch(function () {
-      setHint("No se pudo entrar a la sala. Revisa tu conexion e intenta de nuevo.");
+      setHint("Could not join the room. Check your connection and try again.");
     }).finally(function () {
-      if (btn) { btn.disabled = false; btn.textContent = "Entrar a la sala"; }
+      if (btn) { btn.disabled = false; btn.textContent = "Join room"; }
     });
   }
 

@@ -13,7 +13,7 @@
     if (rule.table2Label) html += '<p class="grammar-rule-desc" style="margin-top:16px;"><strong>' + rule.table2Label + "</strong></p>";
     if (rule.table2) html += grammarTableHtml(rule.table2, rule.table2Head);
     if (rule.examples2) html += grammarExamplesHtml(rule.examples2);
-    if (rule.tip) html += '<div class="grammar-tip-box">💡 <strong>Grammar Tip:</strong> ' + rule.tip + "</div>";
+    if (rule.tip) html += '<div class="grammar-tip-box">' + UTNIcons.svg("%s") + ' <strong>Grammar Tip:</strong> ' + rule.tip + "</div>";
     html += "</div>";
     return html;
   }
@@ -49,32 +49,32 @@
       "</div>";
 
     if (mod.objectives) {
-      html += '<div class="grammar-objectives"><p>🎯 Learning Objective</p><ul>';
+      html += '<div class="grammar-objectives"><p>' + UTNIcons.svg("%s") + ' Learning Objective</p><ul>';
       mod.objectives.forEach(function (o) { html += "<li>" + o + "</li>"; });
       html += "</ul></div>";
     }
 
     if (mod.rules && mod.rules.length) {
-      html += '<p class="grammar-section-title">🧩 Grammar Rules</p>';
+      html += '<p class="grammar-section-title">' + UTNIcons.svg("%s") + ' Grammar Rules</p>';
       mod.rules.forEach(function (rule) { html += grammarRuleCardHtml(rule); });
     }
 
     if (mod.commonMistakes) {
-      html += '<p class="grammar-section-title">⚠ Common Mistakes</p><div class="grammar-mistakes-grid">';
+      html += '<p class="grammar-section-title">' + UTNIcons.svg("%s") + ' Common Mistakes</p><div class="grammar-mistakes-grid">';
       mod.commonMistakes.forEach(function (pair) {
-        html += '<div class="grammar-mistake"><span class="wrong">❌ ' + pair[0] + '</span><span class="right">✅ ' + pair[1] + "</span></div>";
+        html += '<div class="grammar-mistake"><span class="wrong">' + UTNIcons.svg("%s") + ' ' + pair[0] + '</span><span class="right">' + UTNIcons.svg("%s") + ' ' + pair[1] + "</span></div>";
       });
       html += "</div>";
       if (mod.commonMistakesNote) html += '<p class="grammar-mistakes-note">' + mod.commonMistakesNote + "</p>";
     }
 
     if (mod.quickReference) {
-      html += '<p class="grammar-section-title">📄 Quick Reference Table</p>' +
+      html += '<p class="grammar-section-title">' + UTNIcons.svg("%s") + ' Quick Reference Table</p>' +
         grammarTableHtml(mod.quickReference, mod.quickReferenceHead || ["Ending", "Rule", "Example"]);
     }
 
     if (mod.memoryTips) {
-      html += '<p class="grammar-section-title">' + (mod.memoryTipsTitle || "💡 Memory Tips") + '</p><ul class="grammar-memory-list">';
+      html += '<p class="grammar-section-title">' + UTNIcons.svg("bookmark") + " " + (mod.memoryTipsTitle || "Memory Tips") + '</p><ul class="grammar-memory-list">';
       mod.memoryTips.forEach(function (t) { html += "<li>" + t + "</li>"; });
       html += "</ul>";
     }
@@ -94,7 +94,7 @@
 
   function grammarPracticeFillQuizBodyHtml(quiz) {
     var html = '<div class="practice-quiz-card" data-quiz-id="' + quiz.id + '">' +
-      '<p class="quiz-heading">📝 ' + quiz.title + "</p>" +
+      '<p class="quiz-heading">' + UTNIcons.svg("%s") + ' ' + quiz.title + "</p>" +
       '<p class="practice-quiz-instructions">' + quiz.instructions + "</p>";
 
     if (quiz.example) {
@@ -139,7 +139,7 @@
      question, then Check Answers reveals correct/incorrect for every question at once. */
   function grammarPracticeMcQuizBodyHtml(quiz) {
     var html = '<div class="practice-quiz-card" data-quiz-id="' + quiz.id + '" data-quiz-type="mc">' +
-      '<p class="quiz-heading">📝 ' + quiz.title + "</p>" +
+      '<p class="quiz-heading">' + UTNIcons.svg("%s") + ' ' + quiz.title + "</p>" +
       '<p class="practice-quiz-instructions">' + quiz.instructions + "</p>" +
       '<div class="practice-mcq-list">';
 
@@ -191,7 +191,7 @@
     return '<div class="quiz-box" id="quizbox-' + slug + '" data-slug="' + slug + '">' +
       '<div class="quiz-box-tabs" role="tablist" aria-label="Choose a quiz">' + tabsHtml + "</div>" +
       '<div class="quiz-box-howto">' +
-        '<span class="quiz-box-howto-icon">💡</span>' +
+        '<span class="quiz-box-howto-icon">' + UTNIcons.svg("%s") + '</span>' +
         '<span><strong>How to do this exercise:</strong> ' + howtoAction + ', then press <strong>Check Answers</strong> ' +
         '(or hit <strong>Enter</strong> after the last blank). Correct answers turn green ✓ — incorrect ones turn red ✗ ' +
         "and show you the right answer. Tap a tab above, swipe, or use the arrows below to move to the next quiz.</span>" +
@@ -380,10 +380,10 @@
       var pct = total ? correct / total : 1;
       var msg = "";
       if (pct === 1) {
-        msg = "🎉 Perfect! " + correct + " out of " + total + " correct.";
+        msg = "Perfect! " + correct + " out of " + total + " correct.";
         resultEl.classList.add("perfect");
       } else if (pct >= 0.7) {
-        msg = "💪 Great job — " + correct + " out of " + total + " correct. Check the notes next to the red answers to close the gap.";
+        msg = "Great job — " + correct + " out of " + total + " correct. Check the notes next to the red answers to close the gap.";
         resultEl.classList.add("great");
       } else {
         msg = "You got " + correct + " out of " + total + " correct. Review the red answers above, then try Reset to practice again.";
@@ -393,6 +393,8 @@
         msg += " Focus on: " + missedRules.join("; ") + ".";
       }
       resultEl.textContent = msg;
+      if (typeof rewardGrammarQuiz === "function") rewardGrammarQuiz(quiz.id, correct, total);
+      else if (typeof recordDailyActivity === "function") recordDailyActivity("quiz:" + quiz.id);
       refreshHeight();
     });
 
@@ -451,7 +453,7 @@
         missing.forEach(function (qi) {
           var item = card.querySelector('.practice-mcq-item[data-item="' + qi + '"]');
           var feedback = item.querySelector(".practice-mcq-feedback");
-          feedback.textContent = "⚠ Choose an answer for this question.";
+          feedback.textContent = "Choose an answer for this question.";
           feedback.className = "practice-feedback practice-mcq-feedback bad";
         });
         resultEl.hidden = false;
@@ -491,12 +493,14 @@
       resultEl.hidden = false;
       resultEl.classList.remove("perfect", "needs-work");
       if (correct === total) {
-        resultEl.textContent = "🎉 Perfect! " + correct + " out of " + total + " correct.";
+        resultEl.textContent = "Perfect! " + correct + " out of " + total + " correct.";
         resultEl.classList.add("perfect");
       } else {
         resultEl.textContent = "You got " + correct + " out of " + total + " correct. Review the red answers above, then try Reset to practice again.";
         resultEl.classList.add("needs-work");
       }
+      if (typeof rewardGrammarQuiz === "function") rewardGrammarQuiz(quiz.id, correct, total);
+      else if (typeof recordDailyActivity === "function") recordDailyActivity("quiz:" + quiz.id);
       refreshHeight();
     });
 
@@ -529,7 +533,7 @@
     var html = "";
     if (topic.definition) {
       html += '<div class="grammar-definition-hero">' +
-        '<p class="eyebrow">📚 Definition</p>' +
+        '<p class="eyebrow">' + UTNIcons.svg("%s") + ' Definition</p>' +
         "<h2>" + (topic.definitionTitle || topic.label) + "</h2>" +
         "<p>" + topic.definition + "</p>" +
         (topic.definitionExamples ? '<div class="grammar-definition-examples">' +
@@ -539,19 +543,19 @@
     }
     if (topic.practice && topic.practice.length) {
       html += '<div class="grammar-practice-cta">' +
-        '<span class="grammar-practice-cta-text">🎯 <strong>New!</strong> Practice what you learn here with ' +
-          topic.practice.length + ' interactive quizzes.</span>' +
+        '<span class="grammar-practice-cta-text">' + UTNIcons.svg("%s") + ' <strong>New!</strong> Practice what you learn here with ' +
+          topic.practice.length + (topic.practice.length === 1 ? ' interactive quiz.' : ' interactive quizzes.') + '</span>' +
         '<button type="button" class="btn btn-primary btn-sm grammar-practice-cta-btn" id="' + slug + '-cta-btn">Go to Quizzes ↓</button>' +
         "</div>";
     }
     html += topic.modules.map(function (mod, mi) {
-      var eyebrow = "Parts of Speech · " + (topic.label || "");
+      var eyebrow = (topic.eyebrowPrefix || "Parts of Speech") + " · " + (topic.label || "");
       if (topic.modules.length > 1) eyebrow += " · Part " + (mi + 1) + " of " + topic.modules.length;
       return renderGrammarModule(mod, eyebrow);
     }).join("");
     if (topic.practice && topic.practice.length) {
       html += '<div class="grammar-practice-section" id="' + slug + '-practice">' +
-        '<p class="grammar-section-title">🎮 Interactive Exercises</p>' +
+        '<p class="grammar-section-title">' + UTNIcons.svg("%s") + ' Interactive Exercises</p>' +
         grammarPracticeBoxHtml(slug, topic.practice) +
         "</div>";
     }
@@ -591,7 +595,7 @@
       span.addEventListener("click", function () { openGrammarTopic(slug); });
       span.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openGrammarTopic(slug); } });
     } else {
-      span.addEventListener("click", function () { showGenericToast("🔒 This topic is coming soon."); });
+      span.addEventListener("click", function () { showGenericToast("This topic is coming soon."); });
     }
   });
 

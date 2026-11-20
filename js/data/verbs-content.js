@@ -267,9 +267,9 @@
      "mixed" (regulares + irregulares), "regular" o "irregular".
      Cualquier otro valor (o ninguno, como en salas viejas) se trata como "mixed". */
   var BINGO_MODES = {
-    mixed: "Regulares + irregulares",
-    regular: "Solo regulares",
-    irregular: "Solo irregulares"
+    mixed: "Regular + irregular",
+    regular: "Regular only",
+    irregular: "Irregular only"
   };
   function bingoNormalizeMode(mode) {
     return (mode === "regular" || mode === "irregular") ? mode : "mixed";

@@ -1,0 +1,64 @@
+/* Menu de Grammar: buscador, filtro de temas "Soon" y estados vacios */
+.grammar-menu .grammar-topic[hidden],
+.grammar-menu .grammar-topics[hidden],
+.grammar-menu .grammar-subgroup[hidden],
+.grammar-menu .grammar-cat-desc[hidden],
+.grammar-menu .grammar-cat[hidden],
+.grammar-empty[hidden]{ display: none !important; }
+
+.grammar-tools{ display: flex; flex-direction: column; gap: 10px; margin: 0 0 14px; }
+
+.grammar-search{
+  display: flex; align-items: center; gap: 10px; padding: 0 12px 0 14px;
+  background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card); transition: border-color .15s ease, box-shadow .15s ease;
+}
+.grammar-search:focus-within{
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--blue) 20%, transparent);
+}
+.grammar-search > .icon{ width: 18px; height: 18px; flex: none; color: var(--text-muted); }
+.grammar-search input{
+  flex: 1; min-width: 0; padding: 14px 0; border: 0; outline: none; background: transparent;
+  font: inherit; font-size: 15px; color: var(--text-primary);
+}
+.grammar-search input::-webkit-search-cancel-button{ display: none; }
+.grammar-search-clear{
+  flex: none; width: 28px; height: 28px; border-radius: 50%; border: 0; cursor: pointer;
+  font-size: 18px; line-height: 1; color: var(--text-secondary); background: var(--paper);
+}
+.grammar-search-clear:hover{ background: var(--paper-line); }
+
+.grammar-filter-row{ display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.grammar-ready-count{ margin: 0; font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); }
+.grammar-switch{ display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px; color: var(--text-secondary); }
+.grammar-switch input{ width: 16px; height: 16px; accent-color: var(--blue); cursor: pointer; }
+
+.grammar-empty{
+  margin: 0; padding: 14px 16px; font-size: 14px; color: var(--text-secondary);
+  background: var(--paper); border: 1px dashed var(--paper-line); border-radius: var(--radius-md);
+}
+.grammar-empty-btn{
+  padding: 0; border: 0; background: none; cursor: pointer;
+  font: inherit; font-weight: 600; color: var(--blue); text-decoration: underline;
+}
+:root[data-theme="dark"] .grammar-empty-btn{ color: var(--blue-light); }
+
+/* Temas listos vs. proximos */
+.grammar-topic.is-ready{
+  color: var(--text-primary); font-weight: 600;
+  border-color: color-mix(in srgb, var(--blue) 40%, var(--paper-line));
+}
+.grammar-topic.is-soon{ opacity: .62; border-style: dashed; cursor: default; }
+.grammar-menu.show-soon .grammar-topic.is-soon::after{
+  content: "Soon"; margin-left: 6px; font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: .04em; text-transform: uppercase; color: var(--text-muted);
+}
+
+.grammar-cat.is-all-soon .grammar-cat-title{ color: var(--text-secondary); }
+.grammar-cat:not(.is-all-soon) .grammar-cat-count{ color: var(--green); font-weight: 500; }
+.grammar-cat-soon-note{
+  display: none; margin: 0 20px 18px; padding: 10px 12px; font-size: 13px; color: var(--text-secondary);
+  background: var(--paper); border: 1px dashed var(--paper-line); border-radius: 8px;
+}
+.grammar-cat.show-note .grammar-cat-soon-note{ display: block; }

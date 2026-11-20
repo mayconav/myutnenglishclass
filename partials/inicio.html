@@ -1,12 +1,27 @@
   <section class="view" id="view-inicio" data-view="inicio">
     <div class="hero">
       <div class="hero-copy">
-        <p class="eyebrow">Social Service Program · Education, Arts, Culture and Sports</p>
+        <!-- Estudiante con sesion: su proxima leccion (lo llena renderHomeDash) -->
+        <div class="hero-student">
+          <p class="eyebrow" id="hd-greeting">Welcome back</p>
+          <h2 class="hd-title" id="hd-title">Continue your flight</h2>
+          <p class="hd-sub" id="hd-sub"></p>
+          <div class="hd-level" aria-hidden="true"><div class="hd-level-fill" id="hd-level-fill"></div></div>
+          <p class="hd-level-label" id="hd-level-label"></p>
+          <div class="hero-actions">
+            <button type="button" class="btn btn-primary hd-continue" id="hd-continue">Continue lesson</button>
+            <button type="button" class="btn btn-ghost" data-goto="niveles">View Levels</button>
+          </div>
+        </div>
+        <!-- Visitante sin sesion: bienvenida de siempre -->
+        <div class="hero-guest">
+        <p class="eyebrow">English program · Levels A1 to C2</p>
         <h1>Your Boarding Pass to English</h1>
         <p class="lead">Travel through levels A1 to C2 as if they were boarding gates. Listen, practice, and solve challenges to earn your next progress stamp.</p>
         <div class="hero-actions">
           <button class="btn btn-primary" data-goto="leccion">Start Lesson</button>
           <button class="btn btn-ghost" data-goto="niveles">View Levels</button>
+        </div>
         </div>
       </div>
 
@@ -37,38 +52,113 @@
           </div>
         </div>
         <div class="bp-stub">
-          <span class="bp-icon" id="bp-avatar" aria-hidden="true">🎓</span>
+          <span class="bp-icon" id="bp-avatar" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>
           <div class="bp-barcode" aria-hidden="true"></div>
           <span class="bp-code" id="bp-code">UTN-A1-01</span>
         </div>
       </div>
     </div>
 
+    <!-- ============ TODAY STRIP (solo estudiantes): racha, XP, rango y meta diaria ============ -->
+    <section class="home-dash" id="home-dash" aria-label="Your day">
+
+      <div class="hd-stats">
+        <div class="hd-stat hd-stat-streak">
+          <span class="hd-stat-num"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.4-.5-2-1-3-1.1-2.1-.2-4 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.2.4-2.4 1-3 0 1.4 1.1 2.5 2.5 2.5z"/></svg><span id="hd-streak">0</span></span>
+          <span class="hd-stat-label" id="hd-streak-label">day streak</span>
+        </div>
+        <div class="hd-stat">
+          <span class="hd-stat-num"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13 2 3 14h9l-1 8 10-12h-9z"/></svg><span id="hd-xp">0</span></span>
+          <span class="hd-stat-label">XP</span>
+        </div>
+        <div class="hd-stat">
+          <span class="hd-stat-num"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="6"/><path d="M15.5 13 17 22l-5-3-5 3 1.5-9"/></svg><span id="hd-stamps">0/6</span></span>
+          <span class="hd-stat-label">stamps</span>
+        </div>
+      </div>
+      <div class="hd-rank" id="hd-rank">
+        <div class="hd-rank-head">
+          <p class="hd-rank-title"><span class="rk-name">Passenger</span> <span class="rk-lv">Lv 1</span></p>
+          <p class="hd-rank-hint rk-hint">100 XP to Traveler</p>
+        </div>
+        <div class="hd-rank-bar" aria-hidden="true"><i class="rk-fill"></i></div>
+      </div>
+      <div class="hd-goal">
+        <div class="hd-goal-head">
+          <p class="hd-goal-title">Daily goal</p>
+          <div class="hd-pips" id="hd-pips" aria-hidden="true"></div>
+        </div>
+        <p class="hd-goal-text" id="hd-goal-text" aria-live="polite"></p>
+        <p class="hd-goal-hint" id="hd-goal-hint"></p>
+      </div>
+    </section>
+
     <div class="features">
       <article class="feature-card">
-        <span class="feature-icon" aria-hidden="true">▶</span>
+        <span class="feature-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 4l14 8-14 8z"/></svg></span>
         <h3>Built-in Player</h3>
         <p>Audio and video per lesson, with speed control and subtitles, to practice listening and pronunciation.</p>
       </article>
       <article class="feature-card">
-        <span class="feature-icon" aria-hidden="true">✓</span>
+        <span class="feature-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg></span>
         <h3>Varied Exercises</h3>
         <p>Multiple choice, fill-in-the-blank, and matching, with instant feedback.</p>
       </article>
       <article class="feature-card">
-        <span class="feature-icon" aria-hidden="true">◆</span>
+        <span class="feature-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="6"/><path d="M15.5 13.5 17 22l-5-3-5 3 1.5-8.5"/></svg></span>
         <h3>Stamps and Certificate</h3>
         <p>Each approved deliverable earns a stamp, and completing the program unlocks your downloadable certificate.</p>
       </article>
     </div>
 
+    <!-- ============ LEARNING PATH (CEFR) ============ -->
+    <section class="path" aria-labelledby="path-title">
+      <div class="section-head">
+        <p class="eyebrow">Learning path</p>
+        <h2 id="path-title">Six levels, one clear route</h2>
+        <p class="lead">The program follows the Common European Framework of Reference (CEFR). Each level unlocks after you complete the previous one.</p>
+      </div>
+      <div class="path-grid">
+        <article class="path-band path-a">
+          <p class="path-kind">Basic user</p>
+          <p class="path-levels">A1 <span>–</span> A2</p>
+          <ul>
+            <li><strong>A1 Beginner</strong> Greetings, introductions, and everyday vocabulary.</li>
+            <li><strong>A2 Elementary</strong> Describing routines, places, and simple plans.</li>
+          </ul>
+        </article>
+        <article class="path-band path-b">
+          <p class="path-kind">Independent user</p>
+          <p class="path-levels">B1 <span>–</span> B2</p>
+          <ul>
+            <li><strong>B1 Intermediate</strong> Conversations about studies, work, and opinions.</li>
+            <li><strong>B2 Upper Intermediate</strong> Listening to and discussing academic topics.</li>
+          </ul>
+        </article>
+        <article class="path-band path-c">
+          <p class="path-kind">Proficient user</p>
+          <p class="path-levels">C1 <span>–</span> C2</p>
+          <ul>
+            <li><strong>C1 Advanced</strong> Essay writing and argumentation.</li>
+            <li><strong>C2 Mastery</strong> Presentations and specialized communication.</li>
+          </ul>
+        </article>
+      </div>
+      <p class="path-cta"><button type="button" class="btn btn-primary" data-goto="niveles">Explore all levels</button></p>
+    </section>
+
     <!-- ============ MEET YOUR TEACHER ============ -->
     <div class="teacher-intro" id="teacher-intro">
-      <img class="teacher-intro-avatar" src="img/teacher-miguel-angel.jpg" alt="Miguel Ángel Aguilar, English teacher">
+      <figure class="teacher-intro-figure">
+        <img class="teacher-intro-avatar" src="img/teacher-miguel-angel.jpg" alt="Miguel Ángel Aguilar, English teacher">
+        <figcaption>
+          <span class="teacher-intro-name">Miguel Ángel Aguilar</span>
+          <span class="teacher-intro-role">ESL teacher · Universidad Tecnológica de Nezahualcóyotl</span>
+        </figcaption>
+      </figure>
       <div class="teacher-intro-content">
         <p class="eyebrow">Meet Your Teacher</p>
         <h2 class="teacher-intro-greeting">Hello, everyone!!!!!</h2>
-        <p class="teacher-intro-name">Miguel Ángel Aguilar</p>
         <div class="teacher-intro-text">
           <p>I'm Miguel Angel! My first ever teaching English experience lasted 25 years in the Universidad Tecnológica de Nezahualcóyotl as a teacher ESL.</p>
           <p>I wish to only teach you <strong>REAL LIFE</strong> things that are useful, and that we use <strong>TODAY</strong> — no outdated old school grammar textbooks. You need to know how to survive in this fast-talking, hustle of an English world!</p>

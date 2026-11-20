@@ -5,7 +5,7 @@
   function applyTheme(theme) {
     document.documentElement.setAttribute("data-theme", theme);
     document.querySelectorAll(".theme-toggle-icon").forEach(function (icon) {
-      icon.textContent = theme === "dark" ? "☀" : "🌙";
+      icon.innerHTML = UTNIcons.svg(theme === "dark" ? "sun" : "moon");
       icon.classList.remove("spin");
       void icon.offsetWidth; /* fuerza reflow para reiniciar la animación */
       icon.classList.add("spin");

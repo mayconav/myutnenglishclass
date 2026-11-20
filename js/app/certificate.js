@@ -31,42 +31,42 @@
     ctx.beginPath(); ctx.arc(cx, cy, r * 0.55, 0, Math.PI * 2); ctx.fillStyle = "#0C9C61"; ctx.fill();
     ctx.beginPath(); ctx.arc(cx, cy, r * 0.4, 0, Math.PI * 2); ctx.fillStyle = "#FAFBFA"; ctx.fill();
     ctx.fillStyle = "#0C4EB8";
-    ctx.font = "bold 22px 'Space Grotesk', sans-serif";
+    ctx.font = "bold 22px 'Public Sans', 'Segoe UI', sans-serif";
     ctx.textAlign = "center"; ctx.textBaseline = "middle";
     ctx.fillText("UT", cx, cy + 2);
 
     /* texts */
     ctx.fillStyle = "#565B5E";
-    ctx.font = "13px 'Space Grotesk', sans-serif";
+    ctx.font = "13px 'Public Sans', 'Segoe UI', sans-serif";
     ctx.textAlign = "center";
     ctx.fillText("UNIVERSIDAD TECNOLÓGICA DE NEZAHUALCÓYOTL · ACADEMIC EXCELLENCE", w / 2, 90);
 
     ctx.fillStyle = "#0C4EB8";
-    ctx.font = "bold 40px 'Space Grotesk', sans-serif";
+    ctx.font = "600 42px 'Fraunces', Georgia, serif";
     ctx.fillText("Certificate of Completion", w / 2, 150);
 
     ctx.fillStyle = "#16181A";
-    ctx.font = "17px 'Source Serif 4', Georgia, serif";
+    ctx.font = "17px 'Fraunces', Georgia, serif";
     ctx.fillText("This certifies that", w / 2, 230);
 
     ctx.fillStyle = "#E2141B";
-    ctx.font = "bold 34px 'Space Grotesk', sans-serif";
+    ctx.font = "bold 34px 'Public Sans', 'Segoe UI', sans-serif";
     ctx.fillText(state.profile.name, w / 2, 285);
 
     ctx.fillStyle = "#16181A";
-    ctx.font = "17px 'Source Serif 4', Georgia, serif";
+    ctx.font = "17px 'Fraunces', Georgia, serif";
     wrapText(ctx, "has successfully completed the MyUTNEnglishClass English program,", w / 2, 335, w - 200, 24);
     wrapText(ctx, "completing all six levels of the Common European Framework, from A1 to C2.", w / 2, 359, w - 200, 24);
 
     ctx.fillStyle = "#565B5E";
-    ctx.font = "14px 'Space Grotesk', sans-serif";
+    ctx.font = "14px 'Public Sans', 'Segoe UI', sans-serif";
     var today = new Date();
     var fecha = today.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
     ctx.fillText("Issued on " + fecha, w / 2, 430);
 
     ctx.textAlign = "left";
     ctx.fillStyle = "#16181A";
-    ctx.font = "13px 'Space Grotesk', sans-serif";
+    ctx.font = "13px 'Public Sans', 'Segoe UI', sans-serif";
     ctx.fillText("Social Service Program", 70, h - 100);
     ctx.fillText("Education, Arts, Culture and Sports", 70, h - 80);
   }
