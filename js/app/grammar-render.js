@@ -481,10 +481,10 @@
         feedback.classList.remove("bad", "ok");
         if (ok) {
           correct++;
-          feedback.textContent = "✓ Correct";
+          feedback.textContent = "✓ Correct" + (q.explain ? " — " + q.explain : "");
           feedback.classList.add("ok");
         } else {
-          feedback.textContent = "✗ Correct answer: " + String.fromCharCode(97 + q.correct) + ") " + q.options[q.correct];
+          feedback.textContent = "✗ Correct answer: " + String.fromCharCode(97 + q.correct) + ") " + q.options[q.correct] + (q.explain ? " — " + q.explain : "");
           feedback.classList.add("bad");
         }
       });
