@@ -12,7 +12,7 @@
   var GROUPS = {
     aprender: ["niveles", "leccion", "habilidades"],
     recursos: ["material", "gramatica"],
-    juegos: ["bingo", "crucigrama", "sopa"]
+    juegos: ["bingo", "crucigrama", "sopa", "memorama"]
   };
   var lastGroupView = { aprender: "niveles", recursos: "material", juegos: "bingo" };
 
@@ -63,6 +63,7 @@
     if (target === "bingo") initBingoView();
     if (target === "crucigrama" && typeof initCrosswordView === "function") initCrosswordView();
     if (target === "sopa" && typeof initWordSearchView === "function") initWordSearchView();
+    if (target === "memorama" && typeof initMemoryView === "function") initMemoryView();
     if (target === "gramatica") closeGrammarPanel();
     window.scrollTo({ top: 0, behavior: "smooth" });
     var nav = document.getElementById("main-nav");

@@ -1,8 +1,9 @@
-<!-- ============ GROUP: GAMES (Bingo + Crossword + Word Search) ============ -->
+<!-- ============ GROUP: GAMES (Bingo + Crossword + Word Search + Memory) ============ -->
 <div class="group-tabbar" id="tabbar-juegos" data-group="juegos" hidden>
   <button type="button" class="group-tab" data-nav="bingo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> Bingo</button>
   <button type="button" class="group-tab" data-nav="crucigrama"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg> Crossword</button>
   <button type="button" class="group-tab" data-nav="sopa"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg> Word Search</button>
+  <button type="button" class="group-tab" data-nav="memorama"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="7" width="11" height="14" rx="2"/><path d="M9 3h10a2 2 0 0 1 2 2v12"/><path d="m6.5 13 2 2 3-3.5"/></svg> Memory</button>
 </div>
 
 <!-- ============ GAMES: VERB BINGO (live room controlled by the teacher) ============ -->
@@ -218,5 +219,71 @@
     </div>
   </div>
   <p class="puz-note">Earn +15 XP for a finished word search (+10 if you used hints).</p>
+  </div>
+</section>
+
+<!-- ============ GAMES: VERB MEMORY MATCH ============ -->
+<section class="view" id="view-memorama" data-view="memorama" hidden>
+  <div class="section-head">
+    <p class="eyebrow">Practice Games</p>
+    <h2>Verb Memory Match</h2>
+    <p class="lead">Flip two cards at a time and find the pairs. Match each verb with its past form, a picture, or its Spanish meaning. Finish the board to earn XP!</p>
+  </div>
+
+  <!-- GUEST: puzzles are for logged-in students only -->
+  <div class="bingo-start-card" id="mm-guest-screen">
+    <span class="bingo-start-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+    <h3>Log in to play</h3>
+    <p>The Verb Memory Match is available for registered students only. Log in to practice and earn XP.</p>
+    <button type="button" class="btn btn-primary" id="mm-guest-login-btn">Log In</button>
+  </div>
+
+  <div id="mm-content" class="puz-app" hidden>
+  <details class="mm-settings puz-card" id="mm-settings" open>
+    <summary><span class="mm-settings-title">Game settings</span><span class="mm-settings-sum" id="mm-sum"></span></summary>
+  <div class="puz-setup">
+      <div class="puz-field">
+        <span class="puz-label" id="mm-level-lbl">Level</span>
+        <div class="seg" role="radiogroup" aria-labelledby="mm-level-lbl" data-seg="mm-level"><button type="button" role="radio" aria-checked="true" data-value="A1">A1</button><button type="button" role="radio" aria-checked="false" data-value="A2">A2</button><button type="button" role="radio" aria-checked="false" data-value="both">A1 + A2</button></div>
+      </div>
+      <div class="puz-field">
+        <span class="puz-label" id="mm-kind-lbl">Verbs</span>
+        <div class="seg" role="radiogroup" aria-labelledby="mm-kind-lbl" data-seg="mm-kind"><button type="button" role="radio" aria-checked="true" data-value="mixed">Mixed</button><button type="button" role="radio" aria-checked="false" data-value="regular">Regular</button><button type="button" role="radio" aria-checked="false" data-value="irregular">Irregular</button></div>
+      </div>
+      <div class="puz-field">
+        <span class="puz-label" id="mm-mode-lbl">Match</span>
+        <div class="seg" role="radiogroup" aria-labelledby="mm-mode-lbl" data-seg="mm-mode"><button type="button" role="radio" aria-checked="true" data-value="past">Base + Past</button><button type="button" role="radio" aria-checked="false" data-value="pic">Picture + Past</button><button type="button" role="radio" aria-checked="false" data-value="es">Spanish + English</button></div>
+      </div>
+      <div class="puz-field">
+        <span class="puz-label" id="mm-pairs-lbl">Pairs</span>
+        <div class="seg" role="radiogroup" aria-labelledby="mm-pairs-lbl" data-seg="mm-pairs"><button type="button" role="radio" aria-checked="false" data-value="6">6</button><button type="button" role="radio" aria-checked="true" data-value="8">8</button><button type="button" role="radio" aria-checked="false" data-value="10">10</button></div>
+      </div>
+      <div class="puz-field">
+        <span class="puz-label" id="mm-voice-lbl">Read aloud</span>
+        <div class="seg" role="radiogroup" aria-labelledby="mm-voice-lbl" data-seg="mm-voice"><button type="button" role="radio" aria-checked="true" data-value="on">On</button><button type="button" role="radio" aria-checked="false" data-value="off">Off</button></div>
+      </div>
+      <button type="button" class="btn btn-primary puz-new" id="mm-new"><span data-icon="refresh" aria-hidden="true"></span> New game</button>
+  </div>
+  </details>
+  <div class="puz-deck puz-card" id="mm-deck">
+    <div class="puz-stat"><span class="puz-stat-ico" data-icon="clock" aria-hidden="true"></span><span class="puz-stat-val" id="mm-time">0:00</span><span class="puz-stat-lbl">Time</span></div>
+    <div class="puz-stat"><span class="puz-stat-ico" data-icon="refresh" aria-hidden="true"></span><span class="puz-stat-val" id="mm-moves">0</span><span class="puz-stat-lbl">Moves</span></div>
+    <div class="puz-stat"><span class="puz-stat-ico" data-icon="check-circle" aria-hidden="true"></span><span class="puz-stat-val" id="mm-count">0 / 0</span><span class="puz-stat-lbl">Pairs</span></div>
+    <div class="puz-flight" aria-hidden="true">
+      <div class="puz-flight-track"><div class="puz-flight-fill" id="mm-fill"></div><span class="puz-flight-plane" id="mm-plane" data-icon="plane"></span></div>
+      <div class="puz-flight-ends"><span>Gate</span><span>Landing</span></div>
+    </div>
+  </div>
+
+  <p class="puz-status" id="mm-status" aria-live="polite"></p>
+
+  <div class="mm-wrap puz-card">
+    <div class="mm-board" id="mm-board" role="group" aria-label="Memory cards"></div>
+    <div class="puz-actions mm-actions">
+      <button type="button" class="btn btn-ghost-light btn-sm" id="mm-new2"><span data-icon="refresh" aria-hidden="true"></span> New game</button>
+    </div>
+    <div class="puz-win" id="mm-win" hidden></div>
+  </div>
+  <p class="puz-note" id="mm-note">Earn +15 XP for a finished game.</p>
   </div>
 </section>

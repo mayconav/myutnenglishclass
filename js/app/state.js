@@ -30,7 +30,7 @@
       badges: [],
       skillProgress: { reading: [], writing: [], speaking: [], letter: [] },
       bingoStats: { wins: 0, played: 0 },
-      puzzleStats: { crosswords: 0, wordsearches: 0 }
+      puzzleStats: { crosswords: 0, wordsearches: 0, memory: 0 }
     };
   }
 
@@ -65,7 +65,8 @@
           } : base.bingoStats,
           puzzleStats: parsed.puzzleStats && typeof parsed.puzzleStats === "object" ? {
             crosswords: typeof parsed.puzzleStats.crosswords === "number" ? parsed.puzzleStats.crosswords : 0,
-            wordsearches: typeof parsed.puzzleStats.wordsearches === "number" ? parsed.puzzleStats.wordsearches : 0
+            wordsearches: typeof parsed.puzzleStats.wordsearches === "number" ? parsed.puzzleStats.wordsearches : 0,
+            memory: typeof parsed.puzzleStats.memory === "number" ? parsed.puzzleStats.memory : 0
           } : base.puzzleStats
         };
       }

@@ -1,0 +1,131 @@
+/* Memorama de verbos (js/app/memory.js)
+   Reusa las tarjetas de cristal, el panel de ajustes, la cubierta de vuelo y la
+   tarjeta de victoria de puzzles.css (.puz-*, .seg). Aqui solo va lo propio del tablero.
+   Las superficies y estados van fuera del @media; TODAS las animaciones
+   viven dentro de @media (prefers-reduced-motion: no-preference). */
+
+.mm-wrap{ max-width:720px; margin:0 auto; padding:26px 16px 18px; }
+
+/* ============ AJUSTES PLEGABLES ============ */
+.mm-settings{ max-width:1100px; margin:0 auto 14px; }
+.mm-settings summary{
+  list-style:none; cursor:pointer; display:flex; flex-wrap:wrap; align-items:center; gap:4px 12px;
+  padding:20px 22px 12px; -webkit-tap-highlight-color: transparent;
+}
+.mm-settings summary::-webkit-details-marker{ display:none; }
+.mm-settings summary::after{
+  content:""; margin-left:auto; width:9px; height:9px; border-right:2px solid var(--text-secondary); border-bottom:2px solid var(--text-secondary);
+  transform: rotate(45deg); transition: transform .2s ease; margin-top:-3px;
+}
+.mm-settings[open] summary::after{ transform: rotate(-135deg); margin-top:3px; }
+.mm-settings summary:focus-visible{ outline:2px solid var(--blue); outline-offset:-2px; border-radius: var(--radius-lg); }
+.mm-settings-title{ font-family: var(--font-display); font-weight:700; font-size:14px; color: var(--text-primary); }
+.mm-settings-sum{ font-family: var(--font-mono); font-size:11.5px; color: var(--text-muted); }
+.mm-settings .puz-setup{ margin:0 auto; padding:6px 22px 20px; max-width:none; }
+.mm-settings:not([open]) summary{ padding-bottom:16px; }
+@media (max-width: 560px){
+  .mm-settings .puz-setup{ justify-content:flex-start; padding:6px 16px 18px; }
+  .mm-settings summary{ padding:18px 16px 12px; }
+  .mm-settings:not([open]) summary{ padding-bottom:14px; }
+}
+.mm-actions{ justify-content:center; }
+
+/* ============ TABLERO ============ */
+.mm-board{
+  --mm-cols:4;
+  display:grid; grid-template-columns: repeat(var(--mm-cols), minmax(0,1fr)); gap:10px;
+  max-width:600px; margin:0 auto;
+}
+.mm-board[data-cards="12"]{ --mm-cols:3; }
+.mm-board[data-cards="16"], .mm-board[data-cards="20"]{ --mm-cols:4; }
+@media (min-width: 640px){
+  .mm-board{ gap:14px; }
+  .mm-board[data-cards="12"], .mm-board[data-cards="16"]{ --mm-cols:4; }
+  .mm-board[data-cards="20"]{ --mm-cols:5; }
+}
+@media (max-width: 380px){ .mm-board{ gap:7px; } }
+
+/* ============ CARTA ============ */
+.mm-card{
+  appearance:none; -webkit-appearance:none; padding:0; border:0; background:transparent; cursor:pointer;
+  position:relative; aspect-ratio: 4 / 5; width:100%;
+  -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+  border-radius: var(--radius-md, 14px);
+}
+.mm-card:focus-visible{ outline:3px solid var(--blue); outline-offset:3px; }
+.mm-inner{ position:absolute; inset:0; display:block; border-radius:inherit; }
+.mm-face{
+  position:absolute; inset:0; flex-direction:column; align-items:center; justify-content:center; gap:4px;
+  padding:6px 4px; text-align:center; border-radius:inherit; overflow:hidden;
+}
+
+/* Reverso: azul UTN con avion y franja tricolor */
+.mm-back{
+  display:flex; color:#fff;
+  background: linear-gradient(160deg, var(--blue) 0%, #0A3E94 100%);
+  border:1px solid rgba(255,255,255,.28);
+  box-shadow: 0 8px 16px -8px rgba(12,78,184,.7), inset 0 1px 0 rgba(255,255,255,.35);
+}
+.mm-back::before{
+  content:""; position:absolute; inset:0 0 auto 0; height:5px;
+  background: linear-gradient(90deg, #fff 0 33.3%, var(--red) 33.3% 66.6%, var(--green) 66.6% 100%);
+  opacity:.9;
+}
+.mm-back svg{ width:34%; height:auto; max-width:34px; transform: rotate(45deg); opacity:.92; }
+@media (hover:hover){ .mm-card:not(.up):hover .mm-back{ filter:brightness(1.1); transform: translateY(-2px); } }
+
+/* Anverso */
+.mm-front{
+  display:none; color: var(--ink-fixed);
+  background: #fff;
+  border:2px solid var(--glass-border, rgba(18,18,18,.12));
+  box-shadow: 0 8px 16px -10px rgba(18,18,18,.5);
+}
+.mm-card.up .mm-front{ display:flex; }
+.mm-card.up .mm-back{ display:none; }
+.mm-side-a .mm-front{ background:#E3EDFC; border-color: rgba(12,78,184,.4); }
+.mm-side-b .mm-front{ background:#EFE3F7; border-color: rgba(123,63,160,.4); }
+:root[data-theme="dark"] .mm-front{ color:#F4F6FA; }
+:root[data-theme="dark"] .mm-side-a .mm-front{ background:#1F3B66; border-color: rgba(120,165,235,.55); }
+:root[data-theme="dark"] .mm-side-b .mm-front{ background:#42285A; border-color: rgba(190,150,225,.55); }
+
+.mm-word{
+  font-family: var(--font-display); font-weight:700; line-height:1.1; letter-spacing:.01em;
+  font-size: clamp(.8rem, 3.8vw, 1.1rem); overflow-wrap:anywhere;
+}
+.mm-word.long{ font-size: clamp(.66rem, 3vw, .9rem); }
+.mm-word.es{ font-style:italic; font-weight:600; }
+.mm-pic{ font-size: clamp(1.7rem, 8vw, 2.6rem); line-height:1; }
+.mm-tag{
+  font-family: var(--font-mono); font-size:9px; letter-spacing:.08em; text-transform:uppercase; opacity:.7;
+}
+@media (min-width: 640px){
+  .mm-word{ font-size:1.15rem; } .mm-word.long{ font-size:.95rem; }
+  .mm-pic{ font-size:2.8rem; }
+}
+
+/* Estados */
+.mm-card.matched .mm-front{
+  border-color: var(--green); background:#D6F2E4;
+  box-shadow: 0 0 0 3px rgba(12,156,97,.28), 0 8px 16px -10px rgba(12,156,97,.8);
+}
+:root[data-theme="dark"] .mm-card.matched .mm-front{ background:#14503A; }
+.mm-card.wrong .mm-front{
+  border-color: var(--red); box-shadow: 0 0 0 3px rgba(226,20,27,.25);
+}
+.mm-card.matched{ cursor:default; }
+
+/* ============ ANIMACIONES ============ */
+@media (prefers-reduced-motion: no-preference){
+  .mm-card{ perspective: 700px; }
+  .mm-inner{ transform-style: preserve-3d; transition: transform .45s cubic-bezier(.4,.1,.2,1); }
+  .mm-face{ backface-visibility:hidden; -webkit-backface-visibility:hidden; transition: filter .2s ease, transform .2s ease; }
+  .mm-front{ display:flex; transform: rotateY(180deg); }
+  .mm-back{ display:flex; }
+  .mm-card.up .mm-back{ display:flex; }
+  .mm-card.up .mm-inner{ transform: rotateY(180deg); }
+  @keyframes mmShake{ 0%,100%{ translate:0; } 20%{ translate:-4px; } 40%{ translate:4px; } 60%{ translate:-3px; } 80%{ translate:3px; } }
+  @keyframes mmPop{ 0%{ scale:1; } 45%{ scale:1.08; } 100%{ scale:1; } }
+  .mm-card.wrong{ animation: mmShake .4s .35s both; }
+  .mm-card.matched{ animation: mmPop .45s .3s both; }
+}
