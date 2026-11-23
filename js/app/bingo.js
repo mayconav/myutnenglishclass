@@ -379,6 +379,12 @@
   function hideWinModal() { bingoEl("bingo-win-modal").hidden = true; }
 
   /* ============ ROSTER (avatares de todos los jugadores) ============ */
+  /* Insignia del jugador: su foto de perfil si la tiene; si no, el avatar (icono + color) */
+  function bingoBadgeHtml(p) {
+    var ph = UTNIcons.photo(p.photo);
+    if (ph) return '<span class="bingo-avatar-badge has-photo">' + ph + '</span>';
+    return '<span class="bingo-avatar-badge" style="background:' + (p.avatarColor || "#0C4EB8") + '">' + UTNIcons.avatar(p.avatarEmoji) + '</span>';
+  }
   function avatarChipHtml(p, opts) {
     opts = opts || {};
     var isNew = !!opts.isNew;
@@ -386,7 +392,7 @@
     var sub = opts.showCount ? '<span class="bingo-chip-count">' + bingoMarkedCount(p) + '/' + bingoCellTotal(p) + '</span>' : "";
     return (
       '<span class="bingo-roster-chip' + (p.wonAt ? " won" : "") + (isNew ? " joined" : "") + '">' +
-      '<span class="bingo-avatar-badge" style="background:' + (p.avatarColor || "#0C4EB8") + '">' + UTNIcons.avatar(p.avatarEmoji) + '</span>' +
+      bingoBadgeHtml(p) +
       '<span class="bingo-roster-name">' + escapeHtmlBingo(p.nombre || "Student") + '</span>' +
       crown + sub +
       '</span>'
@@ -534,14 +540,28 @@
       var avatarSig = bingoAvatarPick.emoji + bingoAvatarPick.color;
       var changed = preview.dataset.sig !== undefined && preview.dataset.sig !== avatarSig;
       preview.dataset.sig = avatarSig;
-      preview.style.background = bingoAvatarPick.color;
-      preview.innerHTML = UTNIcons.avatar(bingoAvatarPick.emoji);
+      var myPhoto = UTNIcons.photo(state.profile && state.profile.photo);
+      preview.classList.toggle("has-photo", !!myPhoto);
+      /* Con foto de perfil no hace falta elegir icono ni color */
+      [emojiWrap, colorWrap].forEach(function (w) {
+        if (!w) return;
+        w.hidden = !!myPhoto;
+        if (w.previousElementSibling) w.previousElementSibling.hidden = !!myPhoto;
+      });
+      preview.style.background = myPhoto ? "" : bingoAvatarPick.color;
+      preview.innerHTML = myPhoto || UTNIcons.avatar(bingoAvatarPick.emoji);
       if (changed && bingoMotionOk()) {
         preview.classList.remove("bump");
         void preview.offsetWidth;
         preview.classList.add("bump");
       }
     }
+  }
+
+  /* Foto de perfil del alumno (null si no tiene) */
+  function bingoMyPhoto() {
+    var v = state.profile && state.profile.photo;
+    return UTNIcons.photoOk(v) ? v : null;
   }
 
   function joinRoom() {
@@ -552,6 +572,7 @@
       nombre: nombre,
       avatarEmoji: bingoAvatarPick.emoji,
       avatarColor: bingoAvatarPick.color,
+      photo: bingoMyPhoto(),
       grupo: bingoStudent.grupo,
       sessionKey: bingoSession.sessionKey,
       round: bingoSession.round,
@@ -584,6 +605,7 @@
       nombre: bingoMyPlayer.nombre,
       avatarEmoji: bingoMyPlayer.avatarEmoji,
       avatarColor: bingoMyPlayer.avatarColor,
+      photo: bingoMyPhoto(),
       grupo: bingoStudent.grupo,
       sessionKey: bingoSession.sessionKey,
       round: bingoSession.round,
@@ -701,6 +723,14 @@
     setupBingoListeners();
   }
   window.__UTN_BINGO_SET_STUDENT__ = bingoSetStudent;
+
+  /* Si el alumno cambia su foto mientras esta en una sala, se actualiza su jugador. */
+  window.__UTN_BINGO_SET_PHOTO__ = function () {
+    if (!bingoStudent.uid || !bingoMyPlayer) return;
+    var ph = bingoMyPhoto();
+    bingoMyPlayer.photo = ph;
+    try { bingoMyPlayerRef().update({ photo: ph }).catch(function () {}); } catch (e) {}
+  };
 
   /* ============ LISTENERS DE UI (el DOM del partial ya existe) ============ */
   var voiceToggle = bingoEl("bingo-voice-toggle");

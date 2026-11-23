@@ -46,3 +46,18 @@
   to{ background-position: 10% 110%, 60% 120%, 85% 115%; opacity:0; }
 }
 
+
+
+/* ============ FOTO DE PERFIL ============ */
+.avatar-photo{ display:block; width:100%; height:100%; object-fit:cover; border-radius:50%; user-select:none; -webkit-user-drag:none; }
+.profile-chip{ overflow:hidden; padding:0; }
+#profile-chip-avatar, #bp-avatar .avatar-photo{ display:block; width:100%; height:100%; }
+.bp-icon:has(.avatar-photo){ padding:0; overflow:hidden; }
+.photo-row{ display:flex; align-items:center; gap:14px; margin: 4px 0 6px; }
+.photo-preview{ width:72px; height:72px; border-radius:50%; overflow:hidden; flex-shrink:0; background: var(--paper); border:2px solid var(--border); display:flex; align-items:center; justify-content:center; }
+.photo-preview .avatar-art, .photo-preview .avatar-photo{ width:100%; height:100%; }
+.photo-preview .icon{ width:34px; height:34px; }
+.photo-actions{ display:flex; flex-wrap:wrap; gap:8px; }
+.photo-hint{ margin: 0 0 14px; font-size:12.5px; color: var(--text-muted); }
+.bingo-avatar-badge.has-photo{ padding:0 !important; overflow:hidden; background:#fff !important; }
+.bingo-avatar-badge.has-photo .avatar-photo{ width:100%; height:100%; }

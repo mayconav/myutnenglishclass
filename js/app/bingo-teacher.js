@@ -269,7 +269,9 @@
           var isNew = !btFirst && !btSeen[p.uid] && btMotionOk();
           return (
             '<div class="bingo-roster-row' + (p.wonAt ? " won" : "") + (isNew ? " joined" : "") + '">' +
-            '<span class="bingo-avatar-badge" style="background:' + (p.avatarColor || "#0C4EB8") + '">' + UTNIcons.avatar(p.avatarEmoji) + '</span>' +
+            (UTNIcons.photo(p.photo)
+              ? '<span class="bingo-avatar-badge has-photo">' + UTNIcons.photo(p.photo) + '</span>'
+              : '<span class="bingo-avatar-badge" style="background:' + (p.avatarColor || "#0C4EB8") + '">' + UTNIcons.avatar(p.avatarEmoji) + '</span>') +
             '<span class="bingo-roster-name">' + escapeHtmlBt(p.nombre || "Student") + '</span>' +
             '<span class="bingo-chip-count">' + count + '/' + total + '</span>' +
             (p.wonAt ? '<span class="bingo-crown">' + UTNIcons.svg("trophy") + '</span>' : "") +

@@ -109,5 +109,11 @@
     return ART[name] ? art(name) : svg(name);
   }
 
-  window.UTNIcons = { svg: svg, avatar: avatar, avatars: AVATAR_ICONS, legacy: LEGACY, has: function (n) { return !!(P[n] || ART[n]); } };
+  /* Fotos de perfil: JPEG pequeno guardado como data URL. Solo se aceptan data URLs con el
+     formato exacto que genera la app (evita inyectar HTML desde datos de otros usuarios). */
+  var PHOTO_RE = /^data:image\/jpeg;base64,[A-Za-z0-9+\/=]+$/;
+  function photoOk(v) { return typeof v === "string" && v.length < 60000 && PHOTO_RE.test(v); }
+  function photo(v) { return photoOk(v) ? '<img class="avatar-photo" src="' + v + '" alt="" draggable="false">' : ""; }
+
+  window.UTNIcons = { photo: photo, photoOk: photoOk, svg: svg, avatar: avatar, avatars: AVATAR_ICONS, legacy: LEGACY, has: function (n) { return !!(P[n] || ART[n]); } };
 })();
