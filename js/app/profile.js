@@ -24,9 +24,9 @@
   }
 
   /* ---- Foto de perfil ----
-     pendingPhoto: undefined = sin cambios, null = quitar foto, string = foto nueva (data URL JPEG 128x128). */
+     pendingPhoto: undefined = sin cambios, null = quitar foto, string = foto nueva (data URL JPEG 192x192). */
   var pendingPhoto;
-  var PHOTO_SIZE = 128;
+  var PHOTO_SIZE = 192;
   function currentPhoto() {
     if (pendingPhoto === null) return "";
     var v = pendingPhoto !== undefined ? pendingPhoto : state.profile.photo;

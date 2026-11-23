@@ -102,7 +102,10 @@
       var lastTopic = lastSlug && typeof GRAMMAR_CONTENT !== "undefined" ? GRAMMAR_CONTENT[lastSlug] : null;
       resume.hidden = !lastTopic;
       if (lastTopic) {
-        resume.textContent = "Resume Grammar: " + (lastTopic.label || lastSlug);
+        var topicName = lastTopic.label || lastSlug;
+        resume.innerHTML = UTNIcons.svg("book-open") + "<span></span>";
+        resume.lastChild.textContent = "Resume: " + topicName;
+        resume.title = "Resume Grammar: " + topicName;
         resume.onclick = function () { goto("gramatica"); openGrammarTopic(lastSlug); };
       }
     }
