@@ -6,12 +6,20 @@
    - past: forma base  <->  pasado simple      (go <-> went)
    - pic : imagen (emoji de VERB_EMOJI)  <->  pasado simple
    - es  : espanol  <->  ingles (forma base)    (ir <-> go)
+   Extras:
+   - Las cartas "base" / "espanol" llevan el emoji del verbo (la carta pareja no, para no regalar la respuesta;
+     al acertar, las dos lo muestran).
+   - Las parejas halladas se desvanecen y dejan ver una escena SVG de un avion que aterriza (el avion avanza
+     con el progreso, igual que la cubierta de vuelo).
+   - Al terminar: aterriza el avion, aparece la tarjeta de victoria y debajo la "bitacora de vuelo" con los
+     verbos de la partida (emoji, base -> pasado, traduccion; tocar un verbo lo lee en voz alta).
    Igual que el Crucigrama y la Sopa de letras: solo con sesion de alumno iniciada,
    y el XP solo se otorga a alumnos con sesion. Funciona con toque, raton y teclado. */
 (function () {
 
   var MM_XP = 15, MM_XP_LOW = 10;
-  var MISMATCH_MS = 1000;
+  var MISMATCH_MS = 1000, VANISH_MS = 750, WIN_DELAY_MS = 3200, WIN_DELAY_REDUCED_MS = 1000;
+  var genCounter = 0;
 
   /* ============ UTILIDADES ============ */
   function $(id) { return document.getElementById(id); }
@@ -76,8 +84,8 @@
   }
 
   /* Leer en voz alta (misma idea que el Bingo: voz del navegador, sin archivos de audio) */
-  function speak(text) {
-    if (segValue("mm-voice", "on") !== "on") return;
+  function speak(text, force) {
+    if (!force && segValue("mm-voice", "on") !== "on") return;
     if (!text || !("speechSynthesis" in window)) return;
     try {
       window.speechSynthesis.cancel();
@@ -142,15 +150,15 @@
         if (!em || seenEmoji[em]) return;
         seenEmoji[em] = true;
       }
-      var pair;
+      var pair, emo = verbEmoji(v.base);
       if (mode === "past") {
-        pair = { a: { tag: "Base", text: v.base, say: v.base }, b: { tag: "Past", text: v.past, say: v.past } };
+        pair = { a: { tag: "Base", text: v.base, say: v.base, emo: emo }, b: { tag: "Past", text: v.past, say: v.past } };
       } else if (mode === "pic") {
         pair = { a: { tag: "", pic: verbEmoji(v.base), text: v.base, say: "" }, b: { tag: "Past", text: v.past, say: v.past } };
       } else {
-        pair = { a: { tag: "Español", text: v.es, say: "", es: true }, b: { tag: "English", text: v.base, say: v.base } };
+        pair = { a: { tag: "Español", text: v.es, say: "", es: true, emo: emo }, b: { tag: "English", text: v.base, say: v.base } };
       }
-      pair.verb = v;
+      pair.verb = v; pair.emo = emo;
       out.push(pair);
     });
     return out;
@@ -192,6 +200,52 @@
   }
   document.addEventListener("visibilitychange", function () { if (clock.on) clockTick(); });
 
+
+  /* ============ ESCENA: avion que aterriza (se descubre al desvanecerse las parejas) ============ */
+  var FUSELAGE = "M-72,-4 C-72,-20 -40,-22 20,-22 C58,-22 76,-12 76,0 C76,10 58,16 20,16 L-40,16 C-62,16 -72,8 -72,-4 Z";
+  var SCENE_HTML =
+    '<div class="mm-scene" aria-hidden="true">' +
+    '<svg class="mm-scene-svg" viewBox="0 0 400 450" preserveAspectRatio="xMidYMid slice" focusable="false">' +
+      "<defs>" +
+        '<linearGradient id="mmSkyG" x1="0" y1="0" x2="0" y2="1"><stop class="sc-a" offset="0"/><stop class="sc-b" offset="1"/></linearGradient>' +
+        '<radialGradient id="mmSunG"><stop offset="0" stop-color="#FFF3B0"/><stop offset="1" stop-color="#FFF3B0" stop-opacity="0"/></radialGradient>' +
+        '<clipPath id="mmFus"><path d="' + FUSELAGE + '"/></clipPath>' +
+      "</defs>" +
+      '<rect width="400" height="450" fill="url(#mmSkyG)"/>' +
+      '<circle cx="310" cy="105" r="72" fill="url(#mmSunG)"/><circle cx="310" cy="105" r="27" fill="#F7C948"/>' +
+      '<g class="sc-cloud"><ellipse cx="112" cy="130" rx="38" ry="12"/><ellipse cx="134" cy="119" rx="24" ry="14"/><ellipse cx="92" cy="121" rx="19" ry="11"/></g>' +
+      '<g class="sc-cloud"><ellipse cx="262" cy="64" rx="30" ry="9"/><ellipse cx="280" cy="56" rx="18" ry="10"/></g>' +
+      '<g class="sc-cloud"><ellipse cx="205" cy="215" rx="34" ry="10"/><ellipse cx="224" cy="206" rx="20" ry="11"/><ellipse cx="188" cy="208" rx="16" ry="9"/></g>' +
+      '<path class="sc-hill2" d="M0,338 C50,300 110,305 170,328 C230,350 300,300 400,326 L400,400 L0,400Z"/>' +
+      '<path class="sc-hill1" d="M0,360 C70,336 140,346 210,358 C280,370 340,340 400,352 L400,420 L0,420Z"/>' +
+      '<rect class="sc-grass" x="0" y="382" width="400" height="68"/>' +
+      /* torre de control */
+      '<rect x="88" y="292" width="14" height="90" fill="#E8EDF5" stroke="#B8C5DB"/>' +
+      '<rect x="78" y="272" width="34" height="22" rx="3" fill="#4B79C2"/><rect x="82" y="277" width="26" height="9" fill="#CFE3FF"/>' +
+      '<rect x="74" y="267" width="42" height="5" fill="#E2141B"/><path d="M95 267V248" stroke="#6B7690" stroke-width="2"/>' +
+      /* terminal */
+      '<rect x="255" y="338" width="84" height="44" fill="#F4F6FB" stroke="#B8C5DB"/>' +
+      '<rect x="250" y="330" width="31.3" height="8" fill="#0C4EB8"/><rect x="281.3" y="330" width="31.3" height="8" fill="#E2141B"/><rect x="312.6" y="330" width="31.4" height="8" fill="#0C9C61"/>' +
+      '<g fill="#6C9BE0"><rect x="263" y="350" width="11" height="12"/><rect x="278" y="350" width="11" height="12"/><rect x="293" y="350" width="11" height="12"/><rect x="308" y="350" width="11" height="12"/></g>' +
+      /* pista */
+      '<rect class="sc-run" x="-10" y="396" width="420" height="34"/>' +
+      '<g class="sc-dash"><rect x="0" y="411" width="26" height="3"/><rect x="50" y="411" width="26" height="3"/><rect x="100" y="411" width="26" height="3"/><rect x="150" y="411" width="26" height="3"/><rect x="200" y="411" width="26" height="3"/><rect x="250" y="411" width="26" height="3"/><rect x="300" y="411" width="26" height="3"/><rect x="350" y="411" width="26" height="3"/></g>' +
+      /* sombra + avion */
+      '<ellipse class="mm-shadow" cx="200" cy="418" rx="72" ry="4"/>' +
+      '<g transform="translate(200 377)"><g class="mm-plane-g">' +
+        '<path d="M-62,-4 L-74,-36 L-52,-36 L-34,-4 Z" fill="#0C4EB8"/>' +
+        '<path d="' + FUSELAGE + '" fill="#fff" stroke="#C3CEE0" stroke-width="1.2"/>' +
+        '<g clip-path="url(#mmFus)"><rect x="-80" y="5" width="48" height="6" fill="#0C4EB8"/><rect x="-32" y="5" width="44" height="6" fill="#E2141B"/><rect x="12" y="5" width="70" height="6" fill="#0C9C61"/></g>' +
+        '<path d="M48,-15 L62,-12 L67,-5 L48,-5 Z" fill="#274A87"/>' +
+        '<g fill="#274A87"><circle cx="-44" cy="-7" r="3.2"/><circle cx="-30" cy="-7" r="3.2"/><circle cx="-16" cy="-7" r="3.2"/><circle cx="-2" cy="-7" r="3.2"/><circle cx="12" cy="-7" r="3.2"/><circle cx="26" cy="-7" r="3.2"/></g>' +
+        '<path d="M-6,10 L-36,36 L-14,36 L28,10 Z" fill="#E4EBF7" stroke="#B3C0D8" stroke-width="1"/>' +
+        '<rect x="6" y="20" width="24" height="11" rx="5" fill="#AEBAD0"/>' +
+        '<g class="mm-gear" stroke="#4A5468" stroke-width="3" stroke-linecap="round"><path d="M-24 16V33M44 16V33"/><circle cx="-24" cy="35" r="5" fill="#2B3140"/><circle cx="44" cy="35" r="5" fill="#2B3140"/></g>' +
+      "</g></g>" +
+    "</svg>" +
+    '<span class="mm-landed">Landing complete</span>' +
+    "</div>";
+
   /* ============ JUEGO ============ */
   var mm = null;         // partida actual
   var pending = null;    // { timer, a, b } mientras dos cartas distintas siguen visibles
@@ -205,6 +259,11 @@
 
   function deckSet() {
     var found = mm ? mm.found : 0, total = mm ? mm.total : 0;
+    var boardEl = $("mm-board");
+    if (boardEl) {
+      boardEl.style.setProperty("--mm-p", total ? (found / total).toFixed(3) : "0");
+      boardEl.classList.toggle("landed", total > 0 && found >= total);
+    }
     var pct = total ? Math.round(found / total * 100) : 0;
     var cnt = $("mm-count"), mv = $("mm-moves"), fill = $("mm-fill"), plane = $("mm-plane");
     if (cnt) cnt.textContent = found + " / " + total;
@@ -221,10 +280,14 @@
     }
   }
 
-  function faceHtml(side) {
-    var inner;
+  function faceHtml(side, lateEmo) {
+    var inner = "";
     if (side.pic) inner = '<span class="mm-pic" aria-hidden="true">' + side.pic + "</span>";
-    else inner = '<span class="mm-word' + (side.text.length >= 9 ? " long" : "") + (side.es ? " es" : "") + '">' + esc(side.text) + "</span>";
+    else {
+      if (side.emo) inner += '<span class="mm-emo" aria-hidden="true">' + side.emo + "</span>";
+      else if (lateEmo) inner += '<span class="mm-emo mm-emo-late" aria-hidden="true">' + lateEmo + "</span>";   // solo al acertar
+      inner += '<span class="mm-word' + (side.text.length >= 9 ? " long" : "") + (side.es ? " es" : "") + '">' + esc(side.text) + "</span>";
+    }
     var tag = side.tag ? '<span class="mm-tag">' + esc(side.tag) + "</span>" : "";
     return inner + tag;
   }
@@ -240,7 +303,7 @@
     var board = $("mm-board");
     if (!board || !mm) return;
     board.setAttribute("data-cards", String(mm.cards.length));
-    board.innerHTML = "";
+    board.innerHTML = SCENE_HTML;
     mm.cards.forEach(function (c, i) {
       var b = document.createElement("button");
       b.type = "button";
@@ -251,7 +314,7 @@
       b.innerHTML =
         '<span class="mm-inner">' +
           '<span class="mm-face mm-back" aria-hidden="true">' + icon("plane") + "</span>" +
-          '<span class="mm-face mm-front">' + faceHtml(c.data) + "</span>" +
+          '<span class="mm-face mm-front">' + faceHtml(c.data, c.emo) + "</span>" +
         "</span>";
       board.appendChild(b);
     });
@@ -273,6 +336,7 @@
     clockReset();
     try { if (window.speechSynthesis) window.speechSynthesis.cancel(); } catch (e) {}
     hideWin();
+    hideRecap();
     if (!mmAuthed) return;
 
     var level = segValue("mm-level", "A1");
@@ -290,13 +354,13 @@
     }
     var cards = [];
     pairs.forEach(function (p, idx) {
-      cards.push({ pair: idx, side: "a", data: p.a, label: p.a.pic ? "picture of " + p.verb.base : p.a.text, say: p.a.say, up: false, matched: false });
-      cards.push({ pair: idx, side: "b", data: p.b, label: p.b.text, say: p.b.say, up: false, matched: false });
+      cards.push({ pair: idx, side: "a", data: p.a, label: p.a.pic ? "picture of " + p.verb.base : p.a.text, say: p.a.say, emo: p.emo, verb: p.verb, up: false, matched: false, gone: false });
+      cards.push({ pair: idx, side: "b", data: p.b, label: p.b.text, say: p.b.say, emo: p.emo, verb: p.verb, up: false, matched: false, gone: false });
     });
     shuffle(cards);
 
     mm = { cards: cards, total: pairs.length, found: 0, moves: 0, mistakes: 0, first: null, started: false, over: false,
-           level: level, mode: mode, kind: kind };
+           level: level, mode: mode, kind: kind, gen: ++genCounter, log: [] };
     mmRender();
     deckSet();
     updateSummary(level, kind, mode, count);
@@ -330,11 +394,17 @@
     mm.first = null;
   }
 
+  function vanish(i) {
+    var c = mm.cards[i], el = cardEl(i);
+    c.gone = true;
+    if (el) { el.classList.add("gone"); el.disabled = true; el.tabIndex = -1; }
+  }
+
   function mmFlip(i) {
     if (!mm || mm.over) return;
     if (pending) resolveMismatch();            // tocar otra carta salta la espera del error
     var c = mm.cards[i];
-    if (!c || c.up || c.matched) return;
+    if (!c || c.up || c.matched || c.gone) return;
 
     if (!mm.started) { mm.started = true; clockStart(); }
     c.up = true; paint(i);
@@ -348,8 +418,14 @@
       a.matched = true; c.matched = true;
       mm.first = null; mm.found++;
       paint(firstIdx); paint(i);
-      setStatus("Match! " + a.label + " + " + c.label, "ok");
+      mm.log.push(a.verb);
+      setStatus("Match! " + a.verb.base + " → " + a.verb.past, "ok");
       deckSet();
+      var gen = mm.gen;
+      setTimeout(function () {                       // la pareja se desvanece y deja ver la escena
+        if (!mm || mm.gen !== gen) return;
+        vanish(firstIdx); vanish(i);
+      }, VANISH_MS);
       if (mm.found >= mm.total) mmWin();
     } else {
       mm.mistakes++;
@@ -379,6 +455,16 @@
       ["Misses", String(mm.mistakes)],
       ["XP", awarded ? "+" + xp : "—"]
     ];
+    var gen = mm.gen;
+    var delay = reducedMotion() ? WIN_DELAY_REDUCED_MS : WIN_DELAY_MS;   // deja ver el aterrizaje antes de la tarjeta
+    setTimeout(function () {
+      if (!mm || mm.gen !== gen) return;
+      showRecap();
+      showWinCard(rows, lvl);
+    }, delay);
+  }
+
+  function showWinCard(rows, lvl) {
     var grid = rows.map(function (r) {
       return '<div><span class="puz-win-field">' + r[0] + '</span><span class="puz-win-value">' + r[1] + "</span></div>";
     }).join("");
@@ -405,6 +491,46 @@
     if (card) { card.tabIndex = -1; card.style.outline = "none"; card.focus({ preventScroll: true }); }
   }
 
+  /* ============ BITACORA DE VUELO (resumen al terminar) ============ */
+  function ensureRecap() {
+    var el = $("mm-recap");
+    if (el) return el;
+    var wrap = document.querySelector("#view-memorama .mm-wrap");
+    if (!wrap || !wrap.parentNode) return null;
+    el = document.createElement("section");
+    el.id = "mm-recap"; el.className = "mm-recap puz-card"; el.hidden = true;
+    el.setAttribute("aria-label", "Flight log");
+    wrap.parentNode.insertBefore(el, wrap.nextSibling);
+    el.addEventListener("click", function (e) {
+      var b = e.target.closest ? e.target.closest(".mm-tile") : null;
+      if (!b) return;
+      speak(b.getAttribute("data-say"), true);
+    });
+    return el;
+  }
+  function hideRecap() {
+    var el = $("mm-recap");
+    if (el) { el.hidden = true; el.innerHTML = ""; }
+  }
+  function showRecap() {
+    var el = ensureRecap();
+    if (!el || !mm) return;
+    var tiles = mm.log.map(function (v) {
+      var same = v.base === v.past;
+      return '<button type="button" class="mm-tile" data-say="' + esc(v.base + ", " + v.past) + '" aria-label="' + esc(v.base + ", " + v.past + ", " + v.es + ". Tap to listen") + '">' +
+        '<span class="mm-tile-emo" aria-hidden="true">' + (verbEmoji(v.base) || "✈️") + "</span>" +
+        '<span class="mm-tile-verbs"><b>' + esc(v.base) + "</b>" + (same ? "" : ' <span aria-hidden="true">→</span> <b>' + esc(v.past) + "</b>") + "</span>" +
+        '<span class="mm-tile-es">' + esc(v.es) + "</span>" +
+        '<span class="mm-tile-kind">' + esc(v.kind) + "</span>" +
+      "</button>";
+    }).join("");
+    el.innerHTML =
+      '<h3 class="mm-recap-title">Flight log</h3>' +
+      '<p class="mm-recap-sub">The verbs you matched in this flight. Tap one to hear it.</p>' +
+      '<div class="mm-tiles">' + tiles + "</div>";
+    el.hidden = false;
+  }
+
   /* ============ TECLADO: flechas dentro del tablero ============ */
   function wireBoard() {
     var board = $("mm-board");
@@ -421,12 +547,15 @@
       if (!b) return;
       var cols = (getComputedStyle(board).gridTemplateColumns || "").split(" ").length || 1;
       var i = parseInt(b.getAttribute("data-i"), 10);
-      var n = board.children.length;
+      var list = board.querySelectorAll(".mm-card");
+      var n = list.length;
       var d = keys[e.key];
-      var next = d === "u" ? i - cols : d === "d" ? i + cols : i + d;
+      var step = d === "u" ? -cols : d === "d" ? cols : d;
+      var next = i + step;
+      while (next >= 0 && next < n && list[next].disabled) next += step;   // salta cartas ya desvanecidas
       if (next < 0 || next >= n) return;
       e.preventDefault();
-      board.children[next].focus();
+      list[next].focus();
     });
   }
 
@@ -464,7 +593,7 @@
       mm = null;                                 // al cerrar sesion no se conserva ninguna partida
       clockReset();
       if ($("mm-board")) $("mm-board").innerHTML = "";
-      hideWin();
+      hideWin(); hideRecap();
       return;
     }
     var view = $("view-memorama");

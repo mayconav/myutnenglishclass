@@ -32,9 +32,10 @@
 
 /* ============ TABLERO ============ */
 .mm-board{
-  --mm-cols:4;
+  --mm-cols:4; --mm-p:0;
   display:grid; grid-template-columns: repeat(var(--mm-cols), minmax(0,1fr)); gap:10px;
   max-width:600px; margin:0 auto;
+  position:relative; isolation:isolate; overflow:hidden; padding:10px; border-radius:20px;
 }
 .mm-board[data-cards="12"]{ --mm-cols:3; }
 .mm-board[data-cards="16"], .mm-board[data-cards="20"]{ --mm-cols:4; }
@@ -128,4 +129,85 @@
   @keyframes mmPop{ 0%{ scale:1; } 45%{ scale:1.08; } 100%{ scale:1; } }
   .mm-card.wrong{ animation: mmShake .4s .35s both; }
   .mm-card.matched{ animation: mmPop .45s .3s both; }
+}
+
+/* ============ EMOJI EN LAS CARTAS ============ */
+.mm-emo{ font-size: clamp(1.25rem, 6vw, 1.9rem); line-height:1; }
+.mm-emo-late{ display:none; }
+.mm-card.matched .mm-emo-late{ display:block; }
+@media (min-width: 640px){ .mm-emo{ font-size:2rem; } }
+
+/* ============ ESCENA: avion aterrizando (detras de las cartas) ============ */
+.mm-scene{ position:absolute; inset:0; z-index:-1; border-radius:inherit; overflow:hidden; pointer-events:none;
+  background:#BFE0FF; filter: saturate(calc(.45 + .55 * var(--mm-p))); }
+.mm-scene-svg{ display:block; width:100%; height:100%; }
+.sc-a{ stop-color:#58A6F4; } .sc-b{ stop-color:#D6EAFF; }
+.sc-cloud{ fill:#fff; opacity:.92; }
+.sc-hill2{ fill:#8FCB9E; } .sc-hill1{ fill:#6DB985; }
+.sc-grass{ fill:#58A972; }
+.sc-run{ fill:#3B4252; } .sc-dash{ fill:#fff; opacity:.9; }
+.mm-shadow{ fill:#000; opacity:calc(var(--mm-p) * .25); }
+:root[data-theme="dark"] .sc-a{ stop-color:#0B1B44; } :root[data-theme="dark"] .sc-b{ stop-color:#3C4A9A; }
+:root[data-theme="dark"] .sc-cloud{ opacity:.35; }
+:root[data-theme="dark"] .sc-hill2{ fill:#2C6A57; } :root[data-theme="dark"] .sc-hill1{ fill:#245A47; }
+:root[data-theme="dark"] .sc-grass{ fill:#1F5240; }
+:root[data-theme="dark"] .sc-run{ fill:#232836; }
+
+/* el avion se acerca con el progreso: --mm-p va de 0 a 1 (lo pone memory.js) */
+.mm-plane-g{
+  transform-box: fill-box; transform-origin:center;
+  transform: translate(calc((1 - var(--mm-p, 0)) * -190px), calc((1 - var(--mm-p, 0)) * -170px)) rotate(calc((1 - var(--mm-p, 0)) * 14deg));
+}
+.mm-gear{ opacity: calc((var(--mm-p, 0) - .55) * 3); }
+
+.mm-landed{
+  position:absolute; left:50%; top:14px; translate:-50% 0; white-space:nowrap;
+  font-family: var(--font-display); font-weight:700; font-size:13px; letter-spacing:.04em;
+  color:#fff; background: linear-gradient(135deg, var(--green), #0A7F4E);
+  padding:7px 14px; border-radius:999px; box-shadow:0 6px 14px -6px rgba(12,156,97,.8);
+  opacity:0; visibility:hidden;
+}
+.mm-board.landed .mm-landed{ opacity:1; visibility:visible; transition-delay:1.3s; }
+
+/* ============ PAREJA HALLADA: SE DESVANECE ============ */
+.mm-card.gone{ opacity:0; visibility:hidden; pointer-events:none; }
+
+@media (prefers-reduced-motion: no-preference){
+  .mm-card{ transition: opacity .6s ease, transform .6s ease, visibility 0s linear .6s; }
+  .mm-card.gone{ transform: scale(.82); }
+  .mm-plane-g{ transition: transform 1.2s cubic-bezier(.3,.7,.3,1); }
+  .mm-gear, .mm-shadow{ transition: opacity 1s ease; }
+  .mm-scene{ transition: filter .8s ease; }
+  .mm-landed{ transition: opacity .5s ease, visibility 0s linear; }
+  .mm-board.landed .mm-plane-g{ animation: mmBounce .6s 1.1s ease-out; }
+  @keyframes mmBounce{ 0%{ translate:0 0; } 40%{ translate:0 -5px; } 100%{ translate:0 0; } }
+}
+
+/* ============ BITACORA DE VUELO ============ */
+.mm-recap{ max-width:720px; margin:16px auto 0; padding:22px 16px 18px; }
+.mm-recap-title{ font-family: var(--font-display); font-size:1.15rem; margin:0 0 2px; color: var(--text-primary); }
+.mm-recap-sub{ margin:0 0 14px; font-size:13px; color: var(--text-muted); }
+.mm-tiles{ display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:10px; }
+@media (min-width: 560px){ .mm-tiles{ grid-template-columns: repeat(3, minmax(0,1fr)); } }
+@media (min-width: 860px){ .mm-tiles{ grid-template-columns: repeat(4, minmax(0,1fr)); } }
+.mm-tile{
+  appearance:none; -webkit-appearance:none; font:inherit; cursor:pointer; text-align:center;
+  display:flex; flex-direction:column; align-items:center; gap:3px; padding:12px 8px 10px;
+  background:#fff; color: var(--ink-fixed); border:1.5px solid var(--glass-border, rgba(18,18,18,.12)); border-radius:14px;
+  -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+}
+.mm-tile:focus-visible{ outline:3px solid var(--blue); outline-offset:2px; }
+.mm-tile-emo{ font-size:1.9rem; line-height:1.1; }
+.mm-tile-verbs{ font-family: var(--font-display); font-size:.95rem; line-height:1.2; overflow-wrap:anywhere; }
+.mm-tile-verbs b{ font-weight:700; }
+.mm-tile-es{ font-size:12px; font-style:italic; color:#4A5468; }
+.mm-tile-kind{ font-family: var(--font-mono); font-size:9px; letter-spacing:.08em; text-transform:uppercase; opacity:.6; }
+:root[data-theme="dark"] .mm-tile{ background:#1B2130; color:#F4F6FA; }
+:root[data-theme="dark"] .mm-tile-es{ color:#B7C0D4; }
+@media (hover:hover){ .mm-tile:hover{ border-color: var(--blue); } }
+@media (prefers-reduced-motion: no-preference){
+  .mm-tile{ animation: mmTileIn .45s both; }
+  .mm-tile:nth-child(2){ animation-delay:.05s; } .mm-tile:nth-child(3){ animation-delay:.1s; } .mm-tile:nth-child(4){ animation-delay:.15s; }
+  .mm-tile:nth-child(n+5){ animation-delay:.2s; }
+  @keyframes mmTileIn{ from{ opacity:0; translate:0 8px; } to{ opacity:1; translate:0 0; } }
 }
