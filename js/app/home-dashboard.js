@@ -94,6 +94,18 @@
         goto("leccion");
       };
     }
+    /* Retomar Grammar: ultimo tema abierto en este dispositivo */
+    var resume = document.getElementById("hd-resume-grammar");
+    if (resume) {
+      var lastSlug = null;
+      try { lastSlug = localStorage.getItem("myutn_last_grammar"); } catch (e) {}
+      var lastTopic = lastSlug && typeof GRAMMAR_CONTENT !== "undefined" ? GRAMMAR_CONTENT[lastSlug] : null;
+      resume.hidden = !lastTopic;
+      if (lastTopic) {
+        resume.textContent = "Resume Grammar: " + (lastTopic.label || lastSlug);
+        resume.onclick = function () { goto("gramatica"); openGrammarTopic(lastSlug); };
+      }
+    }
     document.getElementById("hd-level-fill").style.width = Math.round((doneInLevel / lessons.length) * 100) + "%";
     document.getElementById("hd-level-label").textContent = doneInLevel + " of " + lessons.length + " lessons in " + lvl.code;
 

@@ -524,6 +524,7 @@
   function openGrammarTopic(slug) {
     var topic = GRAMMAR_CONTENT[slug];
     if (!topic) return;
+    try { localStorage.setItem("myutn_last_grammar", slug); } catch (e) {}
     document.getElementById("grammar-browse").hidden = true;
     var sectionHead = document.getElementById("grammar-section-head");
     if (sectionHead) sectionHead.hidden = true;
