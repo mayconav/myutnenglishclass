@@ -3,7 +3,7 @@
   /* ============ NAVIGATION ============ */
   var views = document.querySelectorAll(".view");
   var navLinks = document.querySelectorAll(".main-nav a");
-  var groupTabbars = document.querySelectorAll(".group-tabbar");
+  var groupTabbars = document.querySelectorAll(".group-tabbar[data-group]"); // excluye #admin-tabbar (panel del profesor)
   var bottomLinks = document.querySelectorAll(".bottom-nav a");
 
   /* Navigation groups: the main navbar only shows Home, Learn,
@@ -99,7 +99,7 @@
       goto(a.dataset.nav);
     });
   });
-  document.querySelectorAll(".group-tab").forEach(function (btn) {
+  document.querySelectorAll(".group-tab[data-nav]").forEach(function (btn) { // las pestañas del admin no tienen data-nav
     btn.addEventListener("click", function () {
       if (btn.dataset.nav === "leccion") {
         activeLevelIndex = state.currentLevelIndex;

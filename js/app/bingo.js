@@ -43,6 +43,19 @@
 
   function bingoEl(id) { return document.getElementById(id); }
 
+  /* Una sala cuenta como abierta solo si no esta "ended" Y tuvo actividad
+     reciente. Si el profesor se olvida de cerrarla, deja de verse abierta
+     para los alumnos pasadas BINGO_STALE_MS sin cambios (el cantador
+     actualiza updatedAt en cada ficha). */
+  var BINGO_STALE_MS = 4 * 60 * 60 * 1000; // 4 horas
+  function bingoSessionIsLive(s) {
+    if (!s || s.status === "ended") return false;
+    var u = s.updatedAt;
+    var ms = (u && typeof u.toMillis === "function") ? u.toMillis() : null; // null = escritura local aun pendiente
+    if (ms && Date.now() - ms > BINGO_STALE_MS) return false;
+    return true;
+  }
+
   /* ============ ESTADO LOCAL ============ */
   var bingoStudent = { uid: null, nombre: "", grupo: "" };
   var bingoSession = null;      // ultimo snapshot de bingoSessions/current
@@ -436,7 +449,7 @@
     if (!el) return;
     if (!bingoStudent.grupo) {
       el.textContent = "Your teacher hasn't assigned you to a group yet. Ask them to assign you one so you can play Bingo.";
-    } else if (!bingoSession || bingoSession.status === "ended") {
+    } else if (!bingoSessionIsLive(bingoSession)) {
       el.textContent = "Your teacher hasn't opened a Bingo game yet. This screen will update automatically as soon as they do.";
     } else if (bingoSession.grupo !== bingoStudent.grupo) {
       el.textContent = "There is an active Bingo game, but it is for group " + bingoSession.grupo + ". Please wait for your teacher to open one for " + bingoStudent.grupo + ".";
@@ -632,7 +645,7 @@
   function renderScreen() {
     if (!bingoStudent.uid) { showOnly("bingo-guest-screen"); return; }
 
-    var open = bingoSession && bingoSession.status !== "ended" && bingoSession.grupo === bingoStudent.grupo && bingoStudent.grupo;
+    var open = bingoSessionIsLive(bingoSession) && bingoSession.grupo === bingoStudent.grupo && bingoStudent.grupo;
     if (!open) {
       renderClosedMessage();
       showOnly("bingo-closed-screen");

@@ -34,6 +34,8 @@
     var viewStudents = bt$("admin-view-students");
     var viewBingo = bt$("admin-view-bingo");
     if (!tabStudents || !tabBingo || !viewStudents || !viewBingo) return;
+    if (tabStudents.dataset.bound === "1" && tabBingo.dataset.bound === "1") return; // el vigilante llama esto cada 1.2 s
+    tabStudents.dataset.bound = "1"; tabBingo.dataset.bound = "1";
     function activate(which) {
       var isStudents = which === "students";
       tabStudents.classList.toggle("active", isStudents);
@@ -192,7 +194,7 @@
     var liveCard = bt$("bingo-host-live-card");
     if (!openCard || !liveCard) return;
 
-    var hasOpenRoom = btSession && btSession.status !== "ended";
+    var hasOpenRoom = (typeof bingoSessionIsLive === "function") ? bingoSessionIsLive(btSession) : !!(btSession && btSession.status !== "ended");
 
     if (!hasOpenRoom) {
       btLastCallShown = null; btLastHistoryTop = null; btKnownPlayers = null;
