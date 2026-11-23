@@ -2,62 +2,83 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    // El profesor se identifica por su correo (mismo valor que ADMIN_EMAIL en js/firebase-config.js).
+    function isTeacher() {
+      return signedIn() && request.auth.token.email == "maap044@gmail.com";
+    }
+
     match /students/{studentId} {
 
-      // Un estudiante puede crear ÚNICAMENTE su propio documento al registrarse.
-      allow create: if request.auth != null
+      // Un estudiante puede crear UNICAMENTE su propio documento al registrarse:
+      //  - sin grupo (solo el profesor asigna el grupo),
+      //  - activo (disabled == false),
+      //  - y solo con los campos que escribe el registro.
+      allow create: if signedIn()
                     && request.auth.uid == studentId
-                    && request.resource.data.disabled == false;
+                    && request.resource.data.disabled == false
+                    && request.resource.data.grupo == ""
+                    && request.resource.data.keys().hasOnly(
+                         ['nombre', 'correo', 'boleta', 'grupo', 'disabled',
+                          'createdAt', 'updatedAt', 'progress']);
 
-      // Un estudiante puede leer su propio documento.
-      // El profesor (por correo) puede leer cualquiera.
-      allow read: if request.auth != null
-                  && (request.auth.uid == studentId
-                      || request.auth.token.email == "maap044@gmail.com");
+      // Un estudiante lee su propio documento; el profesor lee cualquiera.
+      allow read: if signedIn()
+                  && (request.auth.uid == studentId || isTeacher());
 
-      // Un estudiante puede actualizar su propio documento (progreso, nombre, etc.)
-      // pero NO puede tocar el campo "disabled" (eso es solo del profesor).
-      // El profesor puede actualizar cualquier documento, incluyendo "disabled".
-      allow update: if request.auth != null
-                    && (
-                         (request.auth.uid == studentId
-                          && request.resource.data.disabled == resource.data.disabled)
-                         || request.auth.token.email == "maap044@gmail.com"
-                       );
+      // El profesor puede actualizar cualquier campo (grupo, disabled, nombre...).
+      // Un estudiante SOLO puede escribir su progreso y la marca de tiempo:
+      // no puede cambiar grupo, disabled, nombre, boleta ni correo.
+      allow update: if isTeacher()
+                    || (signedIn()
+                        && request.auth.uid == studentId
+                        && resource.data.disabled == false
+                        && request.resource.data.diff(resource.data).affectedKeys()
+                             .hasOnly(['progress', 'updatedAt'])
+                        && request.resource.data.progress is map);
 
       // Solo el profesor puede eliminar registros de estudiantes.
-      allow delete: if request.auth != null
-                    && request.auth.token.email == "maap044@gmail.com";
+      allow delete: if isTeacher();
     }
 
     // ============ BINGO EN VIVO (controlado por el profesor) ============
     match /bingoSessions/{sessionId} {
 
-      // Cualquier persona autenticada (alumno o profesor) puede leer el
-      // estado de la sala para saber si esta abierta y para que grupo es.
-      allow read: if request.auth != null;
+      // Cualquier persona autenticada puede leer el estado de la sala.
+      allow read: if signedIn();
 
-      // Solo el profesor controla la sala: abrirla, cambiar de grupo,
-      // pausar/reanudar, cantar el siguiente verbo, reiniciar o cerrarla.
-      allow write: if request.auth != null
-                   && request.auth.token.email == "maap044@gmail.com";
+      // Solo el profesor controla la sala.
+      allow write: if isTeacher();
 
       // Jugadores conectados a la sala (un documento por alumno).
       match /players/{studentId} {
 
-        // Todos los conectados pueden ver el roster (avatares, quien gano).
-        allow read: if request.auth != null;
+        allow read: if signedIn();
 
-        // Un alumno solo puede crear/actualizar su PROPIO documento de
-        // jugador (su avatar, su carton y sus casillas marcadas).
-        allow create, update: if request.auth != null
-                               && request.auth.uid == studentId;
+        // Un alumno solo escribe SU documento de jugador, y solo si su grupo
+        // (el de su registro en /students) es el grupo de la sala. Al unirse,
+        // la sala no debe estar cerrada.
+        allow create: if signedIn()
+                      && request.auth.uid == studentId
+                      && request.resource.data.grupo ==
+                           get(/databases/$(database)/documents/bingoSessions/$(sessionId)).data.grupo
+                      && request.resource.data.grupo ==
+                           get(/databases/$(database)/documents/students/$(request.auth.uid)).data.grupo
+                      && get(/databases/$(database)/documents/bingoSessions/$(sessionId)).data.status != "ended";
 
-        // Un alumno puede salir de la sala por su cuenta; el profesor puede
-        // remover a cualquiera o limpiar el roster al cerrar la sala.
-        allow delete: if request.auth != null
-                      && (request.auth.uid == studentId
-                          || request.auth.token.email == "maap044@gmail.com");
+        allow update: if signedIn()
+                      && request.auth.uid == studentId
+                      && request.resource.data.grupo ==
+                           get(/databases/$(database)/documents/bingoSessions/$(sessionId)).data.grupo
+                      && request.resource.data.grupo ==
+                           get(/databases/$(database)/documents/students/$(request.auth.uid)).data.grupo;
+
+        // Un alumno puede salir por su cuenta; el profesor puede remover a cualquiera.
+        allow delete: if signedIn()
+                      && (request.auth.uid == studentId || isTeacher());
       }
     }
   }
