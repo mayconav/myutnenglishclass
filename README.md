@@ -14,7 +14,7 @@ partials/
   inicio.html                  → sección "Home" (hero / boarding pass)
   aprender.html                → grupo "Learn": Levels + Lesson + Skills
   progreso.html                → sección "Progress"
-  recursos.html                → grupo "Resources": Support Material + Grammar
+  recursos.html                → grupo "Grammar" (botón del menú): Grammar + Support Material
 css/
   base/                         → reset, tokens de marca (colores/tipografía), foco, responsive
   layout/                       → header, main, footer

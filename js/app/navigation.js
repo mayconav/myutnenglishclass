@@ -7,14 +7,14 @@
   var bottomLinks = document.querySelectorAll(".bottom-nav a");
 
   /* Navigation groups: the main navbar only shows Home, Learn,
-     Progress, and Resources; each group reveals its real views as internal
+     Progress, and Grammar; each group reveals its real views as internal
      tabs so no existing section is lost. */
   var GROUPS = {
     aprender: ["niveles", "leccion", "habilidades"],
-    recursos: ["material", "gramatica"],
+    recursos: ["gramatica", "material"],
     juegos: ["bingo", "crucigrama", "sopa", "memorama"]
   };
-  var lastGroupView = { aprender: "niveles", recursos: "material", juegos: "bingo" };
+  var lastGroupView = { aprender: "niveles", recursos: "gramatica", juegos: "bingo" };
 
   function groupOf(view) {
     for (var g in GROUPS) {
@@ -24,9 +24,10 @@
   }
 
   function goto(name) {
-    /* If navigating to a group (click on "Learn"/"Resources" in the navbar),
+    /* If navigating to a group (click on "Learn"/"Grammar" in the navbar),
        resolve to the last visited tab within that group. */
-    var target = GROUPS[name] ? (lastGroupView[name] || GROUPS[name][0]) : name;
+    /* "Grammar" (grupo recursos) SIEMPRE abre en Grammar; Support Material se elige con su pestana. */
+    var target = name === "recursos" ? "gramatica" : (GROUPS[name] ? (lastGroupView[name] || GROUPS[name][0]) : name);
     var activeGroup = groupOf(target);
     if (activeGroup) lastGroupView[activeGroup] = target;
 

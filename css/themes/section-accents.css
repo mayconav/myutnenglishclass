@@ -19,7 +19,7 @@ body[data-section] .section-head .eyebrow,
 :root[data-theme="dark"] body[data-section] .section-head .eyebrow{ color: var(--accent); }
 body[data-section] .section-head h2::after{ width: 88px; height: 5px; border-radius: 3px; background: var(--accent-bright); }
 
-/* Pestanas de grupo (Learn / Resources) */
+/* Pestanas de grupo (Learn / Grammar) */
 body[data-section] .group-tabbar .group-tab.active,
 :root[data-theme="dark"] body[data-section] .group-tabbar .group-tab.active{ color: var(--accent); border-bottom-color: var(--accent-bright); }
 body[data-section] .group-tabbar .group-tab:hover:not(.active){ color: var(--accent); }
