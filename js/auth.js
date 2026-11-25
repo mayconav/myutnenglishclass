@@ -347,13 +347,13 @@
     var stamps = (progress.stamps || []).length;
     return (
       '<tr data-id="' + id + '">' +
-      '<td>' + (d.disabled ? '<span class="admin-badge disabled">Disabled</span> ' : '') + escapeHtml(d.nombre || "") + "</td>" +
-      "<td>" + escapeHtml(d.correo || "") + "</td>" +
-      "<td>" + escapeHtml(d.boleta || "") + "</td>" +
-      '<td><select class="group-select" data-id="' + id + '" aria-label="Group for ' + escapeHtml(d.nombre || "the student") + '">' + groupOptionsHtml(d.grupo || "") + "</select></td>" +
-      "<td>" + level + "</td>" +
-      "<td>" + stamps + '/6<small class="admin-sub">' + ((progress.completedLessons || []).length) + " lessons</small></td>" +
-      '<td title="Registered ' + escapeHtml(fmtDate(d.createdAt)) + '">' + lastActiveLabel(lastActivityMs(d)) +
+      '<td data-label="Name">' + (d.disabled ? '<span class="admin-badge disabled">Disabled</span> ' : '') + escapeHtml(d.nombre || "") + "</td>" +
+      '<td data-label="Email">' + escapeHtml(d.correo || "") + "</td>" +
+      '<td data-label="Student ID">' + escapeHtml(d.boleta || "") + "</td>" +
+      '<td data-label="Group"><select class="group-select" data-id="' + id + '" aria-label="Group for ' + escapeHtml(d.nombre || "the student") + '">' + groupOptionsHtml(d.grupo || "") + "</select></td>" +
+      '<td data-label="Level">' + level + "</td>" +
+      '<td data-label="Stamps">' + stamps + '/6<small class="admin-sub">' + ((progress.completedLessons || []).length) + " lessons</small></td>" +
+      '<td data-label="Last active" title="Registered ' + escapeHtml(fmtDate(d.createdAt)) + '">' + lastActiveLabel(lastActivityMs(d)) +
         (!d.disabled && isInactive(d) ? ' <span class="admin-badge disabled">Inactive</span>' : "") + "</td>" +
       '<td class="admin-actions">' +
       '<button class="btn-mini" data-action="view">View</button>' +
