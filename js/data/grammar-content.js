@@ -179,6 +179,25 @@
         { text: "elephant", article: ["an"], prefix: "", suffix: "", answers: ["elephants"], rule: "regular noun → just add -s" },
         { text: "empty library", article: ["an"], prefix: "empty ", suffix: "", answers: ["libraries"], rule: "consonant + y → change y to -ies" }
       ]
+    },
+    {
+      id: "nouns-quiz-3",
+      short: "Choose the Plural",
+      type: "mc",
+      title: "Quiz 3 — Choose the Correct Plural",
+      instructions: "Choose the correct answer for each question.",
+      questions: [
+        { text: "What is the plural of “box”?", options: ["boxs", "boxes", "boxies"], correct: 1 },
+        { text: "What is the plural of “city”?", options: ["citys", "cities", "cityes"], correct: 1 },
+        { text: "What is the plural of “boy”?", options: ["boys", "boies", "boyes"], correct: 0 },
+        { text: "What is the plural of “potato”?", options: ["potatos", "potatoes", "potatoies"], correct: 1 },
+        { text: "What is the plural of “photo”?", options: ["photos", "photoes", "photoss"], correct: 0 },
+        { text: "What is the plural of “knife”?", options: ["knifes", "knives", "knifs"], correct: 1 },
+        { text: "What is the plural of “child”?", options: ["childs", "childes", "children"], correct: 2 },
+        { text: "What is the plural of “sheep”?", options: ["sheeps", "sheep", "sheepes"], correct: 1 },
+        { text: "What is the plural of “mother-in-law”?", options: ["mothers-in-law", "mother-in-laws", "mothers-in-laws"], correct: 0 },
+        { text: "Which sentence is correct?", options: ["She gave me two advices.", "She gave me some advice.", "She gave me an advices."], correct: 1 }
+      ]
     }
   ];
 
