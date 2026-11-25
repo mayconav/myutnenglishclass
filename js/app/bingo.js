@@ -195,7 +195,8 @@
           var tintSeed = 0;
           for (var ti = 0; ti < word.length; ti++) tintSeed = (tintSeed * 31 + word.charCodeAt(ti)) % 6;
           iconEl.classList.add("tint-" + tintSeed);
-          iconEl.textContent = icon;
+          var artSvg = (typeof verbArtSvg === "function") ? verbArtSvg(bingoParseKey(key).base) : "";
+          if (artSvg) iconEl.innerHTML = artSvg; else iconEl.textContent = icon; // SVG si existe, emoji si no
           cell.appendChild(iconEl);
         }
         var wordEl = document.createElement("span");

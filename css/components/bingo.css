@@ -167,3 +167,6 @@
 .bingo-roster-empty{ font-size: 13px; color: var(--text-muted); }
 .bingo-crown{ font-size: 13px; }
 .bingo-chip-count{ font-size: 11px; color: var(--text-secondary); font-family: var(--font-mono); }
+
+/* Ilustraciones SVG de verbos (js/data/verb-art.js): escalan con el tamano de fuente del contenedor */
+.verb-art{ display:block; width:1.25em; height:1.25em; }

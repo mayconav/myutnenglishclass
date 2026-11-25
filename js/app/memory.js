@@ -40,7 +40,7 @@
     });
   }
   function verbEmoji(base) {
-    return (typeof VERB_EMOJI !== "undefined" && VERB_EMOJI[base]) || "";
+    return (typeof verbArtSvg === "function" && verbArtSvg(base)) || (typeof VERB_EMOJI !== "undefined" && VERB_EMOJI[base]) || "";
   }
 
   /* Controles segmentados */
