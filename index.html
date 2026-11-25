@@ -172,13 +172,19 @@
         <select id="admin-group-filter" class="modal-input admin-group-filter">
           <option value="">All groups</option>
         </select>
+        <select id="admin-activity-filter" class="modal-input admin-group-filter" aria-label="Filter by activity">
+          <option value="">Any activity</option>
+          <option value="recent">Active in the last 7 days</option>
+          <option value="inactive">Inactive (7+ days)</option>
+        </select>
+        <button type="button" class="btn-mini admin-export-btn" id="admin-export-csv">Export CSV</button>
       </div>
 
       <div class="admin-table-wrap">
         <table class="admin-table">
           <thead>
             <tr>
-              <th>Name</th><th>Email</th><th>Student ID</th><th>Group</th><th>Level</th><th>Stamps</th><th>Registered</th><th>Actions</th>
+              <th>Name</th><th>Email</th><th>Student ID</th><th>Group</th><th>Level</th><th>Stamps</th><th>Last active</th><th>Actions</th>
             </tr>
           </thead>
           <tbody id="admin-table-body">

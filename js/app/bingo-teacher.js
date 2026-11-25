@@ -34,7 +34,7 @@
     var viewStudents = bt$("admin-view-students");
     var viewBingo = bt$("admin-view-bingo");
     if (!tabStudents || !tabBingo || !viewStudents || !viewBingo) return;
-    if (tabStudents.dataset.bound === "1" && tabBingo.dataset.bound === "1") return; // el vigilante llama esto cada 1.2 s
+    if (tabStudents.dataset.bound === "1" && tabBingo.dataset.bound === "1") return; // evita duplicar listeners si el panel se reinicia
     tabStudents.dataset.bound = "1"; tabBingo.dataset.bound = "1";
     function activate(which) {
       var isStudents = which === "students";
@@ -307,42 +307,11 @@
     });
   }
 
-  /* ============ VIGILANTE DE LA BARRA DE PESTANAS ============
-     Sea cual sea la causa (extension del navegador, CSS, timing de
-     carga), esto obliga a que #admin-tabbar este siempre visible
-     mientras el panel de admin este abierto. Si el nodo desaparecio
-     por completo del HTML, lo vuelve a crear. Corre cada 1.2s. */
-  function forceShowTabbar() {
-    var shell = bt$("admin-shell");
-    if (!shell || shell.hidden) return;
-    var main = document.querySelector(".admin-main");
-    if (!main) return;
-    var tabbar = bt$("admin-tabbar");
-    if (!tabbar) {
-      tabbar = document.createElement("div");
-      tabbar.className = "group-tabbar";
-      tabbar.id = "admin-tabbar";
-      tabbar.innerHTML =
-        '<button type="button" class="group-tab active" id="admin-tab-students">' + UTNIcons.svg("users") + ' Students</button>' +
-        '<button type="button" class="group-tab" id="admin-tab-bingo">' + UTNIcons.svg("target") + ' Bingo</button>';
-      main.insertBefore(tabbar, main.firstChild);
-    }
-    tabbar.hidden = false;
-    tabbar.style.setProperty("display", "flex", "important");
-    tabbar.style.setProperty("visibility", "visible", "important");
-    tabbar.style.setProperty("opacity", "1", "important");
-    tabbar.style.setProperty("position", "relative", "important");
-    tabbar.style.setProperty("z-index", "5", "important");
-    initAdminTabs();
-  }
-
   /* ============ INIT (llamado por auth.js al iniciar sesion el profesor) ============ */
   function initBingoHostPanel() {
-    forceShowTabbar();
+    initAdminTabs();
     loadGroupOptions();
     setupHostListeners();
-    clearInterval(window.__UTN_BINGO_TABBAR_WATCHDOG__);
-    window.__UTN_BINGO_TABBAR_WATCHDOG__ = setInterval(forceShowTabbar, 1200);
   }
   window.__UTN_BINGO_HOST_INIT__ = initBingoHostPanel;
 

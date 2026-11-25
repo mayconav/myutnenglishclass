@@ -315,6 +315,32 @@
     return ts.toDate().toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
   }
 
+  /* ---- Ultima actividad del alumno ----
+     Se toma la fecha mas reciente entre updatedAt (se escribe cuando el alumno guarda su
+     progreso; los cambios del profesor, como asignar grupo, no lo modifican) y lastActiveDay. */
+  var DAY_MS = 86400000, INACTIVE_DAYS = 7;
+  function lastActivityMs(d) {
+    var best = (d.updatedAt && d.updatedAt.toMillis) ? d.updatedAt.toMillis() : 0;
+    var day = d.progress && d.progress.lastActiveDay;
+    if (typeof day === "string" && /^\d{4}-\d{2}-\d{2}$/.test(day)) {
+      var p = day.split("-");
+      var t = new Date(+p[0], +p[1] - 1, +p[2]).getTime();
+      if (t > best) best = t;
+    }
+    return best;
+  }
+  function lastActiveLabel(ms) {
+    if (!ms) return "—";
+    var days = Math.floor((Date.now() - ms) / DAY_MS);
+    if (days <= 0) return "Today";
+    if (days === 1) return "Yesterday";
+    return days + " days ago";
+  }
+  function isInactive(d) {
+    var ms = lastActivityMs(d);
+    return !ms || (Date.now() - ms) > INACTIVE_DAYS * DAY_MS;
+  }
+
   function studentRowHtml(id, d) {
     var progress = d.progress || {};
     var level = LEVEL_CODES[progress.currentLevelIndex || 0] || "A1";
@@ -326,8 +352,9 @@
       "<td>" + escapeHtml(d.boleta || "") + "</td>" +
       '<td><select class="group-select" data-id="' + id + '" aria-label="Group for ' + escapeHtml(d.nombre || "the student") + '">' + groupOptionsHtml(d.grupo || "") + "</select></td>" +
       "<td>" + level + "</td>" +
-      "<td>" + stamps + "/6</td>" +
-      "<td>" + fmtDate(d.createdAt) + "</td>" +
+      "<td>" + stamps + '/6<small class="admin-sub">' + ((progress.completedLessons || []).length) + " lessons</small></td>" +
+      '<td title="Registered ' + escapeHtml(fmtDate(d.createdAt)) + '">' + lastActiveLabel(lastActivityMs(d)) +
+        (!d.disabled && isInactive(d) ? ' <span class="admin-badge disabled">Inactive</span>' : "") + "</td>" +
       '<td class="admin-actions">' +
       '<button class="btn-mini" data-action="view">View</button>' +
       '<button class="btn-mini" data-action="edit">Edit</button>' +
@@ -375,14 +402,12 @@
     if (!wrap) return;
     var total = list.length;
     var activos = list.filter(function (s) { return !s.data.disabled; }).length;
-    var totalStamps = 0;
-    list.forEach(function (s) { totalStamps += ((s.data.progress && s.data.progress.stamps) || []).length; });
-    var avgStamps = total ? (totalStamps / total).toFixed(1) : "0.0";
+    var inactivos = list.filter(function (s) { return !s.data.disabled && isInactive(s.data); }).length;
     var grupos = collectGroups().length;
     wrap.innerHTML =
       '<div class="admin-stat-card"><span class="admin-stat-num">' + total + '</span><span class="admin-stat-label">Students</span></div>' +
       '<div class="admin-stat-card"><span class="admin-stat-num">' + activos + '</span><span class="admin-stat-label">Active</span></div>' +
-      '<div class="admin-stat-card"><span class="admin-stat-num">' + avgStamps + '</span><span class="admin-stat-label">Average Stamps</span></div>' +
+      '<div class="admin-stat-card"><span class="admin-stat-num">' + inactivos + '</span><span class="admin-stat-label">Inactive (7+ days)</span></div>' +
       '<div class="admin-stat-card"><span class="admin-stat-num">' + grupos + '</span><span class="admin-stat-label">Groups Assigned</span></div>';
   }
 
@@ -415,11 +440,13 @@
     });
   }
 
-  function applyFilter() {
+  function getFilteredStudents() {
     var q = normalizeEmail($("admin-search").value);
     var groupFilterEl = $("admin-group-filter");
     var groupFilter = groupFilterEl ? groupFilterEl.value : "";
-    var filtered = allStudents.filter(function (s) {
+    var activityEl = $("admin-activity-filter");
+    var activityFilter = activityEl ? activityEl.value : "";
+    return allStudents.filter(function (s) {
       var d = s.data;
       var matchesQuery = !q || (
         (d.nombre || "").toLowerCase().indexOf(q) !== -1 ||
@@ -429,15 +456,59 @@
       var matchesGroup = true;
       if (groupFilter === "__none__") matchesGroup = !((d.grupo || "").trim());
       else if (groupFilter) matchesGroup = (d.grupo || "") === groupFilter;
-      return matchesQuery && matchesGroup;
+      var matchesActivity = true;
+      if (activityFilter === "inactive") matchesActivity = !d.disabled && isInactive(d);
+      else if (activityFilter === "recent") matchesActivity = !isInactive(d);
+      return matchesQuery && matchesGroup && matchesActivity;
     });
-    renderStudentTable(filtered);
+  }
+
+  function applyFilter() {
+    renderStudentTable(getFilteredStudents());
+  }
+
+  /* ---- Exportar la lista (la que se ve con los filtros actuales) a CSV ---- */
+  function csvCell(v) {
+    var s = String(v == null ? "" : v);
+    if (/^[=+\-@\t\r]/.test(s)) s = "'" + s; // evita que Excel interprete texto como formula
+    return '"' + s.replace(/"/g, '""') + '"';
+  }
+  function isoDay(ms) {
+    if (!ms) return "";
+    var dt = new Date(ms), m = dt.getMonth() + 1, dd = dt.getDate();
+    return dt.getFullYear() + "-" + (m < 10 ? "0" : "") + m + "-" + (dd < 10 ? "0" : "") + dd;
+  }
+  function exportStudentsCsv() {
+    var rows = getFilteredStudents();
+    if (!rows.length) { alert("There are no students to export."); return; }
+    var lines = [["Name", "Email", "Student ID", "Group", "Level", "Stamps (of 6)", "Lessons completed",
+      "Skills XP", "Streak (days)", "Registered", "Last active", "Status"]];
+    rows.forEach(function (s) {
+      var d = s.data, p = d.progress || {};
+      lines.push([
+        d.nombre || "", d.correo || "", d.boleta || "", d.grupo || "",
+        LEVEL_CODES[p.currentLevelIndex || 0] || "A1", (p.stamps || []).length, (p.completedLessons || []).length,
+        p.skillsXP || 0, p.skillsStreak || 0,
+        isoDay(d.createdAt && d.createdAt.toMillis ? d.createdAt.toMillis() : 0), isoDay(lastActivityMs(d)),
+        d.disabled ? "Disabled" : (isInactive(d) ? "Inactive" : "Active")
+      ]);
+    });
+    var csv = "\uFEFF" + lines.map(function (r) { return r.map(csvCell).join(","); }).join("\r\n");
+    var url = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
+    var a = document.createElement("a");
+    a.href = url; a.download = "students-" + isoDay(Date.now()) + ".csv";
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
   }
 
   var searchInput = $("admin-search");
   if (searchInput) searchInput.addEventListener("input", applyFilter);
   var groupFilterSelect = $("admin-group-filter");
   if (groupFilterSelect) groupFilterSelect.addEventListener("change", applyFilter);
+  var activityFilterSelect = $("admin-activity-filter");
+  if (activityFilterSelect) activityFilterSelect.addEventListener("change", applyFilter);
+  var exportCsvBtn = $("admin-export-csv");
+  if (exportCsvBtn) exportCsvBtn.addEventListener("click", exportStudentsCsv);
 
   function findStudent(id) {
     for (var i = 0; i < allStudents.length; i++) if (allStudents[i].id === id) return allStudents[i];
