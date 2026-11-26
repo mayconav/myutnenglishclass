@@ -29,6 +29,7 @@
 
     if (typeof renderBadgeShelf === "function") renderBadgeShelf();
     if (typeof renderRewardsUI === "function") renderRewardsUI();
+    if (typeof renderProgressMotivation === "function") renderProgressMotivation();
 
     var complete = state.stamps.length === LEVELS.length;
     var certBtn = document.getElementById("certificate-btn");

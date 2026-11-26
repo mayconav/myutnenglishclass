@@ -81,5 +81,32 @@ service cloud.firestore {
                       && (request.auth.uid == studentId || isTeacher());
       }
     }
+
+    // ============ RANKING POR GRUPO ============
+    // leaderboards/{grupo}/members/{uid}: un documento pequeno por alumno (nombre a mostrar,
+    // XP total, XP de la semana, racha). Solo lo leen los alumnos de ESE grupo y el profesor.
+    // Cada alumno solo escribe SU documento, y solo en el grupo que el profesor le asigno.
+    match /leaderboards/{grupo}/members/{studentId} {
+
+      allow read: if signedIn()
+                  && (isTeacher()
+                      || get(/databases/$(database)/documents/students/$(request.auth.uid)).data.grupo == grupo);
+
+      allow create, update: if signedIn()
+                  && request.auth.uid == studentId
+                  && get(/databases/$(database)/documents/students/$(request.auth.uid)).data.grupo == grupo
+                  && get(/databases/$(database)/documents/students/$(request.auth.uid)).data.disabled == false
+                  && request.resource.data.keys().hasOnly(['nombre', 'xp', 'weekXp', 'weekKey', 'streak', 'updatedAt'])
+                  && request.resource.data.nombre is string
+                  && request.resource.data.nombre.size() > 0
+                  && request.resource.data.nombre.size() <= 40
+                  && request.resource.data.xp is int && request.resource.data.xp >= 0
+                  && request.resource.data.weekXp is int && request.resource.data.weekXp >= 0
+                  && request.resource.data.weekKey is string && request.resource.data.weekKey.size() <= 10
+                  && request.resource.data.streak is int && request.resource.data.streak >= 0;
+
+      // El alumno puede salirse del ranking; el profesor puede quitar a cualquiera.
+      allow delete: if signedIn() && (request.auth.uid == studentId || isTeacher());
+    }
   }
 }

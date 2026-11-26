@@ -15,5 +15,11 @@
   "android": {
     "allowMixedContent": false,
     "appendUserAgent": "MyUTNApp"
+  },
+  "plugins": {
+    "LocalNotifications": {
+      "smallIcon": "ic_stat_myutn",
+      "iconColor": "#0C4EB8"
+    }
   }
 }

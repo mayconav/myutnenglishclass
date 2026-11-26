@@ -28,6 +28,7 @@
     if (d.done.indexOf(id) !== -1) return;
     d.done.push(id);
     touchStreak();
+    if (typeof onStudyActivity === "function") onStudyActivity();   // reminders.js: hoy ya practico
     var reached = d.done.length >= DAILY_GOAL && !d.bonus;
     if (reached) {
       d.bonus = true;
@@ -139,6 +140,7 @@
     }
     root.classList.toggle("goal-done", !!d.bonus);
     if (typeof renderRewardsUI === "function") renderRewardsUI();
+    if (typeof renderHomeExtras === "function") renderHomeExtras();
   }
 
   /* body.is-student: con sesion de alumno la portada muestra su proxima leccion y la franja Today;

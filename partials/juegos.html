@@ -1,9 +1,10 @@
-<!-- ============ GROUP: GAMES (Bingo + Crossword + Word Search + Memory) ============ -->
+<!-- ============ GROUP: GAMES (Bingo + Crossword + Word Search + Memory + Verb Review) ============ -->
 <div class="group-tabbar" id="tabbar-juegos" data-group="juegos" hidden>
   <button type="button" class="group-tab" data-nav="bingo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> Bingo</button>
   <button type="button" class="group-tab" data-nav="crucigrama"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg> Crossword</button>
   <button type="button" class="group-tab" data-nav="sopa"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg> Word Search</button>
   <button type="button" class="group-tab" data-nav="memorama"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="7" width="11" height="14" rx="2"/><path d="M9 3h10a2 2 0 0 1 2 2v12"/><path d="m6.5 13 2 2 3-3.5"/></svg> Memory</button>
+  <button type="button" class="group-tab" data-nav="repaso"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M8 16H3v5"/></svg> Review</button>
 </div>
 
 <!-- ============ GAMES: VERB BINGO (live room controlled by the teacher) ============ -->
@@ -286,4 +287,21 @@
   </div>
   <p class="puz-note" id="mm-note">Earn +15 XP for a finished game.</p>
   </div>
+</section>
+
+<!-- ============ GAMES: VERB REVIEW (spaced practice with the verbs you miss most) ============ -->
+<section class="view" id="view-repaso" data-view="repaso" hidden>
+  <div class="section-head">
+    <p class="eyebrow">Spaced practice</p>
+    <h2>Verb Review</h2>
+    <p class="lead">Short rounds with the verbs you miss the most. The ones you get wrong come back sooner; the ones you know come back later.</p>
+  </div>
+
+  <div class="vr-panel" id="vr-guest" hidden>
+    <p class="vr-lead">Log in to keep track of your verbs. We remember which ones you miss and bring them back at the right time.</p>
+    <div class="vr-actions"><button type="button" class="btn btn-primary" id="vr-login">Log In</button></div>
+  </div>
+  <div class="vr-panel" id="vr-home" hidden></div>
+  <div class="vr-panel" id="vr-play" hidden></div>
+  <div class="vr-panel" id="vr-done" hidden></div>
 </section>

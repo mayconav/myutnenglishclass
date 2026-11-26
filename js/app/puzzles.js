@@ -558,6 +558,11 @@
     if (done) {
       var first = cwInput(w.r, w.c);
       if (first) cwStamp(first.parentNode, verbEmoji(w.entry.base));
+      /* Repaso de verbos: palabra acertada a la primera (sin haber salido en rojo antes) */
+      if (cw.mode === "past" && !w.missed && !w.credited && typeof verbStatsRecord === "function") {
+        w.credited = true;
+        verbStatsRecord(w.entry.base, "past", true);
+      }
     }
   }
 
@@ -675,9 +680,27 @@
     }, reducedMotion() ? 200 : 1100);
   }
 
+  /* Al pulsar Check: las palabras completas pero incorrectas cuentan como error de ese verbo
+     (una sola vez por palabra y por crucigrama). Alimenta el Repaso de verbos. */
+  function cwRecordMisses() {
+    if (!cw || cw.mode !== "past" || typeof verbStatsRecord !== "function") return;
+    var any = false;
+    cw.words.forEach(function (w, wi) {
+      if (w.missed || w.done) return;
+      var dr = w.dir === "down" ? 1 : 0, dc = w.dir === "across" ? 1 : 0, full = true;
+      for (var i = 0; i < w.answer.length; i++) {
+        var inp = cwInput(w.r + dr * i, w.c + dc * i);
+        if (!inp || !inp.value) { full = false; break; }
+      }
+      if (full && !cwWordCorrect(wi)) { w.missed = true; any = true; verbStatsRecord(w.entry.base, "past", false, false); }
+    });
+    if (any) saveProgress(state);
+  }
+
   function cwCheckClick() {
     if (!cw || cw.solved) return;
     var res = cwCheck(false);
+    cwRecordMisses();
     if (res.filled === 0) { setStatus($("cw-status"), "Type some letters first, then press Check."); return; }
     if (res.correct === res.total) { cwSolved(); return; }
     var wrong = res.filled - res.correct;

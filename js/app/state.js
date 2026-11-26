@@ -30,7 +30,14 @@
       badges: [],
       skillProgress: { reading: [], writing: [], speaking: [], letter: [] },
       bingoStats: { wins: 0, played: 0 },
-      puzzleStats: { crosswords: 0, wordsearches: 0, memory: 0 }
+      puzzleStats: { crosswords: 0, wordsearches: 0, memory: 0 },
+      /* Punto 5 (motivacion): repaso de verbos, dias activos, XP semanal y ranking */
+      verbStats: {},
+      reviewStats: { sessions: 0, perfect: 0, day: null, xpSessions: 0 },
+      activeDays: [],
+      weekly: { week: null, xp: 0, mark: null },
+      rankOptOut: false,
+      rankName: ""
     };
   }
 
@@ -67,7 +74,22 @@
             crosswords: typeof parsed.puzzleStats.crosswords === "number" ? parsed.puzzleStats.crosswords : 0,
             wordsearches: typeof parsed.puzzleStats.wordsearches === "number" ? parsed.puzzleStats.wordsearches : 0,
             memory: typeof parsed.puzzleStats.memory === "number" ? parsed.puzzleStats.memory : 0
-          } : base.puzzleStats
+          } : base.puzzleStats,
+          verbStats: parsed.verbStats && typeof parsed.verbStats === "object" && !Array.isArray(parsed.verbStats) ? parsed.verbStats : {},
+          reviewStats: parsed.reviewStats && typeof parsed.reviewStats === "object" ? {
+            sessions: typeof parsed.reviewStats.sessions === "number" ? parsed.reviewStats.sessions : 0,
+            perfect: typeof parsed.reviewStats.perfect === "number" ? parsed.reviewStats.perfect : 0,
+            day: parsed.reviewStats.day || null,
+            xpSessions: typeof parsed.reviewStats.xpSessions === "number" ? parsed.reviewStats.xpSessions : 0
+          } : base.reviewStats,
+          activeDays: Array.isArray(parsed.activeDays) ? parsed.activeDays.filter(function (d) { return typeof d === "string"; }).slice(-90) : [],
+          weekly: parsed.weekly && typeof parsed.weekly === "object" ? {
+            week: parsed.weekly.week || null,
+            xp: typeof parsed.weekly.xp === "number" ? parsed.weekly.xp : 0,
+            mark: typeof parsed.weekly.mark === "number" ? parsed.weekly.mark : null
+          } : base.weekly,
+          rankOptOut: !!parsed.rankOptOut,
+          rankName: typeof parsed.rankName === "string" ? parsed.rankName.slice(0, 24) : ""
         };
       }
       /* Migration from previous version (myutn_progress_v1) */
@@ -84,10 +106,14 @@
   }
 
   function saveProgress(p) {
+    /* Cuenta el XP ganado esta semana (lo usa el ranking por grupo) */
+    if (typeof trackWeeklyXp === "function") { try { trackWeeklyXp(p); } catch (e) {} }
     try { localStorage.setItem(storageKey(), JSON.stringify(p)); } catch (e) {}
     if (typeof window.__UTN_SYNC__ === "function") {
       try { window.__UTN_SYNC__(p); } catch (e) {}
     }
+    /* Publica tu puesto en el ranking de tu grupo (con espera, no en cada guardado) */
+    if (typeof scheduleLeaderboardPublish === "function") { try { scheduleLeaderboardPublish(p); } catch (e) {} }
   }
 
   var state = loadProgress();

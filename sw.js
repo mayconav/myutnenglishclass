@@ -8,7 +8,7 @@
    - Firestore y el resto de dominios externos no se tocan. */
 
 /* BUILD:START (generado por scripts/build.js; no editar a mano) */
-const CACHE = 'myutn-7755ee33';
+const CACHE = 'myutn-d5960105';
 const CORE = [
   "/",
   "/index.html",
@@ -34,16 +34,20 @@ const EXTRA = [
   "/js/app/material-audio.js",
   "/js/app/material-nav.js",
   "/js/app/memory.js",
+  "/js/app/motivation.js",
   "/js/app/navigation.js",
   "/js/app/profile.js",
   "/js/app/progress.js",
   "/js/app/puzzles.js",
+  "/js/app/reminders.js",
   "/js/app/responsive-tables.js",
   "/js/app/rewards.js",
   "/js/app/skills-exercises.js",
   "/js/app/skills-hub.js",
   "/js/app/state-reload.js",
   "/js/app/state.js",
+  "/js/app/verb-review.js",
+  "/js/app/verb-stats.js",
   "/js/auth.js",
   "/js/data/grammar-adverbs-content.js",
   "/js/data/grammar-auxiliary-verbs-content.js",

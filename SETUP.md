@@ -112,3 +112,21 @@ y quién completó una línea primero.
   correo) y quién puede escribir su propio avatar/cartón (solo cada alumno el suyo).
   Recuerda volver a publicar `firestore.rules` después de sustituir
   `PROFESOR_EMAIL_AQUI` (paso 4) para que esta sección también tenga el correo real.
+
+---
+
+## Punto 5: motivación (ranking por grupo, repaso de verbos, recordatorios)
+
+### 1. Publicar las reglas nuevas de Firestore (obligatorio para el ranking)
+El ranking guarda un documento por alumno en `leaderboards/{grupo}/members/{uid}`.
+Abre `firestore.rules`, copia TODO su contenido en Firebase Console → Firestore Database → Reglas → **Publicar**
+(o, si usas la CLI: `firebase deploy --only firestore:rules`).
+Sin este paso el resto de la app funciona igual, pero el ranking muestra "not available yet".
+
+### 2. Recordatorios (solo APK)
+Se agregó el plugin `@capacitor/local-notifications`. Al subir `package.json` y `package-lock.json`,
+el workflow *Build APK* compila un APK nuevo con el plugin. Los alumnos deben descargar ese APK nuevo;
+con el APK viejo la tarjeta avisa que hay que actualizar. En el navegador no hay recordatorios.
+
+### 3. Si editas CSS o agregas archivos
+`npm run build` (une el CSS y regenera la lista de archivos del service worker).

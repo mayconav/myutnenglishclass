@@ -21,6 +21,7 @@
   function touchStreak() {
     var today = new Date();
     var todayStr = localDayKey(today);
+    if (typeof markActiveDay === "function") markActiveDay(todayStr);   // motivation.js: tira de la semana
     if (state.lastActiveDay === todayStr) return;
     if (state.lastActiveDay) {
       var last = new Date(state.lastActiveDay + "T00:00:00");

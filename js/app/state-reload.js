@@ -12,6 +12,8 @@
     updateProfileUI();
     var currentView = document.querySelector(".view:not([hidden])");
     goto(currentView ? currentView.dataset.view : "inicio");
+    /* Avisa a los modulos de motivacion (ranking, recordatorios, repaso) que el alumno cambio */
+    try { window.dispatchEvent(new Event("utn:state-reloaded")); } catch (e) {}
   }
   window.__UTN_APP_RELOAD__ = reloadAppState;
 
