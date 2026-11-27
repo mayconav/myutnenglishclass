@@ -8,7 +8,7 @@
    - Firestore y el resto de dominios externos no se tocan. */
 
 /* BUILD:START (generado por scripts/build.js; no editar a mano) */
-const CACHE = 'myutn-d5960105';
+const CACHE = 'myutn-7c54e52d';
 const CORE = [
   "/",
   "/index.html",
@@ -58,9 +58,12 @@ const EXTRA = [
   "/js/data/grammar-future-perfect-content.js",
   "/js/data/grammar-future-perfect-continuous-content.js",
   "/js/data/grammar-future-will-content.js",
+  "/js/data/grammar-gerunds-content.js",
+  "/js/data/grammar-infinitives-content.js",
   "/js/data/grammar-interjections-content.js",
   "/js/data/grammar-main-verbs-content.js",
   "/js/data/grammar-modals-content.js",
+  "/js/data/grammar-participles-content.js",
   "/js/data/grammar-past-continuous-content.js",
   "/js/data/grammar-past-perfect-content.js",
   "/js/data/grammar-past-perfect-continuous-content.js",
